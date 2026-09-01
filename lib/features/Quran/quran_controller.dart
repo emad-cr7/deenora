@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
-
+import '../../core/data/local_data/hive_manager.dart';
 import '../../core/data/remote_data/quran_service.dart';
-import '../../core/models/quran_response_model.dart';
+import '../../core/models/surah_model.dart';
 
 class QuranController extends ChangeNotifier {
-
   final QuranService _service = QuranService();
-  late Future<QuranResponseModel> futureQuran;
+  final HiveManager _hiveManager = HiveManager();
 
-  @override
+  late Future<List<SurahModel>> futureQuran;
+
   void init() {
-    futureQuran = _service.getFullQuran();
-    notifyListeners();
+    futureQuran = _loadQuran();
   }
+  Future<List<SurahModel>> _loadQuran() async {
+    final cached = _hiveManager.loadSurahs();
+    if (cached.isNotEmpty) {
+      return cached;
+    }
 
-
+    final response = await _service.getFullQuran();
+    await _hiveManager.saveSurahs(response.surahs);
+    return response.surahs;
+  }
 }

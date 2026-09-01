@@ -49,15 +49,16 @@ class SurahDetailsScreen extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 26,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 6),
                 Text(
                   '${surah.revelationType} • ${surah.ayahs.length} verses',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.85),
+                    color: Colors.white.withValues(alpha: 0.85),
                     fontSize: 13,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -78,8 +79,8 @@ class SurahDetailsScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(14),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.04),
-                        blurRadius: 6,
+                        color: Colors.black.withValues(alpha: 0.09),
+                        blurRadius: 7,
                         offset: const Offset(0, 2),
                       ),
                     ],
@@ -93,7 +94,7 @@ class SurahDetailsScreen extends StatelessWidget {
                           fontSize: 25,
                           height: 1.8,
                           color: Color(0xFF1B1B1B),
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -101,7 +102,7 @@ class SurahDetailsScreen extends StatelessWidget {
                         width: 30,
                         height: 30,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF1B5E4F).withOpacity(0.1),
+                          color: const Color(0xFF1B5E4F).withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
                         child: Center(
@@ -109,7 +110,7 @@ class SurahDetailsScreen extends StatelessWidget {
                             '${ayah.numberInSurah}',
                             style: const TextStyle(
                               color: Color(0xFF1B5E4F),
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w600,
                               fontSize: 13,
                             ),
                           ),
