@@ -2,7 +2,7 @@ import 'package:deenora/features/Quran/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/models/quran_response_model.dart';
-import '../../skeleton/quran_skeleton_screen.dart';
+import '../../core/skeleton/quran_skeleton_screen.dart';
 import 'details/surah_details_screen.dart';
 
 class QuranScreen extends StatelessWidget {

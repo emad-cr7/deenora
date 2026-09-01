@@ -8,19 +8,14 @@ part 'surah_model.g.dart';
 class SurahModel {
   @HiveField(0)
   final int number;
-
   @HiveField(1)
   final String name;
-
   @HiveField(2)
   final String englishName;
-
   @HiveField(3)
   final String englishNameTranslation;
-
   @HiveField(4)
   final String revelationType;
-
   @HiveField(5)
   final List<AyahModel> ayahs;
 

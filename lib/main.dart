@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'main/main_screen.dart';
+import 'core/data/local_data/hive_manager.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HiveManager().init();
   runApp(const MyApp());
 }
 
@@ -14,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         appBarTheme: AppBarThemeData(backgroundColor: Color(0xff003527)),
-        scaffoldBackgroundColor: Color(0xFFF6F3EE)
+        scaffoldBackgroundColor: Color(0xFFF6F3EE),
       ),
       title: 'Deenora',
       home: MainScreen(),
