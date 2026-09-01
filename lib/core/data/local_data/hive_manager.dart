@@ -15,13 +15,13 @@ class HiveManager {
 
   late Box<SurahModel> _quranBox;
 
-  init() async {
+  Future<void> init() async {
     await Hive.initFlutter();
     Hive.registerAdapters();
     _quranBox = await Hive.openBox<SurahModel>(HiveConfig.quranBox);
   }
 
-  saveSurahs(List<SurahModel> list) async {
+  Future<void> saveSurahs(List<SurahModel> list) async {
     await _quranBox.clear();
     await _quranBox.addAll(list);
   }
@@ -30,7 +30,7 @@ class HiveManager {
     return _quranBox.values.toList();
   }
 
-  clear() async {
+  Future<void> clear() async {
     await _quranBox.clear();
   }
 }

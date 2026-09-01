@@ -1,10 +1,10 @@
-import 'package:deenora/features/Quran/quran_controller.dart';
+import 'package:deenora/features/Quran/controller/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/models/surah_model.dart';
-import '../../core/skeleton/quran_skeleton_screen.dart';
-import 'details/surah_details_screen.dart';
-import '../../core/data/error/error_screen.dart';
+import '../../../core/models/surah_model.dart';
+import '../../../core/skeleton/quran_skeleton_screen.dart';
+import '../../../core/widget/error/error_screen.dart';
+import '../details/surah_details_screen.dart';
 
 class QuranScreen extends StatelessWidget {
   const QuranScreen({super.key});
@@ -14,15 +14,6 @@ class QuranScreen extends StatelessWidget {
     return ChangeNotifierProvider<QuranController>(
       create: (BuildContext context) => QuranController()..init(),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Quran',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF1B5E4F),
-          foregroundColor: Colors.white,
-        ),
 
         body: Consumer<QuranController>(
           builder: (context, controller, Widget? child) {
@@ -48,9 +39,7 @@ class QuranScreen extends StatelessWidget {
                   ),
                   itemCount: quran.length,
                   itemBuilder: (context, index) {
-
                     final surah = quran[index];
-
                     return Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(

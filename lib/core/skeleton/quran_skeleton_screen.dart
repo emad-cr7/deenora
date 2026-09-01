@@ -48,7 +48,6 @@ class QuranSkeletonScreen extends StatelessWidget {
 
                     const SizedBox(width: 14),
 
-                    // بيانات السورة
                     const Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

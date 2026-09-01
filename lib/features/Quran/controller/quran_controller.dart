@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../core/data/local_data/hive_manager.dart';
-import '../../core/data/remote_data/quran_service.dart';
-import '../../core/models/surah_model.dart';
+import '../../../core/data/local_data/hive_manager.dart';
+import '../../../core/data/remote_data/quran_service.dart';
+import '../../../core/models/surah_model.dart';
 
 class QuranController extends ChangeNotifier {
   final QuranService _service = QuranService();
