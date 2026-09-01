@@ -4,8 +4,6 @@ class HiveManager {
   factory HiveManager() {
     return _instance;
   }
-
   HiveManager._internal();
-
   late final HiveManager _hive;
 }
