@@ -1,9 +1,10 @@
 import 'package:deenora/features/Quran/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/models/quran_response_model.dart';
+import '../../core/models/surah_model.dart';
 import '../../core/skeleton/quran_skeleton_screen.dart';
 import 'details/surah_details_screen.dart';
+import '../../core/data/error/error_screen.dart';
 
 class QuranScreen extends StatelessWidget {
   const QuranScreen({super.key});
@@ -25,7 +26,7 @@ class QuranScreen extends StatelessWidget {
 
         body: Consumer<QuranController>(
           builder: (context, controller, Widget? child) {
-            return FutureBuilder<QuranResponseModel>(
+            return FutureBuilder<List<SurahModel>>(
               future: controller.futureQuran,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -33,25 +34,9 @@ class QuranScreen extends StatelessWidget {
                 }
 
                 if (snapshot.hasError) {
-                  return Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.error_outline,
-                            color: Colors.redAccent,
-                            size: 48,
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            'Something went wrong: ${snapshot.error}',
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
+                  return AppErrorScreen(
+                    type: AppErrorType.serverError,
+                    onRetry: () => controller.init(),
                   );
                 }
 
@@ -61,9 +46,11 @@ class QuranScreen extends StatelessWidget {
                     horizontal: 12,
                     vertical: 12,
                   ),
-                  itemCount: quran.surahs.length,
+                  itemCount: quran.length,
                   itemBuilder: (context, index) {
-                    final surah = quran.surahs[index];
+
+                    final surah = quran[index];
+
                     return Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(

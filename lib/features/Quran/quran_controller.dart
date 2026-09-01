@@ -11,6 +11,7 @@ class QuranController extends ChangeNotifier {
 
   void init() {
     futureQuran = _loadQuran();
+    notifyListeners();
   }
   Future<List<SurahModel>> _loadQuran() async {
     final cached = _hiveManager.loadSurahs();
