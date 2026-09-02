@@ -29,13 +29,19 @@ class ReciterCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(20),
           onTap: () {
-
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (BuildContext context) {
+            //       return SurahListShare();
+            //     },
+            //   ),
+            // );
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             child: Row(
               children: [
-                // صورة القارئ
                 Container(
                   width: 80,
                   height: 80,

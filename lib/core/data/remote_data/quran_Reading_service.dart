@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../../models/quran_response_model.dart';
 
-class QuranService {
+class QuranReadingService {
   final Dio _dio = Dio(
     BaseOptions(
       baseUrl: 'https://api.alquran.cloud/v1/',

@@ -18,12 +18,12 @@ final List<ReciterModel> reciters = [
   ),
   const ReciterModel(
     id: 2,
-    name: 'Mahmoud Khalil Al-Hussary',
+    name: 'Mahmoud Khalil Al Hussary',
     imagePath: 'assets/images/Mahmoud Khalil Al-Hussary.png',
   ),
   const ReciterModel(
     id: 3,
-    name: 'Muhammad Siddiq Al-Minshawi',
+    name: 'Muhammad Siddiq Al Minshawi',
     imagePath: 'assets/images/Muhammad Siddiq Al-Minshawi.png',
   ),
   const ReciterModel(
@@ -33,27 +33,27 @@ final List<ReciterModel> reciters = [
   ),
   const ReciterModel(
     id: 5,
-    name: 'Yasser Al-Dosari',
+    name: 'Yasser Al Dosari',
     imagePath: 'assets/images/Yasser Al-Dosari.png',
   ),
   const ReciterModel(
     id: 6,
-    name: 'Mishary Rashid Al-Afasy',
+    name: 'Mishary Rashid Al Afasy',
     imagePath: 'assets/images/Mishary Rashid Al-Afasy.png',
   ),
   const ReciterModel(
     id: 7,
-    name: 'Ahmed bin Ali Al-Ajmi',
+    name: 'Ahmed bin Ali Al Ajmi',
     imagePath: 'assets/images/Ahmed bin Ali Al-Ajmi.png',
   ),
   const ReciterModel(
     id: 8,
-    name: 'Saud Al-Shuraim',
+    name: 'Saud Al Shuraim',
     imagePath: 'assets/images/Saud Al-Shuraim.png',
   ),
   const ReciterModel(
     id: 9,
-    name: 'Saad Al-Ghamdi',
+    name: 'Saad Al Ghamdi',
     imagePath: 'assets/images/Saad Al-Ghamdi.png',
   ),
   const ReciterModel(
@@ -63,17 +63,17 @@ final List<ReciterModel> reciters = [
   ),
   const ReciterModel(
     id: 11,
-    name: 'Hani Al-Rifai',
+    name: 'Hani Al Rifai',
     imagePath: 'assets/images/Hani Al-Rifai.png',
   ),
   const ReciterModel(
     id: 12,
-    name: 'Khalifa Al-Tunaiji',
+    name: 'Khalifa Al Tunaiji',
     imagePath: 'assets/images/Khalifa Al-Tunaiji.png',
   ),
   const ReciterModel(
     id: 13,
-    name: 'Maher Al-Muaiqly',
+    name: 'Maher Al Muaiqly',
     imagePath: 'assets/images/Maher Al-Muaiqly.png',
   ),
   const ReciterModel(
@@ -83,7 +83,7 @@ final List<ReciterModel> reciters = [
   ),
   const ReciterModel(
     id: 15,
-    name: 'Abu Bakr Al-Shatri',
+    name: 'Abu Bakr Al Shatri',
     imagePath: 'assets/images/Abu Bakr Al-Shatri.png',
   ),
 ];

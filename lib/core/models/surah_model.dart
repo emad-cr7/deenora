@@ -1,7 +1,5 @@
 import 'package:hive_ce_flutter/hive_flutter.dart';
-
 import 'ayah_model.dart';
-
 part 'surah_model.g.dart';
 
 @HiveType(typeId: 1)
