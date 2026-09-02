@@ -2,7 +2,6 @@ import 'package:deenora/features/Quran/audio/surah_audio_screen.dart';
 import 'package:flutter/material.dart';
 import '../reading/reading_screen.dart';
 
-
 class SwitchScreen extends StatefulWidget {
   const SwitchScreen({super.key});
 
@@ -28,6 +27,7 @@ class _SwitchScreenState extends State<SwitchScreen>
     _tabController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

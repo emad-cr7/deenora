@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../core/models/surah_model.dart';
+import '../../../../core/models/surah_model.dart';
 
 class SurahDetailsScreen extends StatelessWidget {
   final SurahModel surah;
-
   const SurahDetailsScreen({super.key, required this.surah});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,13 +14,6 @@ class SurahDetailsScreen extends StatelessWidget {
               Text(
                 surah.englishName,
                 style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                surah.englishNameTranslation,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.normal,
-                ),
               ),
             ],
           ),

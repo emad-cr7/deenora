@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../core/models/surah_model.dart';
 import '../../../core/skeleton/quran_skeleton_screen.dart';
 import '../../../core/widget/error/error_screen.dart';
-import '../details/surah_details_screen.dart';
+import 'details/surah_details_screen.dart';
 
 class QuranScreen extends StatelessWidget {
   const QuranScreen({super.key});

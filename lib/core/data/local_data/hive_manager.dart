@@ -2,7 +2,7 @@ import 'package:hive_ce_flutter/adapters.dart';
 
 import '../../models/surah_model.dart';
 import '../../../hive_registrar.g.dart';
-import '../remote_data/hive_config.dart';
+import 'hive_config.dart';
 
 class HiveManager {
   static final HiveManager _instance = HiveManager._();

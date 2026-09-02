@@ -7,7 +7,7 @@ class MosqueScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body:Center(child: Text("Mosque Screen"))
+      body: Center(child: Text('Mosque', style: TextStyle(fontSize: 50))),
     );
   }
 }
