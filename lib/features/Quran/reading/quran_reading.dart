@@ -54,9 +54,9 @@ class QuranReading extends StatelessWidget {
                       ),
                       child: Material(
                         color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(27),
                         child: InkWell(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(27),
                           onTap: () {
                             Navigator.push(
                               context,

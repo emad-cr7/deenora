@@ -53,8 +53,8 @@ final List<ReciterModel> reciters = [
   ),
   const ReciterModel(
     id: 9,
-    name: 'Saud Al-Shuraim',
-    imagePath: 'assets/images/Saud Al-Shuraim.png',
+    name: 'Saad Al-Ghamdi',
+    imagePath: 'assets/images/Saad Al-Ghamdi.png',
   ),
   const ReciterModel(
     id: 10,

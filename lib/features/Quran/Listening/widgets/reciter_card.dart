@@ -29,7 +29,7 @@ class ReciterCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(20),
           onTap: () {
-            // TODO: افتح شاشة تشغيل الصوت بتاعة القارئ ده
+
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
@@ -54,15 +54,10 @@ class ReciterCard extends StatelessWidget {
                     ],
                   ),
                   child: ClipOval(
-                    child: Image.asset(
-                      reciter.imagePath,
-                      fit: BoxFit.cover,
-                    ),
+                    child: Image.asset(reciter.imagePath, fit: BoxFit.cover),
                   ),
                 ),
                 const SizedBox(width: 16),
-
-                // اسم القارئ ومعلومات إضافية
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,10 +86,15 @@ class ReciterCard extends StatelessWidget {
                             'Listen to the complete Quran',
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.grey[600],
+                              color: Colors.grey[900],
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        'Distinctive Voice • Melodic Recitation',
+                        style: TextStyle(fontSize: 12, color: Colors.grey[900]),
                       ),
                     ],
                   ),
