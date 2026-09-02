@@ -6,8 +6,8 @@ import '../../../core/skeleton/quran_skeleton_screen.dart';
 import '../../../core/widget/error/error_screen.dart';
 import 'details/surah_details_screen.dart';
 
-class QuranScreen extends StatelessWidget {
-  const QuranScreen({super.key});
+class QuranReading extends StatelessWidget {
+  const QuranReading({super.key});
 
   @override
   Widget build(BuildContext context) {

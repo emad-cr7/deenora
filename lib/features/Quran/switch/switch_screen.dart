@@ -1,6 +1,6 @@
-import 'package:deenora/features/Quran/audio/surah_audio_screen.dart';
 import 'package:flutter/material.dart';
-import '../reading/reading_screen.dart';
+import '../Listening/quran_reading.dart';
+import '../reading/quran_reading.dart';
 
 class SwitchScreen extends StatefulWidget {
   const SwitchScreen({super.key});
@@ -49,7 +49,7 @@ class _SwitchScreenState extends State<SwitchScreen>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [QuranScreen(), SurahAudioScreen()],
+              children: [QuranReading(), QuranListening()],
             ),
           ),
         ],
