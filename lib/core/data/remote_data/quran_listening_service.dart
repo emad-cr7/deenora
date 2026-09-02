@@ -17,5 +17,4 @@ class QuranListeningService {
       throw Exception('حصل خطأ وإحنا بنجيب أسماء السور: ${e.message}');
     }
   }
-
 }

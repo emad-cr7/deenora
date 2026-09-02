@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../core/widget/share_widget/surah_list_share.dart';
+import '../../reading/quran_reading.dart';
 import 'reciter_model.dart';
 
 class ReciterCard extends StatelessWidget {
@@ -29,14 +31,16 @@ class ReciterCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(20),
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (BuildContext context) {
-            //       return SurahListShare();
-            //     },
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return SurahListShare(onTap: () {
+
+                  },);
+                },
+              ),
+            );
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
