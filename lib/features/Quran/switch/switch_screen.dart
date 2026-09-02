@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Listening/quran_reading.dart';
+import '../Listening/quran_listening.dart';
 import '../reading/quran_reading.dart';
 
 class SwitchScreen extends StatefulWidget {
