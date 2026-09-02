@@ -3,7 +3,11 @@ class ReciterModel {
   final String name;
   final String imagePath;
 
-  const ReciterModel({required this.id, required this.name, required this.imagePath});
+  const ReciterModel({
+    required this.id,
+    required this.name,
+    required this.imagePath,
+  });
 }
 
 final List<ReciterModel> reciters = [
