@@ -14,7 +14,6 @@ class QuranReading extends StatelessWidget {
     return ChangeNotifierProvider<QuranController>(
       create: (BuildContext context) => QuranController()..init(),
       child: Scaffold(
-
         body: Consumer<QuranController>(
           builder: (context, controller, Widget? child) {
             return FutureBuilder<List<SurahModel>>(
