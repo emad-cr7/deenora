@@ -6,7 +6,6 @@ import 'core/data/local_data/hive_manager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveManager().init();
-  QuranListeningService().getChapters();
   runApp(const MyApp());
 }
 
