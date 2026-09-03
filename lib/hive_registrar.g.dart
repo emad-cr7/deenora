@@ -5,10 +5,12 @@
 import 'package:hive_ce/hive_ce.dart';
 import 'package:deenora/core/models/ayah_model.dart';
 import 'package:deenora/core/models/surah_model.dart';
+import 'package:deenora/features/Quran/Listening/models_listening/name_surah_model.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(AyahModelAdapter());
+    registerAdapter(NameSurahModelAdapter());
     registerAdapter(SurahModelAdapter());
   }
 }
@@ -16,6 +18,7 @@ extension HiveRegistrar on HiveInterface {
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
     registerAdapter(AyahModelAdapter());
+    registerAdapter(NameSurahModelAdapter());
     registerAdapter(SurahModelAdapter());
   }
 }

@@ -6,6 +6,7 @@ import 'core/data/local_data/hive_manager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveManager().init();
+  QuranListeningService().getChapters();
   runApp(const MyApp());
 }
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: AppBarThemeData(backgroundColor: Color(0xff003527)),
+        appBarTheme: AppBarThemeData(backgroundColor: Color(0xFF1B5E4F)),
         scaffoldBackgroundColor: Color(0xFFF6F3EE),
       ),
       title: 'Deenora',

@@ -1,44 +1,54 @@
-import 'package:deenora/features/Quran/controller/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../core/models/surah_model.dart';
-import '../../../core/skeleton/quran_skeleton_screen.dart';
-import '../../../core/widget/error/error_screen.dart';
-import 'details/surah_details_screen.dart';
+import '../../../../core/skeleton/quran_skeleton_screen.dart';
+import '../../../../core/widget/error/error_screen.dart';
+import '../../controller/quran_controller.dart';
+import '../models_listening/name_surah_model.dart';
 
-class QuranReading extends StatelessWidget {
-  const QuranReading({super.key});
+class SurahNameListening extends StatelessWidget {
+  const SurahNameListening({super.key});
+
+  static const Color primaryColor = Color(0xFF1B5E4F);
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<QuranController>(
-      create: (BuildContext context) => QuranController()..initSurahQuran(),
+      create: (BuildContext context) => QuranController()..initSurah(),
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Quran',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
+        ),
         body: Consumer<QuranController>(
-          builder: (context, controller, Widget? child) {
-            return FutureBuilder<List<SurahModel>>(
-              future: controller.futureQuran,
+          builder: (context, controller, _) {
+            return FutureBuilder<List<NameSurahModel>>(
+              future: controller.futureChapters,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return QuranSkeletonScreen();
                 }
 
                 if (snapshot.hasError) {
-                  return AppErrorScreen(
-                    type: AppErrorType.serverError,
-                    onRetry: () => controller.initSurahQuran(),
-                  );
+                  return AppErrorScreen(type: AppErrorType.serverError);
                 }
 
-                final quran = snapshot.data!;
+                final List<NameSurahModel> chapters = snapshot.data!;
+
                 return ListView.builder(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 12,
                   ),
-                  itemCount: quran.length,
+                  itemCount: chapters.length,
                   itemBuilder: (context, index) {
-                    final surah = quran[index];
+                    final chapter = chapters[index];
+                    final bool isMeccan = chapter.revelationPlace == 'makkah';
+
                     return Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
@@ -58,13 +68,13 @@ class QuranReading extends StatelessWidget {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(27),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    SurahDetailsScreen(surah: surah),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) =>
+                            //         SurahDetailsScreen(chapter: chapter),
+                            //   ),
+                            // );
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -84,7 +94,7 @@ class QuranReading extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      '${surah.number}',
+                                      '${chapter.id}',
                                       style: const TextStyle(
                                         color: Color(0xFF1B5E4F),
                                         fontWeight: FontWeight.bold,
@@ -100,7 +110,7 @@ class QuranReading extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        surah.englishName,
+                                        chapter.nameSimple,
                                         style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
@@ -109,7 +119,7 @@ class QuranReading extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
-                                        '${surah.englishNameTranslation} • ${surah.ayahs.length} verses',
+                                        '${chapter.nameComplex} • ${chapter.versesCount} verses',
                                         style: TextStyle(
                                           fontSize: 13,
                                           color: Colors.grey[700],
@@ -124,17 +134,17 @@ class QuranReading extends StatelessWidget {
                                     vertical: 4,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: surah.revelationType == 'Meccan'
+                                    color: isMeccan
                                         ? Colors.orange.withValues(alpha: 0.12)
                                         : Colors.blue.withValues(alpha: 0.12),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    surah.revelationType,
+                                    isMeccan ? 'Meccan' : 'Medinan',
                                     style: TextStyle(
                                       fontSize: 11,
                                       fontWeight: FontWeight.w600,
-                                      color: surah.revelationType == 'Meccan'
+                                      color: isMeccan
                                           ? Colors.orange[900]
                                           : Colors.blue[900],
                                     ),

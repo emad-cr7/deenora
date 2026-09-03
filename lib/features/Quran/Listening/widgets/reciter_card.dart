@@ -1,6 +1,5 @@
+import 'package:deenora/features/Quran/Listening/widgets/surah_name_listening.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/widget/share_widget/surah_list_share.dart';
-import '../../reading/quran_reading.dart';
 import 'reciter_model.dart';
 
 class ReciterCard extends StatelessWidget {
@@ -35,13 +34,11 @@ class ReciterCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return SurahListShare(onTap: () {
-
-                  },);
+                  return SurahNameListening();
                 },
               ),
             );
-          },
+           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             child: Row(
