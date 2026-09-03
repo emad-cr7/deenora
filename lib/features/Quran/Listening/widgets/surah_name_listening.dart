@@ -4,16 +4,21 @@ import '../../../../core/skeleton/quran_skeleton_screen.dart';
 import '../../../../core/widget/error/error_screen.dart';
 import '../../controller/quran_controller.dart';
 import '../models_listening/name_surah_model.dart';
+import 'audio_player_screen.dart';
+import 'reciter_model.dart';
 
 class SurahNameListening extends StatelessWidget {
-  const SurahNameListening({super.key});
+  final ReciterModel reciter;
+
+  const SurahNameListening({super.key, required this.reciter});
 
   static const Color primaryColor = Color(0xFF1B5E4F);
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<QuranController>(
-      create: (BuildContext context) => QuranController()..initSurah(),
+      create: (BuildContext context) =>
+      QuranController()..initSurah(reciterId: reciter.id),
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -67,14 +72,35 @@ class SurahNameListening extends StatelessWidget {
                         borderRadius: BorderRadius.circular(27),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(27),
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) =>
-                            //         SurahDetailsScreen(chapter: chapter),
-                            //   ),
-                            // );
+                          onTap: () async {
+                            final audioMap = await controller.futureReciterAudio;
+                            final audioUrl = audioMap?[chapter.id];
+
+                            if ( audioMap?[chapter.id] == null) {
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'التلاوة دي مش متاحة للشيخ ده',
+                                    ),
+                                  ),
+                                );
+                              }
+                              return;
+                            }
+
+                            if (context.mounted) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AudioPlayerScreen(
+                                    chapter: chapter,
+                                    reciter: reciter,
+                                    audioUrl: audioUrl,
+                                  ),
+                                ),
+                              );
+                            }
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(

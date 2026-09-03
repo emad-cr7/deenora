@@ -34,11 +34,11 @@ class ReciterCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return SurahNameListening();
+                  return SurahNameListening(reciter: reciter);
                 },
               ),
             );
-           },
+          },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             child: Row(
