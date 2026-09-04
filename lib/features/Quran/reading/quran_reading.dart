@@ -109,7 +109,7 @@ class QuranReading extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
-                                        '${surah.englishNameTranslation} • ${surah.ayahs.length} verses',
+                                        ' ${surah.ayahs.length} verses',
                                         style: TextStyle(
                                           fontSize: 13,
                                           color: Colors.grey[700],

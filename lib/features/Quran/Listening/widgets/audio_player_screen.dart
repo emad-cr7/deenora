@@ -1,6 +1,7 @@
-import 'package:deenora/features/Quran/Listening/widgets/reciter_model.dart';
+import 'package:deenora/features/Quran/Listening/models_listening/reciter_model.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
 import '../models_listening/name_surah_model.dart';
 
@@ -36,7 +37,16 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
 
   Future<void> _init() async {
     try {
-      await _player.setUrl(widget.audioUrl);
+      await _player.setAudioSource(
+        AudioSource.uri(
+          Uri.parse(widget.audioUrl),
+          tag: MediaItem(
+            id: widget.audioUrl,
+            title: widget.chapter.nameSimple,
+            artist: widget.reciter.name,
+          ),
+        ),
+      );
       _player.play();
     } catch (_) {
       if (mounted) setState(() => _hasError = true);
@@ -50,10 +60,16 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   }
 
   String _formatDuration(Duration d) {
-    final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
-    final seconds = d.inSeconds.remainder(60).toString().padLeft(2, '0');
-    return '$minutes:$seconds';
-  }
+      final hours = d.inHours;
+      final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
+      final seconds = d.inSeconds.remainder(60).toString().padLeft(2, '0');
+
+      if (hours > 0) {
+        return '$hours:$minutes:$seconds';
+      }
+
+      return '$minutes:$seconds';
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +88,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
-              radius: 70,
+              radius: 100,
               backgroundColor: primaryColor.withValues(alpha: 0.1),
               backgroundImage: AssetImage(widget.reciter.imagePath),
             ),
@@ -87,7 +103,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
             const SizedBox(height: 6),
             Text(
               widget.reciter.name,
-              style: TextStyle(fontSize: 15, color: Colors.grey[600]),
+              style: TextStyle(fontSize: 15, color: Colors.grey[700]),
             ),
             const SizedBox(height: 30),
             StreamBuilder<Duration>(
@@ -114,7 +130,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                       },
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

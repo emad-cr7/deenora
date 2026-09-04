@@ -5,7 +5,7 @@ import '../../../../core/widget/error/error_screen.dart';
 import '../../controller/quran_controller.dart';
 import '../models_listening/name_surah_model.dart';
 import 'audio_player_screen.dart';
-import 'reciter_model.dart';
+import '../models_listening/reciter_model.dart';
 
 class SurahNameListening extends StatelessWidget {
   final ReciterModel reciter;
@@ -18,7 +18,7 @@ class SurahNameListening extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<QuranController>(
       create: (BuildContext context) =>
-      QuranController()..initSurah(reciterId: reciter.id),
+          QuranController()..initSurah(reciterId: reciter.id),
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -73,10 +73,11 @@ class SurahNameListening extends StatelessWidget {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(27),
                           onTap: () async {
-                            final audioMap = await controller.futureReciterAudio;
+                            final audioMap =
+                                await controller.futureReciterAudio;
                             final audioUrl = audioMap?[chapter.id];
 
-                            if ( audioMap?[chapter.id] == null) {
+                            if (audioUrl == null) {
                               if (context.mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
@@ -88,7 +89,6 @@ class SurahNameListening extends StatelessWidget {
                               }
                               return;
                             }
-
                             if (context.mounted) {
                               Navigator.push(
                                 context,
@@ -145,7 +145,7 @@ class SurahNameListening extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
-                                        '${chapter.nameComplex} • ${chapter.versesCount} verses',
+                                        '${chapter.versesCount} verses',
                                         style: TextStyle(
                                           fontSize: 13,
                                           color: Colors.grey[700],

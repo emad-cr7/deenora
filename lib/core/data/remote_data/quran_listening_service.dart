@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import '../../../features/Quran/Listening/models_listening/name_surah_model.dart';
 import '../../../features/Quran/Listening/models_listening/chapter_audio_model.dart';
+
 class QuranListeningService {
   final Dio _dio = Dio(
     BaseOptions(
@@ -22,14 +25,19 @@ class QuranListeningService {
     }
   }
 
-
   Future<List<ChapterAudioModel>> getReciterAudioFiles(int reciterId) async {
     try {
       final response = await _dio.get('chapter_recitations/$reciterId');
+      log("response.data: ${response.data}");
       final List<dynamic> filesJson = response.data['audio_files'];
-      return filesJson.map(
+
+      return filesJson
+          .where(
+            (json) => json['chapter_id'] != null && json['audio_url'] != null,
+          )
+          .map(
             (json) => ChapterAudioModel.fromJson(json as Map<String, dynamic>),
-      )
+          )
           .toList();
     } on DioException catch (e) {
       throw Exception('حصل خطأ وإحنا بنجيب تلاوة الشيخ: ${e.message}');

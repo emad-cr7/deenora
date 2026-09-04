@@ -53,7 +53,7 @@ class QuranSkeletonScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'zzzzzzzzzz',
+                            'zzzzzzzzzzzzz',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -62,21 +62,16 @@ class QuranSkeletonScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzz',
+                            'zzzzzzzzzzzzz',
                             style: TextStyle(fontSize: 13, color: Colors.grey),
                           ),
                         ],
                       ),
                     ),
 
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                    Card(
+
+
                       child: const Text(
                         'Meccan',
                         style: TextStyle(

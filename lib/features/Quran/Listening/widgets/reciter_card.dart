@@ -1,6 +1,6 @@
 import 'package:deenora/features/Quran/Listening/widgets/surah_name_listening.dart';
 import 'package:flutter/material.dart';
-import 'reciter_model.dart';
+import '../models_listening/reciter_model.dart';
 
 class ReciterCard extends StatelessWidget {
   final ReciterModel reciter;
@@ -88,9 +88,8 @@ class ReciterCard extends StatelessWidget {
                             size: 14,
                             color: Colors.grey[500],
                           ),
-                          const SizedBox(width: 4),
                           Text(
-                            'Listen to the complete Quran',
+                            'Listen to the complete ',
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[900],
@@ -99,10 +98,6 @@ class ReciterCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 6),
-                      Text(
-                        'Distinctive Voice • Melodic Recitation',
-                        style: TextStyle(fontSize: 12, color: Colors.grey[900]),
-                      ),
                     ],
                   ),
                 ),

@@ -1,5 +1,5 @@
 import 'package:deenora/features/Quran/Listening/widgets/reciter_card.dart';
-import 'package:deenora/features/Quran/Listening/widgets/reciter_model.dart';
+import 'package:deenora/features/Quran/Listening/models_listening/reciter_model.dart';
 import 'package:flutter/material.dart';
 
 
