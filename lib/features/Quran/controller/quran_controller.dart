@@ -36,21 +36,14 @@ class QuranController extends ChangeNotifier {
   /// لو معدي reciterId، هيتحمّل معاها كمان روابط تلاوة الشيخ ده لكل السور.
   ///
   void initSurah({int? reciterId}) {
-    futureChapters = loadChapters();
+    futureChapters = _loadChapters();
     if (reciterId != null) {
       futureReciterAudio = loadReciterAudio(reciterId);
     }
     notifyListeners();
   }
 
-  Future<Map<int, String>> loadReciterAudio(int reciterId) async {
-    final files = await _listeningService.getReciterAudioFiles(reciterId);
-    return {for (final file in files) file.chapterId: file.audioUrl};
-  }
-
-
-
-  Future<List<NameSurahModel>> loadChapters() async {
+  Future<List<NameSurahModel>> _loadChapters() async {
     final cached = _hiveManager.loadNameSurahs();
     if (cached.isNotEmpty) {
       return cached;
@@ -58,5 +51,10 @@ class QuranController extends ChangeNotifier {
     final response = await _listeningService.getChapters();
     await _hiveManager.saveNameSurahs(response);
     return response;
+  }
+
+  Future<Map<int, String>> loadReciterAudio(int reciterId) async {
+    final files = await _listeningService.getReciterAudioFiles(reciterId);
+    return {for (final file in files) file.chapterId: file.audioUrl};
   }
 }
