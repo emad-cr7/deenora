@@ -31,14 +31,11 @@ class QuranListeningService {
       log("response.data: ${response.data}");
       final List<dynamic> filesJson = response.data['audio_files'];
 
-      return filesJson
-          .where(
-            (json) => json['chapter_id'] != null && json['audio_url'] != null,
-          )
+      return filesJson.where(
+            (json) => json['chapter_id'] != null && json['audio_url'] != null,)
           .map(
             (json) => ChapterAudioModel.fromJson(json as Map<String, dynamic>),
-          )
-          .toList();
+          ).toList();
     } on DioException catch (e) {
       throw Exception('حصل خطأ وإحنا بنجيب تلاوة الشيخ: ${e.message}');
     }

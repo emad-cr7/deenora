@@ -73,10 +73,8 @@ class SurahNameListening extends StatelessWidget {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(27),
                           onTap: () async {
-                            final audioMap =
-                                await controller.futureReciterAudio;
+                            final audioMap = await controller.futureReciterAudio;
                             final audioUrl = audioMap?[chapter.id];
-
                             if (audioUrl == null) {
                               if (context.mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
