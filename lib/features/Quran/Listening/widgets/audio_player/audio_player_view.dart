@@ -1,6 +1,7 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'audio_player_controller.dart';
@@ -73,9 +74,11 @@ class AudioPlayerView extends StatelessWidget {
 
                 if (processingState == ProcessingState.loading ||
                     processingState == ProcessingState.buffering) {
-                  return const CircularProgressIndicator(
+                  return  LoadingAnimationWidget.staggeredDotsWave(
                     color: primaryColor,
+                    size: 30,
                   );
+
                 }
                 return Container(
                   decoration: const BoxDecoration(

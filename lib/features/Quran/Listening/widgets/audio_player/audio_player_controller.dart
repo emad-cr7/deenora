@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-
 import '../../models_listening/name_surah_model.dart';
 import '../../models_listening/reciter_model.dart';
 
@@ -23,7 +22,6 @@ class AudioPlayerController extends ChangeNotifier {
   Stream<PlayerState> get playerStateStream => player.playerStateStream;
   Duration get duration => player.duration ?? Duration.zero;
   Duration get bufferedPosition => player.bufferedPosition;
-
   void seek(Duration position) => player.seek(position);
 
   void togglePlayPause(bool isPlaying) {
