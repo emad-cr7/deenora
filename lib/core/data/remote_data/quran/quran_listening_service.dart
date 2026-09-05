@@ -1,8 +1,7 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import '../../../features/Quran/Listening/models_listening/name_surah_model.dart';
-import '../../../features/Quran/Listening/models_listening/chapter_audio_model.dart';
+import '../../../../features/Quran/Listening/models_listening/name_surah_model.dart';
+import '../../../../features/Quran/Listening/models_listening/chapter_audio_model.dart';
 
 class QuranListeningService {
   final Dio _dio = Dio(

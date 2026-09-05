@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../models/quran_response_model.dart';
+import '../../../models/quran_response_model.dart';
 
 class QuranReadingService {
   final Dio _dio = Dio(
