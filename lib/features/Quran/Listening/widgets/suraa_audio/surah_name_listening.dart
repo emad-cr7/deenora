@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/skeleton/quran_skeleton_screen.dart';
-import '../../../../core/widget/error/error_screen.dart';
-import '../../controller/quran_controller.dart';
-import '../models_listening/name_surah_model.dart';
-import 'audio_player_screen.dart';
-import '../models_listening/reciter_model.dart';
+import '../../../../../core/skeleton/quran_skeleton_screen.dart';
+import '../../../../../core/widget/error/error_screen.dart';
+import '../../../controller/quran_controller.dart';
+import '../../models_listening/name_surah_model.dart';
+import '../audio_player/audio_player_screen.dart';
+import '../../models_listening/reciter_model.dart';
 
 class SurahNameListening extends StatelessWidget {
   final ReciterModel reciter;
-
   const SurahNameListening({super.key, required this.reciter});
-
   static const Color primaryColor = Color(0xFF1B5E4F);
 
   @override

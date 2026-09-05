@@ -1,6 +1,6 @@
-import 'package:deenora/features/Quran/Listening/widgets/surah_name_listening.dart';
+import 'package:deenora/features/Quran/Listening/widgets/suraa_audio/surah_name_listening.dart';
 import 'package:flutter/material.dart';
-import '../models_listening/reciter_model.dart';
+import '../../models_listening/reciter_model.dart';
 
 class ReciterCard extends StatelessWidget {
   final ReciterModel reciter;

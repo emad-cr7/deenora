@@ -28,9 +28,7 @@ class QuranListeningService {
   Future<List<ChapterAudioModel>> getReciterAudioFiles(int reciterId) async {
     try {
       final response = await _dio.get('chapter_recitations/$reciterId');
-      log("response.data: ${response.data}");
       final List<dynamic> filesJson = response.data['audio_files'];
-
       return filesJson.where(
             (json) => json['chapter_id'] != null && json['audio_url'] != null,)
           .map(

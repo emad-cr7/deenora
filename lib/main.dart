@@ -3,6 +3,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'core/data/remote_data/quran_listening_service.dart';
 import 'main/main_screen.dart';
 import 'core/data/local_data/hive_manager.dart';
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
