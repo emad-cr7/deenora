@@ -1,16 +1,12 @@
 import 'package:dio/dio.dart';
 
 import '../../../models/quran_response_model.dart';
+import '../dio/dio_config.dart';
 
 class QuranReadingService {
-  final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: 'https://api.alquran.cloud/v1/',
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(seconds: 15),
-    ),
+  final Dio _dio = DioConfig.create(
+    'https://api.alquran.cloud/v1/',
   );
-
   Future<QuranResponseModel> getFullQuran() async {
     try {
       final response = await _dio.get('quran/quran-uthmani');

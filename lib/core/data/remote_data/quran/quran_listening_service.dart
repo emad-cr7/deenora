@@ -2,14 +2,11 @@
 import 'package:dio/dio.dart';
 import '../../../../features/Quran/Listening/models_listening/name_surah_model.dart';
 import '../../../../features/Quran/Listening/models_listening/chapter_audio_model.dart';
+import '../dio/dio_config.dart';
 
 class QuranListeningService {
-  final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: 'https://api.quran.com/api/v4/',
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(seconds: 15),
-    ),
+  final Dio _dio = DioConfig.create(
+    'https://api.quran.com/api/v4/',
   );
 
   Future<List<NameSurahModel>> getChapters() async {
