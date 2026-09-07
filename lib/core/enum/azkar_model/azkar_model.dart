@@ -3,17 +3,27 @@ class AzkarModel {
   final String text;
   final int count;
 
-  AzkarModel({required this.id, required this.text, required this.count});
+  AzkarModel({
+    required this.id,
+    required this.text,
+    required this.count,
+  });
 
   Map<String, dynamic> toJson() {
-    return {'id': this.id, 'text': this.text, 'count': this.count};
+    return {
+      'id': id,
+      'text': text,
+      'count': count,
+    };
   }
 
   factory AzkarModel.fromJson(Map<String, dynamic> map) {
+    final count = int.tryParse(map['count']?.toString() ?? '') ?? 1;
+
     return AzkarModel(
       id: map['id'] as int,
       text: map['text'] as String,
-      count: map['count'] as int,
+      count: count == 0 ? 1 : count,
     );
   }
 }
