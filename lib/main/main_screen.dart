@@ -1,7 +1,7 @@
-import 'package:deenora/features/Azkar/azkar_screen.dart';
 import 'package:deenora/features/Profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
+import '../features/Azkar/azkar_screen.dart';
 import '../features/Quran/switch/switch_screen.dart';
 import '../features/mosque/mosque_screen.dart';
 

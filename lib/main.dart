@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'core/data/remote_data/azkara/azkara_service.dart';
 import 'main/main_screen.dart';
 import 'core/data/local_data/hive_manager.dart';
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
@@ -14,7 +14,6 @@ void main() async {
     androidNotificationOngoing: true,
     androidStopForegroundOnPause: true,
   );
-
   runApp(const MyApp());
 }
 
@@ -26,7 +25,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: AppBarThemeData(backgroundColor: Color(0xFF1B5E4F)),
+        appBarTheme: AppBarThemeData(
+          backgroundColor: Color(0xFF1B5E4F),
+          centerTitle: true,
+          foregroundColor: Colors.white,
+          titleTextStyle: TextStyle(fontWeight: FontWeight.bold , fontSize: 22),
+        ),
         scaffoldBackgroundColor: Color(0xFFF6F3EE),
       ),
       title: 'Deenora',

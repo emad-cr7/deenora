@@ -34,7 +34,6 @@ class _SwitchScreenState extends State<SwitchScreen>
       appBar: AppBar(
         title: const Text(
           'Quran',
-          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: primaryColor,
