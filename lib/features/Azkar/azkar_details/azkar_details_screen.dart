@@ -51,16 +51,16 @@ class AzkarDetailsScreen extends StatelessWidget {
                                     end: Alignment.bottomRight,
                                     colors: [
                                       const Color(0xFF0E5B4A).withValues(
-                                        alpha: isCompleted ? 0.12 : 0.07,
+                                        alpha: isCompleted ? 0.10 : 0.07,
                                       ),
                                       const Color(0xFFC9A24B).withValues(
-                                        alpha: isCompleted ? 0.08 : 0.04,
+                                        alpha: isCompleted ? 0.12 : 0.04,
                                       ),
                                     ],
                                   ),
                                   border: Border.all(
                                     color: isCompleted
-                                        ? Colors.green.withValues(alpha: 0.4)
+                                        ? Colors.green.withValues(alpha: 0.8)
                                         : const Color(
                                             0xFF0E5B4A,
                                           ).withValues(alpha: 0.15),
@@ -82,14 +82,12 @@ class AzkarDetailsScreen extends StatelessWidget {
                                         textAlign: TextAlign.right,
                                       ),
                                     ),
-
                                     const SizedBox(height: 16),
-
                                     Align(
-                                      alignment: Alignment.centerLeft,
+                                      alignment: Alignment.center,
                                       child: AnimatedSwitcher(
                                         duration: const Duration(
-                                          milliseconds: 300,
+                                          milliseconds: 200,
                                         ),
                                         transitionBuilder: (child, animation) {
                                           return ScaleTransition(
@@ -121,7 +119,7 @@ class AzkarDetailsScreen extends StatelessWidget {
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                       horizontal: 14,
-                                                      vertical: 7,
+                                                      vertical: 10,
                                                     ),
                                                 decoration: BoxDecoration(
                                                   color: const Color(

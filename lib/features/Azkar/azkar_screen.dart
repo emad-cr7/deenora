@@ -49,7 +49,7 @@ class AzkarScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (_) => AzkarDetailsScreen(
-                                  title: category.arabicName,
+                                  title: category.englishName,
                                   zekrList: category.getList(model),
                                 ),
                               ),
@@ -89,7 +89,7 @@ class AzkarScreen extends StatelessWidget {
                                       shape: BoxShape.circle,
                                       color: const Color(
                                         0xFF0E5B4A,
-                                      ).withOpacity(0.10),
+                                      ).withValues(alpha: 0.10),
                                     ),
                                     child: Icon(
                                       category.icon,

@@ -1,6 +1,16 @@
+import 'package:hive_ce/hive.dart';
+
+part 'azkar_model.g.dart';
+
+@HiveType(typeId: 3)
 class AzkarModel {
+  @HiveField(0)
   final int id;
+
+  @HiveField(1)
   final String text;
+
+  @HiveField(2)
   final int count;
 
   AzkarModel({
