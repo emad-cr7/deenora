@@ -1,8 +1,7 @@
 import 'package:deenora/features/Azkar/azkar_details/azkar_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../core/enum/azkar_model/azkar_model.dart';
+import '../azkar_model/azkar_model.dart';
 
 class AzkarDetailsScreen extends StatelessWidget {
   final String title;

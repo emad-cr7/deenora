@@ -1,10 +1,10 @@
 import 'package:deenora/features/Quran/controller/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../core/models/surah_model.dart';
 import '../../../core/skeleton/quran_skeleton_screen.dart';
 import '../../../core/widget/error/error_screen.dart';
 import 'details/surah_details_screen.dart';
+import 'models/surah_model.dart';
 
 class QuranReading extends StatelessWidget {
   const QuranReading({super.key});

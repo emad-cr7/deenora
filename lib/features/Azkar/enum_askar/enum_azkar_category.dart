@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
-import 'azkar_model/azkar_model.dart';
-import 'azkar_model/zekr_category.dart';
+import '../azkar_model/azkar_model.dart';
+import '../azkar_model/azekr_category.dart';
 
 enum AzkarCategory {
   morning(
@@ -27,7 +27,7 @@ enum AzkarCategory {
   sleep(
     arabicName: 'أذكار النوم',
     englishName: 'Sleep Azkar',
-    icon: FlutterIslamicIcons.crescentMoon, // outline، عشان تتفرق بصريًا عن المساء
+    icon: FlutterIslamicIcons.crescentMoon,
   ),
   wakeUp(
     arabicName: 'أذكار الاستيقاظ',
@@ -54,11 +54,7 @@ enum AzkarCategory {
     englishName: 'Home Azkar',
     icon: FlutterIslamicIcons.solidFamily,
   ),
-  khala(
-    arabicName: 'أذكار الخلاء',
-    englishName: 'Khala Azkar',
-    icon: Icons.wc,
-  ),
+  khala(arabicName: 'أذكار الخلاء', englishName: 'Khala Azkar', icon: Icons.wc),
   food(
     arabicName: 'أذكار الطعام',
     englishName: 'Food Azkar',
@@ -75,17 +71,17 @@ enum AzkarCategory {
     icon: Icons.menu_book_outlined,
   );
 
+  final String arabicName;
+  final String englishName;
+  final IconData icon;
+
   const AzkarCategory({
     required this.arabicName,
     required this.englishName,
     required this.icon,
   });
 
-  final String arabicName;
-  final String englishName;
-  final IconData icon;
-
-  List<AzkarModel> getList(ZekrCategory model) {
+  List<AzkarModel> getList(AzekrCategory model) {
     switch (this) {
       case AzkarCategory.morning:
         return model.morningAzkar;

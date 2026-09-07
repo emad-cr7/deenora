@@ -1,7 +1,7 @@
 import 'package:hive_ce_flutter/adapters.dart';
 
 import '../../../features/Quran/Listening/models_listening/name_surah_model.dart';
-import '../../models/surah_model.dart';
+import '../../../features/Quran/reading/models/surah_model.dart';
 import '../../../hive_registrar.g.dart';
 import 'hive_config.dart';
 

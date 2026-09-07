@@ -1,6 +1,6 @@
 import 'azkar_model.dart';
 
-class ZekrCategory {
+class AzekrCategory {
   final List<AzkarModel> morningAzkar;
   final List<AzkarModel> eveningAzkar;
   final List<AzkarModel> prayerAzkar;
@@ -16,7 +16,7 @@ class ZekrCategory {
   final List<AzkarModel> foodAzkar;
   final List<AzkarModel> hajjAndUmrahAzkar;
 
-  ZekrCategory({
+  AzekrCategory({
     required this.morningAzkar,
     required this.eveningAzkar,
     required this.prayerAzkar,
@@ -33,7 +33,7 @@ class ZekrCategory {
     required this.hajjAndUmrahAzkar,
   });
 
-  factory ZekrCategory.fromJson(Map<String, dynamic> json) {
+  factory AzekrCategory.fromJson(Map<String, dynamic> json) {
     List<AzkarModel> parseList(String key) {
       final list = json[key] as List<dynamic>? ?? [];
       return list
@@ -41,7 +41,7 @@ class ZekrCategory {
           .toList();
     }
 
-    return ZekrCategory(
+    return AzekrCategory(
       morningAzkar: parseList('morning_azkar'),
       eveningAzkar: parseList('evening_azkar'),
       prayerAzkar: parseList('prayer_azkar'),

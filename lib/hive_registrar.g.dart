@@ -3,9 +3,9 @@
 // Check in to version control
 
 import 'package:hive_ce/hive_ce.dart';
-import 'package:deenora/core/models/ayah_model.dart';
-import 'package:deenora/core/models/surah_model.dart';
 import 'package:deenora/features/Quran/Listening/models_listening/name_surah_model.dart';
+import 'package:deenora/features/Quran/reading/models/ayah_model.dart';
+import 'package:deenora/features/Quran/reading/models/surah_model.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {

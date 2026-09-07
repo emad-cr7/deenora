@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../../models/quran_response_model.dart';
+import '../../../../features/Quran/reading/models/quran_response_model.dart';
 import '../dio/dio_config.dart';
 
 class QuranReadingService {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/models/surah_model.dart';
+
+import '../models/surah_model.dart';
 
 class SurahDetailsScreen extends StatelessWidget {
   final SurahModel surah;
