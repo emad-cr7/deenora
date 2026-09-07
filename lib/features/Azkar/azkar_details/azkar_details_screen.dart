@@ -1,14 +1,14 @@
-import 'package:deenora/features/Azkar/azkar_detail_controller.dart';
+import 'package:deenora/features/Azkar/azkar_details/azkar_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/enum/azkar_model/azkar_model.dart';
+import '../../../core/enum/azkar_model/azkar_model.dart';
 
-class AzkarDetailScreen extends StatelessWidget {
+class AzkarDetailsScreen extends StatelessWidget {
   final String title;
   final List<AzkarModel> zekrList;
 
-  const AzkarDetailScreen({
+  const AzkarDetailsScreen({
     super.key,
     required this.title,
     required this.zekrList,
@@ -16,19 +16,19 @@ class AzkarDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AzkarDetailController>(
+    return ChangeNotifierProvider<AzkarDetailsController>(
       create: (BuildContext context) =>
-          AzkarDetailController(title, zekrList)..init(),
+      AzkarDetailsController(title, zekrList)..init(),
       child: Scaffold(
         appBar: AppBar(title: Text(title)),
         body: zekrList.isEmpty
             ? const Center(child: Text('لا توجد أذكار في هذا القسم'))
             : SafeArea(
-                child: Consumer<AzkarDetailController>(
+                child: Consumer<AzkarDetailsController>(
                   builder:
                       (
                         BuildContext context,
-                        AzkarDetailController controller,
+                      AzkarDetailsController controller,
                         Widget? child,
                       ) {
                         return ListView.separated(

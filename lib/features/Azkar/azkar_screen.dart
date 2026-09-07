@@ -5,7 +5,7 @@ import '../../core/enum/azkar_model/zekr_category.dart';
 import '../../core/enum/enum_azkar_category.dart';
 import '../../core/skeleton/azkar_Item_skeleton.dart';
 import '../../core/widget/error/error_screen.dart';
-import 'azkar_detail_screen.dart';
+import 'azkar_details/azkar_details_screen.dart';
 
 class AzkarScreen extends StatefulWidget {
   const AzkarScreen({super.key});
@@ -53,7 +53,7 @@ class _AzkarScreenState extends State<AzkarScreen> {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => AzkarDetailScreen(
+                      builder: (_) => AzkarDetailsScreen(
                         title: category.arabicName,
                         zekrList: category.getList(model),
                       ),

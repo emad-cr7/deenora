@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../core/enum/azkar_model/azkar_model.dart';
+import '../../../core/enum/azkar_model/azkar_model.dart';
 
-class AzkarDetailController extends ChangeNotifier {
+class AzkarDetailsController extends ChangeNotifier {
   final String title;
   final List<AzkarModel> zekrList;
 
-  AzkarDetailController(this.title, this.zekrList);
+  AzkarDetailsController(this.title, this.zekrList);
 
   late List<int> remainingCounts;
 
