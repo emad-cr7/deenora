@@ -4,9 +4,8 @@ import '../../../../features/Quran/reading/models/quran_response_model.dart';
 import '../dio/dio_config.dart';
 
 class QuranReadingService {
-  final Dio _dio = DioConfig.create(
-    'https://api.alquran.cloud/v1/',
-  );
+  final Dio _dio = DioConfig.create('https://api.alquran.cloud/v1/');
+
   Future<QuranResponseModel> getFullQuran() async {
     try {
       final response = await _dio.get('quran/quran-uthmani');

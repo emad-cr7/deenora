@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../core/skeleton/quran_skeleton_screen.dart';
 import '../../../../../core/widget/error/error_screen.dart';
+import '../../../../../core/widget/share_widget/future_builder_share.dart';
 import '../../../controller/quran_controller.dart';
 import '../../models_listening/name_surah_model.dart';
 import '../audio_player/audio_player_screen.dart';
@@ -9,7 +10,9 @@ import '../../models_listening/reciter_model.dart';
 
 class SurahNameListening extends StatelessWidget {
   final ReciterModel reciter;
+
   const SurahNameListening({super.key, required this.reciter});
+
   static const Color primaryColor = Color(0xFF1B5E4F);
 
   @override
@@ -19,29 +22,47 @@ class SurahNameListening extends StatelessWidget {
           QuranController()..initSurah(reciterId: reciter.id),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Quran',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
           centerTitle: true,
           backgroundColor: primaryColor,
           foregroundColor: Colors.white,
+          elevation: 0,
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.7),
+                    width: 2,
+                  ),
+                ),
+                child: ClipOval(
+                  child: Image.asset(reciter.imagePath, fit: BoxFit.cover),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                reciter.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         ),
         body: Consumer<QuranController>(
           builder: (context, controller, _) {
-            return FutureBuilder<List<NameSurahModel>>(
+            return FutureBuilderShare(
               future: controller.futureChapters,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return QuranSkeletonScreen();
-                }
-
-                if (snapshot.hasError) {
-                  return AppErrorScreen(type: AppErrorType.serverError);
-                }
-
-                final List<NameSurahModel> chapters = snapshot.data!;
-
+              loading: QuranSkeletonScreen(),
+              error: AppErrorScreen(type: AppErrorType.serverError),
+              builder: (chapters) {
                 return ListView.builder(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 12,
@@ -71,7 +92,8 @@ class SurahNameListening extends StatelessWidget {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(27),
                           onTap: () async {
-                            final audioMap = await controller.futureReciterAudio;
+                            final audioMap =
+                                await controller.futureReciterAudio;
                             final audioUrl = audioMap?[chapter.id];
                             if (audioUrl == null) {
                               if (context.mounted) {

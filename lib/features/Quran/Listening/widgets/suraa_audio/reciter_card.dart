@@ -98,19 +98,56 @@ class ReciterCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 6),
-                      Align(
-                        alignment: .bottomEnd,
-                        child: Text(
-                          reciter.country,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF1B1B1B),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: .spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.public,
+                                size: 14,
+                                color: Colors.grey[500],
+                              ),
+                              SizedBox(width: 7,),
+                              Text(
+                                reciter.country,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF1B1B1B),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.calendar_month_outlined,
+                                size: 14,
+                                color: Colors.grey[500],
+                              ),
+                              SizedBox(width: 7,),
+                              Text(
+                                reciter.birthDate,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey[900],
+                                ),
+                              ),
+                              SizedBox(width: 3,),
+                              Text(
+                                "-${reciter.deathDate}",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey[900],
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ],
                   ),
