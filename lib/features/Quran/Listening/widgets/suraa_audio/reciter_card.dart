@@ -10,7 +10,7 @@ class ReciterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 110,
+      height: 130,
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
@@ -88,6 +88,7 @@ class ReciterCard extends StatelessWidget {
                             size: 14,
                             color: Colors.grey[500],
                           ),
+                          SizedBox(width: 7,),
                           Text(
                             'Listen to the complete ',
                             style: TextStyle(
@@ -98,21 +99,20 @@ class ReciterCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 6),
+                      Align(
+                        alignment: .bottomEnd,
+                        child: Text(
+                          reciter.country,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF1B1B1B),
+                          ),
+                        ),
+                      ),
                     ],
-                  ),
-                ),
-
-                Container(
-                  width: 44,
-                  height: 44,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF1B5E4F),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.white,
-                    size: 26,
                   ),
                 ),
               ],
