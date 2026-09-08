@@ -1,5 +1,6 @@
 import 'package:deenora/features/Quran/Listening/widgets/suraa_audio/surah_name_listening.dart';
 import 'package:flutter/material.dart';
+import '../../../../../core/widget/share_widget/icon_text_widget.dart';
 import '../../models_listening/reciter_model.dart';
 
 class ReciterCard extends StatelessWidget {
@@ -81,72 +82,23 @@ class ReciterCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.headphones_rounded,
-                            size: 14,
-                            color: Colors.grey[500],
-                          ),
-                          SizedBox(width: 7,),
-                          Text(
-                            'Listen to the complete ',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey[900],
-                            ),
-                          ),
-                        ],
-                      ),
+                      IconTextWidget(icon: Icons.headphones_rounded,
+                        text: 'Listen to the complete',),
                       const SizedBox(height: 10),
                       Row(
-                        mainAxisAlignment: .spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.public,
-                                size: 14,
-                                color: Colors.grey[500],
-                              ),
-                              SizedBox(width: 7,),
-                              Text(
-                                reciter.country,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF1B1B1B),
-                                ),
-                              ),
-                            ],
+                          Flexible(
+                            child: IconTextWidget(
+                              icon: Icons.public,
+                              text: reciter.country,
+                            ),
                           ),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.calendar_month_outlined,
-                                size: 14,
-                                color: Colors.grey[500],
-                              ),
-                              SizedBox(width: 7,),
-                              Text(
-                                reciter.birthDate,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.grey[900],
-                                ),
-                              ),
-                              SizedBox(width: 3,),
-                              Text(
-                                "-${reciter.deathDate}",
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.grey[900],
-                                ),
-                              ),
-                            ],
-                          )
+                          IconTextWidget(
+                            icon: Icons.calendar_month_outlined,
+                            text: reciter.birthDate,
+                            text2: "-${reciter.deathDate}",
+                          ),
                         ],
                       ),
                     ],
