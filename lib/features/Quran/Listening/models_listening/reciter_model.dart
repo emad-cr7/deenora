@@ -5,7 +5,7 @@ class ReciterModel {
   final String country;
   final String description;
   final String birthDate;
-  final String deathDate;
+  final String? deathDate;
 
   const ReciterModel({
     required this.id,
@@ -14,7 +14,7 @@ class ReciterModel {
     required this.country,
     required this.description,
     required this.birthDate,
-    required this.deathDate,
+     this.deathDate,
   });
 }
 

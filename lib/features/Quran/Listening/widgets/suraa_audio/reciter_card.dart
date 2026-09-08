@@ -97,7 +97,9 @@ class ReciterCard extends StatelessWidget {
                           IconTextWidget(
                             icon: Icons.calendar_month_outlined,
                             text: reciter.birthDate,
-                            text2: "-${reciter.deathDate}",
+                            text2: (reciter.deathDate ?? '').isNotEmpty
+                                ? "-${reciter.deathDate}"
+                                : null,
                           ),
                         ],
                       ),
