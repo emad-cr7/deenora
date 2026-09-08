@@ -33,7 +33,7 @@ class _MainScreenState extends State<MainScreen> {
 
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
-          backgroundColor: Color(0xFFF6F3EE),
+          backgroundColor: Color(0xFFF6F8F7),
 
           indicatorColor: const Color(0xff003527),
 

@@ -17,7 +17,7 @@ class AzkarDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<AzkarDetailsController>(
       create: (BuildContext context) =>
-      AzkarDetailsController(title, zekrList)..init(),
+          AzkarDetailsController(title, zekrList)..init(),
       child: Scaffold(
         appBar: AppBar(title: Text(title)),
         body: zekrList.isEmpty
@@ -27,7 +27,7 @@ class AzkarDetailsScreen extends StatelessWidget {
                   builder:
                       (
                         BuildContext context,
-                      AzkarDetailsController controller,
+                        AzkarDetailsController controller,
                         Widget? child,
                       ) {
                         return ListView.separated(
@@ -54,13 +54,13 @@ class AzkarDetailsScreen extends StatelessWidget {
                                         alpha: isCompleted ? 0.10 : 0.07,
                                       ),
                                       const Color(0xFFC9A24B).withValues(
-                                        alpha: isCompleted ? 0.12 : 0.04,
+                                        alpha: isCompleted ? 0.07 : 0.04,
                                       ),
                                     ],
                                   ),
                                   border: Border.all(
                                     color: isCompleted
-                                        ? Colors.green.withValues(alpha: 0.8)
+                                        ? Colors.green.withValues(alpha: 0.9)
                                         : const Color(
                                             0xFF0E5B4A,
                                           ).withValues(alpha: 0.15),

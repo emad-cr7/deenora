@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white,
           titleTextStyle: TextStyle(fontWeight: FontWeight.bold , fontSize: 22),
         ),
-        scaffoldBackgroundColor: Color(0xFFF6F3EE),
+        scaffoldBackgroundColor: Color(0xFFF6F8F7),
       ),
       title: 'Deenora',
       home: MainScreen(),
