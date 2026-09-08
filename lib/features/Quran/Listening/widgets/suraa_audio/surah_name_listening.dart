@@ -93,7 +93,7 @@ class SurahNameListening extends StatelessWidget {
                           borderRadius: BorderRadius.circular(27),
                           onTap: () async {
                             final audioMap =
-                                await controller.futureReciterAudio;
+                            await controller.futureReciterAudio;
                             final audioUrl = audioMap?[chapter.id];
                             if (audioUrl == null) {
                               if (context.mounted) {
@@ -151,7 +151,7 @@ class SurahNameListening extends StatelessWidget {
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         chapter.nameSimple,

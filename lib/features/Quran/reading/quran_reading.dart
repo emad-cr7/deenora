@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/skeleton/quran_skeleton_screen.dart';
 import '../../../core/widget/error/error_screen.dart';
+import '../../../core/widget/share_widget/future_builder_share.dart';
 import 'details/surah_details_screen.dart';
 import 'models/surah_model.dart';
 
@@ -16,21 +17,14 @@ class QuranReading extends StatelessWidget {
       child: Scaffold(
         body: Consumer<QuranController>(
           builder: (context, controller, Widget? child) {
-            return FutureBuilder<List<SurahModel>>(
+            return FutureBuilderShare<List<SurahModel>>(
               future: controller.futureQuran,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return QuranSkeletonScreen();
-                }
-
-                if (snapshot.hasError) {
-                  return AppErrorScreen(
-                    type: AppErrorType.serverError,
-                    onRetry: () => controller.initSurahQuran(),
-                  );
-                }
-
-                final quran = snapshot.data!;
+              loading: const QuranSkeletonScreen(),
+              error: AppErrorScreen(
+                type: AppErrorType.serverError,
+                onRetry: () => controller.initSurahQuran(),
+              ),
+              builder: (quran) {
                 return ListView.builder(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 12,
@@ -39,6 +33,7 @@ class QuranReading extends StatelessWidget {
                   itemCount: quran.length,
                   itemBuilder: (context, index) {
                     final surah = quran[index];
+
                     return Container(
                       margin: const EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(
@@ -93,7 +88,9 @@ class QuranReading extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+
                                 const SizedBox(width: 15),
+
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -109,7 +106,7 @@ class QuranReading extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
-                                        ' ${surah.ayahs.length} verses',
+                                        '${surah.ayahs.length} verses',
                                         style: TextStyle(
                                           fontSize: 13,
                                           color: Colors.grey[700],
@@ -118,6 +115,7 @@ class QuranReading extends StatelessWidget {
                                     ],
                                   ),
                                 ),
+
                                 Container(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 8,
@@ -140,7 +138,9 @@ class QuranReading extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+
                                 const SizedBox(width: 6),
+
                                 Icon(
                                   Icons.chevron_right,
                                   color: Colors.grey[400],

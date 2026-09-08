@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/skeleton/azkar_Item_skeleton.dart';
 import '../../core/widget/error/error_screen.dart';
+import '../../core/widget/share_widget/future_builder_share.dart';
 import 'azkar_controller.dart';
 import 'azkar_details/azkar_details_screen.dart';
 import 'azkar_model/azekr_category.dart';
@@ -23,17 +24,11 @@ class AzkarScreen extends StatelessWidget {
                 AzkarController controller,
                 Widget? child,
               ) {
-                return FutureBuilder<AzekrCategory>(
+                return FutureBuilderShare<AzekrCategory>(
                   future: controller.azkarFuture,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return AzkarItemSkeleton();
-                    }
-                    if (snapshot.hasError) {
-                      return AppErrorScreen(type: AppErrorType.serverError);
-                    }
-                    final model = snapshot.data!;
-
+                  loading: AzkarItemSkeleton(),
+                  error: AppErrorScreen(type: AppErrorType.serverError),
+                  builder: (model) {
                     return ListView.separated(
                       padding: const EdgeInsets.all(16),
                       itemCount: AzkarCategory.values.length,
