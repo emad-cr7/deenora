@@ -40,7 +40,6 @@ class QuranController extends ChangeNotifier {
   }
 
   Future<Map<int, String>> _loadReciterAudio(int reciterId) async {
-    final files = await _listeningService.getReciterAudioFiles(reciterId);
-    return {for (final file in files) file.chapterId: file.audioUrl};
+    return await _listeningService.getReciterAudioFiles(reciterId);
   }
 }
