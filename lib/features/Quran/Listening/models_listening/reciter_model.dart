@@ -20,7 +20,7 @@ class ReciterModel {
 
 final List<ReciterModel> reciters = [
   const ReciterModel(
-    id: 1,
+    id: 51,
     name: 'Abdul Basit Abdus Samad',
     imagePath: 'assets/images/Abdul Basit Abdus Samad.png',
     country: 'Egypt',
@@ -31,7 +31,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 6,
+    id: 118,
     name: 'Mahmoud Khalil Al Hussary',
     imagePath: 'assets/images/Mahmoud Khalil Al-Hussary.png',
     country: 'Egypt',
@@ -42,7 +42,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 9,
+    id: 112,
     name: 'Muhammad Siddiq Al Minshawi',
     imagePath: 'assets/images/Muhammad Siddiq Al-Minshawi.png',
     country: 'Egypt',
@@ -53,7 +53,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 158,
+    id: 76,
     name: 'Abdullah Ali Jaber',
     imagePath: 'assets/images/Abdullah Ali Jaber.png',
     country: 'Saudi Arabia',
@@ -64,7 +64,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 174,
+    id: 92,
     name: 'Yasser Al Dosari',
     imagePath: 'assets/images/Yasser Al-Dosari.png',
     country: 'Saudi Arabia',
@@ -73,9 +73,19 @@ final List<ReciterModel> reciters = [
     description:
     'A prominent Saudi reciter known for his emotional and melodious Quran recitation.',
   ),
+  const ReciterModel(
+    id: 81,
+    name: 'Faris Abbad',
+    imagePath: 'assets/images/Faris Abbad.png',
+    country: 'Yemen',
+    birthDate: '1980',
+    deathDate: '',
+    description:
+    'A distinguished Yemeni Quran reciter and Imam, known for his melodious and emotional recitation. He memorized the Quran in Sana’a and is known for his Quran recordings and work with Al Majd Quran Channel.',
+  ),
 
   const ReciterModel(
-    id: 7,
+    id: 123,
     name: 'Mishary Rashid Al Afasy',
     imagePath: 'assets/images/Mishary Rashid Al-Afasy.png',
     country: 'Kuwait',
@@ -86,7 +96,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 19,
+    id: 5,
     name: 'Ahmed bin Ali Al Ajmi',
     imagePath: 'assets/images/Ahmed bin Ali Al-Ajmi.png',
     country: 'Saudi Arabia',
@@ -97,7 +107,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 10,
+    id: 31,
     name: 'Saud Al Shuraim',
     imagePath: 'assets/images/Saud Al-Shuraim.png',
     country: 'Saudi Arabia',
@@ -108,7 +118,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 13,
+    id: 30,
     name: 'Saad Al Ghamdi',
     imagePath: 'assets/images/Saad Al-Ghamdi.png',
     country: 'Saudi Arabia',
@@ -119,7 +129,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 3,
+    id: 54,
     name: 'Abdul Rahman Al Sudais',
     imagePath: 'assets/images/Abdul Rahman Al Sudais .png',
     country: 'Saudi Arabia',
@@ -130,7 +140,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 5,
+    id: 89,
     name: 'Hani Al Rifai',
     imagePath: 'assets/images/Hani Al-Rifai.png',
     country: 'Saudi Arabia',
@@ -141,7 +151,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 161,
+    id: 24,
     name: 'Khalifa Al Tunaiji',
     imagePath: 'assets/images/Khalifa Al-Tunaiji.png',
     country: 'United Arab Emirates',
@@ -152,7 +162,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 151,
+    id: 102,
     name: 'Maher Al Muaiqly',
     imagePath: 'assets/images/Maher Al-Muaiqly.png',
     country: 'Saudi Arabia',
@@ -163,7 +173,7 @@ final List<ReciterModel> reciters = [
   ),
 
   const ReciterModel(
-    id: 160,
+    id: 217,
     name: 'Bandar Baleela',
     imagePath: 'assets/images/Bandar Baleela.png',
     country: 'Saudi Arabia',
