@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import '../../models_listening/name_surah_model.dart';
+import '../../../reading/models/surah_model.dart';
 import '../../models_listening/reciter_model.dart';
 
 class AudioPlayerController extends ChangeNotifier {
-  final NameSurahModel chapter;
+  final SurahModel surah;
   final ReciterModel reciter;
   final String audioUrl;
 
   AudioPlayerController({
-    required this.chapter,
+    required this.surah,
     required this.reciter,
     required this.audioUrl,
   });
@@ -43,7 +43,7 @@ class AudioPlayerController extends ChangeNotifier {
           Uri.parse(audioUrl),
           tag: MediaItem(
             id: audioUrl,
-            title: chapter.nameSimple,
+            title: surah.englishName,
             artist: reciter.name,
           ),
         ),

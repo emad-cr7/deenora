@@ -4,7 +4,7 @@ import '../../../../../core/skeleton/quran_skeleton_screen.dart';
 import '../../../../../core/widget/error/error_screen.dart';
 import '../../../../../core/widget/share_widget/future_builder_share.dart';
 import '../../../controller/quran_controller.dart';
-import '../../models_listening/name_surah_model.dart';
+import '../../../reading/models/surah_model.dart';
 import '../audio_player/audio_player_screen.dart';
 import '../../models_listening/reciter_model.dart';
 
@@ -58,20 +58,22 @@ class SurahNameListening extends StatelessWidget {
         ),
         body: Consumer<QuranController>(
           builder: (context, controller, _) {
-            return FutureBuilderShare(
-              future: controller.futureChapters,
-              loading: QuranSkeletonScreen(),
-              error: AppErrorScreen(type: AppErrorType.serverError),
-              builder: (chapters) {
+            return FutureBuilderShare<List<SurahModel>>(
+              future: controller.futureQuran,
+              loading: const QuranSkeletonScreen(),
+              error: AppErrorScreen(
+                type: AppErrorType.serverError,
+                onRetry: () => controller.initSurah(reciterId: reciter.id),
+              ),
+              builder: (quran) {
                 return ListView.builder(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 12,
                   ),
-                  itemCount: chapters.length,
+                  itemCount: quran.length,
                   itemBuilder: (context, index) {
-                    final chapter = chapters[index];
-                    final bool isMeccan = chapter.revelationPlace == 'makkah';
+                    final surah = quran[index];
 
                     return Container(
                       margin: const EdgeInsets.only(bottom: 10),
@@ -93,8 +95,8 @@ class SurahNameListening extends StatelessWidget {
                           borderRadius: BorderRadius.circular(27),
                           onTap: () async {
                             final audioMap =
-                            await controller.futureReciterAudio;
-                            final audioUrl = audioMap?[chapter.id];
+                                await controller.futureReciterAudio;
+                            final audioUrl = audioMap?[surah.number];
                             if (audioUrl == null) {
                               if (context.mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -112,7 +114,7 @@ class SurahNameListening extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => AudioPlayerScreen(
-                                    chapter: chapter,
+                                    surah: surah,
                                     reciter: reciter,
                                     audioUrl: audioUrl,
                                   ),
@@ -138,7 +140,7 @@ class SurahNameListening extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      '${chapter.id}',
+                                      '${surah.number}',
                                       style: const TextStyle(
                                         color: Color(0xFF1B5E4F),
                                         fontWeight: FontWeight.bold,
@@ -151,10 +153,10 @@ class SurahNameListening extends StatelessWidget {
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        chapter.nameSimple,
+                                        surah.englishName,
                                         style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
@@ -163,7 +165,7 @@ class SurahNameListening extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
-                                        '${chapter.versesCount} verses',
+                                        '${surah.ayahs.length} verses',
                                         style: TextStyle(
                                           fontSize: 13,
                                           color: Colors.grey[700],
@@ -178,17 +180,17 @@ class SurahNameListening extends StatelessWidget {
                                     vertical: 4,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: isMeccan
+                                    color: surah.revelationType == 'Meccan'
                                         ? Colors.orange.withValues(alpha: 0.12)
                                         : Colors.blue.withValues(alpha: 0.12),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Text(
-                                    isMeccan ? 'Meccan' : 'Medinan',
+                                    surah.revelationType,
                                     style: TextStyle(
                                       fontSize: 11,
                                       fontWeight: FontWeight.w600,
-                                      color: isMeccan
+                                      color: surah.revelationType == 'Meccan'
                                           ? Colors.orange[900]
                                           : Colors.blue[900],
                                     ),

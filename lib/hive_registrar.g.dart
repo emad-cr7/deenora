@@ -5,7 +5,6 @@
 import 'package:hive_ce/hive_ce.dart';
 import 'package:deenora/features/Azkar/azkar_model/azekr_category.dart';
 import 'package:deenora/features/Azkar/azkar_model/azkar_model.dart';
-import 'package:deenora/features/Quran/Listening/models_listening/name_surah_model.dart';
 import 'package:deenora/features/Quran/reading/models/ayah_model.dart';
 import 'package:deenora/features/Quran/reading/models/surah_model.dart';
 
@@ -14,7 +13,6 @@ extension HiveRegistrar on HiveInterface {
     registerAdapter(AyahModelAdapter());
     registerAdapter(AzekrCategoryAdapter());
     registerAdapter(AzkarModelAdapter());
-    registerAdapter(NameSurahModelAdapter());
     registerAdapter(SurahModelAdapter());
   }
 }
@@ -24,7 +22,6 @@ extension IsolatedHiveRegistrar on IsolatedHiveInterface {
     registerAdapter(AyahModelAdapter());
     registerAdapter(AzekrCategoryAdapter());
     registerAdapter(AzkarModelAdapter());
-    registerAdapter(NameSurahModelAdapter());
     registerAdapter(SurahModelAdapter());
   }
 }

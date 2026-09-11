@@ -1,18 +1,18 @@
 import 'package:deenora/features/Quran/Listening/models_listening/reciter_model.dart';
+import 'package:deenora/features/Quran/reading/models/surah_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../models_listening/name_surah_model.dart';
 import 'audio_player_controller.dart';
 import 'audio_player_view.dart';
 
 class AudioPlayerScreen extends StatelessWidget {
-  final NameSurahModel chapter;
+  final SurahModel surah;
   final ReciterModel reciter;
   final String audioUrl;
 
   const AudioPlayerScreen({
     super.key,
-    required this.chapter,
+    required this.surah,
     required this.reciter,
     required this.audioUrl,
   });
@@ -21,7 +21,7 @@ class AudioPlayerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<AudioPlayerController>(
       create: (_) => AudioPlayerController(
-        chapter: chapter,
+        surah: surah,
         reciter: reciter,
         audioUrl: audioUrl,
       )..init(),

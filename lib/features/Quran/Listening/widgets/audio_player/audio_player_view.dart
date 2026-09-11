@@ -18,7 +18,7 @@ class AudioPlayerView extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF6F8F7),
       appBar: AppBar(
-        title: Text(controller.chapter.nameSimple),
+        title: Text(controller.surah.englishName),
         centerTitle: true,
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
@@ -45,7 +45,7 @@ class AudioPlayerView extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              controller.chapter.nameSimple,
+              controller.surah.englishName,
               style: const TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,
