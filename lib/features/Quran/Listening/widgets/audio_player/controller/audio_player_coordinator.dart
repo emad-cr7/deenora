@@ -10,19 +10,24 @@ import 'repeat_controller.dart';
 import 'sleep_timer_controller.dart';
 import '../models/sleep_timer_option.dart';
 import '../services/audio_player_service.dart';
+import '../services/quran_audio_handler.dart';
+import '../services/audio_background_handler.dart';
 
 /// Orchestrator coordinator that binds together the independent feature controllers:
-/// audio playback, surah navigation, reciter handling, sleep timer, and loop mode.
+/// audio playback, surah navigation, reciter handling, sleep timer, loop mode,
+/// and Android media notification / lock-screen controls.
 class AudioPlayerCoordinator extends ChangeNotifier {
   final AudioPlayerController playerController;
   final SurahNavigationController navigationController;
   final SleepTimerController sleepTimerController;
   final RepeatController repeatController;
   final ReciterAudioHandler reciterHandler;
+  final QuranAudioHandler audioHandler;
 
   final String? _initialAudioUrl;
   bool _isTransitioning = false;
   bool _hasActiveSession = false;
+  StreamSubscription<Duration?>? _durationSubscription;
 
   AudioPlayerCoordinator({
     SurahModel? initialSurah,
@@ -36,6 +41,7 @@ class AudioPlayerCoordinator extends ChangeNotifier {
     RepeatController? repeatController,
     ReciterAudioHandler? reciterHandler,
     AudioPlayerService? audioService,
+    QuranAudioHandler? audioHandler,
   })  : _initialAudioUrl = initialAudioUrl,
         _hasActiveSession = initialSurah != null && initialAudioUrl != null,
         playerController = playerController ??
@@ -52,13 +58,27 @@ class AudioPlayerCoordinator extends ChangeNotifier {
             ReciterAudioHandler(
               initialReciter: initialReciter,
               initialAudioMap: audioMap,
-            ) {
+            ),
+        audioHandler = audioHandler ?? QuranAudioHandler.instance {
     // Listen to changes from sub-controllers and propagate to coordinator listeners
     this.playerController.addListener(notifyListeners);
-    this.navigationController.addListener(notifyListeners);
+    this.navigationController.addListener(_onNavigationChanged);
     this.sleepTimerController.addListener(notifyListeners);
-    this.repeatController.addListener(notifyListeners);
+    this.repeatController.addListener(_onRepeatChanged);
     this.reciterHandler.addListener(notifyListeners);
+  }
+
+  void _onNavigationChanged() {
+    audioHandler.updateNavigationState(
+      hasPrevious: hasPrevious,
+      hasNext: hasNext,
+    );
+    notifyListeners();
+  }
+
+  void _onRepeatChanged() {
+    audioHandler.updateRepeatState(repeatController.isLooping);
+    notifyListeners();
   }
 
   // --- Convenience Getters & Delegates ---
@@ -101,6 +121,31 @@ class AudioPlayerCoordinator extends ChangeNotifier {
 
     playerController.setOnPlaybackCompleted(_handlePlaybackCompleted);
 
+    // Attach AudioPlayer to QuranAudioHandler for MediaSession and Android notifications
+    audioHandler.attachPlayer(
+      playerController.player,
+      initialLooping: repeatController.isLooping,
+      initialHasPrevious: hasPrevious,
+      initialHasNext: hasNext,
+    );
+
+    // Register AudioHandler notification action callbacks
+    audioHandler.onPlay = () => playerController.play();
+    audioHandler.onPause = () => playerController.pause();
+    audioHandler.onStop = () => stopAndClearSession();
+    audioHandler.onSkipToNext = () => playNextSurah();
+    audioHandler.onSkipToPrevious = () => playPreviousSurah();
+    audioHandler.onToggleRepeat = () => toggleLoop();
+    audioHandler.onSeek = (pos) => seek(pos);
+
+    // Listen for duration updates to keep notification metadata accurate
+    _durationSubscription?.cancel();
+    _durationSubscription = playerController.durationStream.listen((d) {
+      if (d != null && _hasActiveSession) {
+        _syncNotificationMetadata(duration: d);
+      }
+    });
+
     final initialUrl = _initialAudioUrl;
     if (initialUrl != null && initialUrl.isNotEmpty) {
       playerController.loadAudio(
@@ -108,7 +153,34 @@ class AudioPlayerCoordinator extends ChangeNotifier {
         title: navigationController.currentSurah.englishName,
         artist: reciterHandler.currentReciter.name,
       );
+      _syncNotificationMetadata();
     }
+  }
+
+  // --- Notification Metadata Synchronization ---
+  Future<void> _syncNotificationMetadata({Duration? duration}) async {
+    final surah = navigationController.currentSurah;
+    final currentReciter = reciterHandler.currentReciter;
+    final url = playerController.currentAudioUrl ?? '';
+
+    final artUri = await AudioBackgroundHandler.resolveArtworkUri(currentReciter.imagePath);
+
+    final item = AudioBackgroundHandler.buildMediaItem(
+      id: url.isNotEmpty ? url : 'surah_${surah.number}',
+      title: surah.englishName,
+      arabicSurahName: surah.name,
+      artist: currentReciter.name,
+      arabicReciterName: currentReciter.arabicName,
+      duration: duration ?? (playerController.duration > Duration.zero ? playerController.duration : null),
+      artUri: artUri,
+    );
+
+    audioHandler.updateMetadata(item);
+    audioHandler.updateNavigationState(
+      hasPrevious: hasPrevious,
+      hasNext: hasNext,
+    );
+    audioHandler.updateRepeatState(repeatController.isLooping);
   }
 
   // --- Playback Completion Handling ---
@@ -173,6 +245,7 @@ class AudioPlayerCoordinator extends ChangeNotifier {
     }
 
     if (isSameRecitation && !playerController.hasError) {
+      _syncNotificationMetadata();
       notifyListeners();
       return;
     }
@@ -184,11 +257,15 @@ class AudioPlayerCoordinator extends ChangeNotifier {
       title: surah.englishName,
       artist: reciter.name,
     );
+
+    await _syncNotificationMetadata();
   }
 
   Future<void> stopAndClearSession() async {
     await playerController.stop();
+    await seek(Duration.zero);
     _hasActiveSession = false;
+    await audioHandler.clearSession();
     notifyListeners();
   }
 
@@ -210,9 +287,18 @@ class AudioPlayerCoordinator extends ChangeNotifier {
       title: targetSurah.englishName,
       artist: reciterHandler.currentReciter.name,
     );
+
+    await _syncNotificationMetadata();
   }
 
   Future<void> playNextSurah() async {
+    if (navigationController.currentSurah.number >= 114) {
+      // Last Surah in Quran: do not crash, gracefully handle boundary
+      await playerController.pause();
+      await seek(Duration.zero);
+      return;
+    }
+
     final next = navigationController.getNextSurah();
     if (next != null) {
       await playSurah(next);
@@ -220,9 +306,17 @@ class AudioPlayerCoordinator extends ChangeNotifier {
   }
 
   Future<void> playPreviousSurah() async {
+    if (navigationController.currentSurah.number <= 1) {
+      // First Surah in Quran: do not crash, gracefully seek to start
+      await seek(Duration.zero);
+      return;
+    }
+
     final prev = navigationController.getPreviousSurah();
     if (prev != null) {
       await playSurah(prev);
+    } else {
+      await seek(Duration.zero);
     }
   }
 
@@ -235,6 +329,7 @@ class AudioPlayerCoordinator extends ChangeNotifier {
         title: navigationController.currentSurah.englishName,
         artist: newReciter.name,
       );
+      await _syncNotificationMetadata();
     }
   }
 
@@ -242,6 +337,7 @@ class AudioPlayerCoordinator extends ChangeNotifier {
     await repeatController.toggleLoop(
       onLoopModeChanged: (mode) => playerController.setLoopMode(mode),
     );
+    audioHandler.updateRepeatState(repeatController.isLooping);
   }
 
   void setSleepTimer(SleepTimerOption option, {int? customMinutes}) {
@@ -260,20 +356,21 @@ class AudioPlayerCoordinator extends ChangeNotifier {
     playSurah(navigationController.currentSurah);
   }
 
-  void seek(Duration position) => playerController.seek(position);
+  Future<void> seek(Duration position) => playerController.seek(position);
 
   void togglePlayPause(bool isPlaying) => playerController.togglePlayPause(isPlaying);
 
-  void rewind10() => playerController.rewind();
+  Future<void> rewind10() => playerController.rewind();
 
-  void forward10() => playerController.forward();
+  Future<void> forward10() => playerController.forward();
 
   @override
   void dispose() {
+    _durationSubscription?.cancel();
     playerController.removeListener(notifyListeners);
-    navigationController.removeListener(notifyListeners);
+    navigationController.removeListener(_onNavigationChanged);
     sleepTimerController.removeListener(notifyListeners);
-    repeatController.removeListener(notifyListeners);
+    repeatController.removeListener(_onRepeatChanged);
     reciterHandler.removeListener(notifyListeners);
 
     playerController.dispose();

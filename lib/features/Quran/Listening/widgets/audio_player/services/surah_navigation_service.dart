@@ -1,6 +1,6 @@
 import '../../../../reading/models/surah_model.dart';
 
-// خدمة إدارة التنقل بين السور والتحقق من حدود المصحف الشريف
+/// خدمة إدارة التنقل بين السور والتحقق من حدود المصحف الشريف
 class SurahNavigationService {
   List<SurahModel> _surahList;
   SurahModel _currentSurah;
@@ -46,6 +46,8 @@ class SurahNavigationService {
   bool get hasPrevious {
     if (_currentSurah.number <= 1) return false;
     if (_surahList.isNotEmpty) {
+      final hasNum = _surahList.any((s) => s.number == _currentSurah.number - 1);
+      if (hasNum) return true;
       return currentSurahIndex > 0;
     }
     return true;
@@ -55,6 +57,8 @@ class SurahNavigationService {
   bool get hasNext {
     if (_currentSurah.number >= 114) return false;
     if (_surahList.isNotEmpty) {
+      final hasNum = _surahList.any((s) => s.number == _currentSurah.number + 1);
+      if (hasNum) return true;
       return currentSurahIndex >= 0 && currentSurahIndex < _surahList.length - 1;
     }
     return true;
@@ -63,9 +67,15 @@ class SurahNavigationService {
   // جلب السورة السابقة إن وجدت
   SurahModel? get previousSurah {
     if (!hasPrevious) return null;
-    final index = currentSurahIndex;
-    if (index > 0 && index < _surahList.length) {
-      return _surahList[index - 1];
+    if (_surahList.isNotEmpty) {
+      final targetNumber = _currentSurah.number - 1;
+      for (final s in _surahList) {
+        if (s.number == targetNumber) return s;
+      }
+      final index = currentSurahIndex;
+      if (index > 0 && index < _surahList.length) {
+        return _surahList[index - 1];
+      }
     }
     return null;
   }
@@ -73,9 +83,15 @@ class SurahNavigationService {
   // جلب السورة التالية إن وجدت
   SurahModel? get nextSurah {
     if (!hasNext) return null;
-    final index = currentSurahIndex;
-    if (index >= 0 && index < _surahList.length - 1) {
-      return _surahList[index + 1];
+    if (_surahList.isNotEmpty) {
+      final targetNumber = _currentSurah.number + 1;
+      for (final s in _surahList) {
+        if (s.number == targetNumber) return s;
+      }
+      final index = currentSurahIndex;
+      if (index >= 0 && index < _surahList.length - 1) {
+        return _surahList[index + 1];
+      }
     }
     return null;
   }

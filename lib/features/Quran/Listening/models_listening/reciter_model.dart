@@ -47,7 +47,7 @@ final List<ReciterModel> reciters = [
 
   const ReciterModel(
     id: 112,
-    name: 'Muhammad Siddiq Al Minshawi',
+    name: 'Muhammad  Al Minshawi',
     arabicName: 'محمد صديق المنشاوي',
     imagePath: 'assets/images/Muhammad Siddiq Al-Minshawi.png',
     country: 'Egypt',

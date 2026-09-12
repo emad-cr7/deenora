@@ -1,33 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio_background/just_audio_background.dart';
+import 'package:audio_service/audio_service.dart';
 import 'main/main_screen.dart';
 import 'core/theme/app_colors.dart';
 import 'core/data/local_data/hive_manager.dart';
 
 import 'package:provider/provider.dart';
 import 'features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
+import 'features/Quran/Listening/widgets/audio_player/services/quran_audio_handler.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveManager().init();
-  await JustAudioBackground.init(
-    androidNotificationChannelId: 'com.deenora.app.channel.audio',
-    androidNotificationChannelName: 'تشغيل التلاوة',
-    androidNotificationOngoing: true,
-    androidStopForegroundOnPause: true,
+
+  final audioHandler = await AudioService.init(
+    builder: () => QuranAudioHandler(),
+    config: const AudioServiceConfig(
+      androidNotificationChannelId: 'com.deenora.app.channel.audio',
+      androidNotificationChannelName: 'تشغيل التلاوة',
+      androidNotificationChannelDescription: 'التحكم في تشغيل تلاوة القرآن الكريم',
+      androidNotificationOngoing: false,
+      androidStopForegroundOnPause: true,
+      androidNotificationIcon: 'mipmap/ic_launcher',
+      androidShowNotificationBadge: true,
+    ),
   );
-  runApp(const MyApp());
+
+  runApp(MyApp(audioHandler: audioHandler));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final QuranAudioHandler audioHandler;
+
+  const MyApp({super.key, required this.audioHandler});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<AudioPlayerCoordinator>(
-      create: (_) => AudioPlayerCoordinator()..init(),
+      create: (_) => AudioPlayerCoordinator(audioHandler: audioHandler)..init(),
       child: MaterialApp(
         navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,

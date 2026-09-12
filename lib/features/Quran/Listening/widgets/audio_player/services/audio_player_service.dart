@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:just_audio/just_audio.dart';
 
-import 'audio_background_handler.dart';
-
-// خدمة إدارة مشغل الصوت ومصادره والتحكم بالتشغيل
+/// خدمة إدارة مشغل الصوت ومصادره والتحكم بالتشغيل
 class AudioPlayerService {
   final AudioPlayer _player;
 
@@ -27,23 +25,15 @@ class AudioPlayerService {
   bool get isPlaying => _player.playing;
   bool get isLooping => _player.loopMode == LoopMode.one;
 
-  // تحميل مصدر الصوت وتحديث البيانات التعريفية للخلفية
+  // تحميل مصدر الصوت
   Future<void> loadAudioSource({
     required String url,
-    required String title,
-    required String artist,
-    String album = 'The Holy Quran',
+    String? title,
+    String? artist,
+    String? album,
   }) async {
     await _player.setAudioSource(
-      AudioSource.uri(
-        Uri.parse(url),
-        tag: AudioBackgroundHandler.buildMediaItem(
-          url: url,
-          title: title,
-          artist: artist,
-          album: album,
-        ),
-      ),
+      AudioSource.uri(Uri.parse(url)),
     );
   }
 
@@ -52,6 +42,9 @@ class AudioPlayerService {
 
   // إيقاف الصوت مؤقتاً
   Future<void> pause() => _player.pause();
+
+  // إيقاف التشغيل كلياً
+  Future<void> stop() => _player.stop();
 
   // الانتقال إلى موضع زمني محدد
   Future<void> seek(Duration targetPosition) => _player.seek(targetPosition);
