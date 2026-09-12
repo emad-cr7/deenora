@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:deenora/core/theme/app_colors.dart';
 import 'package:deenora/features/Quran/reading/models/surah_model.dart';
 
 class SurahSearchResult extends StatelessWidget {
@@ -13,7 +14,7 @@ class SurahSearchResult extends StatelessWidget {
     required this.onTap,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   @override
   Widget build(BuildContext context) {

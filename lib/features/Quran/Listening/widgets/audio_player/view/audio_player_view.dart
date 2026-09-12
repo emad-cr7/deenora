@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../core/theme/app_colors.dart';
 import '../controller/audio_player_coordinator.dart';
 import '../search/audio_search_view.dart';
 import '../widgets/main_player_controls_card.dart';
@@ -12,7 +13,7 @@ import '../widgets/surah_sequence_bar.dart';
 class AudioPlayerView extends StatelessWidget {
   const AudioPlayerView({super.key});
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +80,7 @@ class AudioPlayerView extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
-                      vertical: 70,
+                      vertical: 50,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -93,14 +94,12 @@ class AudioPlayerView extends StatelessWidget {
                         SurahSequenceBar(
                           hasPrevious: coordinator.hasPrevious,
                           previousSurah: coordinator.previousSurah,
-                          onPreviousPressed: coordinator.hasPrevious &&
-                                  !coordinator.isLoadingSurah
+                          onPreviousPressed: coordinator.canPlayPrevious
                               ? () => coordinator.playPreviousSurah()
                               : null,
                           hasNext: coordinator.hasNext,
                           nextSurah: coordinator.nextSurah,
-                          onNextPressed: coordinator.hasNext &&
-                                  !coordinator.isLoadingSurah
+                          onNextPressed: coordinator.canPlayNext
                               ? () => coordinator.playNextSurah()
                               : null,
                         ),

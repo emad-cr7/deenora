@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../../core/theme/app_colors.dart';
 class SleepTimerAndExtrasCard extends StatelessWidget {
   final bool isSleepTimerActive;
   final String sleepTimerFormatted;
@@ -70,7 +71,7 @@ class _SleepTimerRow extends StatelessWidget {
     required this.onCancel,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +153,7 @@ class _RepeatToggleButton extends StatelessWidget {
     required this.onToggle,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   @override
   Widget build(BuildContext context) {

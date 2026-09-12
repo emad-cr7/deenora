@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../../core/theme/app_colors.dart';
 
 // واجهة عرض الخطأ في تحميل التلاوة مع زر إعادة المحاولة
 class PlayerErrorView extends StatelessWidget {
@@ -11,7 +12,7 @@ class PlayerErrorView extends StatelessWidget {
     required this.onRetry,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   @override
   Widget build(BuildContext context) {

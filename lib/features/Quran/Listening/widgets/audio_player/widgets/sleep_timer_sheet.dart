@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../core/theme/app_colors.dart';
+import '../controller/audio_player_coordinator.dart';
 import '../controller/sleep_timer_controller.dart';
 import '../models/sleep_timer_option.dart';
 
@@ -11,13 +13,15 @@ class SleepTimerSheet extends StatefulWidget {
     this.onTimerCompleteAction,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   static Future<void> show(
     BuildContext context, {
+    SleepTimerController? controller,
     VoidCallback? onTimerComplete,
   }) {
-    final timerController = context.read<SleepTimerController>();
+    final timerController = controller ??
+        context.read<AudioPlayerCoordinator>().sleepTimerController;
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -305,7 +309,7 @@ class _TimerOptionTile extends StatelessWidget {
     this.trailing,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   @override
   Widget build(BuildContext context) {

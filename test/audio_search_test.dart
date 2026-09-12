@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:deenora/features/Quran/Listening/models_listening/reciter_model.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/search/audio_search_controller.dart';
-import 'package:deenora/features/Quran/Listening/widgets/audio_player/search/utils/search_text_normalizer.dart';
+import 'package:deenora/core/utils/search_text_normalizer.dart';
 import 'package:deenora/features/Quran/reading/models/surah_model.dart';
 
 void main() {

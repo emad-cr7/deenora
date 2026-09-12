@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../../core/theme/app_colors.dart';
 import '../../../../reading/models/surah_model.dart';
 
 class SurahSequenceBar extends StatelessWidget {
@@ -75,7 +76,7 @@ class _SurahSequenceItem extends StatelessWidget {
     required this.onPressed,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   @override
   Widget build(BuildContext context) {

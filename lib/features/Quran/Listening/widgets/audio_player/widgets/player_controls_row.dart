@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../../../../../../core/theme/app_colors.dart';
+
 // صف أزرار التحكم الرئيسية بالتشغيل (السابقة، تقديم/تأخير، تشغيل/إيقاف، التالية)
 class PlayerControlsRow extends StatelessWidget {
   final Stream<PlayerState> playerStateStream;
@@ -27,7 +29,7 @@ class PlayerControlsRow extends StatelessWidget {
     required this.onPlayPausePressed,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class PlayerControlsRow extends StatelessWidget {
           color: primaryColor,
           disabledColor: Colors.grey[300],
           icon: const Icon(Icons.skip_previous_rounded),
-          onPressed: hasPrevious && !isLoadingSurah ? onPreviousPressed : null,
+          onPressed: onPreviousPressed,
         ),
 
         // زر التقديم 10 ثواني للخلف
@@ -76,7 +78,7 @@ class PlayerControlsRow extends StatelessWidget {
           color: primaryColor,
           disabledColor: Colors.grey[300],
           icon: const Icon(Icons.skip_next_rounded),
-          onPressed: hasNext && !isLoadingSurah ? onNextPressed : null,
+          onPressed: onNextPressed,
         ),
       ],
     );
@@ -95,8 +97,8 @@ class _PlayPauseButton extends StatelessWidget {
     required this.onPlayPausePressed,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
-  static const Color primaryDark = Color(0xFF103D33);
+  static const Color primaryColor = AppColors.primary;
+  static const Color primaryDark = AppColors.primaryDark;
 
   @override
   Widget build(BuildContext context) {

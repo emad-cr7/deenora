@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'main/main_screen.dart';
+import 'core/theme/app_colors.dart';
 import 'core/data/local_data/hive_manager.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -25,8 +26,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: AppBarThemeData(
-          backgroundColor: Color(0xFF1B5E4F),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: AppColors.primary,
           centerTitle: true,
           foregroundColor: Colors.white,
           titleTextStyle: TextStyle(fontWeight: FontWeight.bold , fontSize: 22),

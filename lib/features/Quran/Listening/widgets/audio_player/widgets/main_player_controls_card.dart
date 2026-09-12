@@ -45,12 +45,11 @@ class MainPlayerControlsCard extends StatelessWidget {
             playerStateStream: coordinator.playerStateStream,
             isLoadingSurah: coordinator.isLoadingSurah,
             hasPrevious: coordinator.hasPrevious,
-            onPreviousPressed:
-                coordinator.hasPrevious && !coordinator.isLoadingSurah
-                    ? () => coordinator.playPreviousSurah()
-                    : null,
+            onPreviousPressed: coordinator.canPlayPrevious
+                ? () => coordinator.playPreviousSurah()
+                : null,
             hasNext: coordinator.hasNext,
-            onNextPressed: coordinator.hasNext && !coordinator.isLoadingSurah
+            onNextPressed: coordinator.canPlayNext
                 ? () => coordinator.playNextSurah()
                 : null,
             onRewindPressed: () => coordinator.rewind10(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../core/theme/app_colors.dart';
 import '../../../../../../core/widget/share_widget/search/search_empty_state_widget.dart';
 import '../../../../../../core/widget/share_widget/search/search_section_header.dart';
 import '../../../../../../core/widget/share_widget/search/search_widget.dart';
@@ -30,7 +31,7 @@ class AudioSearchView extends StatefulWidget {
     this.onReciterSelected,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   @override
   State<AudioSearchView> createState() => _AudioSearchViewState();

@@ -1,5 +1,6 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import '../../../../../../core/theme/app_colors.dart';
 
 // شريط التقدم الزمني للتشغيل مع تسميات الوقت المنقضي والمتبقي
 class PlayerProgressBar extends StatelessWidget {
@@ -16,7 +17,7 @@ class PlayerProgressBar extends StatelessWidget {
     required this.onSeek,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   @override
   Widget build(BuildContext context) {

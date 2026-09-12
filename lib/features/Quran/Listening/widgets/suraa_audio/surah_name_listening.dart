@@ -8,13 +8,14 @@ import '../../../reading/models/surah_model.dart';
 import '../audio_player/view/audio_player_screen.dart';
 import '../audio_player/search/audio_search_view.dart';
 import '../../models_listening/reciter_model.dart';
+import '../../../../../core/theme/app_colors.dart';
 
 class SurahNameListening extends StatelessWidget {
   final ReciterModel reciter;
 
   const SurahNameListening({super.key, required this.reciter});
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
+  static const Color primaryColor = AppColors.primary;
 
   @override
   Widget build(BuildContext context) {

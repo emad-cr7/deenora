@@ -4,7 +4,7 @@ import '../../../../../../core/data/local_data/hive_manager.dart';
 import '../../../../../../core/data/remote_data/quran/quran_Reading_service.dart';
 import '../../../../reading/models/surah_model.dart';
 import '../../../models_listening/reciter_model.dart';
-import 'utils/search_text_normalizer.dart';
+import '../../../../../../core/utils/search_text_normalizer.dart';
 
 class AudioSearchController extends ChangeNotifier {
   final QuranReadingService _readingService;

@@ -69,6 +69,8 @@ class AudioPlayerCoordinator extends ChangeNotifier {
   bool get hasNext => navigationController.hasNext;
   SurahModel? get previousSurah => navigationController.previousSurah;
   SurahModel? get nextSurah => navigationController.nextSurah;
+  bool get canPlayPrevious => hasPrevious && !isLoadingSurah;
+  bool get canPlayNext => hasNext && !isLoadingSurah;
 
   bool get isLoadingSurah => playerController.isLoading;
   bool get hasError => playerController.hasError;

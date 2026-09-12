@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
+import '../../../../../../core/theme/app_colors.dart';
 import '../../../../../../core/widget/share_widget/container_share.dart';
 import '../../../../reading/models/surah_model.dart';
 import '../../../models_listening/reciter_model.dart';
@@ -15,8 +16,8 @@ class SurahArtworkCard extends StatelessWidget {
     required this.reciter,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
-  static const Color primaryDark = Color(0xFF103D33);
+  static const Color primaryColor = AppColors.primary;
+  static const Color primaryDark = AppColors.primaryDark;
 
   @override
   Widget build(BuildContext context) {
