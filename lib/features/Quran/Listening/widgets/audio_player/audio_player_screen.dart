@@ -9,12 +9,16 @@ class AudioPlayerScreen extends StatelessWidget {
   final SurahModel surah;
   final ReciterModel reciter;
   final String audioUrl;
+  final List<SurahModel>? surahList;
+  final Map<int, String>? audioMap;
 
   const AudioPlayerScreen({
     super.key,
     required this.surah,
     required this.reciter,
     required this.audioUrl,
+    this.surahList,
+    this.audioMap,
   });
 
   @override
@@ -24,6 +28,8 @@ class AudioPlayerScreen extends StatelessWidget {
         surah: surah,
         reciter: reciter,
         audioUrl: audioUrl,
+        surahList: surahList,
+        audioMap: audioMap,
       )..init(),
       child: const AudioPlayerView(),
     );

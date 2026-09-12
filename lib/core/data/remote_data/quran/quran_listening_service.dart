@@ -7,7 +7,7 @@ class QuranListeningService {
     'https://www.mp3quran.net/api/v3/',
   );
 
-  final Map<int, Map<int, String>> _cache = {};
+  static final Map<int, Map<int, String>> _cache = {};
 
   Future<Map<int, String>> getReciterAudioFiles(int reciterId) async {
     if (_cache.containsKey(reciterId)) {

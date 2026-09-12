@@ -1,10 +1,13 @@
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'audio_player_controller.dart';
+import 'widgets/main_player_controls_card.dart';
+import 'widgets/player_error_view.dart';
+import 'widgets/sleep_timer_and_extras_card.dart';
+import 'widgets/sleep_timer_sheet.dart';
+import 'widgets/surah_artwork_card.dart';
+import 'widgets/surah_sequence_bar.dart';
 
 class AudioPlayerView extends StatelessWidget {
   const AudioPlayerView({super.key});
@@ -16,144 +19,94 @@ class AudioPlayerView extends StatelessWidget {
     final controller = context.watch<AudioPlayerController>();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF6F8F7),
       appBar: AppBar(
-        title: Text(controller.surah.englishName),
         centerTitle: true,
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: controller.hasError
-          ? const Center(child: Text('حصل خطأ في تشغيل التلاوة، حاول تاني'))
-          : Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Column(
           children: [
-            Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: primaryColor, width: 2),
-              ),
-              child: CircleAvatar(
-                radius: 95,
-                backgroundColor: primaryColor.withValues(alpha: 0.1),
-                backgroundImage: AssetImage(controller.reciter.imagePath),
-              ),
-            ),
-            const SizedBox(height: 20),
             Text(
-              controller.surah.englishName,
+              controller.currentSurah.englishName,
               style: const TextStyle(
-                fontSize: 25,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 6),
+            const SizedBox(height: 2),
             Text(
               controller.reciter.name,
-              style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-            ),
-            const SizedBox(height: 30),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 24,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.06),
-                    blurRadius: 16,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  StreamBuilder<Duration>(
-                    stream: controller.positionStream,
-                    builder: (context, positionSnapshot) {
-                      final position =
-                          positionSnapshot.data ?? Duration.zero;
-
-                      return ProgressBar(
-                        progress: position,
-                        buffered: controller.bufferedPosition,
-                        total: controller.duration,
-                        progressBarColor: primaryColor,
-                        baseBarColor:
-                        primaryColor.withValues(alpha: 0.10),
-                        bufferedBarColor:
-                        primaryColor.withValues(alpha: 0.2),
-                        thumbColor: primaryColor,
-                        onSeek: controller.seek,
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: 68,
-                    height: 68,
-                    child: StreamBuilder<PlayerState>(
-                      stream: controller.playerStateStream,
-                      builder: (context, snapshot) {
-                        final playing = snapshot.data?.playing ?? false;
-                        final processingState =
-                            snapshot.data?.processingState;
-
-                        final isLoading = processingState ==
-                            ProcessingState.loading ||
-                            processingState ==
-                                ProcessingState.buffering;
-
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color:
-                                primaryColor.withValues(alpha: 0.35),
-                                blurRadius: 10,
-                                offset: const Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: isLoading
-                              ? Center(
-                            child: LoadingAnimationWidget
-                                .staggeredDotsWave(
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                          )
-                              : IconButton(
-                            iconSize: 32,
-                            color: Colors.white,
-                            icon: Icon(
-                              playing
-                                  ? Icons.pause
-                                  : Icons.play_arrow,
-                            ),
-                            onPressed: () => controller
-                                .togglePlayPause(playing),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.white.withValues(alpha: 0.85),
+                fontWeight: FontWeight.w400,
               ),
             ),
           ],
         ),
       ),
+      body: controller.hasError
+          ? PlayerErrorView(
+              errorMessage: controller.errorMessage,
+              onRetry: () => controller.retry(),
+            )
+          : LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 70,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SurahArtworkCard(
+                          surah: controller.currentSurah,
+                          reciter: controller.reciter,
+                        ),
+                        SizedBox(height: 30,),
+                        SurahSequenceBar(
+                          hasPrevious: controller.hasPrevious,
+                          previousSurah: controller.previousSurah,
+                          onPreviousPressed: controller.hasPrevious &&
+                                  !controller.isLoadingSurah
+                              ? () => controller.playPreviousSurah()
+                              : null,
+                          hasNext: controller.hasNext,
+                          nextSurah: controller.nextSurah,
+                          onNextPressed: controller.hasNext &&
+                                  !controller.isLoadingSurah
+                              ? () => controller.playNextSurah()
+                              : null,
+                        ),
+                        SizedBox(height: 30,),
+
+                        MainPlayerControlsCard(controller: controller),
+                        SizedBox(height: 30,),
+                        SleepTimerAndExtrasCard(
+                          isSleepTimerActive:
+                              controller.isSleepTimerActive,
+                          sleepTimerFormatted:
+                              controller.sleepTimerFormatted,
+                          onSleepTimerTap: () =>
+                              SleepTimerSheet.show(context),
+                          onCancelSleepTimer: () =>
+                              controller.cancelSleepTimer(),
+                          isLooping: controller.isLoopingSurah,
+                          onToggleLoop: () => controller.toggleLoop(),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
     );
   }
 }

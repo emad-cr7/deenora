@@ -117,6 +117,8 @@ class SurahNameListening extends StatelessWidget {
                                     surah: surah,
                                     reciter: reciter,
                                     audioUrl: audioUrl,
+                                    surahList: quran,
+                                    audioMap: audioMap,
                                   ),
                                 ),
                               );
