@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import '../features/Azkar/azkar_screen.dart';
 import '../features/Quran/switch/switch_screen.dart';
+import '../features/Quran/Listening/widgets/mini_player/mini_player.dart';
 import '../features/mosque/mosque_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -31,69 +32,75 @@ class _MainScreenState extends State<MainScreen> {
 
       body: pages[currentIndex],
 
-      bottomNavigationBar: NavigationBarTheme(
-        data: NavigationBarThemeData(
-          backgroundColor: Color(0xFFF6F8F7),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const MiniPlayer(),
+          NavigationBarTheme(
+            data: NavigationBarThemeData(
+              backgroundColor: const Color(0xFFF6F8F7),
 
-          indicatorColor: const Color(0xff003527),
+              indicatorColor: const Color(0xff003527),
 
-          iconTheme: WidgetStateProperty.resolveWith<IconThemeData>((states) {
-            if (states.contains(WidgetState.selected)) {
-              return const IconThemeData(color: Colors.white, size: 26);
-            }
-            return const IconThemeData(color: Color(0xff71807B), size: 24);
-          }),
-          labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>((states) {
-            if (states.contains(WidgetState.selected)) {
-              return const TextStyle(
-                color: Color(0xff003527),
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              );
-            }
+              iconTheme: WidgetStateProperty.resolveWith<IconThemeData>((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return const IconThemeData(color: Colors.white, size: 26);
+                }
+                return const IconThemeData(color: Color(0xff71807B), size: 24);
+              }),
+              labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return const TextStyle(
+                    color: Color(0xff003527),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  );
+                }
 
-            return const TextStyle(
-              color: Color(0xff71807B),
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-            );
-          }),
-        ),
-
-        child: NavigationBar(
-          selectedIndex: currentIndex,
-
-          onDestinationSelected: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
-
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(FlutterIslamicIcons.solidMosque),
-              selectedIcon: Icon(FlutterIslamicIcons.solidMosque),
-              label: 'mosque',
-            ),
-            NavigationDestination(
-              icon: Icon(FlutterIslamicIcons.solidQuran2),
-              selectedIcon: Icon(FlutterIslamicIcons.solidQuran2),
-              label: 'Quran',
+                return const TextStyle(
+                  color: Color(0xff71807B),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                );
+              }),
             ),
 
-            NavigationDestination(
-              icon: Icon(FlutterIslamicIcons.solidTasbih),
-              selectedIcon: Icon(FlutterIslamicIcons.solidTasbih),
-              label: 'Azkar',
-            ),
+            child: NavigationBar(
+              selectedIndex: currentIndex,
 
-            NavigationDestination(
-              icon: Icon(FlutterIslamicIcons.solidMuslim),
-              selectedIcon: Icon(FlutterIslamicIcons.solidMuslim),
-              label: 'Profile',
+              onDestinationSelected: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+
+              destinations: const [
+                NavigationDestination(
+                  icon: Icon(FlutterIslamicIcons.solidMosque),
+                  selectedIcon: Icon(FlutterIslamicIcons.solidMosque),
+                  label: 'mosque',
+                ),
+                NavigationDestination(
+                  icon: Icon(FlutterIslamicIcons.solidQuran2),
+                  selectedIcon: Icon(FlutterIslamicIcons.solidQuran2),
+                  label: 'Quran',
+                ),
+
+                NavigationDestination(
+                  icon: Icon(FlutterIslamicIcons.solidTasbih),
+                  selectedIcon: Icon(FlutterIslamicIcons.solidTasbih),
+                  label: 'Azkar',
+                ),
+
+                NavigationDestination(
+                  icon: Icon(FlutterIslamicIcons.solidMuslim),
+                  selectedIcon: Icon(FlutterIslamicIcons.solidMuslim),
+                  label: 'Profile',
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

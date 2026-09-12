@@ -20,13 +20,14 @@ class AudioPlayerCoordinator extends ChangeNotifier {
   final RepeatController repeatController;
   final ReciterAudioHandler reciterHandler;
 
-  final String _initialAudioUrl;
+  final String? _initialAudioUrl;
   bool _isTransitioning = false;
+  bool _hasActiveSession = false;
 
   AudioPlayerCoordinator({
-    required SurahModel initialSurah,
-    required ReciterModel initialReciter,
-    required String initialAudioUrl,
+    SurahModel? initialSurah,
+    ReciterModel? initialReciter,
+    String? initialAudioUrl,
     List<SurahModel>? surahList,
     Map<int, String>? audioMap,
     AudioPlayerController? playerController,
@@ -36,6 +37,7 @@ class AudioPlayerCoordinator extends ChangeNotifier {
     ReciterAudioHandler? reciterHandler,
     AudioPlayerService? audioService,
   })  : _initialAudioUrl = initialAudioUrl,
+        _hasActiveSession = initialSurah != null && initialAudioUrl != null,
         playerController = playerController ??
             AudioPlayerController(audioService: audioService),
         navigationController = navigationController ??
@@ -60,6 +62,7 @@ class AudioPlayerCoordinator extends ChangeNotifier {
   }
 
   // --- Convenience Getters & Delegates ---
+  bool get hasActiveSession => _hasActiveSession;
   SurahModel get currentSurah => navigationController.currentSurah;
   SurahModel get surah => navigationController.currentSurah;
   ReciterModel get reciter => reciterHandler.currentReciter;
@@ -85,6 +88,8 @@ class AudioPlayerCoordinator extends ChangeNotifier {
 
   Stream<PlayerState> get playerStateStream => playerController.playerStateStream;
   Stream<Duration> get positionStream => playerController.positionStream;
+  Stream<Duration?> get durationStream => playerController.durationStream;
+  Stream<Duration> get bufferedPositionStream => playerController.bufferedPositionStream;
   Duration get duration => playerController.duration;
   Duration get bufferedPosition => playerController.bufferedPosition;
   double get speed => playerController.speed;
@@ -96,11 +101,14 @@ class AudioPlayerCoordinator extends ChangeNotifier {
 
     playerController.setOnPlaybackCompleted(_handlePlaybackCompleted);
 
-    playerController.loadAudio(
-      url: _initialAudioUrl,
-      title: navigationController.currentSurah.englishName,
-      artist: reciterHandler.currentReciter.name,
-    );
+    final initialUrl = _initialAudioUrl;
+    if (initialUrl != null && initialUrl.isNotEmpty) {
+      playerController.loadAudio(
+        url: initialUrl,
+        title: navigationController.currentSurah.englishName,
+        artist: reciterHandler.currentReciter.name,
+      );
+    }
   }
 
   // --- Playback Completion Handling ---
@@ -138,11 +146,58 @@ class AudioPlayerCoordinator extends ChangeNotifier {
   }
 
   // --- Actions ---
+  Future<void> startRecitation({
+    required SurahModel surah,
+    required ReciterModel reciter,
+    required String audioUrl,
+    List<SurahModel>? surahList,
+    Map<int, String>? audioMap,
+  }) async {
+    _hasActiveSession = true;
+
+    final isSameRecitation =
+        navigationController.currentSurah.number == surah.number &&
+            reciterHandler.currentReciter.id == reciter.id &&
+            playerController.currentAudioUrl == audioUrl;
+
+    navigationController.updateCurrentSurah(surah);
+    if (surahList != null) {
+      navigationController.updateSurahList(surahList);
+    } else {
+      navigationController.ensureSurahListLoaded();
+    }
+
+    reciterHandler.setReciter(reciter);
+    if (audioMap != null) {
+      reciterHandler.setAudioMap(audioMap);
+    }
+
+    if (isSameRecitation && !playerController.hasError) {
+      notifyListeners();
+      return;
+    }
+
+    playerController.setOnPlaybackCompleted(_handlePlaybackCompleted);
+
+    await playerController.loadAudio(
+      url: audioUrl,
+      title: surah.englishName,
+      artist: reciter.name,
+    );
+  }
+
+  Future<void> stopAndClearSession() async {
+    await playerController.stop();
+    _hasActiveSession = false;
+    notifyListeners();
+  }
+
   Future<void> playSurah(SurahModel targetSurah) async {
     if (!navigationController.isValidSurahNumber(targetSurah.number)) {
       return;
     }
 
+    _hasActiveSession = true;
     navigationController.updateCurrentSurah(targetSurah);
 
     final url = await reciterHandler.getAudioUrl(targetSurah.number);

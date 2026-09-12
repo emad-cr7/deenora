@@ -228,6 +228,34 @@ void main() {
 
       coordinator.dispose();
     });
+
+    test('Coordinator initializes with inactive session when no initial parameters provided', () {
+      final coordinator = AudioPlayerCoordinator();
+
+      expect(coordinator.hasActiveSession, isFalse);
+      expect(coordinator.currentSurah.number, 1);
+
+      coordinator.dispose();
+    });
+
+    test('Coordinator initializes with active session when initial parameters provided and resets on stop', () async {
+      final coordinator = AudioPlayerCoordinator(
+        initialSurah: dummySurahs[0],
+        initialReciter: dummyReciter,
+        initialAudioUrl: dummyAudioMap[1]!,
+        surahList: dummySurahs,
+        audioMap: dummyAudioMap,
+      );
+
+      expect(coordinator.hasActiveSession, isTrue);
+      expect(coordinator.currentSurah.number, 1);
+      expect(coordinator.reciter.id, dummyReciter.id);
+
+      await coordinator.stopAndClearSession();
+      expect(coordinator.hasActiveSession, isFalse);
+
+      coordinator.dispose();
+    });
   });
 
   group('Minimal AudioPlayerController Core Tests', () {

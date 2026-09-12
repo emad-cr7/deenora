@@ -5,10 +5,19 @@ class SurahNavigationService {
   List<SurahModel> _surahList;
   SurahModel _currentSurah;
 
+  static final SurahModel defaultInitialSurah = SurahModel(
+    number: 1,
+    name: 'سورة الفاتحة',
+    englishName: 'Al-Faatiha',
+    englishNameTranslation: 'The Opening',
+    revelationType: 'Meccan',
+    ayahs: const [],
+  );
+
   SurahNavigationService({
-    required SurahModel initialSurah,
+    SurahModel? initialSurah,
     List<SurahModel>? surahList,
-  })  : _currentSurah = initialSurah,
+  })  : _currentSurah = initialSurah ?? defaultInitialSurah,
         _surahList = surahList ?? [];
 
   // قائمة السور الحالية

@@ -8,10 +8,10 @@ class ReciterAudioHandler extends ChangeNotifier {
   final QuranListeningService _listeningService;
 
   ReciterAudioHandler({
-    required ReciterModel initialReciter,
+    ReciterModel? initialReciter,
     Map<int, String>? initialAudioMap,
     QuranListeningService? listeningService,
-  })  : _currentReciter = initialReciter,
+  })  : _currentReciter = initialReciter ?? reciters.first,
         _audioMap = initialAudioMap,
         _listeningService = listeningService ?? QuranListeningService();
 

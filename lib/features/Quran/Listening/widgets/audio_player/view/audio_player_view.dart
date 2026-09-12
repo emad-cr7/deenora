@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../../../core/theme/app_colors.dart';
 import '../controller/audio_player_coordinator.dart';
-import '../search/audio_search_view.dart';
 import '../widgets/main_player_controls_card.dart';
 import '../widgets/player_error_view.dart';
 import '../widgets/sleep_timer_and_extras_card.dart';
@@ -48,25 +47,6 @@ class AudioPlayerView extends StatelessWidget {
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search_rounded),
-            tooltip: 'Search Quran',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => AudioSearchView(
-                    coordinator: coordinator,
-                    currentReciter: coordinator.reciter,
-                    currentSurah: coordinator.currentSurah,
-                    surahList: coordinator.surahList,
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
       ),
       body: coordinator.hasError
           ? PlayerErrorView(
