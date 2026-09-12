@@ -13,7 +13,6 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveManager().init();
-
   final audioHandler = await AudioService.init(
     builder: () => QuranAudioHandler(),
     config: const AudioServiceConfig(
@@ -32,9 +31,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final QuranAudioHandler audioHandler;
-
   const MyApp({super.key, required this.audioHandler});
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<AudioPlayerCoordinator>(
