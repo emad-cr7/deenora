@@ -7,8 +7,8 @@ void main() {
   HttpOverrides.global = null;
 
   group('MP3Quran Reciters and Audio Flow Verification', () {
-    test('All 15 hardcoded reciters have verified MP3Quran IDs', () {
-      expect(reciters.length, 15);
+    test('All 16 hardcoded reciters have verified MP3Quran IDs', () {
+      expect(reciters.length, 16);
 
       final expectedIds = {
         'Abdul Basit Abdus Samad': 51,
@@ -16,6 +16,7 @@ void main() {
         'Muhammad Siddiq Al Minshawi': 112,
         'Abdullah Ali Jaber': 76,
         'Yasser Al Dosari': 92,
+        'Faris Abbad': 81,
         'Mishary Rashid Al Afasy': 123,
         'Ahmed bin Ali Al Ajmi': 5,
         'Saud Al Shuraim': 31,
