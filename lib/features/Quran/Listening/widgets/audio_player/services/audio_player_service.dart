@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:just_audio/just_audio.dart';
-import 'package:just_audio_background/just_audio_background.dart';
+
+import 'audio_background_handler.dart';
 
 // خدمة إدارة مشغل الصوت ومصادره والتحكم بالتشغيل
 class AudioPlayerService {
@@ -36,13 +37,11 @@ class AudioPlayerService {
     await _player.setAudioSource(
       AudioSource.uri(
         Uri.parse(url),
-        tag: MediaItem(
-          id: url,
+        tag: AudioBackgroundHandler.buildMediaItem(
+          url: url,
           title: title,
           artist: artist,
           album: album,
-          displayTitle: title,
-          displaySubtitle: artist,
         ),
       ),
     );

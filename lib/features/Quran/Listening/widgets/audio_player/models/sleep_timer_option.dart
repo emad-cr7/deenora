@@ -1,78 +1,27 @@
 import 'package:flutter/material.dart';
 
-// خيارات مؤقت النوم المتاحة لتحديد مدة إيقاف الصوت تلقائياً
 enum SleepTimerOption {
-  tenMin(
-    minutes: 10,
-    label: '10 min',
-    title: '10 minutes',
-    subtitle: 'Pause playback in 10 minutes',
-    icon: Icons.timer_outlined,
-  ),
-  fifteenMin(
-    minutes: 15,
-    label: '15 min',
-    title: '15 minutes',
-    subtitle: 'Pause playback in 15 minutes',
-    icon: Icons.timer_outlined,
-  ),
-  thirtyMin(
-    minutes: 30,
-    label: '30 min',
-    title: '30 minutes',
-    subtitle: 'Pause playback in 30 minutes',
-    icon: Icons.timer_outlined,
-  ),
-  fortyFiveMin(
-    minutes: 45,
-    label: '45 min',
-    title: '45 minutes',
-    subtitle: 'Pause playback in 45 minutes',
-    icon: Icons.timer_outlined,
-  ),
-  oneHour(
-    minutes: 60,
-    label: '1 hour',
-    title: '1 hour',
-    subtitle: 'Pause playback in 60 minutes',
-    icon: Icons.hourglass_bottom_rounded,
-  ),
-  endOfSurah(
-    minutes: 0,
-    label: 'End of Surah',
-    title: 'End of current Surah',
-    subtitle: 'Pause when the current Surah finishes',
-    icon: Icons.check_circle_outline_rounded,
-  ),
-  custom(
-    minutes: 0,
-    label: 'Custom',
-    title: 'Custom Duration',
-    subtitle: 'Set duration in minutes',
-    icon: Icons.tune_rounded,
-  );
+  tenMin(10, '10 minutes', 'Stop playback after 10 minutes', Icons.hourglass_bottom_rounded),
+  fifteenMin(15, '15 minutes', 'Stop playback after 15 minutes', Icons.hourglass_bottom_rounded),
+  thirtyMin(30, '30 minutes', 'Stop playback after 30 minutes', Icons.hourglass_bottom_rounded),
+  fortyFiveMin(45, '45 minutes', 'Stop playback after 45 minutes', Icons.hourglass_bottom_rounded),
+  sixtyMin(60, '1 hour', 'Stop playback after 1 hour', Icons.hourglass_bottom_rounded),
+  endOfSurah(0, 'End of current Surah', 'Stop at the end of this recitation', Icons.done_all_rounded),
+  custom(-1, 'Custom duration', 'Choose your own duration', Icons.tune_rounded);
 
   final int minutes;
-  final String label;
   final String title;
   final String subtitle;
   final IconData icon;
 
-  const SleepTimerOption({
-    required this.minutes,
-    required this.label,
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-  });
+  const SleepTimerOption(this.minutes, this.title, this.subtitle, this.icon);
 
-  /// الخيارات الجاهزة المعروضة في القائمة قبل الخيار المخصص
   static List<SleepTimerOption> get presets => [
-        tenMin,
-        fifteenMin,
-        thirtyMin,
-        fortyFiveMin,
-        oneHour,
-        endOfSurah,
-      ];
+    tenMin,
+    fifteenMin,
+    thirtyMin,
+    fortyFiveMin,
+    sixtyMin,
+    endOfSurah,
+  ];
 }

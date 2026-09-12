@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../audio_player_controller.dart';
+import '../controller/sleep_timer_controller.dart';
+import '../models/sleep_timer_option.dart';
 
 class SleepTimerSheet extends StatefulWidget {
-  const SleepTimerSheet({super.key});
+  final VoidCallback? onTimerCompleteAction;
+
+  const SleepTimerSheet({
+    super.key,
+    this.onTimerCompleteAction,
+  });
 
   static const Color primaryColor = Color(0xFF1B5E4F);
 
-  static Future<void> show(BuildContext context) {
-    final controller = context.read<AudioPlayerController>();
+  static Future<void> show(
+    BuildContext context, {
+    VoidCallback? onTimerComplete,
+  }) {
+    final timerController = context.read<SleepTimerController>();
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (_) => ChangeNotifierProvider.value(
-        value: controller,
-        child: const SleepTimerSheet(),
+        value: timerController,
+        child: SleepTimerSheet(
+          onTimerCompleteAction: onTimerComplete,
+        ),
       ),
     );
   }
@@ -28,9 +39,24 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
   bool _showCustomPicker = false;
   double _customMinutes = 20;
 
+  void _onOptionSelected(
+    SleepTimerController controller,
+    SleepTimerOption option, {
+    int? customMinutes,
+  }) {
+    controller.startTimer(
+      option,
+      customMinutes: customMinutes,
+      onTimerComplete: () {
+        widget.onTimerCompleteAction?.call();
+      },
+    );
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final controller = context.watch<AudioPlayerController>();
+    final controller = context.watch<SleepTimerController>();
 
     return Container(
       decoration: const BoxDecoration(
@@ -50,7 +76,7 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // مقبض السحب العلوي
+              // Top drag handle
               Center(
                 child: Container(
                   width: 44,
@@ -63,9 +89,8 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
               ),
               const SizedBox(height: 16),
 
-
-              // بطاقة المؤقت النشط
-              if (controller.isSleepTimerActive) ...[
+              // Active timer card
+              if (controller.isActive) ...[
                 Container(
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
@@ -105,7 +130,7 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              'Remaining: ${controller.sleepTimerFormatted}',
+                              'Remaining: ${controller.formattedRemainingTime}',
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -128,7 +153,7 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                           'Cancel',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        onPressed: () => controller.cancelSleepTimer(),
+                        onPressed: () => controller.cancelTimer(),
                       ),
                     ],
                   ),
@@ -136,39 +161,34 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                 const SizedBox(height: 16),
               ],
 
-              // خيارات المؤقت المقترحة
+              // Presets
               ...SleepTimerOption.presets.map(
                 (option) => Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: _TimerOptionTile(
                     option: option,
-                    isSelected: controller.sleepTimerOption == option,
-                    onTap: () {
-                      controller.setSleepTimer(option);
-                      Navigator.pop(context);
-                    },
+                    isSelected: controller.selectedOption == option,
+                    onTap: () => _onOptionSelected(controller, option),
                   ),
                 ),
               ),
 
-              // خيار المدة المخصصة
+              // Custom Option
               _TimerOptionTile(
                 option: SleepTimerOption.custom,
-                isSelected:
-                    controller.sleepTimerOption == SleepTimerOption.custom,
-                onTap: () =>
-                    setState(() => _showCustomPicker = !_showCustomPicker),
+                isSelected: controller.selectedOption == SleepTimerOption.custom,
+                onTap: () => setState(() => _showCustomPicker = !_showCustomPicker),
                 trailing: Icon(
                   _showCustomPicker
                       ? Icons.keyboard_arrow_up_rounded
                       : Icons.keyboard_arrow_down_rounded,
-                  color: controller.sleepTimerOption == SleepTimerOption.custom
+                  color: controller.selectedOption == SleepTimerOption.custom
                       ? SleepTimerSheet.primaryColor
                       : Colors.grey[600],
                 ),
               ),
 
-              // منزلق تحديد المدة المخصصة
+              // Custom duration slider
               if (_showCustomPicker) ...[
                 const SizedBox(height: 12),
                 _buildCustomDurationPicker(context, controller),
@@ -180,10 +200,9 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
     );
   }
 
-  // منزلق ومحدد المدة المخصصة
   Widget _buildCustomDurationPicker(
     BuildContext context,
-    AudioPlayerController controller,
+    SleepTimerController controller,
   ) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -247,13 +266,11 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                 vertical: 12,
               ),
             ),
-            onPressed: () {
-              controller.setSleepTimer(
-                SleepTimerOption.custom,
-                customMinutes: _customMinutes.toInt(),
-              );
-              Navigator.pop(context);
-            },
+            onPressed: () => _onOptionSelected(
+              controller,
+              SleepTimerOption.custom,
+              customMinutes: _customMinutes.toInt(),
+            ),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -275,7 +292,6 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
   }
 }
 
-// عنصر خيار مؤقت النوم الموحد
 class _TimerOptionTile extends StatelessWidget {
   final SleepTimerOption option;
   final bool isSelected;
@@ -359,14 +375,13 @@ class _TimerOptionTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                trailing ??
-                    (isSelected
-                        ? const Icon(
-                            Icons.check_circle_rounded,
-                            color: primaryColor,
-                            size: 22,
-                          )
-                        : const SizedBox.shrink()),
+                ?trailing,
+                if (trailing == null && isSelected)
+                  const Icon(
+                    Icons.check_circle_rounded,
+                    color: primaryColor,
+                    size: 22,
+                  ),
               ],
             ),
           ),

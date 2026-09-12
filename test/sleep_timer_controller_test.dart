@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:deenora/features/Quran/Listening/widgets/audio_player/controllers/sleep_timer_controller.dart';
+import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/sleep_timer_controller.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/models/sleep_timer_option.dart';
 
 void main() {

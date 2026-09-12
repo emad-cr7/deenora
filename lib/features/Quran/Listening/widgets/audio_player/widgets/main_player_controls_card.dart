@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../audio_player_controller.dart';
+import '../controller/audio_player_coordinator.dart';
 import 'player_controls_row.dart';
 import 'player_progress_bar.dart';
 
 // بطاقة الحاوية البيضاء لشريط التقدم وأزرار التحكم بالصوت
 class MainPlayerControlsCard extends StatelessWidget {
-  final AudioPlayerController controller;
+  final AudioPlayerCoordinator coordinator;
 
   const MainPlayerControlsCard({
     super.key,
-    required this.controller,
+    required this.coordinator,
   });
 
   @override
@@ -33,30 +33,30 @@ class MainPlayerControlsCard extends StatelessWidget {
         children: [
           // شريط التقدم الزمني للتلاوة
           PlayerProgressBar(
-            positionStream: controller.positionStream,
-            bufferedPosition: controller.bufferedPosition,
-            totalDuration: controller.duration,
-            onSeek: controller.seek,
+            positionStream: coordinator.positionStream,
+            bufferedPosition: coordinator.bufferedPosition,
+            totalDuration: coordinator.duration,
+            onSeek: coordinator.seek,
           ),
           const SizedBox(height: 10),
 
           // صف أزرار التحكم
           PlayerControlsRow(
-            playerStateStream: controller.playerStateStream,
-            isLoadingSurah: controller.isLoadingSurah,
-            hasPrevious: controller.hasPrevious,
+            playerStateStream: coordinator.playerStateStream,
+            isLoadingSurah: coordinator.isLoadingSurah,
+            hasPrevious: coordinator.hasPrevious,
             onPreviousPressed:
-                controller.hasPrevious && !controller.isLoadingSurah
-                    ? () => controller.playPreviousSurah()
+                coordinator.hasPrevious && !coordinator.isLoadingSurah
+                    ? () => coordinator.playPreviousSurah()
                     : null,
-            hasNext: controller.hasNext,
-            onNextPressed: controller.hasNext && !controller.isLoadingSurah
-                ? () => controller.playNextSurah()
+            hasNext: coordinator.hasNext,
+            onNextPressed: coordinator.hasNext && !coordinator.isLoadingSurah
+                ? () => coordinator.playNextSurah()
                 : null,
-            onRewindPressed: () => controller.rewind10(),
-            onForwardPressed: () => controller.forward10(),
+            onRewindPressed: () => coordinator.rewind10(),
+            onForwardPressed: () => coordinator.forward10(),
             onPlayPausePressed: (playing) =>
-                controller.togglePlayPause(playing),
+                coordinator.togglePlayPause(playing),
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 class ReciterModel {
   final int id;
   final String name;
+  final String? arabicName;
   final String imagePath;
   final String country;
   final String description;
@@ -10,6 +11,7 @@ class ReciterModel {
   const ReciterModel({
     required this.id,
     required this.name,
+    this.arabicName,
     required this.imagePath,
     required this.country,
     required this.description,
@@ -22,6 +24,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 51,
     name: 'Abdul Basit Abdus Samad',
+    arabicName: 'عبد الباسط عبد الصمد',
     imagePath: 'assets/images/Abdul Basit Abdus Samad.png',
     country: 'Egypt',
     birthDate: '1927',
@@ -33,6 +36,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 118,
     name: 'Mahmoud Khalil Al Hussary',
+    arabicName: 'محمود خليل الحصري',
     imagePath: 'assets/images/Mahmoud Khalil Al-Hussary.png',
     country: 'Egypt',
     birthDate: '1917',
@@ -44,6 +48,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 112,
     name: 'Muhammad Siddiq Al Minshawi',
+    arabicName: 'محمد صديق المنشاوي',
     imagePath: 'assets/images/Muhammad Siddiq Al-Minshawi.png',
     country: 'Egypt',
     birthDate: '1920',
@@ -55,6 +60,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 76,
     name: 'Abdullah Ali Jaber',
+    arabicName: 'عبد الله علي جابر',
     imagePath: 'assets/images/Abdullah Ali Jaber.png',
     country: 'Saudi Arabia',
     birthDate: '1954',
@@ -66,6 +72,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 92,
     name: 'Yasser Al Dosari',
+    arabicName: 'ياسر الدوسري',
     imagePath: 'assets/images/Yasser Al-Dosari.png',
     country: 'Saudi Arabia',
     birthDate: '1980',
@@ -76,6 +83,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 81,
     name: 'Faris Abbad',
+    arabicName: 'فارس عباد',
     imagePath: 'assets/images/Faris Abbad.png',
     country: 'Yemen',
     birthDate: '1980',
@@ -87,6 +95,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 123,
     name: 'Mishary Rashid Al Afasy',
+    arabicName: 'مشاري راشد العفاسي',
     imagePath: 'assets/images/Mishary Rashid Al-Afasy.png',
     country: 'Kuwait',
     birthDate: '1976',
@@ -98,6 +107,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 5,
     name: 'Ahmed bin Ali Al Ajmi',
+    arabicName: 'أحمد بن علي العجمي',
     imagePath: 'assets/images/Ahmed bin Ali Al-Ajmi.png',
     country: 'Saudi Arabia',
     birthDate: '1968',
@@ -109,6 +119,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 31,
     name: 'Saud Al Shuraim',
+    arabicName: 'سعود الشريم',
     imagePath: 'assets/images/Saud Al-Shuraim.png',
     country: 'Saudi Arabia',
     birthDate: '1966',
@@ -120,6 +131,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 30,
     name: 'Saad Al Ghamdi',
+    arabicName: 'سعد الغامدي',
     imagePath: 'assets/images/Saad Al-Ghamdi.png',
     country: 'Saudi Arabia',
     birthDate: '1967',
@@ -131,6 +143,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 54,
     name: 'Abdul Rahman Al Sudais',
+    arabicName: 'عبد الرحمن السديس',
     imagePath: 'assets/images/Abdul Rahman Al Sudais .png',
     country: 'Saudi Arabia',
     birthDate: '1962',
@@ -142,6 +155,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 89,
     name: 'Hani Al Rifai',
+    arabicName: 'هاني الرفاعي',
     imagePath: 'assets/images/Hani Al-Rifai.png',
     country: 'Saudi Arabia',
     birthDate: '1974',
@@ -153,6 +167,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 24,
     name: 'Khalifa Al Tunaiji',
+    arabicName: 'خليفة الطنيجي',
     imagePath: 'assets/images/Khalifa Al-Tunaiji.png',
     country: 'United Arab Emirates',
     birthDate: '1969',
@@ -164,6 +179,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 102,
     name: 'Maher Al Muaiqly',
+    arabicName: 'ماهر المعيقلي',
     imagePath: 'assets/images/Maher Al-Muaiqly.png',
     country: 'Saudi Arabia',
     birthDate: '1969',
@@ -175,6 +191,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 217,
     name: 'Bandar Baleela',
+    arabicName: 'بندر بليلة',
     imagePath: 'assets/images/Bandar Baleela.png',
     country: 'Saudi Arabia',
     birthDate: '1975',
@@ -186,6 +203,7 @@ final List<ReciterModel> reciters = [
   const ReciterModel(
     id: 4,
     name: 'Abu Bakr Al Shatri',
+    arabicName: 'أبو بكر الشاطري',
     imagePath: 'assets/images/Abu Bakr Al-Shatri.png',
     country: 'Saudi Arabia',
     birthDate: '1970',

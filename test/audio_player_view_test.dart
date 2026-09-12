@@ -1,6 +1,6 @@
 import 'package:deenora/features/Quran/Listening/models_listening/reciter_model.dart';
-import 'package:deenora/features/Quran/Listening/widgets/audio_player/audio_player_controller.dart';
-import 'package:deenora/features/Quran/Listening/widgets/audio_player/audio_player_view.dart';
+import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
+import 'package:deenora/features/Quran/Listening/widgets/audio_player/view/audio_player_view.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/widgets/main_player_controls_card.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/widgets/player_controls_row.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/widgets/player_progress_bar.dart';
@@ -32,17 +32,17 @@ void main() {
       description: 'Reciter',
     );
 
-    final controller = AudioPlayerController(
-      surah: testSurah,
-      reciter: testReciter,
-      audioUrl: 'https://example.com/audio.mp3',
+    final coordinator = AudioPlayerCoordinator(
+      initialSurah: testSurah,
+      initialReciter: testReciter,
+      initialAudioUrl: 'https://example.com/audio.mp3',
       surahList: [testSurah],
     );
 
     await tester.pumpWidget(
       MaterialApp(
-        home: ChangeNotifierProvider<AudioPlayerController>.value(
-          value: controller,
+        home: ChangeNotifierProvider<AudioPlayerCoordinator>.value(
+          value: coordinator,
           child: const AudioPlayerView(),
         ),
       ),

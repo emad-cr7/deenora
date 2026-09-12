@@ -2,22 +2,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../models/sleep_timer_option.dart';
 
-// متحكم إدارة العد التنازلي لمؤقت النوم
 class SleepTimerController extends ChangeNotifier {
   Timer? _timer;
   SleepTimerOption? _selectedOption;
   int _remainingSeconds = 0;
 
-  // هل مؤقت النوم نشط حالياً
   bool get isActive => _selectedOption != null;
 
-  // خيار مؤقت النوم المحدد
   SleepTimerOption? get selectedOption => _selectedOption;
 
-  // الثواني المتبقية حتى انتهاء المؤقت
   int get remainingSeconds => _remainingSeconds;
 
-  // تنسيق الوقت المتبقي لمؤقت النوم باللغة الإنجليزية
+  bool get isEndOfSurah => _selectedOption == SleepTimerOption.endOfSurah;
+
   String get formattedRemainingTime {
     if (_selectedOption == SleepTimerOption.endOfSurah) {
       return 'End of Surah';
@@ -32,7 +29,6 @@ class SleepTimerController extends ChangeNotifier {
     return '${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
   }
 
-  // بدء تشغيل مؤقت النوم وتنفيذ إجراء عند انتهائه
   void startTimer(
     SleepTimerOption option, {
     int? customMinutes,
@@ -63,7 +59,6 @@ class SleepTimerController extends ChangeNotifier {
     notifyListeners();
   }
 
-  // إلغاء مؤقت النوم وإعادة تعيين المتغيرات
   void cancelTimer({bool notify = true}) {
     _timer?.cancel();
     _timer = null;
@@ -74,7 +69,6 @@ class SleepTimerController extends ChangeNotifier {
     }
   }
 
-  // تنظيف موارد المؤقت
   @override
   void dispose() {
     _timer?.cancel();

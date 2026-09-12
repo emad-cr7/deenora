@@ -1,6 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:deenora/features/Quran/Listening/models_listening/reciter_model.dart';
-import 'package:deenora/features/Quran/Listening/widgets/audio_player/audio_player_controller.dart';
+import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/audio_player_controller.dart';
+import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
+import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/surah_navigation_controller.dart';
+import 'package:deenora/features/Quran/Listening/widgets/audio_player/models/sleep_timer_option.dart';
 import 'package:deenora/features/Quran/reading/models/surah_model.dart';
 
 void main() {
@@ -48,187 +51,159 @@ void main() {
     3: 'https://server.test/003.mp3',
   };
 
-  group('AudioPlayerController Navigation Tests', () {
+  group('SurahNavigationController Tests', () {
     test('Boundary conditions for first Surah (Surah 1)', () {
-      final controller = AudioPlayerController(
-        surah: dummySurahs[0],
-        reciter: dummyReciter,
-        audioUrl: dummyAudioMap[1]!,
+      final nav = SurahNavigationController(
+        initialSurah: dummySurahs[0],
         surahList: dummySurahs,
-        audioMap: dummyAudioMap,
       );
 
-      expect(controller.hasPrevious, isFalse);
-      expect(controller.hasNext, isTrue);
-      expect(controller.previousSurah, isNull);
-      expect(controller.nextSurah?.englishName, 'Al-Baqarah');
-      expect(controller.currentSurahIndex, 0);
+      expect(nav.hasPrevious, isFalse);
+      expect(nav.hasNext, isTrue);
+      expect(nav.previousSurah, isNull);
+      expect(nav.nextSurah?.englishName, 'Al-Baqarah');
+      expect(nav.currentSurahIndex, 0);
 
-      controller.dispose();
+      nav.dispose();
     });
 
     test('Middle Surah has both Previous and Next', () {
-      final controller = AudioPlayerController(
-        surah: dummySurahs[1],
-        reciter: dummyReciter,
-        audioUrl: dummyAudioMap[2]!,
+      final nav = SurahNavigationController(
+        initialSurah: dummySurahs[1],
         surahList: dummySurahs,
-        audioMap: dummyAudioMap,
       );
 
-      expect(controller.hasPrevious, isTrue);
-      expect(controller.hasNext, isTrue);
-      expect(controller.previousSurah?.englishName, 'Al-Fatiha');
-      expect(controller.nextSurah?.englishName, 'Aal-E-Imran');
-      expect(controller.currentSurahIndex, 1);
+      expect(nav.hasPrevious, isTrue);
+      expect(nav.hasNext, isTrue);
+      expect(nav.previousSurah?.englishName, 'Al-Fatiha');
+      expect(nav.nextSurah?.englishName, 'Aal-E-Imran');
+      expect(nav.currentSurahIndex, 1);
 
-      controller.dispose();
+      nav.dispose();
     });
 
     test('Boundary conditions for last Surah in list', () {
-      final controller = AudioPlayerController(
-        surah: dummySurahs[2],
-        reciter: dummyReciter,
-        audioUrl: dummyAudioMap[3]!,
+      final nav = SurahNavigationController(
+        initialSurah: dummySurahs[2],
         surahList: dummySurahs,
-        audioMap: dummyAudioMap,
       );
 
-      expect(controller.hasPrevious, isTrue);
-      expect(controller.hasNext, isFalse);
-      expect(controller.previousSurah?.englishName, 'Al-Baqarah');
-      expect(controller.nextSurah, isNull);
-      expect(controller.currentSurahIndex, 2);
+      expect(nav.hasPrevious, isTrue);
+      expect(nav.hasNext, isFalse);
+      expect(nav.previousSurah?.englishName, 'Al-Baqarah');
+      expect(nav.nextSurah, isNull);
+      expect(nav.currentSurahIndex, 2);
 
-      controller.dispose();
+      nav.dispose();
     });
   });
 
-  group('AudioPlayerController Sleep Timer Tests', () {
-    test('Setting preset sleep timer updates state and formatted remaining time', () {
-      final controller = AudioPlayerController(
-        surah: dummySurahs[0],
-        reciter: dummyReciter,
-        audioUrl: dummyAudioMap[1]!,
+  group('AudioPlayerCoordinator Tests', () {
+    test('Coordinator initializes navigation and sleep timer state correctly', () {
+      final coordinator = AudioPlayerCoordinator(
+        initialSurah: dummySurahs[0],
+        initialReciter: dummyReciter,
+        initialAudioUrl: dummyAudioMap[1]!,
         surahList: dummySurahs,
         audioMap: dummyAudioMap,
       );
 
-      expect(controller.isSleepTimerActive, isFalse);
+      expect(coordinator.hasPrevious, isFalse);
+      expect(coordinator.hasNext, isTrue);
+      expect(coordinator.currentSurah.number, 1);
+      expect(coordinator.reciter.name, 'Abdul Basit Abdus Samad');
+      expect(coordinator.isSleepTimerActive, isFalse);
 
-      controller.setSleepTimer(SleepTimerOption.tenMin);
-      expect(controller.isSleepTimerActive, isTrue);
-      expect(controller.sleepTimerOption, SleepTimerOption.tenMin);
-      expect(controller.sleepTimerRemainingSeconds, 600);
-      expect(controller.sleepTimerFormatted, '10:00');
+      coordinator.setSleepTimer(SleepTimerOption.tenMin);
+      expect(coordinator.isSleepTimerActive, isTrue);
+      expect(coordinator.sleepTimerOption, SleepTimerOption.tenMin);
+      expect(coordinator.sleepTimerRemainingSeconds, 600);
+      expect(coordinator.sleepTimerFormatted, '10:00');
 
-      controller.cancelSleepTimer();
-      expect(controller.isSleepTimerActive, isFalse);
-      expect(controller.sleepTimerOption, isNull);
-      expect(controller.sleepTimerRemainingSeconds, 0);
+      coordinator.cancelSleepTimer();
+      expect(coordinator.isSleepTimerActive, isFalse);
+      expect(coordinator.sleepTimerOption, isNull);
 
-      controller.dispose();
+      coordinator.dispose();
     });
 
     test('Custom sleep timer sets custom duration properly', () {
-      final controller = AudioPlayerController(
-        surah: dummySurahs[0],
-        reciter: dummyReciter,
-        audioUrl: dummyAudioMap[1]!,
+      final coordinator = AudioPlayerCoordinator(
+        initialSurah: dummySurahs[0],
+        initialReciter: dummyReciter,
+        initialAudioUrl: dummyAudioMap[1]!,
         surahList: dummySurahs,
         audioMap: dummyAudioMap,
       );
 
-      controller.setSleepTimer(SleepTimerOption.custom, customMinutes: 25);
-      expect(controller.isSleepTimerActive, isTrue);
-      expect(controller.sleepTimerOption, SleepTimerOption.custom);
-      expect(controller.sleepTimerRemainingSeconds, 1500);
-      expect(controller.sleepTimerFormatted, '25:00');
+      coordinator.setSleepTimer(SleepTimerOption.custom, customMinutes: 25);
+      expect(coordinator.isSleepTimerActive, isTrue);
+      expect(coordinator.sleepTimerOption, SleepTimerOption.custom);
+      expect(coordinator.sleepTimerRemainingSeconds, 1500);
+      expect(coordinator.sleepTimerFormatted, '25:00');
 
-      controller.cancelSleepTimer();
-      controller.dispose();
+      coordinator.cancelSleepTimer();
+      coordinator.dispose();
     });
 
     test('End of Surah option sets active status', () {
-      final controller = AudioPlayerController(
-        surah: dummySurahs[0],
-        reciter: dummyReciter,
-        audioUrl: dummyAudioMap[1]!,
+      final coordinator = AudioPlayerCoordinator(
+        initialSurah: dummySurahs[0],
+        initialReciter: dummyReciter,
+        initialAudioUrl: dummyAudioMap[1]!,
         surahList: dummySurahs,
         audioMap: dummyAudioMap,
       );
 
-      controller.setSleepTimer(SleepTimerOption.endOfSurah);
-      expect(controller.isSleepTimerActive, isTrue);
-      expect(controller.sleepTimerOption, SleepTimerOption.endOfSurah);
-      expect(controller.sleepTimerFormatted, 'End of Surah');
+      coordinator.setSleepTimer(SleepTimerOption.endOfSurah);
+      expect(coordinator.isSleepTimerActive, isTrue);
+      expect(coordinator.sleepTimerOption, SleepTimerOption.endOfSurah);
+      expect(coordinator.sleepTimerFormatted, 'End of Surah');
 
-      controller.cancelSleepTimer();
-      controller.dispose();
+      coordinator.cancelSleepTimer();
+      coordinator.dispose();
     });
 
-    // اختبار عدم الدخول في حالة تحميل عند محاولة الانتقال خارج حدود السور
     test('Attempting playPreviousSurah on Surah 1 does not trigger loading', () async {
-      final controller = AudioPlayerController(
-        surah: dummySurahs[0],
-        reciter: dummyReciter,
-        audioUrl: dummyAudioMap[1]!,
+      final coordinator = AudioPlayerCoordinator(
+        initialSurah: dummySurahs[0],
+        initialReciter: dummyReciter,
+        initialAudioUrl: dummyAudioMap[1]!,
         surahList: dummySurahs,
         audioMap: dummyAudioMap,
       );
 
-      expect(controller.hasPrevious, isFalse);
-      expect(controller.isLoadingSurah, isFalse);
+      expect(coordinator.hasPrevious, isFalse);
+      expect(coordinator.isLoadingSurah, isFalse);
 
-      await controller.playPreviousSurah();
+      await coordinator.playPreviousSurah();
 
-      expect(controller.isLoadingSurah, isFalse);
-      expect(controller.currentSurah.number, 1);
+      expect(coordinator.isLoadingSurah, isFalse);
+      expect(coordinator.currentSurah.number, 1);
 
-      controller.dispose();
+      coordinator.dispose();
     });
 
-    // اختبار عدم الدخول في حالة تحميل عند محاولة الانتقال بعد السورة الأخيرة
     test('Attempting playNextSurah on last Surah does not trigger loading', () async {
-      final controller = AudioPlayerController(
-        surah: dummySurahs[2],
-        reciter: dummyReciter,
-        audioUrl: dummyAudioMap[3]!,
+      final coordinator = AudioPlayerCoordinator(
+        initialSurah: dummySurahs[2],
+        initialReciter: dummyReciter,
+        initialAudioUrl: dummyAudioMap[3]!,
         surahList: dummySurahs,
         audioMap: dummyAudioMap,
       );
 
-      expect(controller.hasNext, isFalse);
-      expect(controller.isLoadingSurah, isFalse);
+      expect(coordinator.hasNext, isFalse);
+      expect(coordinator.isLoadingSurah, isFalse);
 
-      await controller.playNextSurah();
+      await coordinator.playNextSurah();
 
-      expect(controller.isLoadingSurah, isFalse);
-      expect(controller.currentSurah.number, 3);
+      expect(coordinator.isLoadingSurah, isFalse);
+      expect(coordinator.currentSurah.number, 3);
 
-      controller.dispose();
-    });
-  });
-
-  group('AudioPlayerController Loading & Navigation State Tests', () {
-    // اختبار أن حالة التحميل تكون معطلة في البداية وأزرار التنقل نشطة حسب موقع السورة
-    test('Initial loading state is false and navigation controls are active', () {
-      final controller = AudioPlayerController(
-        surah: dummySurahs[1],
-        reciter: dummyReciter,
-        audioUrl: dummyAudioMap[2]!,
-        surahList: dummySurahs,
-        audioMap: dummyAudioMap,
-      );
-
-      expect(controller.isLoadingSurah, isFalse);
-      expect(controller.hasPrevious && !controller.isLoadingSurah, isTrue);
-      expect(controller.hasNext && !controller.isLoadingSurah, isTrue);
-
-      controller.dispose();
+      coordinator.dispose();
     });
 
-    // اختبار عدم بدء التحميل إذا تم تمرير سورة برقم خارج النطاق (أقل من 1)
     test('Invalid Surah number does not initiate loading state', () async {
       final invalidSurah = SurahModel(
         number: 0,
@@ -239,19 +214,34 @@ void main() {
         ayahs: [],
       );
 
-      final controller = AudioPlayerController(
-        surah: dummySurahs[0],
-        reciter: dummyReciter,
-        audioUrl: dummyAudioMap[1]!,
+      final coordinator = AudioPlayerCoordinator(
+        initialSurah: dummySurahs[0],
+        initialReciter: dummyReciter,
+        initialAudioUrl: dummyAudioMap[1]!,
         surahList: dummySurahs,
         audioMap: dummyAudioMap,
       );
 
-      await controller.playSurah(invalidSurah);
-      expect(controller.isLoadingSurah, isFalse);
-      expect(controller.currentSurah.number, 1);
+      await coordinator.playSurah(invalidSurah);
+      expect(coordinator.isLoadingSurah, isFalse);
+      expect(coordinator.currentSurah.number, 1);
 
-      controller.dispose();
+      coordinator.dispose();
+    });
+  });
+
+  group('Minimal AudioPlayerController Core Tests', () {
+    test('AudioPlayerController initializes with clean state', () {
+      final playerController = AudioPlayerController();
+
+      expect(playerController.isLoading, isFalse);
+      expect(playerController.hasError, isFalse);
+      expect(playerController.errorMessage, isNull);
+      expect(playerController.currentAudioUrl, isNull);
+      expect(playerController.duration, equals(Duration.zero));
+      expect(playerController.position, equals(Duration.zero));
+
+      playerController.dispose();
     });
   });
 }
