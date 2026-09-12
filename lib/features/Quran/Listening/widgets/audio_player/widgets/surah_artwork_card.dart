@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
+import '../../../../../../core/widget/share_widget/container_share.dart';
 import '../../../../reading/models/surah_model.dart';
 import '../../../models_listening/reciter_model.dart';
 
@@ -28,10 +29,10 @@ class SurahArtworkCard extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [primaryColor, primaryDark],
         ),
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(25),
         boxShadow: [
           BoxShadow(
-            color: primaryColor.withValues(alpha: 0.3),
+            color: primaryColor.withValues(alpha: 0.5),
             blurRadius: 16,
             offset: const Offset(0, 6),
           ),
@@ -45,67 +46,16 @@ class SurahArtworkCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // شارة نوع النزول (مكية / مدنية)
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.16),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.25),
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      surah.revelationType == 'Meccan'
-                          ? Icons.wb_sunny_rounded
-                          : Icons.location_city_rounded,
-                      size: 13,
-                      color: Colors.white,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      surah.revelationType,
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
+              ContainerShare(
+                icon: surah.revelationType == 'Meccan'
+                    ? Icons.wb_sunny_rounded
+                    : Icons.location_city_rounded,
+                text: surah.revelationType,
               ),
-
               // شارة رقم السورة
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.16),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.25),
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Icon(
-                      FlutterIslamicIcons.solidQuran2,
-                      size: 12,
-                      color: Colors.white,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      'Surah ${surah.number}',
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
+              ContainerShare(
+                icon: FlutterIslamicIcons.solidQuran2,
+                text: 'Surah ${surah.number}',
               ),
             ],
           ),
@@ -138,7 +88,7 @@ class SurahArtworkCard extends StatelessWidget {
 
           // اسم السورة بالرسم العربي
           Text(
-            surah.name,
+            surah.englishName,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 24,
@@ -149,9 +99,8 @@ class SurahArtworkCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
 
-          // ترجمة اسم السورة وعدد الآيات
           Text(
-            '${surah.englishNameTranslation} • ${surah.ayahs.length} verses',
+            '${surah.ayahs.length} verses',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 13,

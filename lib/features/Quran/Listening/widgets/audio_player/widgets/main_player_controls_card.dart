@@ -16,14 +16,14 @@ class MainPlayerControlsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 14,
+            blurRadius: 15,
             offset: const Offset(0, 5),
           ),
         ],
@@ -38,7 +38,7 @@ class MainPlayerControlsCard extends StatelessWidget {
             totalDuration: controller.duration,
             onSeek: controller.seek,
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 10),
 
           // صف أزرار التحكم
           PlayerControlsRow(
