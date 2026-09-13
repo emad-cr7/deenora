@@ -50,6 +50,14 @@ class MyApp extends StatelessWidget {
         ),
         title: 'Deenora',
         home: const MainScreen(),
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaler: TextScaler.noScaling,
+            ),
+            child: child!,
+          );
+        },
       ),
     );
   }

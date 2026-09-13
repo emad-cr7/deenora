@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../audio_player/controller/audio_player_coordinator.dart';
 import 'mini_player_view.dart';
-
 export 'mini_player_view.dart';
 export 'widgets/mini_player_avatar.dart';
 export 'widgets/mini_player_controls.dart';
