@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import 'prayer_type.dart';
 
 enum PrayerState {
@@ -8,6 +10,8 @@ enum PrayerState {
 }
 
 class PrayerTimeItem {
+  static final DateFormat _time12HourFormat = DateFormat('hh:mm a');
+
   final PrayerType type;
   final DateTime scheduledTime;
   final String rawTime;
@@ -32,14 +36,7 @@ class PrayerTimeItem {
 
   /// Formats any [DateTime] into a standard 12-hour string (e.g. "05:10 AM", "12:00 PM")
   static String format12Hour(DateTime dateTime) {
-    final hour = dateTime.hour;
-    final minute = dateTime.minute.toString().padLeft(2, '0');
-    final period = hour >= 12 ? 'PM' : 'AM';
-    final displayHour = hour == 0
-        ? 12
-        : (hour > 12 ? hour - 12 : hour);
-    final paddedHour = displayHour.toString().padLeft(2, '0');
-    return '$paddedHour:$minute $period';
+    return _time12HourFormat.format(dateTime);
   }
 
   /// Returns elapsed duration formatted like "05:32"

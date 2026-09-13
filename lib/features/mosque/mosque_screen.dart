@@ -30,15 +30,6 @@ class _MosqueScreenContent extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: const Text('Mosque'),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.refresh_rounded),
-                tooltip: 'Refresh',
-                onPressed: controller.isLoading
-                    ? null
-                    : () => controller.loadPrayerTimes(),
-              ),
-            ],
           ),
           body: _buildBody(context, controller),
         );
@@ -65,13 +56,9 @@ class _MosqueScreenContent extends StatelessWidget {
       onRefresh: () => controller.loadPrayerTimes(),
       child: ListView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 5),
         children: [
-          // Location status banner (if fallback location is currently active)
           LocationBanner(controller: controller),
-
-          // Compact two-column prayer progress card (Previous Prayer | Next Prayer)
-          // Tapping this card navigates to the dedicated PrayerTimesScreen showing all 6 prayers
           PrayerProgressCard(
             controller: controller,
             onTap: () {
@@ -83,8 +70,6 @@ class _MosqueScreenContent extends StatelessWidget {
               );
             },
           ),
-
-          const SizedBox(height: 24),
         ],
       ),
     );

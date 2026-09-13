@@ -6,10 +6,7 @@ import '../controllers/prayer_times_controller.dart';
 class LocationBanner extends StatelessWidget {
   final PrayerTimesController controller;
 
-  const LocationBanner({
-    super.key,
-    required this.controller,
-  });
+  const LocationBanner({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -124,10 +121,7 @@ class LocationBanner extends StatelessWidget {
             ),
             child: Text(
               buttonText,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
             ),
           ),
         ],

@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
 import '../../../core/theme/app_colors.dart';
-
-/// Skeleton loading UI for MosqueScreen.
-///
-/// Represents only the outer structure of the main prayer card (exact dimensions,
-/// border radius, margins, position, and elevation) with an empty container shape,
-/// and no internal placeholders.
 class PrayerTimesSkeleton extends StatelessWidget {
   const PrayerTimesSkeleton({super.key});
 
