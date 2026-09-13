@@ -21,7 +21,7 @@ class MiniPlayer extends StatelessWidget {
           curve: Curves.easeInOut,
           child: hasActiveSession
               ? const Padding(
-                  padding: EdgeInsets.fromLTRB(12, 4, 12, 8),
+                  padding: EdgeInsets.fromLTRB(12, 0, 12, 5),
                   child: MiniPlayerView(),
                 )
               : const SizedBox.shrink(),

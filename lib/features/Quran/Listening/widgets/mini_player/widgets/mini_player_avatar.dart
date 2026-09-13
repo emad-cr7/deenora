@@ -8,7 +8,7 @@ import '../../audio_player/view/audio_player_view.dart';
 class MiniPlayerAvatar extends StatelessWidget {
   const MiniPlayerAvatar({super.key});
 
-  static const double size = 52.0;
+  static const double size = 55.0;
 
   @override
   Widget build(BuildContext context) {

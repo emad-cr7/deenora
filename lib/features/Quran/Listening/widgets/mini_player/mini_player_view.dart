@@ -11,7 +11,7 @@ class MiniPlayerView extends StatelessWidget {
 
   static const Color primaryColor = AppColors.primary;
   static const double cardHeight = 62.0;
-  static const double overlapOffset = 8.0;
+  static const double overlapOffset = 5.0;
 
   void _openFullPlayer(BuildContext context) {
     Navigator.push(
