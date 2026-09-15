@@ -1,15 +1,22 @@
+import 'package:deenora/features/mosque/widget_prayer_times/controllers/prayer_times_controller.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/models/hijri_date_model.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/models/next_prayer_countdown.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/models/prayer_date_model.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/models/prayer_meta_model.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/models/prayer_time_item.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/models/prayer_times_model.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/models/prayer_type.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/utils/prayer_time_calculator.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/widgets/location_banner.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_progress_card.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_times_list.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_times_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:deenora/core/data/remote_data/prayer_times/prayer_times_service.dart';
 import 'package:deenora/core/services/location_service.dart';
-import 'package:deenora/features/mosque/controllers/prayer_times_controller.dart';
-import 'package:deenora/features/mosque/models/models.dart';
-import 'package:deenora/features/mosque/utils/prayer_time_calculator.dart';
-import 'package:deenora/features/mosque/prayer_times_screen.dart';
-import 'package:deenora/features/mosque/widgets/location_banner.dart';
-import 'package:deenora/features/mosque/widgets/prayer_progress_card.dart';
-import 'package:deenora/features/mosque/widgets/prayer_times_list.dart';
-import 'package:deenora/features/mosque/widgets/prayer_times_skeleton.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/prayer_times_screen.dart';
+
 
 void main() {
   group('Task 2 & 3 Verification', () {

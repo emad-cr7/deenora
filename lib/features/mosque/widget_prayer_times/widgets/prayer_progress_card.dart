@@ -1,7 +1,7 @@
 ﻿import 'package:flutter/material.dart';
 
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widget/share_widget/build_prayer_share.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widget/share_widget/build_prayer_share.dart';
 import '../controllers/prayer_times_controller.dart';
 import '../models/models.dart';
 

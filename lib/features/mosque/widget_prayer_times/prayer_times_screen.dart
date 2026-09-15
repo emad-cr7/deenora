@@ -1,8 +1,9 @@
+import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_progress_card.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_times_list.dart';
 import 'package:flutter/material.dart';
 
-import 'package:deenora/features/mosque/controllers/prayer_times_controller.dart';
-import 'package:deenora/features/mosque/widgets/prayer_progress_card.dart';
-import 'package:deenora/features/mosque/widgets/prayer_times_list.dart';
+import 'controllers/prayer_times_controller.dart';
+
 
 class PrayerTimesScreen extends StatelessWidget {
   final PrayerTimesController controller;

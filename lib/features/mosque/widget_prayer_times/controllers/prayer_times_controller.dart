@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-
-import '../../../core/data/remote_data/prayer_times/prayer_times_service.dart';
-import '../../../core/services/location_service.dart';
+import '../../../../core/data/remote_data/prayer_times/prayer_times_service.dart';
+import '../../../../core/services/location_service.dart';
 import '../models/models.dart';
 import '../utils/prayer_time_calculator.dart';
 

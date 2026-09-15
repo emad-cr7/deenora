@@ -1,12 +1,12 @@
+import 'package:deenora/features/mosque/widget_prayer_times/controllers/prayer_times_controller.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/widgets/location_banner.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_progress_card.dart';
+import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_times_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../core/widget/error/error_screen.dart';
-import 'controllers/prayer_times_controller.dart';
-import 'prayer_times_screen.dart';
-import 'widgets/location_banner.dart';
-import 'widgets/prayer_progress_card.dart';
-import 'widgets/prayer_times_skeleton.dart';
+import 'widget_prayer_times/prayer_times_screen.dart';
+
 
 class MosqueScreen extends StatelessWidget {
   const MosqueScreen({super.key});

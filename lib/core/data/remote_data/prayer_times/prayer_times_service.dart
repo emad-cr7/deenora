@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../../../features/mosque/models/models.dart';
+import '../../../../features/mosque/widget_prayer_times/models/prayer_times_model.dart';
 import '../dio/dio_config.dart';
 
 class PrayerTimesService {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import '../../../core/theme/app_colors.dart';
+
+import '../../../../core/theme/app_colors.dart';
 class PrayerTimesSkeleton extends StatelessWidget {
   const PrayerTimesSkeleton({super.key});
 

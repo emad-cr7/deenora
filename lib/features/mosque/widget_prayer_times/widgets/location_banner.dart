@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../core/services/location_service.dart';
+import '../../../../core/services/location_service.dart';
 import '../controllers/prayer_times_controller.dart';
 
 class LocationBanner extends StatelessWidget {
