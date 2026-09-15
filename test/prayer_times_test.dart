@@ -1,3 +1,4 @@
+import 'package:deenora/core/skeleton/mosque/mosque_skeleton.dart';
 import 'package:deenora/features/mosque/widget_prayer_times/controllers/prayer_times_controller.dart';
 import 'package:deenora/features/mosque/widget_prayer_times/models/hijri_date_model.dart';
 import 'package:deenora/features/mosque/widget_prayer_times/models/next_prayer_countdown.dart';
@@ -10,7 +11,6 @@ import 'package:deenora/features/mosque/widget_prayer_times/utils/prayer_time_ca
 import 'package:deenora/features/mosque/widget_prayer_times/widgets/location_banner.dart';
 import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_progress_card.dart';
 import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_times_list.dart';
-import 'package:deenora/core/skeleton/prayer_times_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:deenora/core/data/remote_data/prayer_times/prayer_times_service.dart';
@@ -242,12 +242,12 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: PrayerTimesSkeleton(),
+            body: MosqueSkeleton(),
           ),
         ),
       );
 
-      expect(find.byType(PrayerTimesSkeleton), findsOneWidget);
+      expect(find.byType(MosqueSkeleton), findsOneWidget);
 
       // Verify no internal card elements or prayer text placeholders exist
       expect(find.text('Prayer Schedule'), findsNothing);
