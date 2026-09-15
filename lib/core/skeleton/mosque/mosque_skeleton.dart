@@ -16,7 +16,7 @@ class MosqueSkeleton extends StatelessWidget {
         highlightColor: AppColors.champagneGold.withValues(alpha: 0.4),
         duration: const Duration(milliseconds: 1200),
       ),
-      child: Column(children: [PrayerTimesSkeleton()]),
+      child: Column(children: [SizedBox(height: 5), PrayerTimesSkeleton()]),
     );
   }
 }
