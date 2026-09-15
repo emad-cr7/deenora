@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
+
 class FeatureCard extends StatelessWidget {
   final String title;
   final String description;
-  final IconData icon;
+  final IconData? icon;
   final VoidCallback? onTap;
+  final Color? color;
+  final Color? color_border;
 
   const FeatureCard({
     super.key,
     required this.title,
     required this.description,
-    required this.icon,
+    this.icon,
     this.onTap,
+    this.color,
+    this.color_border,
   });
 
   @override
@@ -20,10 +25,7 @@ class FeatureCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: const Color(0xFFE5EBE7),
-          width: 1,
-        ),
+        border: Border.all(color: const Color(0xFFE5EBE7), width: 1),
         boxShadow: [
           BoxShadow(
             color: AppColors.deepForest.withValues(alpha: 0.25),
@@ -40,10 +42,7 @@ class FeatureCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             onTap: onTap ?? () {},
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 12,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -52,10 +51,10 @@ class FeatureCard extends StatelessWidget {
                     width: 45,
                     height: 45,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryDark,
+                      color: color ?? AppColors.primaryDark,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: AppColors.champagneGold,
+                        color:color_border ?? AppColors.champagneGold,
                         width: 1.2,
                       ),
                     ),

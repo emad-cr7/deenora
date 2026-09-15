@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
+import '../cards_widgets/qibla/screens/qibla_screen.dart';
 import 'feature_card.dart';
 
 /// The 2x2 grid section assembling the four Islamic feature cards:
@@ -30,10 +31,17 @@ class FeatureCardsSection extends StatelessWidget {
             children: [
               Expanded(
                 child: FeatureCard(
-                  title: 'Qibla',
-                  description: 'Find the direction of the Kaaba',
-                  icon: FlutterIslamicIcons.solidQibla,
-                  onTap: onQiblaTap,
+                    title: 'Qibla',
+                    description: 'Find the direction of the Kaaba',
+                    icon: FlutterIslamicIcons.solidQibla,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const QiblaScreen(),
+                        ),
+                      );
+                    },
                 ),
               ),
               const SizedBox(width: 10),

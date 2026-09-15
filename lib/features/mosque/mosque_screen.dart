@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/skeleton/mosque/mosque_skeleton.dart';
 import '../../core/widget/error/error_screen.dart';
-import 'feature_cards/cards_widgets/qibla/screens/qibla_screen.dart';
 import 'feature_cards/careds/feature_cards_section.dart';
 
 
@@ -72,16 +71,7 @@ class _MosqueScreenContent extends StatelessWidget {
               );
             },
           ),
-          FeatureCardsSection(
-            onQiblaTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const QiblaScreen(),
-                ),
-              );
-            },
-          ),
+          FeatureCardsSection(),
         ],
       ),
     );
