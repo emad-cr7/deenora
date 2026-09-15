@@ -10,7 +10,7 @@ import 'package:deenora/features/mosque/widget_prayer_times/utils/prayer_time_ca
 import 'package:deenora/features/mosque/widget_prayer_times/widgets/location_banner.dart';
 import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_progress_card.dart';
 import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_times_list.dart';
-import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_times_skeleton.dart';
+import 'package:deenora/core/skeleton/prayer_times_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:deenora/core/data/remote_data/prayer_times/prayer_times_service.dart';
