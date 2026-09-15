@@ -4,6 +4,7 @@ import 'package:deenora/features/mosque/widget_prayer_times/widgets/location_ban
 import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_progress_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'feature_cards/widgets/feature_cards_section.dart';
 import '../../core/skeleton/mosque/mosque_skeleton.dart';
 import '../../core/widget/error/error_screen.dart';
 
@@ -70,6 +71,7 @@ class _MosqueScreenContent extends StatelessWidget {
               );
             },
           ),
+          const FeatureCardsSection(),
         ],
       ),
     );
