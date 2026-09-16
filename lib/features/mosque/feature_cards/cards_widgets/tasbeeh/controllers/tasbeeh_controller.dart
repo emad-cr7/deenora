@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../../../../../../core/data/remote_data/tasbeeh/tasbeeh_service.dart';
 import '../../../../../../core/widget/error/error_screen.dart';
 import '../models/dhikr_model.dart';
+import '../models/tasbih_dataset_model.dart';
 
 /// Controller responsible for managing Tasbeeh state, API data fetching,
 /// active dhikr selection, and local counter logic.
