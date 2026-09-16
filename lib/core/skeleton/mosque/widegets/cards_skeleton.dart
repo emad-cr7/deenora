@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../features/mosque/feature_cards/careds/feature_card.dart';
+import '../../../../features/mosque/feature_cards/feature_card.dart';
 import '../../../theme/app_colors.dart';
 
 class CardsSkeleton extends StatelessWidget {

@@ -3,7 +3,7 @@ import 'package:deenora/core/skeleton/mosque/widegets/prayer_times_skeleton.dart
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../features/mosque/feature_cards/careds/feature_cards_section.dart';
+import '../../../features/mosque/feature_cards/feature_cards_section.dart';
 import '../../theme/app_colors.dart';
 
 class MosqueSkeleton extends StatelessWidget {

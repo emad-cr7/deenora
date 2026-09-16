@@ -6,7 +6,7 @@ import '../widget_prayer_times/controllers/prayer_times_controller.dart';
 import '../widget_prayer_times/prayer_times_screen.dart';
 import '../widget_prayer_times/widgets/location_banner.dart';
 import '../widget_prayer_times/widgets/prayer_progress_card.dart';
-import 'feature_cards/careds/feature_cards_section.dart';
+import 'feature_cards/feature_cards_section.dart';
 
 
 class MosqueScreen extends StatelessWidget {
