@@ -1,5 +1,5 @@
-import 'package:deenora/features/mosque/feature_cards/cards_widgets/tasbeeh/tasbeeh_screen.dart';
 import 'package:deenora/features/mosque/feature_cards/careds/feature_cards_section.dart';
+import 'package:deenora/features/tasbeeh/tasbeeh_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

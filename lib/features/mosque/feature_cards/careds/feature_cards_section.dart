@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
-import '../cards_widgets/qibla/qibla_screen.dart';
-import '../cards_widgets/tasbeeh/tasbeeh_screen.dart';
+
+import '../../../qibla/qibla_screen.dart';
+import '../../../tasbeeh/tasbeeh_screen.dart';
 import 'feature_card.dart';
 
 /// The 2x2 grid section assembling the four Islamic feature cards:
