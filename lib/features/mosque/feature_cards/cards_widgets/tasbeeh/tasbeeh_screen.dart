@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/widget/error/error_screen.dart';
-import '../controllers/tasbeeh_controller.dart';
-import '../widgets/counter_button.dart';
-import '../widgets/counter_display.dart';
-import '../widgets/dhikr_card.dart';
-import '../widgets/dhikr_selector_sheet.dart';
-import '../widgets/tasbeeh_actions_bar.dart';
-import '../widgets/tasbeeh_skeleton.dart';
+import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/widget/error/error_screen.dart';
+import 'controllers/tasbeeh_controller.dart';
+import 'widgets/counter_button.dart';
+import 'widgets/counter_display.dart';
+import 'widgets/dhikr_card.dart';
+import 'widgets/dhikr_selector_sheet.dart';
+import 'widgets/tasbeeh_actions_bar.dart';
+import 'widgets/tasbeeh_skeleton.dart';
 
 class TasbeehScreen extends StatelessWidget {
   final TasbeehController? controller;
@@ -127,9 +127,10 @@ class _TasbeehScreenContent extends StatelessWidget {
                       dhikr: currentDhikr,
                       currentIndex: controller.selectedIndex,
                       totalCount: controller.dhikrList.length,
-                      customTarget: !currentDhikr.hasNarratedCount
+                      customTarget: currentDhikr.narratedCount == null
                           ? controller.targetCount
                           : null,
+                      isCustom: controller.isCustomDhikr(currentDhikr),
                       onPrevious: controller.previousDhikr,
                       onNext: controller.nextDhikr,
                     ),

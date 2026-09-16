@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
+import '../../../../../../core/theme/app_colors.dart';
 import '../models/dhikr_model.dart';
 
 class DhikrCard extends StatelessWidget {
@@ -7,6 +7,7 @@ class DhikrCard extends StatelessWidget {
   final int currentIndex;
   final int totalCount;
   final int? customTarget;
+  final bool isCustom;
   final VoidCallback onPrevious;
   final VoidCallback onNext;
 
@@ -16,16 +17,16 @@ class DhikrCard extends StatelessWidget {
     required this.currentIndex,
     required this.totalCount,
     this.customTarget,
+    this.isCustom = false,
     required this.onPrevious,
     required this.onNext,
   });
 
   @override
   Widget build(BuildContext context) {
-    final hasNarrated = dhikr.hasNarratedCount;
-    final isCustomDhikr = dhikr.isCustom;
-    final hasCustomGoal = isCustomDhikr || customTarget != null;
-    final goalNumber = dhikr.personalTarget ?? customTarget;
+    final hasNarrated = dhikr.narratedCount != null;
+    final hasCustomGoal = isCustom || customTarget != null;
+    final goalNumber = customTarget;
 
     return Container(
       width: double.infinity,
@@ -156,47 +157,13 @@ class DhikrCard extends StatelessWidget {
             ),
           ),
 
-          // Transliteration (if distinct from name)
-          if (dhikr.transliteration.isNotEmpty &&
-              dhikr.transliteration.toLowerCase() != dhikr.name.toLowerCase()) ...[
-            const SizedBox(height: 8),
-            Text(
-              dhikr.transliteration,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 13.5,
-                fontWeight: FontWeight.w500,
-                fontStyle: FontStyle.italic,
-                color: AppColors.champagneGold,
-                height: 1.35,
-              ),
-            ),
-          ],
-
-          // English Meaning / Description
-          if (dhikr.english.isNotEmpty) ...[
-            const SizedBox(height: 10),
-            Text(
-              dhikr.english,
-              textAlign: TextAlign.center,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-                color: Colors.white.withValues(alpha: 0.85),
-                height: 1.4,
-              ),
-            ),
-          ],
-
           const SizedBox(height: 18),
 
           // Bottom Controls: Quick Prev/Next buttons (without unnecessary Info UI)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              if (isCustomDhikr)
+              if (isCustom)
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                   child: Row(

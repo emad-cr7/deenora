@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
+import '../../../../../../core/theme/app_colors.dart';
 import '../models/dhikr_model.dart';
 import 'add_custom_dhikr_sheet.dart';
 
@@ -62,9 +62,7 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
       final d = entry.value;
       final q = _query.toLowerCase();
       return d.name.toLowerCase().contains(q) ||
-          d.transliteration.toLowerCase().contains(q) ||
-          d.arabic.contains(_query) ||
-          d.english.toLowerCase().contains(q);
+          d.arabic.contains(_query);
     }).toList();
 
     return Container(
@@ -253,6 +251,8 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                       final originalIndex = filtered[idx].key;
                       final dhikr = filtered[idx].value;
                       final isSelected = originalIndex == widget.selectedIndex;
+                      final isCustom = dhikr.id.startsWith('custom_');
+                      final hasNarrated = dhikr.narratedCount != null;
 
                       return InkWell(
                         onTap: () {
@@ -330,21 +330,6 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                                           ),
                                       ],
                                     ),
-                                    // NOTE: dhikr.arabic is preserved for future Arabic localization,
-                                    // but hidden here for the English-only UI.
-                                    if (dhikr.english.isNotEmpty) ...[
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        dhikr.english,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade600,
-                                          height: 1.3,
-                                        ),
-                                      ),
-                                    ],
                                     const SizedBox(height: 8),
                                     // Target information badge
                                     Container(
@@ -353,26 +338,26 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                                         vertical: 2,
                                       ),
                                       decoration: BoxDecoration(
-                                        color: dhikr.isCustom
+                                        color: isCustom
                                             ? const Color(0xFFE8F4F8)
-                                            : (dhikr.hasNarratedCount
+                                            : (hasNarrated
                                                   ? AppColors.champagneGold
                                                         .withValues(alpha: 0.25)
                                                   : const Color(0xFFEFF2F0)),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: Text(
-                                        dhikr.isCustom
-                                            ? 'Personal Goal: ${dhikr.personalTarget} times'
-                                            : (dhikr.hasNarratedCount
+                                        isCustom
+                                            ? 'Personal Goal'
+                                            : (hasNarrated
                                                   ? 'Narrated: ${dhikr.narratedCount} times'
                                                   : 'Open count (unspecified)'),
                                         style: TextStyle(
                                           fontSize: 11,
                                           fontWeight: FontWeight.w600,
-                                          color: dhikr.isCustom
+                                          color: isCustom
                                               ? const Color(0xFF0277BD)
-                                              : (dhikr.hasNarratedCount
+                                              : (hasNarrated
                                                     ? const Color(0xFF8A6D1D)
                                                     : const Color(0xFF6B7280)),
                                         ),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
-import '../../../../../../core/theme/app_colors.dart';
-import '../controllers/qibla_controller.dart';
-import '../models/qibla_status.dart';
-import '../widgets/qibla_calibration_hint.dart';
-import '../widgets/qibla_compass.dart';
-import '../widgets/qibla_direction_indicator.dart';
-import '../widgets/qibla_error_view.dart';
-import '../widgets/qibla_status_card.dart';
+import '../../../../../core/theme/app_colors.dart';
+import 'controllers/qibla_controller.dart';
+import 'models/qibla_status.dart';
+import 'widgets/qibla_calibration_hint.dart';
+import 'widgets/qibla_compass.dart';
+import 'widgets/qibla_direction_indicator.dart';
+import 'widgets/qibla_error_view.dart';
+import 'widgets/qibla_status_card.dart';
 
 class QiblaScreen extends StatelessWidget {
   const QiblaScreen({super.key});

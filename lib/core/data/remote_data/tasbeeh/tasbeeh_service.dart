@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import '../../../../features/tasbeeh/models/dhikr_model.dart';
+import '../../../../features/mosque/feature_cards/cards_widgets/tasbeeh/models/dhikr_model.dart';
 import '../dio/dio_config.dart';
 
 class TasbeehService {

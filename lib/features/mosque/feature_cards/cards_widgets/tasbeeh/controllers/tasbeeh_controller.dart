@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
-import '../../../../core/data/remote_data/tasbeeh/tasbeeh_service.dart';
-import '../../../../core/widget/error/error_screen.dart';
+
+import '../../../../../../core/data/remote_data/tasbeeh/tasbeeh_service.dart';
+import '../../../../../../core/widget/error/error_screen.dart';
 import '../models/dhikr_model.dart';
 
 /// Controller responsible for managing Tasbeeh state, API data fetching,
@@ -17,6 +18,7 @@ class TasbeehController extends ChangeNotifier {
   TasbihDatasetModel? _dataset;
   List<DhikrModel> _dhikrList = [];
   final List<DhikrModel> _customDhikrs = [];
+  final Map<String, int> _customGoals = {};
 
   // Local counter state
   int _selectedIndex = 0;
@@ -52,15 +54,24 @@ class TasbeehController extends ChangeNotifier {
   // Counter getters
   int get count => _count;
 
+  /// Whether a given dhikr is a user-created custom dhikr.
+  bool isCustomDhikr(DhikrModel dhikr) => _customGoals.containsKey(dhikr.id);
+
+  /// Returns personal goal set for a custom dhikr, or null if none.
+  int? getCustomGoal(DhikrModel dhikr) => _customGoals[dhikr.id];
+
   /// Returns the active target count.
   /// If [customTarget] was explicitly set by the user, returns that.
-  /// If the current dhikr is a custom dhikr, returns its personal target.
+  /// If the current dhikr is a custom dhikr, returns its personal goal.
   /// Otherwise, if the dhikr has a [narratedCount], returns it.
   /// If [narratedCount] is null and no custom target is set, returns null (open counter).
   int? get targetCount {
     if (_customTarget != null) return _customTarget;
-    if (currentDhikr?.isCustom == true) return currentDhikr?.personalTarget;
-    return currentDhikr?.narratedCount;
+    final dhikr = currentDhikr;
+    if (dhikr != null && _customGoals.containsKey(dhikr.id)) {
+      return _customGoals[dhikr.id];
+    }
+    return dhikr?.narratedCount;
   }
 
   /// Whether a specific target count is active.
@@ -149,21 +160,15 @@ class TasbeehController extends ChangeNotifier {
       return false;
     }
 
+    final customId = 'custom_${DateTime.now().millisecondsSinceEpoch}';
     final customDhikr = DhikrModel(
-      id: 'custom_${DateTime.now().millisecondsSinceEpoch}',
+      id: customId,
       name: trimmedText,
       arabic: trimmedText,
-      transliteration: '',
-      english: '',
       narratedCount: null,
-      // Strictly null! Never claimed to be from hadith
-      countNote: 'Personal goal set by user',
-      source: 'Personal Dhikr',
-      sourceUrl: '',
-      isCustom: true,
-      personalTarget: count,
     );
 
+    _customGoals[customId] = count;
     _customDhikrs.insert(0, customDhikr);
     _dhikrList = [customDhikr, ..._dhikrList];
     _selectedIndex = 0;
@@ -178,9 +183,8 @@ class TasbeehController extends ChangeNotifier {
     if (index >= 0 && index < _dhikrList.length) {
       _selectedIndex = index;
       _count = 0;
-      _customTarget = currentDhikr?.isCustom == true
-          ? currentDhikr?.personalTarget
-          : null;
+      final dhikr = currentDhikr;
+      _customTarget = dhikr != null ? _customGoals[dhikr.id] : null;
       notifyListeners();
     }
   }

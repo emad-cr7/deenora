@@ -2,54 +2,22 @@ class DhikrModel {
   final String id;
   final String name;
   final String arabic;
-  final String transliteration;
-  final String english;
   final int? narratedCount;
-  final String? countNote;
-  final String source;
-  final String sourceUrl;
-  final String? grading;
-  final bool isCustom;
-  final int? personalTarget;
 
   const DhikrModel({
     required this.id,
     required this.name,
     required this.arabic,
-    required this.transliteration,
-    required this.english,
     this.narratedCount,
-    this.countNote,
-    required this.source,
-    required this.sourceUrl,
-    this.grading,
-    this.isCustom = false,
-    this.personalTarget,
   });
-
-  /// Returns true if a specific count was cited in the hadith.
-  bool get hasNarratedCount => narratedCount != null;
 
   factory DhikrModel.fromJson(Map<String, dynamic> json) {
     return DhikrModel(
       id: (json['id'] ?? '').toString(),
       name: (json['name'] ?? '').toString(),
       arabic: (json['arabic'] ?? '').toString(),
-      transliteration: (json['transliteration'] ?? '').toString(),
-      english: (json['english'] ?? '').toString(),
-      // Handle nullable narratedCount: never convert null to a default number here
       narratedCount: json['narratedCount'] != null
           ? int.tryParse(json['narratedCount'].toString())
-          : null,
-      // Handle nullable countNote
-      countNote: json['countNote']?.toString(),
-      source: (json['source'] ?? '').toString(),
-      sourceUrl: (json['sourceUrl'] ?? '').toString(),
-      // Handle nullable grading
-      grading: json['grading']?.toString(),
-      isCustom: json['isCustom'] as bool? ?? false,
-      personalTarget: json['personalTarget'] != null
-          ? int.tryParse(json['personalTarget'].toString())
           : null,
     );
   }
@@ -59,15 +27,7 @@ class DhikrModel {
       'id': id,
       'name': name,
       'arabic': arabic,
-      'transliteration': transliteration,
-      'english': english,
       'narratedCount': narratedCount,
-      'countNote': countNote,
-      'source': source,
-      'sourceUrl': sourceUrl,
-      'grading': grading,
-      'isCustom': isCustom,
-      'personalTarget': personalTarget,
     };
   }
 }
