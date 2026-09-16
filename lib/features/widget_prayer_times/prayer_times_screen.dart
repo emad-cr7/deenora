@@ -1,5 +1,5 @@
-import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_progress_card.dart';
-import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_times_list.dart';
+import 'package:deenora/features/widget_prayer_times/widgets/prayer_progress_card.dart';
+import 'package:deenora/features/widget_prayer_times/widgets/prayer_times_list.dart';
 import 'package:flutter/material.dart';
 
 import 'controllers/prayer_times_controller.dart';

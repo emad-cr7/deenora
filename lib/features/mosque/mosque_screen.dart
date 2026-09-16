@@ -1,11 +1,11 @@
-import 'package:deenora/features/mosque/widget_prayer_times/controllers/prayer_times_controller.dart';
-import 'package:deenora/features/mosque/widget_prayer_times/prayer_times_screen.dart';
-import 'package:deenora/features/mosque/widget_prayer_times/widgets/location_banner.dart';
-import 'package:deenora/features/mosque/widget_prayer_times/widgets/prayer_progress_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/skeleton/mosque/mosque_skeleton.dart';
 import '../../core/widget/error/error_screen.dart';
+import '../widget_prayer_times/controllers/prayer_times_controller.dart';
+import '../widget_prayer_times/prayer_times_screen.dart';
+import '../widget_prayer_times/widgets/location_banner.dart';
+import '../widget_prayer_times/widgets/prayer_progress_card.dart';
 import 'feature_cards/careds/feature_cards_section.dart';
 
 
