@@ -151,9 +151,9 @@ void main() {
       expect(controller.selectedIndex, 0);
       final current = controller.currentDhikr;
       expect(current, isNotNull);
-      expect(current!.isCustom, isTrue);
+      expect(controller.isCustomDhikr(current!), isTrue);
       expect(current.arabic, 'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّد');
-      expect(current.personalTarget, 10);
+      expect(controller.getCustomGoal(current), 10);
       expect(current.narratedCount, isNull); // Never attributed to hadith!
 
       // Counter starts at 0, target is 10

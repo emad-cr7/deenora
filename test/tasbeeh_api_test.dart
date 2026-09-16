@@ -17,13 +17,10 @@ void main() {
     expect(subhanAllah.name, 'SubhanAllah');
     expect(subhanAllah.arabic, isNotEmpty);
     expect(subhanAllah.narratedCount, 33);
-    expect(subhanAllah.hasNarratedCount, isTrue);
 
     // Verify item without narrated count (subhanallahil-azim -> null)
     final twoHeavyWords = dataset.dhikrList.firstWhere((d) => d.id == 'subhanallahil-azim');
     expect(twoHeavyWords.narratedCount, isNull);
-    expect(twoHeavyWords.hasNarratedCount, isFalse);
-    expect(twoHeavyWords.countNote, isNotNull);
 
     // Verify caching works: second call returns same instance without refetching
     final dataset2 = await service.getTasbihData();

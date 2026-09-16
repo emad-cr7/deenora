@@ -38,25 +38,13 @@ void main() {
       id: 'subhanallah',
       name: 'SubhanAllah',
       arabic: 'سُبْحَانَ اللَّهِ',
-      transliteration: 'SubhanAllah',
-      english: 'Glory be to Allah',
       narratedCount: 33,
-      countNote: null,
-      source: 'Sahih Muslim 597a',
-      sourceUrl: 'https://sunnah.com/muslim:597a',
-      grading: null,
     ),
     const DhikrModel(
       id: 'two-heavy-words',
       name: 'The two heavy words',
       arabic: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ',
-      transliteration: 'SubhanAllahi wa bihamdih, SubhanAllahil-\'Azim',
-      english: 'Glory and praise be to Allah; glory be to Allah the Magnificent',
       narratedCount: null, // Nullable!
-      countNote: 'The hadith gives no count. 100 is common practice, not a narrated number.',
-      source: 'Sahih al-Bukhari 6682',
-      sourceUrl: 'https://sunnah.com/bukhari:6682',
-      grading: null,
     ),
   ];
 
@@ -132,17 +120,14 @@ void main() {
       final selectDhikrDy = tester.getTopLeft(find.text('Select Dhikr')).dy;
       expect(selectDhikrDy, greaterThan(nextDy));
 
-      // Verify English text is visible on the card
+      // Verify English title is visible on the card
       expect(find.text('SubhanAllah'), findsWidgets);
-      expect(find.text('Glory be to Allah'), findsOneWidget);
 
       // Verify Arabic text is NOT visible in current UI
       expect(find.text('سُبْحَانَ اللَّهِ'), findsNothing);
 
-      // Verify Arabic & Source data are preserved internally in the controller/model
+      // Verify Arabic data is preserved internally in the controller/model
       expect(controller.currentDhikr?.arabic, 'سُبْحَانَ اللَّهِ');
-      expect(controller.currentDhikr?.source, 'Sahih Muslim 597a');
-      expect(controller.currentDhikr?.sourceUrl, 'https://sunnah.com/muslim:597a');
       expect(controller.attribution, contains('Tasbih.info'));
 
       expect(find.text('Narrated: 33'), findsOneWidget);
@@ -209,9 +194,8 @@ void main() {
       expect(find.text('Open Counter'), findsOneWidget);
       expect(find.textContaining('/ 33'), findsNothing);
 
-      // Verify English translation is shown and Arabic is hidden
+      // Verify English title is shown and Arabic is hidden
       expect(find.text('The two heavy words'), findsOneWidget);
-      expect(find.textContaining('Glory and praise be to Allah'), findsOneWidget);
       expect(find.textContaining('سُبْحَانَ اللَّهِ وَبِحَمْدِهِ'), findsNothing);
 
       // Custom personal target setting
@@ -269,7 +253,7 @@ void main() {
       expect(find.text('Personal Dhikr'), findsOneWidget);
       expect(find.text('Personal Goal: 10'), findsOneWidget);
       expect(find.text('/ 10'), findsOneWidget);
-      expect(controller.currentDhikr?.isCustom, isTrue);
+      expect(controller.isCustomDhikr(controller.currentDhikr!), isTrue);
       expect(controller.currentDhikr?.narratedCount, isNull);
       expect(controller.currentDhikr?.arabic, 'Astaghfirullah wa atubu ilayh');
     });
@@ -297,9 +281,8 @@ void main() {
       await tester.tap(find.text('Select Dhikr'));
       await tester.pumpAndSettle();
 
-      // Verify English titles & descriptions are shown in selector
-      expect(find.text('SubhanAllah'), findsWidgets);
-      expect(find.descendant(of: find.byType(DhikrSelectorSheet), matching: find.text('Glory be to Allah')), findsOneWidget);
+      // Verify English titles are shown in selector
+      expect(find.descendant(of: find.byType(DhikrSelectorSheet), matching: find.text('SubhanAllah')), findsOneWidget);
 
       // Verify Arabic text is NOT shown in selector
       expect(find.text('سُبْحَانَ اللَّهِ'), findsNothing);
