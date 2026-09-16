@@ -8,8 +8,8 @@ class QiblaCalibrationHint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
         color: AppColors.primary.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(12),
@@ -27,7 +27,7 @@ class QiblaCalibrationHint extends StatelessWidget {
             child: Text(
               'If the compass seems inaccurate, wave your phone in a figure-eight (∞) motion to calibrate.',
               style: TextStyle(
-                fontSize: 11.5,
+                fontSize: 12,
                 height: 1.35,
                 color: AppColors.primaryDark.withValues(alpha: 0.75),
               ),

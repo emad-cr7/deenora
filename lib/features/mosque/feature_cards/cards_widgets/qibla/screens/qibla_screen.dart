@@ -28,15 +28,12 @@ class _QiblaScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF6F8F7),
-      appBar: AppBar(
-        title: const Text('Qibla Compass'),
-        elevation: 0,
-      ),
+      appBar: AppBar(title: const Text('Qibla')),
       body: Consumer<QiblaController>(
         builder: (context, controller, _) {
           // 1. Loading State
-          if (controller.status == QiblaStatus.loading && controller.heading == null) {
+          if (controller.status == QiblaStatus.loading &&
+              controller.heading == null) {
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -60,7 +57,8 @@ class _QiblaScreenContent extends StatelessWidget {
           }
 
           // 2. Error / Permission / Sensor Issue State
-          if (controller.status != QiblaStatus.ready && controller.heading == null) {
+          if (controller.status != QiblaStatus.ready &&
+              controller.heading == null) {
             return QiblaErrorView(controller: controller);
           }
 
@@ -84,7 +82,9 @@ class _QiblaScreenContent extends StatelessWidget {
                           // 1. Direction Guidance (Rotate phone / Facing Qibla)
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: QiblaDirectionIndicator(controller: controller),
+                            child: QiblaDirectionIndicator(
+                              controller: controller,
+                            ),
                           ),
 
                           const SizedBox(height: 16),
