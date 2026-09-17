@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../theme/app_colors.dart';
 
 class AppSearchBar extends StatefulWidget {
   final TextEditingController? controller;
@@ -34,8 +35,6 @@ class _AppSearchBarState extends State<AppSearchBar> {
   late final TextEditingController _effectiveController;
   late final FocusNode _effectiveFocusNode;
   bool _hasText = false;
-
-  static const Color primaryColor = Color(0xFF1B5E4F);
 
   @override
   void initState() {
@@ -97,11 +96,11 @@ class _AppSearchBarState extends State<AppSearchBar> {
         onChanged: widget.onChanged,
         onSubmitted: widget.onSubmitted,
         textInputAction: TextInputAction.search,
-        cursorColor: primaryColor,
+        cursorColor: AppColors.primary,
         style: const TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w500,
-          color: Color(0xFF1B1B1B),
+          color: AppColors.textDark,
         ),
         decoration: InputDecoration(
           hintText: widget.hintText,
@@ -112,7 +111,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
           ),
           prefixIcon: const Icon(
             Icons.search_rounded,
-            color: primaryColor,
+            color: AppColors.primary,
             size: 22,
           ),
           suffixIcon: _hasText
@@ -143,10 +142,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              color: primaryColor,
-              width: 1.5,
-            ),
+            borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
           ),
           filled: true,
           fillColor: Colors.white,

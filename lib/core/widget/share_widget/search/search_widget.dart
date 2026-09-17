@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../theme/app_colors.dart';
 import 'app_search_bar.dart';
 import 'search_empty_state_widget.dart';
 
@@ -44,8 +45,6 @@ class SearchWidget extends StatelessWidget {
     required this.child,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,9 +59,7 @@ class SearchWidget extends StatelessWidget {
           focusNode: focusNode,
         ),
         ?headerWidget,
-        Expanded(
-          child: _buildBody(),
-        ),
+        Expanded(child: _buildBody()),
       ],
     );
   }
@@ -71,7 +68,7 @@ class SearchWidget extends StatelessWidget {
     if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
+          valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
           strokeWidth: 3,
         ),
       );

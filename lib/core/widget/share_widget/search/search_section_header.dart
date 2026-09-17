@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../theme/app_colors.dart';
 
 class SearchSectionHeader extends StatelessWidget {
   final String title;
@@ -14,8 +15,6 @@ class SearchSectionHeader extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -30,16 +29,19 @@ class SearchSectionHeader extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1B1B1B),
+                  color: AppColors.textDark,
                   letterSpacing: 0.3,
                 ),
               ),
               if (count != null) ...[
                 const SizedBox(width: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
-                    color: primaryColor.withValues(alpha: 0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -47,7 +49,7 @@ class SearchSectionHeader extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
-                      color: primaryColor,
+                      color: AppColors.primary,
                     ),
                   ),
                 ),

@@ -47,9 +47,13 @@ class TasbeehService {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.receiveTimeout ||
           e.type == DioExceptionType.sendTimeout) {
-        throw Exception('Connection timeout while connecting to Tasbih service');
+        throw Exception(
+          'Connection timeout while connecting to Tasbih service',
+        );
       } else if (e.type == DioExceptionType.connectionError) {
-        throw Exception('Network connection error. Please check your internet connection.');
+        throw Exception(
+          'Network connection error. Please check your internet connection.',
+        );
       } else {
         throw Exception('Failed to load Tasbeeh data: ${e.message}');
       }

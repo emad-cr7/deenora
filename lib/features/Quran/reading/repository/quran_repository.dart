@@ -10,8 +10,8 @@ class QuranRepository {
   QuranRepository({
     HiveManager? hiveManager,
     QuranReadingService? readingService,
-  })  : _hiveManager = hiveManager ?? HiveManager(),
-        _readingService = readingService ?? QuranReadingService();
+  }) : _hiveManager = hiveManager ?? HiveManager(),
+       _readingService = readingService ?? QuranReadingService();
 
   /// Loads all 114 Surahs from Hive local storage, falling back to the API.
   Future<List<SurahModel>> getSurahs() async {

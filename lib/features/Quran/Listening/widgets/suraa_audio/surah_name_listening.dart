@@ -15,8 +15,6 @@ class SurahNameListening extends StatelessWidget {
 
   const SurahNameListening({super.key, required this.reciter});
 
-  static const Color primaryColor = AppColors.primary;
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<QuranController>(
@@ -24,10 +22,6 @@ class SurahNameListening extends StatelessWidget {
           QuranController()..initSurah(reciterId: reciter.id),
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: primaryColor,
-          foregroundColor: Colors.white,
-          elevation: 0,
           title: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -203,16 +197,16 @@ class SurahNameListening extends StatelessWidget {
                                   width: 44,
                                   height: 44,
                                   decoration: BoxDecoration(
-                                    color: const Color(
-                                      0xFF1B5E4F,
-                                    ).withValues(alpha: 0.1),
+                                    color: AppColors.primary.withValues(
+                                      alpha: 0.1,
+                                    ),
                                     shape: BoxShape.circle,
                                   ),
                                   child: Center(
                                     child: Text(
                                       '${surah.number}',
                                       style: const TextStyle(
-                                        color: Color(0xFF1B5E4F),
+                                        color: AppColors.primary,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16,
                                       ),
@@ -230,15 +224,15 @@ class SurahNameListening extends StatelessWidget {
                                         style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xFF1B1B1B),
+                                          color: AppColors.textDark,
                                         ),
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
                                         '${surah.ayahs.length} verses',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 13,
-                                          color: Colors.grey[700],
+                                          color: AppColors.textMuted,
                                         ),
                                       ),
                                     ],

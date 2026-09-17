@@ -42,24 +42,26 @@ class AudioPlayerCoordinator extends ChangeNotifier {
     ReciterAudioHandler? reciterHandler,
     AudioPlayerService? audioService,
     QuranAudioHandler? audioHandler,
-  })  : _initialAudioUrl = initialAudioUrl,
-        _hasActiveSession = initialSurah != null && initialAudioUrl != null,
-        playerController = playerController ??
-            AudioPlayerController(audioService: audioService),
-        navigationController = navigationController ??
-            SurahNavigationController(
-              initialSurah: initialSurah,
-              surahList: surahList,
-            ),
-        sleepTimerController =
-            sleepTimerController ?? SleepTimerController(),
-        repeatController = repeatController ?? RepeatController(),
-        reciterHandler = reciterHandler ??
-            ReciterAudioHandler(
-              initialReciter: initialReciter,
-              initialAudioMap: audioMap,
-            ),
-        audioHandler = audioHandler ?? QuranAudioHandler.instance {
+  }) : _initialAudioUrl = initialAudioUrl,
+       _hasActiveSession = initialSurah != null && initialAudioUrl != null,
+       playerController =
+           playerController ??
+           AudioPlayerController(audioService: audioService),
+       navigationController =
+           navigationController ??
+           SurahNavigationController(
+             initialSurah: initialSurah,
+             surahList: surahList,
+           ),
+       sleepTimerController = sleepTimerController ?? SleepTimerController(),
+       repeatController = repeatController ?? RepeatController(),
+       reciterHandler =
+           reciterHandler ??
+           ReciterAudioHandler(
+             initialReciter: initialReciter,
+             initialAudioMap: audioMap,
+           ),
+       audioHandler = audioHandler ?? QuranAudioHandler.instance {
     // Listen to changes from sub-controllers and propagate to coordinator listeners
     this.playerController.addListener(notifyListeners);
     this.navigationController.addListener(_onNavigationChanged);
@@ -106,10 +108,12 @@ class AudioPlayerCoordinator extends ChangeNotifier {
 
   bool get isLoopingSurah => repeatController.isLooping;
 
-  Stream<PlayerState> get playerStateStream => playerController.playerStateStream;
+  Stream<PlayerState> get playerStateStream =>
+      playerController.playerStateStream;
   Stream<Duration> get positionStream => playerController.positionStream;
   Stream<Duration?> get durationStream => playerController.durationStream;
-  Stream<Duration> get bufferedPositionStream => playerController.bufferedPositionStream;
+  Stream<Duration> get bufferedPositionStream =>
+      playerController.bufferedPositionStream;
   Duration get duration => playerController.duration;
   Duration get bufferedPosition => playerController.bufferedPosition;
   double get speed => playerController.speed;
@@ -163,7 +167,9 @@ class AudioPlayerCoordinator extends ChangeNotifier {
     final currentReciter = reciterHandler.currentReciter;
     final url = playerController.currentAudioUrl ?? '';
 
-    final artUri = await AudioBackgroundHandler.resolveArtworkUri(currentReciter.imagePath);
+    final artUri = await AudioBackgroundHandler.resolveArtworkUri(
+      currentReciter.imagePath,
+    );
 
     final item = AudioBackgroundHandler.buildMediaItem(
       id: url.isNotEmpty ? url : 'surah_${surah.number}',
@@ -171,7 +177,11 @@ class AudioPlayerCoordinator extends ChangeNotifier {
       arabicSurahName: surah.name,
       artist: currentReciter.name,
       arabicReciterName: currentReciter.arabicName,
-      duration: duration ?? (playerController.duration > Duration.zero ? playerController.duration : null),
+      duration:
+          duration ??
+          (playerController.duration > Duration.zero
+              ? playerController.duration
+              : null),
       artUri: artUri,
     );
 
@@ -229,8 +239,8 @@ class AudioPlayerCoordinator extends ChangeNotifier {
 
     final isSameRecitation =
         navigationController.currentSurah.number == surah.number &&
-            reciterHandler.currentReciter.id == reciter.id &&
-            playerController.currentAudioUrl == audioUrl;
+        reciterHandler.currentReciter.id == reciter.id &&
+        playerController.currentAudioUrl == audioUrl;
 
     navigationController.updateCurrentSurah(surah);
     if (surahList != null) {
@@ -322,7 +332,9 @@ class AudioPlayerCoordinator extends ChangeNotifier {
 
   Future<void> changeReciter(ReciterModel newReciter) async {
     reciterHandler.setReciter(newReciter);
-    final url = await reciterHandler.getAudioUrl(navigationController.currentSurah.number);
+    final url = await reciterHandler.getAudioUrl(
+      navigationController.currentSurah.number,
+    );
     if (url != null) {
       await playerController.loadAudio(
         url: url,
@@ -358,7 +370,8 @@ class AudioPlayerCoordinator extends ChangeNotifier {
 
   Future<void> seek(Duration position) => playerController.seek(position);
 
-  void togglePlayPause(bool isPlaying) => playerController.togglePlayPause(isPlaying);
+  void togglePlayPause(bool isPlaying) =>
+      playerController.togglePlayPause(isPlaying);
 
   Future<void> rewind10() => playerController.rewind();
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../../../core/theme/app_colors.dart';
 import '../../../../../../core/widget/share_widget/search/search_empty_state_widget.dart';
 import '../../../../../../core/widget/share_widget/search/search_section_header.dart';
 import '../../../../../../core/widget/share_widget/search/search_widget.dart';
@@ -30,8 +29,6 @@ class AudioSearchView extends StatefulWidget {
     this.onSurahSelected,
     this.onReciterSelected,
   });
-
-  static const Color primaryColor = AppColors.primary;
 
   @override
   State<AudioSearchView> createState() => _AudioSearchViewState();
@@ -91,10 +88,6 @@ class _AudioSearchViewState extends State<AudioSearchView> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Search Quran'),
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: AudioSearchView.primaryColor,
-          foregroundColor: Colors.white,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
             onPressed: () => Navigator.pop(context),

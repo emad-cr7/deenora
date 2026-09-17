@@ -16,7 +16,7 @@ class ReciterModel {
     required this.country,
     required this.description,
     required this.birthDate,
-     this.deathDate,
+    this.deathDate,
   });
 }
 
@@ -30,7 +30,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1927',
     deathDate: '1988',
     description:
-    'A legendary Egyptian Quran reciter known for his powerful and melodic voice.',
+        'A legendary Egyptian Quran reciter known for his powerful and melodic voice.',
   ),
 
   const ReciterModel(
@@ -42,7 +42,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1917',
     deathDate: '1980',
     description:
-    'A renowned Egyptian reciter known for his precise and carefully articulated recitation.',
+        'A renowned Egyptian reciter known for his precise and carefully articulated recitation.',
   ),
 
   const ReciterModel(
@@ -54,7 +54,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1920',
     deathDate: '1969',
     description:
-    'An iconic Egyptian reciter famous for his deeply moving and humble recitation.',
+        'An iconic Egyptian reciter famous for his deeply moving and humble recitation.',
   ),
 
   const ReciterModel(
@@ -66,7 +66,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1954',
     deathDate: '2005',
     description:
-    'A distinguished Saudi reciter and former Imam of the Grand Mosque in Makkah.',
+        'A distinguished Saudi reciter and former Imam of the Grand Mosque in Makkah.',
   ),
 
   const ReciterModel(
@@ -78,7 +78,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1980',
     deathDate: '',
     description:
-    'A prominent Saudi reciter known for his emotional and melodious Quran recitation.',
+        'A prominent Saudi reciter known for his emotional and melodious Quran recitation.',
   ),
   const ReciterModel(
     id: 81,
@@ -89,7 +89,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1980',
     deathDate: '',
     description:
-    'A distinguished Yemeni Quran reciter and Imam, known for his melodious and emotional recitation. He memorized the Quran in Sana’a and is known for his Quran recordings and work with Al Majd Quran Channel.',
+        'A distinguished Yemeni Quran reciter and Imam, known for his melodious and emotional recitation. He memorized the Quran in Sana’a and is known for his Quran recordings and work with Al Majd Quran Channel.',
   ),
 
   const ReciterModel(
@@ -101,7 +101,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1976',
     deathDate: '',
     description:
-    'A widely recognized Kuwaiti reciter and Imam known for his clear and expressive voice.',
+        'A widely recognized Kuwaiti reciter and Imam known for his clear and expressive voice.',
   ),
 
   const ReciterModel(
@@ -113,7 +113,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1968',
     deathDate: '',
     description:
-    'A well-known Saudi Quran reciter and Imam recognized for his beautiful voice.',
+        'A well-known Saudi Quran reciter and Imam recognized for his beautiful voice.',
   ),
 
   const ReciterModel(
@@ -125,7 +125,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1966',
     deathDate: '',
     description:
-    'A renowned Saudi Quran reciter and former Imam and Khatib of the Grand Mosque.',
+        'A renowned Saudi Quran reciter and former Imam and Khatib of the Grand Mosque.',
   ),
 
   const ReciterModel(
@@ -137,7 +137,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1967',
     deathDate: '',
     description:
-    'A beloved Saudi reciter known for his calm and clear complete Quran recitation.',
+        'A beloved Saudi reciter known for his calm and clear complete Quran recitation.',
   ),
 
   const ReciterModel(
@@ -149,7 +149,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1962',
     deathDate: '',
     description:
-    'A prominent Saudi reciter and Imam of the Two Holy Mosques known worldwide.',
+        'A prominent Saudi reciter and Imam of the Two Holy Mosques known worldwide.',
   ),
 
   const ReciterModel(
@@ -161,7 +161,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1974',
     deathDate: '',
     description:
-    'A Saudi Quran reciter known for his emotional and distinctive recitation.',
+        'A Saudi Quran reciter known for his emotional and distinctive recitation.',
   ),
 
   const ReciterModel(
@@ -173,7 +173,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1969',
     deathDate: '',
     description:
-    'An Emirati Quran reciter known for his strong and distinctive voice.',
+        'An Emirati Quran reciter known for his strong and distinctive voice.',
   ),
 
   const ReciterModel(
@@ -185,7 +185,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1969',
     deathDate: '',
     description:
-    'A prominent Saudi reciter and Imam of the Grand Mosque in Makkah.',
+        'A prominent Saudi reciter and Imam of the Grand Mosque in Makkah.',
   ),
 
   const ReciterModel(
@@ -197,7 +197,7 @@ final List<ReciterModel> reciters = [
     birthDate: '1975',
     deathDate: '',
     description:
-    'A Saudi Quran reciter, Imam of the Grand Mosque, and member of the Council of Senior Scholars.',
+        'A Saudi Quran reciter, Imam of the Grand Mosque, and member of the Council of Senior Scholars.',
   ),
 
   const ReciterModel(
@@ -209,6 +209,6 @@ final List<ReciterModel> reciters = [
     birthDate: '1970',
     deathDate: '',
     description:
-    'A renowned Saudi Quran reciter and Imam known for his distinctive voice.',
+        'A renowned Saudi Quran reciter and Imam known for his distinctive voice.',
   ),
 ];

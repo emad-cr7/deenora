@@ -6,7 +6,7 @@ class PrayerTimesService {
   final Dio _dio;
 
   PrayerTimesService({Dio? dio})
-      : _dio = dio ?? DioConfig.create('https://api.aladhan.com/v1');
+    : _dio = dio ?? DioConfig.create('https://api.aladhan.com/v1');
 
   /// Fetches prayer times using dynamic device coordinates (latitude, longitude).
   /// [method] defaults to 5 (Egyptian General Authority of Survey).
@@ -54,11 +54,7 @@ class PrayerTimesService {
 
       final response = await _dio.get(
         datePath,
-        queryParameters: {
-          'city': city,
-          'country': country,
-          'method': method,
-        },
+        queryParameters: {'city': city, 'country': country, 'method': method},
       );
 
       final data = response.data as Map<String, dynamic>;

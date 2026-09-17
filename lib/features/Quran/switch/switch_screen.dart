@@ -1,5 +1,6 @@
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 import 'package:flutter/material.dart';
+import '../../../core/theme/app_colors.dart';
 import '../Listening/widgets/main_audio/quran_listening.dart';
 import '../reading/quran_reading.dart';
 
@@ -11,15 +12,15 @@ class SwitchScreen extends StatefulWidget {
 }
 
 class _SwitchScreenState extends State<SwitchScreen>
-with SingleTickerProviderStateMixin{
+    with SingleTickerProviderStateMixin {
   late final TabController _tabController;
-  static const Color primaryColor = Color(0xFF1B5E4F);
-  static const Color unselectedColor = Color(0xFF6B6B6B);
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
+
   @override
   void dispose() {
     _tabController.dispose();
@@ -29,7 +30,7 @@ with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Quran'), centerTitle: true),
+      appBar: AppBar(title: const Text('Quran')),
       body: Column(
         children: [
           Padding(
@@ -49,10 +50,10 @@ with SingleTickerProviderStateMixin{
                     borderRadius: BorderRadius.circular(50),
                   ),
                   indicatorDecoration: BoxDecoration(
-                    color: primaryColor,
+                    color: AppColors.primary,
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  tabTextColor: unselectedColor,
+                  tabTextColor: AppColors.textMuted,
                   selectedTabTextColor: Colors.white,
                   tabs: [
                     SegmentTab(

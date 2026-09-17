@@ -8,9 +8,6 @@ import '../../audio_player/controller/audio_player_coordinator.dart';
 class MiniPlayerControls extends StatelessWidget {
   const MiniPlayerControls({super.key});
 
-  static const Color primaryColor = AppColors.primary;
-  static const Color primaryDark = AppColors.primaryDark;
-
   @override
   Widget build(BuildContext context) {
     final coordinator = context.read<AudioPlayerCoordinator>();
@@ -27,10 +24,11 @@ class MiniPlayerControls extends StatelessWidget {
 
             final isBufferingOrLoading =
                 (processingState == ProcessingState.loading ||
-                        processingState == ProcessingState.buffering) &&
-                    (playing || coordinator.isLoadingSurah);
+                    processingState == ProcessingState.buffering) &&
+                (playing || coordinator.isLoadingSurah);
 
-            final isLoading = coordinator.isLoadingSurah ||
+            final isLoading =
+                coordinator.isLoadingSurah ||
                 (isBufferingOrLoading &&
                     processingState != ProcessingState.completed);
 
@@ -44,12 +42,12 @@ class MiniPlayerControls extends StatelessWidget {
                   gradient: const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: [primaryColor, primaryDark],
+                    colors: [AppColors.primary, AppColors.primaryDark],
                   ),
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: primaryColor.withValues(alpha: 0.35),
+                      color: AppColors.primary.withValues(alpha: 0.35),
                       blurRadius: 8,
                       offset: const Offset(0, 3),
                     ),
@@ -70,18 +68,18 @@ class MiniPlayerControls extends StatelessWidget {
                               size: 18,
                             )
                           : hasError
-                              ? const Icon(
-                                  Icons.refresh_rounded,
-                                  color: Colors.white,
-                                  size: 22,
-                                )
-                              : Icon(
-                                  playing
-                                      ? Icons.pause_rounded
-                                      : Icons.play_arrow_rounded,
-                                  color: Colors.white,
-                                  size: 26,
-                                ),
+                          ? const Icon(
+                              Icons.refresh_rounded,
+                              color: Colors.white,
+                              size: 22,
+                            )
+                          : Icon(
+                              playing
+                                  ? Icons.pause_rounded
+                                  : Icons.play_arrow_rounded,
+                              color: Colors.white,
+                              size: 26,
+                            ),
                     ),
                   ),
                 ),
@@ -99,7 +97,7 @@ class MiniPlayerControls extends StatelessWidget {
             return IconButton(
               iconSize: 30,
               tooltip: 'Next Surah',
-              color: primaryColor,
+              color: AppColors.primary,
               disabledColor: Colors.grey[350],
               icon: const Icon(Icons.skip_next_rounded),
               onPressed: canPlayNext

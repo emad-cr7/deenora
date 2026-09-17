@@ -57,7 +57,8 @@ class QiblaErrorView extends StatelessWidget {
       default:
         icon = Icons.error_outline_rounded;
         title = 'Unable to Start Compass';
-        description = controller.errorMessage ??
+        description =
+            controller.errorMessage ??
             'An unexpected error occurred while reading compass sensors. Please try again.';
         buttonLabel = 'Try Again';
         onAction = () => controller.retry();
@@ -76,11 +77,7 @@ class QiblaErrorView extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: AppColors.primary.withValues(alpha: 0.1),
               ),
-              child: Icon(
-                icon,
-                size: 54,
-                color: AppColors.primary,
-              ),
+              child: Icon(icon, size: 54, color: AppColors.primary),
             ),
             const SizedBox(height: 24),
             Text(
@@ -116,13 +113,7 @@ class QiblaErrorView extends StatelessWidget {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: Colors.white,
-                  elevation: 0,
                   padding: const EdgeInsets.symmetric(horizontal: 24),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
                 ),
               ),
             ),

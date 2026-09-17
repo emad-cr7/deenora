@@ -2,12 +2,7 @@ import 'package:intl/intl.dart';
 
 import 'prayer_type.dart';
 
-enum PrayerState {
-  passed,
-  current,
-  next,
-  upcoming,
-}
+enum PrayerState { passed, current, next, upcoming }
 
 class PrayerTimeItem {
   static final DateFormat _time12HourFormat = DateFormat('hh:mm a');

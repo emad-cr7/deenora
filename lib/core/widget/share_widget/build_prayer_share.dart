@@ -42,11 +42,7 @@ class BuildPrayerShare extends StatelessWidget {
 
         Row(
           children: [
-            Icon(
-              prayerIcon,
-              size: 20,
-              color: AppColors.champagneGold,
-            ),
+            Icon(prayerIcon, size: 20, color: AppColors.champagneGold),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
@@ -77,25 +73,16 @@ class BuildPrayerShare extends StatelessWidget {
 
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 6,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(
             color: Colors.black.withValues(alpha: 0.22),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.10),
-            ),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                relativeIcon,
-                size: 13,
-                color: iconColor,
-              ),
+              Icon(relativeIcon, size: 13, color: iconColor),
               const SizedBox(width: 6),
               Flexible(
                 child: FittedBox(

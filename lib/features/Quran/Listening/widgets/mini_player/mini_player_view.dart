@@ -9,7 +9,6 @@ import 'widgets/mini_player_progress.dart';
 class MiniPlayerView extends StatelessWidget {
   const MiniPlayerView({super.key});
 
-  static const Color primaryColor = AppColors.primary;
   static const double cardHeight = 62.0;
   static const double overlapOffset = 5.0;
 
@@ -34,12 +33,12 @@ class MiniPlayerView extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: primaryColor.withValues(alpha: 0.12),
+              color: AppColors.primary.withValues(alpha: 0.12),
               width: 1,
             ),
             boxShadow: [
               BoxShadow(
-                color: primaryColor.withValues(alpha: 0.08),
+                color: AppColors.primary.withValues(alpha: 0.08),
                 blurRadius: 14,
                 offset: const Offset(0, 4),
               ),
@@ -61,7 +60,8 @@ class MiniPlayerView extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsetsDirectional.only(
-                          start: 70, // Leaves room for overlapping avatar (size 52 + 14 margin + 4 gap)
+                          start:
+                              70, // Leaves room for overlapping avatar (size 52 + 14 margin + 4 gap)
                           end: 6,
                           top: 2,
                           bottom: 2,

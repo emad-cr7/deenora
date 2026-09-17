@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import '../theme/app_colors.dart';
 
 class AzkarItemSkeleton extends StatelessWidget {
   const AzkarItemSkeleton({super.key});
@@ -24,12 +25,12 @@ class AzkarItemSkeleton extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    const Color(0xFF0E5B4A).withValues(alpha: 0.07),
-                    const Color(0xFFC9A24B).withValues(alpha: 0.04),
+                    AppColors.emerald.withValues(alpha: 0.07),
+                    AppColors.amberGold.withValues(alpha: 0.04),
                   ],
                 ),
                 border: Border.all(
-                  color: const Color(0xFF0E5B4A).withValues(alpha: 0.15),
+                  color: AppColors.emerald.withValues(alpha: 0.15),
                   width: 2,
                 ),
               ),
@@ -40,7 +41,7 @@ class AzkarItemSkeleton extends StatelessWidget {
                     height: 52,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: const Color(0xFF0E5B4A).withOpacity(0.10),
+                      color: AppColors.emerald.withValues(alpha: 0.10),
                     ),
                   ),
                   const SizedBox(width: 14),
@@ -53,7 +54,7 @@ class AzkarItemSkeleton extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF163B33),
+                            color: AppColors.deepTeal,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -65,9 +66,9 @@ class AzkarItemSkeleton extends StatelessWidget {
                                 vertical: 12,
                               ),
                               decoration: BoxDecoration(
-                                color: const Color(
-                                  0xFFC9A24B,
-                                ).withValues(alpha: 0.12),
+                                color: AppColors.amberGold.withValues(
+                                  alpha: 0.12,
+                                ),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                             ),
@@ -80,7 +81,7 @@ class AzkarItemSkeleton extends StatelessWidget {
                   const Icon(
                     Icons.arrow_forward_ios,
                     size: 20,
-                    color: Color(0xFF0E5B4A),
+                    color: AppColors.emerald,
                   ),
                 ],
               ),

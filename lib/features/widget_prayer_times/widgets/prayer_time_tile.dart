@@ -5,10 +5,7 @@ import '../models/models.dart';
 class PrayerTimeTile extends StatelessWidget {
   final PrayerTimeItem item;
 
-  const PrayerTimeTile({
-    super.key,
-    required this.item,
-  });
+  const PrayerTimeTile({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +26,7 @@ class PrayerTimeTile extends StatelessWidget {
             AppColors.champagneGold.withValues(alpha: 0.09),
           ],
         ),
-        border: Border.all(
-          color: AppColors.primary,
-          width: 2,
-        ),
+        border: Border.all(color: AppColors.primary, width: 2),
         boxShadow: [
           BoxShadow(
             color: AppColors.primary.withValues(alpha: 0.12),
@@ -86,7 +80,7 @@ class PrayerTimeTile extends StatelessWidget {
       iconColor = AppColors.primary;
     } else if (isPassed) {
       iconBgColor = Colors.grey.withValues(alpha: 0.12);
-      iconColor = const Color(0xFF71807B);
+      iconColor = AppColors.textMuted;
     } else {
       iconBgColor = AppColors.primary.withValues(alpha: 0.08);
       iconColor = AppColors.primary;
@@ -106,11 +100,7 @@ class PrayerTimeTile extends StatelessWidget {
               shape: BoxShape.circle,
               color: iconBgColor,
             ),
-            child: Icon(
-              item.type.icon,
-              size: 24,
-              color: iconColor,
-            ),
+            child: Icon(item.type.icon, size: 24, color: iconColor),
           ),
           const SizedBox(width: 14),
 
@@ -126,7 +116,7 @@ class PrayerTimeTile extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     color: isPassed
                         ? const Color(0xFF556561)
-                        : const Color(0xFF163B33),
+                        : AppColors.deepTeal,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -143,9 +133,7 @@ class PrayerTimeTile extends StatelessWidget {
               fontWeight: FontWeight.w700,
               color: isNext
                   ? AppColors.primary
-                  : (isPassed
-                      ? const Color(0xFF71807B)
-                      : const Color(0xFF163B33)),
+                  : (isPassed ? AppColors.textMuted : AppColors.deepTeal),
             ),
           ),
         ],
@@ -158,11 +146,7 @@ class PrayerTimeTile extends StatelessWidget {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.done_all_rounded,
-            size: 13,
-            color: Colors.grey[600],
-          ),
+          Icon(Icons.done_all_rounded, size: 13, color: Colors.grey[600]),
           const SizedBox(width: 4),
           Text(
             'Passed ${item.formattedElapsed} ago',
@@ -186,7 +170,7 @@ class PrayerTimeTile extends StatelessWidget {
           style: TextStyle(
             fontSize: 11,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF8A6D1D),
+            color: AppColors.darkGold,
           ),
         ),
       );

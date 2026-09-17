@@ -33,17 +33,15 @@ class FeatureCardsSection extends StatelessWidget {
             children: [
               Expanded(
                 child: FeatureCard(
-                    title: 'Qibla',
-                    description: 'Find the direction of the Kaaba',
-                    icon: FlutterIslamicIcons.solidQibla,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const QiblaScreen(),
-                        ),
-                      );
-                    },
+                  title: 'Qibla',
+                  description: 'Find the direction of the Kaaba',
+                  icon: FlutterIslamicIcons.solidQibla,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const QiblaScreen()),
+                    );
+                  },
                 ),
               ),
               const SizedBox(width: 10),
@@ -53,13 +51,11 @@ class FeatureCardsSection extends StatelessWidget {
                   description: 'Count your dhikr and get closer to Allah',
                   icon: FlutterIslamicIcons.solidTasbih,
                   onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const TasbeehScreen(),
-                          ),
-                        );
-                      },
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const TasbeehScreen()),
+                    );
+                  },
                 ),
               ),
             ],

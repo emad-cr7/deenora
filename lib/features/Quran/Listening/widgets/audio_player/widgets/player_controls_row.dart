@@ -29,8 +29,6 @@ class PlayerControlsRow extends StatelessWidget {
     required this.onPlayPausePressed,
   });
 
-  static const Color primaryColor = AppColors.primary;
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -40,7 +38,7 @@ class PlayerControlsRow extends StatelessWidget {
         IconButton(
           iconSize: 34,
           tooltip: 'Previous Surah',
-          color: primaryColor,
+          color: AppColors.primary,
           disabledColor: Colors.grey[300],
           icon: const Icon(Icons.skip_previous_rounded),
           onPressed: onPreviousPressed,
@@ -50,7 +48,7 @@ class PlayerControlsRow extends StatelessWidget {
         IconButton(
           iconSize: 28,
           tooltip: 'Rewind 10s',
-          color: primaryColor,
+          color: AppColors.primary,
           icon: const Icon(Icons.replay_10_rounded),
           onPressed: onRewindPressed,
         ),
@@ -66,7 +64,7 @@ class PlayerControlsRow extends StatelessWidget {
         IconButton(
           iconSize: 28,
           tooltip: 'Forward 10s',
-          color: primaryColor,
+          color: AppColors.primary,
           icon: const Icon(Icons.forward_10_rounded),
           onPressed: onForwardPressed,
         ),
@@ -75,7 +73,7 @@ class PlayerControlsRow extends StatelessWidget {
         IconButton(
           iconSize: 34,
           tooltip: 'Next Surah',
-          color: primaryColor,
+          color: AppColors.primary,
           disabledColor: Colors.grey[300],
           icon: const Icon(Icons.skip_next_rounded),
           onPressed: onNextPressed,
@@ -97,9 +95,6 @@ class _PlayPauseButton extends StatelessWidget {
     required this.onPlayPausePressed,
   });
 
-  static const Color primaryColor = AppColors.primary;
-  static const Color primaryDark = AppColors.primaryDark;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -114,10 +109,11 @@ class _PlayPauseButton extends StatelessWidget {
           // التحقق من حالة التحميل أو التخزين المؤقت
           final isBufferingOrLoading =
               (processingState == ProcessingState.loading ||
-                      processingState == ProcessingState.buffering) &&
-                  (playing || isLoadingSurah);
+                  processingState == ProcessingState.buffering) &&
+              (playing || isLoadingSurah);
 
-          final isLoading = isLoadingSurah ||
+          final isLoading =
+              isLoadingSurah ||
               (isBufferingOrLoading &&
                   processingState != ProcessingState.completed);
 
@@ -126,12 +122,12 @@ class _PlayPauseButton extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [primaryColor, primaryDark],
+                colors: [AppColors.primary, AppColors.primaryDark],
               ),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: primaryColor.withValues(alpha: 0.35),
+                  color: AppColors.primary.withValues(alpha: 0.35),
                   blurRadius: 12,
                   offset: const Offset(0, 5),
                 ),
@@ -148,9 +144,7 @@ class _PlayPauseButton extends StatelessWidget {
                     iconSize: 36,
                     color: Colors.white,
                     icon: Icon(
-                      playing
-                          ? Icons.pause_rounded
-                          : Icons.play_arrow_rounded,
+                      playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
                     ),
                     onPressed: () => onPlayPausePressed(playing),
                   ),

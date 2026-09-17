@@ -6,10 +6,7 @@ import 'prayer_time_tile.dart';
 class PrayerTimesList extends StatelessWidget {
   final List<PrayerTimeItem> items;
 
-  const PrayerTimesList({
-    super.key,
-    required this.items,
-  });
+  const PrayerTimesList({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +29,14 @@ class PrayerTimesList extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF163B33),
+                  color: AppColors.deepTeal,
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 3,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.primary.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(14),

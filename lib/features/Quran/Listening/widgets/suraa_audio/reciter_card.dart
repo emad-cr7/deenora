@@ -1,5 +1,6 @@
 import 'package:deenora/features/Quran/Listening/widgets/suraa_audio/surah_name_listening.dart';
 import 'package:flutter/material.dart';
+import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/widget/share_widget/icon_text_widget.dart';
 import '../../models_listening/reciter_model.dart';
 
@@ -50,7 +51,7 @@ class ReciterCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: const Color(0xFF1B5E4F).withValues(alpha: 0.15),
+                      color: AppColors.primary.withValues(alpha: 0.15),
                       width: 3,
                     ),
                     boxShadow: [
@@ -78,12 +79,14 @@ class ReciterCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF1B1B1B),
+                          color: AppColors.textDark,
                         ),
                       ),
                       const SizedBox(height: 6),
-                      IconTextWidget(icon: Icons.headphones_rounded,
-                        text: 'Listen to the complete',),
+                      IconTextWidget(
+                        icon: Icons.headphones_rounded,
+                        text: 'Listen to the complete',
+                      ),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

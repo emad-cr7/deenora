@@ -54,7 +54,9 @@ class AzekrCategory {
   factory AzekrCategory.fromJson(Map<String, dynamic> json) {
     List<AzkarModel> parseList(String key) {
       final list = json[key] as List<dynamic>? ?? [];
-      return list.map((e) => AzkarModel.fromJson(e as Map<String, dynamic>)).toList();
+      return list
+          .map((e) => AzkarModel.fromJson(e as Map<String, dynamic>))
+          .toList();
     }
 
     return AzekrCategory(

@@ -6,13 +6,7 @@ class PlayerErrorView extends StatelessWidget {
   final String? errorMessage;
   final VoidCallback onRetry;
 
-  const PlayerErrorView({
-    super.key,
-    this.errorMessage,
-    required this.onRetry,
-  });
-
-  static const Color primaryColor = AppColors.primary;
+  const PlayerErrorView({super.key, this.errorMessage, required this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +38,7 @@ class PlayerErrorView extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF1B1B1B),
+                color: AppColors.textDark,
               ),
             ),
             const SizedBox(height: 20),
@@ -52,11 +46,6 @@ class PlayerErrorView extends StatelessWidget {
             // زر إعادة المحاولة
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                backgroundColor: primaryColor,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
                   vertical: 12,

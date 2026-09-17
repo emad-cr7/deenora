@@ -6,7 +6,6 @@ class FutureBuilderShare<T> extends StatelessWidget {
   final Widget error;
   final Widget Function(T data) builder;
 
-
   const FutureBuilderShare({
     super.key,
     required this.future,

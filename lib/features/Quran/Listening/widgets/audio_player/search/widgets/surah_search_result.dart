@@ -14,8 +14,6 @@ class SurahSearchResult extends StatelessWidget {
     required this.onTap,
   });
 
-  static const Color primaryColor = AppColors.primary;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +22,7 @@ class SurahSearchResult extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         border: isCurrentlyPlaying
-            ? Border.all(color: primaryColor, width: 1.5)
+            ? Border.all(color: AppColors.primary, width: 1.5)
             : null,
         boxShadow: [
           BoxShadow(
@@ -49,14 +47,14 @@ class SurahSearchResult extends StatelessWidget {
                   width: 44,
                   height: 44,
                   decoration: BoxDecoration(
-                    color: primaryColor.withValues(alpha: 0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: Center(
                     child: Text(
                       '${surah.number}',
                       style: const TextStyle(
-                        color: primaryColor,
+                        color: AppColors.primary,
                         fontWeight: FontWeight.bold,
                         fontSize: 15,
                       ),
@@ -82,8 +80,8 @@ class SurahSearchResult extends StatelessWidget {
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: isCurrentlyPlaying
-                                    ? primaryColor
-                                    : const Color(0xFF1B1B1B),
+                                    ? AppColors.primary
+                                    : AppColors.textDark,
                               ),
                             ),
                           ),
@@ -95,7 +93,7 @@ class SurahSearchResult extends StatelessWidget {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: primaryColor,
+                                color: AppColors.primary,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: const Text(
@@ -135,7 +133,7 @@ class SurahSearchResult extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: primaryColor,
+                        color: AppColors.primary,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -166,7 +164,7 @@ class SurahSearchResult extends StatelessWidget {
                 const SizedBox(width: 6),
                 const Icon(
                   Icons.play_circle_outline_rounded,
-                  color: primaryColor,
+                  color: AppColors.primary,
                   size: 24,
                 ),
               ],

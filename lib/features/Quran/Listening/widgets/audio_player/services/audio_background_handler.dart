@@ -59,8 +59,8 @@ class AudioBackgroundHandler {
 
     final displaySubtitle =
         arabicReciterName != null && arabicReciterName.isNotEmpty
-            ? '$artist - $arabicReciterName'
-            : artist;
+        ? '$artist - $arabicReciterName'
+        : artist;
 
     return MediaItem(
       id: id,

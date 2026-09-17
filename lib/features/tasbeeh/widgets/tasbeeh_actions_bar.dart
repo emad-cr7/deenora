@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_colors.dart';
 
 class TasbeehActionsBar extends StatelessWidget {
   final VoidCallback onReset;
@@ -135,11 +135,7 @@ class _ActionButton extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Icon(
-                icon,
-                size: 25,
-                color: AppColors.deepForest,
-              ),
+              child: Icon(icon, size: 25, color: AppColors.deepForest),
             ),
             const SizedBox(height: 5),
             Text(
@@ -147,7 +143,7 @@ class _ActionButton extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 11.5,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF71807B),
+                color: AppColors.textMuted,
               ),
             ),
           ],

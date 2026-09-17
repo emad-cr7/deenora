@@ -19,9 +19,7 @@ class QuranNavigationHelper {
       if (surah != null) {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (_) => SurahDetailsScreen(surah: surah),
-          ),
+          MaterialPageRoute(builder: (_) => SurahDetailsScreen(surah: surah)),
         );
       }
     } catch (_) {

@@ -8,11 +8,7 @@ class QiblaCompass extends StatefulWidget {
   final QiblaController controller;
   final double size;
 
-  const QiblaCompass({
-    super.key,
-    required this.controller,
-    this.size = 290,
-  });
+  const QiblaCompass({super.key, required this.controller, this.size = 290});
 
   @override
   State<QiblaCompass> createState() => _QiblaCompassState();
@@ -38,14 +34,18 @@ class _QiblaCompassState extends State<QiblaCompass> {
     // Convert degrees to radians for dial rotation.
     // The dial rotates counter-clockwise by heading so physical North aligns properly.
     final targetDialRadians = -headingDeg * (math.pi / 180.0);
-    _lastHeadingRadians = _interpolateAngle(_lastHeadingRadians, targetDialRadians);
+    _lastHeadingRadians = _interpolateAngle(
+      _lastHeadingRadians,
+      targetDialRadians,
+    );
 
     final compassSize = widget.size;
 
     return Center(
       child: SizedBox(
         width: compassSize,
-        height: compassSize + 24, // Extra space at the top for the fixed pointer
+        height:
+            compassSize + 24, // Extra space at the top for the fixed pointer
         child: Stack(
           alignment: Alignment.center,
           clipBehavior: Clip.none,
@@ -58,10 +58,7 @@ class _QiblaCompassState extends State<QiblaCompass> {
                 duration: const Duration(milliseconds: 220),
                 curve: Curves.easeOutCubic,
                 builder: (context, dialAngle, child) {
-                  return Transform.rotate(
-                    angle: dialAngle,
-                    child: child,
-                  );
+                  return Transform.rotate(angle: dialAngle, child: child);
                 },
                 child: SizedBox(
                   width: compassSize,
@@ -86,7 +83,9 @@ class _QiblaCompassState extends State<QiblaCompass> {
                   shape: BoxShape.circle,
                   color: Colors.white,
                   border: Border.all(
-                    color: isFacing ? AppColors.primary : AppColors.primary.withValues(alpha: 0.25),
+                    color: isFacing
+                        ? AppColors.primary
+                        : AppColors.primary.withValues(alpha: 0.25),
                     width: isFacing ? 2.5 : 1.5,
                   ),
                   boxShadow: [
@@ -136,9 +135,7 @@ class _QiblaCompassState extends State<QiblaCompass> {
 class _FixedTopArrowPainter extends CustomPainter {
   final Color color;
 
-  const _FixedTopArrowPainter({
-    required this.color,
-  });
+  const _FixedTopArrowPainter({required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -217,9 +214,7 @@ class _CompassDialPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     final majorTickPaint = Paint()
-      ..color = isFacingQibla
-          ? AppColors.primary
-          : AppColors.primaryDark
+      ..color = isFacingQibla ? AppColors.primary : AppColors.primaryDark
       ..strokeWidth = 2.0
       ..strokeCap = StrokeCap.round;
 
@@ -286,10 +281,38 @@ class _CompassDialPainter extends CustomPainter {
     );
 
     // Cardinal directions
-    _drawCompassText(canvas, center, radius - 32, 'N', angleDeg: 0, style: northStyle);
-    _drawCompassText(canvas, center, radius - 32, 'E', angleDeg: 90, style: cardinalStyle);
-    _drawCompassText(canvas, center, radius - 32, 'S', angleDeg: 180, style: cardinalStyle);
-    _drawCompassText(canvas, center, radius - 32, 'W', angleDeg: 270, style: cardinalStyle);
+    _drawCompassText(
+      canvas,
+      center,
+      radius - 32,
+      'N',
+      angleDeg: 0,
+      style: northStyle,
+    );
+    _drawCompassText(
+      canvas,
+      center,
+      radius - 32,
+      'E',
+      angleDeg: 90,
+      style: cardinalStyle,
+    );
+    _drawCompassText(
+      canvas,
+      center,
+      radius - 32,
+      'S',
+      angleDeg: 180,
+      style: cardinalStyle,
+    );
+    _drawCompassText(
+      canvas,
+      center,
+      radius - 32,
+      'W',
+      angleDeg: 270,
+      style: cardinalStyle,
+    );
 
     // Degree numbers around the compass dial
     const degreeAngles = [30, 60, 120, 150, 210, 240, 300, 330];

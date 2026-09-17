@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import '../theme/app_colors.dart';
 
 class QuranSkeletonScreen extends StatelessWidget {
   const QuranSkeletonScreen({super.key});
@@ -41,7 +42,7 @@ class QuranSkeletonScreen extends StatelessWidget {
                       width: 44,
                       height: 44,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF1B5E4F).withValues(alpha: 0.1),
+                        color: AppColors.primary.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -57,7 +58,7 @@ class QuranSkeletonScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF1B1B1B),
+                              color: AppColors.textDark,
                             ),
                           ),
                           SizedBox(height: 4),
@@ -70,8 +71,6 @@ class QuranSkeletonScreen extends StatelessWidget {
                     ),
 
                     Card(
-
-
                       child: const Text(
                         'Meccan',
                         style: TextStyle(

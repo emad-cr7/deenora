@@ -2,6 +2,7 @@ import 'package:deenora/features/Quran/controller/quran_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/skeleton/quran_skeleton_screen.dart';
+import '../../../core/theme/app_colors.dart';
 import '../../../core/widget/error/error_screen.dart';
 import '../../../core/widget/share_widget/future_builder_share.dart';
 import 'details/surah_details_screen.dart';
@@ -72,16 +73,16 @@ class QuranReading extends StatelessWidget {
                                   width: 44,
                                   height: 44,
                                   decoration: BoxDecoration(
-                                    color: const Color(
-                                      0xFF1B5E4F,
-                                    ).withValues(alpha: 0.1),
+                                    color: AppColors.primary.withValues(
+                                      alpha: 0.1,
+                                    ),
                                     shape: BoxShape.circle,
                                   ),
                                   child: Center(
                                     child: Text(
                                       '${surah.number}',
                                       style: const TextStyle(
-                                        color: Color(0xFF1B5E4F),
+                                        color: AppColors.primary,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16,
                                       ),
@@ -101,15 +102,15 @@ class QuranReading extends StatelessWidget {
                                         style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xFF1B1B1B),
+                                          color: AppColors.textDark,
                                         ),
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
                                         '${surah.ayahs.length} verses',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 13,
-                                          color: Colors.grey[700],
+                                          color: AppColors.textMuted,
                                         ),
                                       ),
                                     ],

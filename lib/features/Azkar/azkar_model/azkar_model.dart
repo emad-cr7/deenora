@@ -13,18 +13,10 @@ class AzkarModel {
   @HiveField(2)
   final int count;
 
-  AzkarModel({
-    required this.id,
-    required this.text,
-    required this.count,
-  });
+  AzkarModel({required this.id, required this.text, required this.count});
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'text': text,
-      'count': count,
-    };
+    return {'id': id, 'text': text, 'count': count};
   }
 
   factory AzkarModel.fromJson(Map<String, dynamic> map) {

@@ -5,7 +5,7 @@ class RepeatController extends ChangeNotifier {
   LoopMode _loopMode;
 
   RepeatController({LoopMode initialMode = LoopMode.off})
-      : _loopMode = initialMode;
+    : _loopMode = initialMode;
 
   LoopMode get loopMode => _loopMode;
   bool get isLooping => _loopMode == LoopMode.one;

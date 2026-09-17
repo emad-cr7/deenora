@@ -5,10 +5,7 @@ import '../../../../core/theme/app_colors.dart';
 class VerseCardError extends StatelessWidget {
   final VoidCallback onRetry;
 
-  const VerseCardError({
-    super.key,
-    required this.onRetry,
-  });
+  const VerseCardError({super.key, required this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +15,7 @@ class VerseCardError extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE5EBE7), width: 1),
+        border: Border.all(color: AppColors.borderSubtle, width: 1),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -26,14 +23,14 @@ class VerseCardError extends StatelessWidget {
           const Icon(
             Icons.info_outline_rounded,
             size: 18,
-            color: Color(0xFF71807B),
+            color: AppColors.textMuted,
           ),
           const SizedBox(width: 8),
           const Text(
             'Unable to load daily ayah',
             style: TextStyle(
               fontSize: 12,
-              color: Color(0xFF71807B),
+              color: AppColors.textMuted,
               fontWeight: FontWeight.w500,
             ),
           ),

@@ -16,9 +16,6 @@ class SurahArtworkCard extends StatelessWidget {
     required this.reciter,
   });
 
-  static const Color primaryColor = AppColors.primary;
-  static const Color primaryDark = AppColors.primaryDark;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,12 +25,12 @@ class SurahArtworkCard extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [primaryColor, primaryDark],
+          colors: [AppColors.primary, AppColors.primaryDark],
         ),
         borderRadius: BorderRadius.circular(25),
         boxShadow: [
           BoxShadow(
-            color: primaryColor.withValues(alpha: 0.5),
+            color: AppColors.primary.withValues(alpha: 0.5),
             blurRadius: 16,
             offset: const Offset(0, 6),
           ),

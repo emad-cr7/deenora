@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../azkar_model/azkar_model.dart';
 
-
 class AzkarDetailsController extends ChangeNotifier {
   final String title;
   final List<AzkarModel> zekrList;

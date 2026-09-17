@@ -67,10 +67,7 @@ class _CounterButtonState extends State<CounterButton>
         child: AnimatedBuilder(
           animation: _scaleAnimation,
           builder: (context, child) {
-            return Transform.scale(
-              scale: _scaleAnimation.value,
-              child: child,
-            );
+            return Transform.scale(scale: _scaleAnimation.value, child: child);
           },
           child: Container(
             width: buttonSize,

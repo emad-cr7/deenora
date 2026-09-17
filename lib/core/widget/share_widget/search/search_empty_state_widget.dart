@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../theme/app_colors.dart';
 
 class SearchEmptyStateWidget extends StatelessWidget {
   final IconData icon;
@@ -14,8 +15,6 @@ class SearchEmptyStateWidget extends StatelessWidget {
     this.action,
   });
 
-  static const Color primaryColor = Color(0xFF1B5E4F);
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -30,13 +29,13 @@ class SearchEmptyStateWidget extends StatelessWidget {
               width: 84,
               height: 84,
               decoration: BoxDecoration(
-                color: primaryColor.withValues(alpha: 0.08),
+                color: AppColors.primary.withValues(alpha: 0.08),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 icon,
                 size: 42,
-                color: primaryColor.withValues(alpha: 0.7),
+                color: AppColors.primary.withValues(alpha: 0.7),
               ),
             ),
             const SizedBox(height: 20),
@@ -46,7 +45,7 @@ class SearchEmptyStateWidget extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF222222),
+                color: AppColors.textDark,
               ),
             ),
             if (subtitle != null) ...[
@@ -54,17 +53,14 @@ class SearchEmptyStateWidget extends StatelessWidget {
               Text(
                 subtitle!,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   height: 1.4,
-                  color: Colors.grey.shade600,
+                  color: AppColors.textMuted,
                 ),
               ),
             ],
-            if (action != null) ...[
-              const SizedBox(height: 20),
-              action!,
-            ],
+            if (action != null) ...[const SizedBox(height: 20), action!],
           ],
         ),
       ),

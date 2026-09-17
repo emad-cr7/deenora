@@ -15,9 +15,8 @@ class AudioPlayerController extends ChangeNotifier {
   bool _hasError = false;
   String? _errorMessage;
 
-  AudioPlayerController({
-    AudioPlayerService? audioService,
-  }) : _audioService = audioService ?? AudioPlayerService();
+  AudioPlayerController({AudioPlayerService? audioService})
+    : _audioService = audioService ?? AudioPlayerService();
 
   // Core state getters
   String? get currentAudioUrl => _currentAudioUrl;

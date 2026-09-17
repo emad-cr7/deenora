@@ -7,7 +7,7 @@ class FeatureCard extends StatelessWidget {
   final IconData? icon;
   final VoidCallback? onTap;
   final Color? color;
-  final Color? color_border;
+  final Color? colorBorder;
 
   const FeatureCard({
     super.key,
@@ -16,7 +16,7 @@ class FeatureCard extends StatelessWidget {
     this.icon,
     this.onTap,
     this.color,
-    this.color_border,
+    this.colorBorder,
   });
 
   @override
@@ -25,7 +25,7 @@ class FeatureCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE5EBE7), width: 1),
+        border: Border.all(color: AppColors.borderSubtle, width: 1),
         boxShadow: [
           BoxShadow(
             color: AppColors.deepForest.withValues(alpha: 0.25),
@@ -54,7 +54,7 @@ class FeatureCard extends StatelessWidget {
                       color: color ?? AppColors.primaryDark,
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color:color_border ?? AppColors.champagneGold,
+                        color: colorBorder ?? AppColors.champagneGold,
                         width: 1.2,
                       ),
                     ),
@@ -81,7 +81,7 @@ class FeatureCard extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 13.5,
                             fontWeight: FontWeight.w700,
-                            color: Color(0xFF1E2923),
+                            color: AppColors.textDark,
                             letterSpacing: -0.2,
                           ),
                         ),
@@ -92,7 +92,7 @@ class FeatureCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 10.5,
-                            color: Color(0xFF6B7280),
+                            color: AppColors.textMuted,
                             height: 1.25,
                           ),
                         ),
@@ -105,7 +105,7 @@ class FeatureCard extends StatelessWidget {
                   const Icon(
                     Icons.chevron_right_rounded,
                     size: 20,
-                    color: Color(0xFF4B5563),
+                    color: AppColors.textMuted,
                   ),
                 ],
               ),

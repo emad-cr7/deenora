@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../controllers/prayer_times_controller.dart';
 import '../models/models.dart';
@@ -12,10 +12,7 @@ import '../models/models.dart';
 class PrayerCountdownWidget extends StatelessWidget {
   final PrayerTimesController controller;
 
-  const PrayerCountdownWidget({
-    super.key,
-    required this.controller,
-  });
+  const PrayerCountdownWidget({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -110,16 +107,11 @@ class PrayerCountdownWidget extends StatelessWidget {
             // High-visibility Countdown Counter Box
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 10,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
                 color: Colors.black.withValues(alpha: 0.20),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.10),
-                ),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.10)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

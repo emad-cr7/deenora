@@ -28,10 +28,7 @@ class MiniPlayerAvatar extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white,
-              border: Border.all(
-                color: Colors.white,
-                width: 2.5,
-              ),
+              border: Border.all(color: Colors.white, width: 2.5),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.16),

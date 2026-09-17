@@ -25,8 +25,8 @@ class AudioSearchController extends ChangeNotifier {
     List<ReciterModel>? initialReciters,
     QuranReadingService? readingService,
     HiveManager? hiveManager,
-  })  : _readingService = readingService ?? QuranReadingService(),
-        _hiveManager = hiveManager ?? HiveManager() {
+  }) : _readingService = readingService ?? QuranReadingService(),
+       _hiveManager = hiveManager ?? HiveManager() {
     if (initialSurahs != null && initialSurahs.isNotEmpty) {
       _allSurahs = List.from(initialSurahs);
     }

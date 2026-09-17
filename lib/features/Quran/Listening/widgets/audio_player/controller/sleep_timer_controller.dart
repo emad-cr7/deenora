@@ -42,8 +42,9 @@ class SleepTimerController extends ChangeNotifier {
       return;
     }
 
-    final totalMinutes =
-        option == SleepTimerOption.custom ? (customMinutes ?? 15) : option.minutes;
+    final totalMinutes = option == SleepTimerOption.custom
+        ? (customMinutes ?? 15)
+        : option.minutes;
     _remainingSeconds = totalMinutes * 60;
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {

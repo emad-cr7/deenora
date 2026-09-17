@@ -16,7 +16,9 @@ class QuranResponseModel {
     return QuranResponseModel(
       code: json['code'],
       status: json['status'],
-      surahs: (data['surahs'] as List).map((s) => SurahModel.fromJson(s)).toList(),
+      surahs: (data['surahs'] as List)
+          .map((s) => SurahModel.fromJson(s))
+          .toList(),
     );
   }
 }

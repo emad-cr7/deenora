@@ -76,8 +76,6 @@ class _SurahSequenceItem extends StatelessWidget {
     required this.onPressed,
   });
 
-  static const Color primaryColor = AppColors.primary;
-
   @override
   Widget build(BuildContext context) {
     final title = isPrevious ? 'Previous' : 'Next';
@@ -91,13 +89,14 @@ class _SurahSequenceItem extends StatelessWidget {
           ? Icons.arrow_back_ios_rounded
           : Icons.arrow_forward_ios_rounded,
       size: 13,
-      color: isEnabled ? primaryColor : Colors.grey[350],
+      color: isEnabled ? AppColors.primary : Colors.grey[350],
     );
 
     final textColumn = Expanded(
       child: Column(
-        crossAxisAlignment:
-            isPrevious ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+        crossAxisAlignment: isPrevious
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
@@ -105,7 +104,7 @@ class _SurahSequenceItem extends StatelessWidget {
             style: TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w600,
-              color: isEnabled ? primaryColor : Colors.grey[400],
+              color: isEnabled ? AppColors.primary : Colors.grey[400],
             ),
           ),
           const SizedBox(height: 2),
@@ -116,7 +115,7 @@ class _SurahSequenceItem extends StatelessWidget {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.bold,
-              color: isEnabled ? const Color(0xFF1B1B1B) : Colors.grey[400],
+              color: isEnabled ? AppColors.textDark : Colors.grey[400],
             ),
           ),
         ],
@@ -130,8 +129,9 @@ class _SurahSequenceItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
           child: Row(
-            mainAxisAlignment:
-                isPrevious ? MainAxisAlignment.start : MainAxisAlignment.end,
+            mainAxisAlignment: isPrevious
+                ? MainAxisAlignment.start
+                : MainAxisAlignment.end,
             children: isPrevious
                 ? [icon, const SizedBox(width: 6), textColumn]
                 : [textColumn, const SizedBox(width: 6), icon],

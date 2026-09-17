@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../core/theme/app_colors.dart';
 import '../../audio_player/controller/audio_player_coordinator.dart';
 
 class MiniPlayerInfo extends StatelessWidget {
@@ -7,7 +8,10 @@ class MiniPlayerInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<AudioPlayerCoordinator, ({String surahName, String reciterName})>(
+    return Selector<
+      AudioPlayerCoordinator,
+      ({String surahName, String reciterName})
+    >(
       selector: (_, coordinator) => (
         surahName: coordinator.currentSurah.englishName,
         reciterName: coordinator.reciter.name,
@@ -25,7 +29,7 @@ class MiniPlayerInfo extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1B1B1B),
+                color: AppColors.textDark,
                 letterSpacing: 0.2,
               ),
             ),
@@ -37,7 +41,7 @@ class MiniPlayerInfo extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                color: Color(0xFF71807B),
+                color: AppColors.textMuted,
               ),
             ),
           ],

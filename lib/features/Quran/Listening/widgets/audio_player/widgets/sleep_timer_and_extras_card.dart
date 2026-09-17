@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../../core/theme/app_colors.dart';
+
 class SleepTimerAndExtrasCard extends StatelessWidget {
   final bool isSleepTimerActive;
   final String sleepTimerFormatted;
@@ -47,10 +48,7 @@ class SleepTimerAndExtrasCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _RepeatToggleButton(
-                isLooping: isLooping,
-                onToggle: onToggleLoop,
-              ),
+              _RepeatToggleButton(isLooping: isLooping, onToggle: onToggleLoop),
             ],
           ),
         ],
@@ -58,6 +56,7 @@ class SleepTimerAndExtrasCard extends StatelessWidget {
     );
   }
 }
+
 class _SleepTimerRow extends StatelessWidget {
   final bool isActive;
   final String formattedTime;
@@ -70,8 +69,6 @@ class _SleepTimerRow extends StatelessWidget {
     required this.onTap,
     required this.onCancel,
   });
-
-  static const Color primaryColor = AppColors.primary;
 
   @override
   Widget build(BuildContext context) {
@@ -86,14 +83,14 @@ class _SleepTimerRow extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: isActive
-                    ? primaryColor.withValues(alpha: 0.12)
+                    ? AppColors.primary.withValues(alpha: 0.12)
                     : Colors.grey.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 isActive ? Icons.snooze_rounded : Icons.snooze_outlined,
                 size: 25,
-                color: isActive ? primaryColor : Colors.grey[700],
+                color: isActive ? AppColors.primary : Colors.grey[700],
               ),
             ),
             const SizedBox(width: 12),
@@ -106,7 +103,7 @@ class _SleepTimerRow extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1B1B1B),
+                      color: AppColors.textDark,
                     ),
                   ),
                   const SizedBox(height: 2),
@@ -116,9 +113,10 @@ class _SleepTimerRow extends StatelessWidget {
                         : 'Tap to set automatic sleep timer',
                     style: TextStyle(
                       fontSize: 13,
-                      color: isActive ? primaryColor : Colors.grey[600],
-                      fontWeight:
-                          isActive ? FontWeight.w600 : FontWeight.normal,
+                      color: isActive ? AppColors.primary : Colors.grey[600],
+                      fontWeight: isActive
+                          ? FontWeight.w600
+                          : FontWeight.normal,
                     ),
                   ),
                 ],
@@ -148,12 +146,7 @@ class _RepeatToggleButton extends StatelessWidget {
   final bool isLooping;
   final VoidCallback onToggle;
 
-  const _RepeatToggleButton({
-    required this.isLooping,
-    required this.onToggle,
-  });
-
-  static const Color primaryColor = AppColors.primary;
+  const _RepeatToggleButton({required this.isLooping, required this.onToggle});
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +159,7 @@ class _RepeatToggleButton extends StatelessWidget {
             Icon(
               isLooping ? Icons.repeat_one_rounded : Icons.repeat_rounded,
               size: 18,
-              color: isLooping ? primaryColor : Colors.grey[600],
+              color: isLooping ? AppColors.primary : Colors.grey[600],
             ),
             const SizedBox(width: 6),
             Text(
@@ -174,7 +167,7 @@ class _RepeatToggleButton extends StatelessWidget {
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: isLooping ? FontWeight.bold : FontWeight.w500,
-                color: isLooping ? primaryColor : Colors.grey[700],
+                color: isLooping ? AppColors.primary : Colors.grey[700],
               ),
             ),
           ],

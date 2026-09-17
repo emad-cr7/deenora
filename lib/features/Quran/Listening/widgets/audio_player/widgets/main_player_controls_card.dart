@@ -7,10 +7,7 @@ import 'player_progress_bar.dart';
 class MainPlayerControlsCard extends StatelessWidget {
   final AudioPlayerCoordinator coordinator;
 
-  const MainPlayerControlsCard({
-    super.key,
-    required this.coordinator,
-  });
+  const MainPlayerControlsCard({super.key, required this.coordinator});
 
   @override
   Widget build(BuildContext context) {

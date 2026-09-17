@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_colors.dart';
 
 class AddCustomDhikrSheet extends StatefulWidget {
   final void Function(String text, int count) onAdd;
 
-  const AddCustomDhikrSheet({
-    super.key,
-    required this.onAdd,
-  });
+  const AddCustomDhikrSheet({super.key, required this.onAdd});
 
   static Future<void> show({
     required BuildContext context,
@@ -111,7 +108,10 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                   ],
                 ),
                 IconButton(
-                  icon: const Icon(Icons.close_rounded, color: Color(0xFF71807B)),
+                  icon: const Icon(
+                    Icons.close_rounded,
+                    color: AppColors.textMuted,
+                  ),
                   onPressed: () => Navigator.pop(context),
                 ),
               ],
@@ -129,8 +129,11 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
               child: const Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(Icons.info_outline_rounded,
-                      size: 16, color: Color(0xFFD48800)),
+                  Icon(
+                    Icons.info_outline_rounded,
+                    size: 16,
+                    color: Color(0xFFD48800),
+                  ),
                   SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -165,21 +168,25 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                 hintText: 'e.g. SubhanAllah or Rabbi Zidni Ilma',
                 errorText: _textError,
                 filled: true,
-                fillColor: const Color(0xFFF7FBF9),
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                fillColor: AppColors.luminousIvory,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 12,
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: Color(0xFFD8E2DC)),
+                  borderSide: const BorderSide(color: AppColors.borderSubtle),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: Color(0xFFD8E2DC)),
+                  borderSide: const BorderSide(color: AppColors.borderSubtle),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide:
-                      const BorderSide(color: AppColors.primary, width: 1.5),
+                  borderSide: const BorderSide(
+                    color: AppColors.primary,
+                    width: 1.5,
+                  ),
                 ),
               ),
             ),
@@ -203,21 +210,25 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                 hintText: 'e.g. 33',
                 errorText: _countError,
                 filled: true,
-                fillColor: const Color(0xFFF7FBF9),
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                fillColor: AppColors.luminousIvory,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 12,
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: Color(0xFFD8E2DC)),
+                  borderSide: const BorderSide(color: AppColors.borderSubtle),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: Color(0xFFD8E2DC)),
+                  borderSide: const BorderSide(color: AppColors.borderSubtle),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide:
-                      const BorderSide(color: AppColors.primary, width: 1.5),
+                  borderSide: const BorderSide(
+                    color: AppColors.primary,
+                    width: 1.5,
+                  ),
                 ),
               ),
             ),
@@ -238,7 +249,7 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
-                    side: const BorderSide(color: Color(0xFFD8E2DC)),
+                    side: const BorderSide(color: AppColors.borderSubtle),
                   ),
                   onPressed: () {
                     _countController.text = preset.toString();
@@ -267,7 +278,7 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                     child: const Text(
                       'Cancel',
                       style: TextStyle(
-                        color: Color(0xFF71807B),
+                        color: AppColors.textMuted,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -277,19 +288,12 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
                       padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
                     onPressed: _submit,
                     child: const Text(
                       'Add Dhikr',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.w700),
                     ),
                   ),
                 ),

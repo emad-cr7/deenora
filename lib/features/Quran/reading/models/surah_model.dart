@@ -33,7 +33,9 @@ class SurahModel {
       englishName: json['englishName'],
       englishNameTranslation: json['englishNameTranslation'],
       revelationType: json['revelationType'],
-      ayahs: (json['ayahs'] as List).map((ayah) => AyahModel.fromJson(ayah)).toList(),
+      ayahs: (json['ayahs'] as List)
+          .map((ayah) => AyahModel.fromJson(ayah))
+          .toList(),
     );
   }
 }

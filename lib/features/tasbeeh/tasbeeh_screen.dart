@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/widget/error/error_screen.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/widget/error/error_screen.dart';
 import 'controllers/tasbeeh_controller.dart';
 import 'widgets/counter_button.dart';
 import 'widgets/counter_display.dart';
@@ -38,8 +38,6 @@ class _TasbeehScreenContent extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        backgroundColor: Colors.white,
         title: const Text(
           'Reset Counter?',
           style: TextStyle(
@@ -57,13 +55,14 @@ class _TasbeehScreenContent extends StatelessWidget {
             onPressed: () => Navigator.pop(ctx),
             child: const Text(
               'Cancel',
-              style: TextStyle(color: Color(0xFF71807B), fontWeight: FontWeight.w600),
+              style: TextStyle(
+                color: AppColors.textMuted,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.primary,
-              foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -72,7 +71,10 @@ class _TasbeehScreenContent extends StatelessWidget {
               controller.reset();
               Navigator.pop(ctx);
             },
-            child: const Text('Reset', style: TextStyle(fontWeight: FontWeight.w700)),
+            child: const Text(
+              'Reset',
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
           ),
         ],
       ),
@@ -86,101 +88,100 @@ class _TasbeehScreenContent extends StatelessWidget {
         final currentDhikr = controller.currentDhikr;
 
         return Scaffold(
-          backgroundColor: const Color(0xFFF6F8F7),
-          appBar: AppBar(
-            title: const Text('Tasbeeh'),
-            centerTitle: true,
-          ),
+          appBar: AppBar(title: const Text('Tasbeeh')),
           body: SafeArea(
             child: Builder(
               builder: (context) {
-              // 1. Initial Loading State
-              if (controller.isLoading && currentDhikr == null) {
-                return const TasbeehSkeleton();
-              }
+                // 1. Initial Loading State
+                if (controller.isLoading && currentDhikr == null) {
+                  return const TasbeehSkeleton();
+                }
 
-              // 2. Error State (No data loaded and error occurred)
-              if (controller.hasError && currentDhikr == null) {
-                return AppErrorScreen(
-                  type: controller.errorType,
-                  onRetry: () => controller.loadDhikr(),
-                );
-              }
+                // 2. Error State (No data loaded and error occurred)
+                if (controller.hasError && currentDhikr == null) {
+                  return AppErrorScreen(
+                    type: controller.errorType,
+                    onRetry: () => controller.loadDhikr(),
+                  );
+                }
 
-              if (currentDhikr == null) {
-                return const Center(
-                  child: Text(
-                    'No dhikr data available.',
-                    style: TextStyle(color: Color(0xFF71807B)),
+                if (currentDhikr == null) {
+                  return const Center(
+                    child: Text(
+                      'No dhikr data available.',
+                      style: TextStyle(color: AppColors.textMuted),
+                    ),
+                  );
+                }
+
+                // 3. Loaded State with Pull-To-Refresh
+                return SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Column(
+                    children: [
+                      // Dhikr Hero Card (focused on English Dhikr & meaning)
+                      DhikrCard(
+                        dhikr: currentDhikr,
+                        currentIndex: controller.selectedIndex,
+                        totalCount: controller.dhikrList.length,
+                        customTarget: currentDhikr.narratedCount == null
+                            ? controller.targetCount
+                            : null,
+                        isCustom: controller.isCustomDhikr(currentDhikr),
+                        onPrevious: controller.previousDhikr,
+                        onNext: controller.nextDhikr,
+                      ),
+
+                      const SizedBox(height: 8),
+
+                      // Numerical Counter and Target Progress
+                      CounterDisplay(
+                        count: controller.count,
+                        targetCount: controller.targetCount,
+                        hasTarget: controller.hasTarget,
+                        isCompleted: controller.isCompleted,
+                        progress: controller.progress,
+                      ),
+
+                      const SizedBox(height: 25),
+
+                      // Large Circular Counter Tap Button
+                      CounterButton(
+                        onTap: controller.increment,
+                        isCompleted: controller.isCompleted,
+                      ),
+
+                      const SizedBox(height: 30),
+
+                      // Action Toolbar (Reset, Prev, Next, Select Dhikr below)
+                      TasbeehActionsBar(
+                        onReset: () => _confirmReset(context, controller),
+                        onPrevious: controller.previousDhikr,
+                        onNext: controller.nextDhikr,
+                        onSelectDhikr: () {
+                          DhikrSelectorSheet.show(
+                            context: context,
+                            dhikrList: controller.dhikrList,
+                            selectedIndex: controller.selectedIndex,
+                            onSelect: controller.selectDhikr,
+                            onAddCustom: (text, count) {
+                              controller.addCustomDhikr(
+                                text: text,
+                                count: count,
+                              );
+                            },
+                            attribution: controller.attribution,
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 );
-              }
-
-              // 3. Loaded State with Pull-To-Refresh
-              return SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Column(
-                  children: [
-                    // Dhikr Hero Card (focused on English Dhikr & meaning)
-                    DhikrCard(
-                      dhikr: currentDhikr,
-                      currentIndex: controller.selectedIndex,
-                      totalCount: controller.dhikrList.length,
-                      customTarget: currentDhikr.narratedCount == null
-                          ? controller.targetCount
-                          : null,
-                      isCustom: controller.isCustomDhikr(currentDhikr),
-                      onPrevious: controller.previousDhikr,
-                      onNext: controller.nextDhikr,
-                    ),
-
-                    const SizedBox(height: 8),
-
-                    // Numerical Counter and Target Progress
-                    CounterDisplay(
-                      count: controller.count,
-                      targetCount: controller.targetCount,
-                      hasTarget: controller.hasTarget,
-                      isCompleted: controller.isCompleted,
-                      progress: controller.progress,
-                    ),
-
-                    const SizedBox(height: 25),
-
-                    // Large Circular Counter Tap Button
-                    CounterButton(
-                      onTap: controller.increment,
-                      isCompleted: controller.isCompleted,
-                    ),
-
-                    const SizedBox(height: 30),
-
-                    // Action Toolbar (Reset, Prev, Next, Select Dhikr below)
-                    TasbeehActionsBar(
-                      onReset: () => _confirmReset(context, controller),
-                      onPrevious: controller.previousDhikr,
-                      onNext: controller.nextDhikr,
-                      onSelectDhikr: () {
-                        DhikrSelectorSheet.show(
-                          context: context,
-                          dhikrList: controller.dhikrList,
-                          selectedIndex: controller.selectedIndex,
-                          onSelect: controller.selectDhikr,
-                          onAddCustom: (text, count) {
-                            controller.addCustomDhikr(text: text, count: count);
-                          },
-                          attribution: controller.attribution,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
+              },
+            ),
           ),
-        ),
-      );
+        );
       },
     );
   }

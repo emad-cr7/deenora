@@ -1,6 +1,7 @@
 import 'package:deenora/features/Azkar/azkar_details/azkar_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../core/theme/app_colors.dart';
 import '../azkar_model/azkar_model.dart';
 
 class AzkarDetailsScreen extends StatelessWidget {
@@ -33,7 +34,7 @@ class AzkarDetailsScreen extends StatelessWidget {
                         return ListView.separated(
                           padding: const EdgeInsets.all(16),
                           itemCount: zekrList.length,
-                          separatorBuilder: (_, __) =>
+                          separatorBuilder: (_, _) =>
                               const SizedBox(height: 10),
                           itemBuilder: (context, index) {
                             final zekr = zekrList[index];
@@ -50,10 +51,10 @@ class AzkarDetailsScreen extends StatelessWidget {
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
                                     colors: [
-                                      const Color(0xFF0E5B4A).withValues(
+                                      AppColors.emerald.withValues(
                                         alpha: isCompleted ? 0.10 : 0.07,
                                       ),
-                                      const Color(0xFFC9A24B).withValues(
+                                      AppColors.amberGold.withValues(
                                         alpha: isCompleted ? 0.07 : 0.04,
                                       ),
                                     ],
@@ -61,9 +62,9 @@ class AzkarDetailsScreen extends StatelessWidget {
                                   border: Border.all(
                                     color: isCompleted
                                         ? Colors.green.withValues(alpha: 0.9)
-                                        : const Color(
-                                            0xFF0E5B4A,
-                                          ).withValues(alpha: 0.15),
+                                        : AppColors.emerald.withValues(
+                                            alpha: 0.15,
+                                          ),
                                     width: 2,
                                   ),
                                 ),
@@ -77,7 +78,7 @@ class AzkarDetailsScreen extends StatelessWidget {
                                           fontSize: 20,
                                           height: 1.7,
                                           fontWeight: FontWeight.w600,
-                                          color: Color(0xFF163B33),
+                                          color: AppColors.deepTeal,
                                         ),
                                         textAlign: TextAlign.right,
                                       ),
@@ -122,9 +123,8 @@ class AzkarDetailsScreen extends StatelessWidget {
                                                       vertical: 10,
                                                     ),
                                                 decoration: BoxDecoration(
-                                                  color: const Color(
-                                                    0xFFC9A24B,
-                                                  ).withValues(alpha: 0.12),
+                                                  color: AppColors.amberGold
+                                                      .withValues(alpha: 0.12),
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                 ),
@@ -133,7 +133,7 @@ class AzkarDetailsScreen extends StatelessWidget {
                                                   style: const TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w700,
-                                                    color: Color(0xFF8A6D1D),
+                                                    color: AppColors.darkGold,
                                                   ),
                                                 ),
                                               ),

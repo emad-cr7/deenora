@@ -32,9 +32,7 @@ class AudioPlayerService {
     String? artist,
     String? album,
   }) async {
-    await _player.setAudioSource(
-      AudioSource.uri(Uri.parse(url)),
-    );
+    await _player.setAudioSource(AudioSource.uri(Uri.parse(url)));
   }
 
   // بدء تشغيل الصوت
@@ -52,7 +50,9 @@ class AudioPlayerService {
   // إرجاع الصوت للخلف بمدة محددة
   Future<void> rewind(Duration offset) async {
     final newPosition = _player.position - offset;
-    await _player.seek(newPosition < Duration.zero ? Duration.zero : newPosition);
+    await _player.seek(
+      newPosition < Duration.zero ? Duration.zero : newPosition,
+    );
   }
 
   // تقديم الصوت للأمام بمدة محددة

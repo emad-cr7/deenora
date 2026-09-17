@@ -2,7 +2,6 @@ import 'package:deenora/features/Quran/Listening/widgets/suraa_audio/reciter_car
 import 'package:deenora/features/Quran/Listening/models_listening/reciter_model.dart';
 import 'package:flutter/material.dart';
 
-
 class QuranListening extends StatelessWidget {
   const QuranListening({super.key});
 

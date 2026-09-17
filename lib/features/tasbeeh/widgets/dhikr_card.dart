@@ -64,7 +64,10 @@ class DhikrCard extends StatelessWidget {
             children: [
               // Index counter pill
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(12),
@@ -82,13 +85,16 @@ class DhikrCard extends StatelessWidget {
               // Target pill badge
               Flexible(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: hasNarrated
                         ? AppColors.champagneGold.withValues(alpha: 0.2)
                         : (hasCustomGoal
-                            ? Colors.white.withValues(alpha: 0.15)
-                            : Colors.black.withValues(alpha: 0.2)),
+                              ? Colors.white.withValues(alpha: 0.15)
+                              : Colors.black.withValues(alpha: 0.2)),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
                       color: hasNarrated
@@ -104,8 +110,8 @@ class DhikrCard extends StatelessWidget {
                         hasNarrated
                             ? Icons.auto_stories_rounded
                             : (hasCustomGoal
-                                ? Icons.edit_note_rounded
-                                : Icons.all_inclusive_rounded),
+                                  ? Icons.edit_note_rounded
+                                  : Icons.all_inclusive_rounded),
                         size: 13,
                         color: hasNarrated
                             ? AppColors.champagneGold
@@ -117,8 +123,8 @@ class DhikrCard extends StatelessWidget {
                           hasNarrated
                               ? 'Narrated: ${dhikr.narratedCount}'
                               : (hasCustomGoal
-                                  ? 'Personal Goal: $goalNumber'
-                                  : 'No Narrated Count'),
+                                    ? 'Personal Goal: $goalNumber'
+                                    : 'No Narrated Count'),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(

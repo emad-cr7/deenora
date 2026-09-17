@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../theme/app_colors.dart';
 
 enum AppErrorType {
   noInternet,
@@ -124,7 +125,7 @@ class AppErrorScreen extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 15, color: Colors.grey[700]),
+              style: const TextStyle(fontSize: 15, color: AppColors.textMuted),
             ),
 
             if (onRetry != null) ...[
@@ -140,13 +141,7 @@ class AppErrorScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1B5E4F),
-                    foregroundColor: Colors.white,
-                    elevation: 0,
                     padding: const EdgeInsets.symmetric(horizontal: 24),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
                   ),
                 ),
               ),

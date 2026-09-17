@@ -39,10 +39,7 @@ class VerseCardSkeleton extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 12),
-            Text(
-              '— سورة الشرح • Ayah 5 —',
-              textAlign: TextAlign.center,
-            ),
+            Text('— سورة الشرح • Ayah 5 —', textAlign: TextAlign.center),
           ],
         ),
       ),

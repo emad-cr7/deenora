@@ -7,8 +7,6 @@ import '../../audio_player/controller/audio_player_coordinator.dart';
 class MiniPlayerProgress extends StatelessWidget {
   const MiniPlayerProgress({super.key});
 
-  static const Color primaryColor = AppColors.primary;
-
   @override
   Widget build(BuildContext context) {
     final coordinator = context.read<AudioPlayerCoordinator>();
@@ -26,9 +24,9 @@ class MiniPlayerProgress extends StatelessWidget {
             progress: position,
             buffered: bufferedPosition,
             total: totalDuration,
-            progressBarColor: primaryColor,
-            baseBarColor: primaryColor.withValues(alpha: 0.12),
-            bufferedBarColor: primaryColor.withValues(alpha: 0.25),
+            progressBarColor: AppColors.primary,
+            baseBarColor: AppColors.primary.withValues(alpha: 0.12),
+            bufferedBarColor: AppColors.primary.withValues(alpha: 0.25),
             thumbRadius: 0,
             thumbGlowRadius: 0,
             barHeight: 2.5,

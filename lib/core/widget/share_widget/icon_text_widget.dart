@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../theme/app_colors.dart';
 
 class IconTextWidget extends StatelessWidget {
   final IconData icon;
@@ -32,26 +33,22 @@ class IconTextWidget extends StatelessWidget {
         Icon(
           icon,
           size: iconSize ?? 14,
-          color: iconColor ?? Colors.grey[500],
+          color: iconColor ?? AppColors.textMuted,
         ),
         SizedBox(width: spacing),
         Text(
           text,
-          style: textStyle ??
-              TextStyle(
-                fontSize: 13,
-                color: Colors.grey[900],
-              ),
+          style:
+              textStyle ??
+              const TextStyle(fontSize: 13, color: AppColors.textDark),
         ),
         if (text2 != null) ...[
           const SizedBox(width: 3),
           Text(
             text2!,
-            style: text2Style ??
-                TextStyle(
-                  fontSize: 13,
-                  color: Colors.grey[900],
-                ),
+            style:
+                text2Style ??
+                const TextStyle(fontSize: 13, color: AppColors.textDark),
           ),
         ],
       ],

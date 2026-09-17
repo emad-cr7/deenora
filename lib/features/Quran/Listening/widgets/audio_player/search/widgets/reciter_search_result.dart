@@ -14,8 +14,6 @@ class ReciterSearchResult extends StatelessWidget {
     required this.onTap,
   });
 
-  static const Color primaryColor = AppColors.primary;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +22,7 @@ class ReciterSearchResult extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         border: isCurrentlySelected
-            ? Border.all(color: primaryColor, width: 1.5)
+            ? Border.all(color: AppColors.primary, width: 1.5)
             : null,
         boxShadow: [
           BoxShadow(
@@ -51,7 +49,7 @@ class ReciterSearchResult extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: primaryColor.withValues(alpha: 0.2),
+                      color: AppColors.primary.withValues(alpha: 0.2),
                       width: 2,
                     ),
                     boxShadow: [
@@ -63,10 +61,7 @@ class ReciterSearchResult extends StatelessWidget {
                     ],
                   ),
                   child: ClipOval(
-                    child: Image.asset(
-                      reciter.imagePath,
-                      fit: BoxFit.cover,
-                    ),
+                    child: Image.asset(reciter.imagePath, fit: BoxFit.cover),
                   ),
                 ),
                 const SizedBox(width: 14),
@@ -88,8 +83,8 @@ class ReciterSearchResult extends StatelessWidget {
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
                                 color: isCurrentlySelected
-                                    ? primaryColor
-                                    : const Color(0xFF1B1B1B),
+                                    ? AppColors.primary
+                                    : AppColors.textDark,
                               ),
                             ),
                           ),
@@ -101,7 +96,7 @@ class ReciterSearchResult extends StatelessWidget {
                                 vertical: 2,
                               ),
                               decoration: BoxDecoration(
-                                color: primaryColor,
+                                color: AppColors.primary,
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: const Text(
@@ -172,7 +167,7 @@ class ReciterSearchResult extends StatelessWidget {
 
                 const Icon(
                   Icons.arrow_forward_ios_rounded,
-                  color: primaryColor,
+                  color: AppColors.primary,
                   size: 18,
                 ),
               ],

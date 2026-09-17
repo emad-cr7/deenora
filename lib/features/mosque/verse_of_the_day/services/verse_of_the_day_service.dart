@@ -8,8 +8,7 @@ class VerseOfTheDayService {
   static const String baseUrl = 'https://api.alquran.cloud/v1/';
   static const int totalQuranVerses = 6236;
 
-  VerseOfTheDayService({Dio? dio})
-      : _dio = dio ?? DioConfig.create(baseUrl);
+  VerseOfTheDayService({Dio? dio}) : _dio = dio ?? DioConfig.create(baseUrl);
 
   VerseOfTheDayModel? _cachedVerse;
   String? _cachedDateKey;
@@ -19,9 +18,11 @@ class VerseOfTheDayService {
   /// The next calendar date deterministically shifts to a new index across the Quran.
   int getDailyAyahIndex([DateTime? date]) {
     final now = date ?? DateTime.now();
-    final dayNumber = DateTime.utc(now.year, now.month, now.day)
-        .difference(DateTime.utc(2024, 1, 1))
-        .inDays;
+    final dayNumber = DateTime.utc(
+      now.year,
+      now.month,
+      now.day,
+    ).difference(DateTime.utc(2024, 1, 1)).inDays;
 
     // Linear congruential step using coprime multiplier across all 6236 ayahs
     const multiplier = 1013;
@@ -38,9 +39,7 @@ class VerseOfTheDayService {
     final targetDate = date ?? DateTime.now();
     final dateKey = '${targetDate.year}-${targetDate.month}-${targetDate.day}';
 
-    if (!forceRefresh &&
-        _cachedVerse != null &&
-        _cachedDateKey == dateKey) {
+    if (!forceRefresh && _cachedVerse != null && _cachedDateKey == dateKey) {
       return _cachedVerse!;
     }
 
@@ -68,7 +67,9 @@ class VerseOfTheDayService {
           e.type == DioExceptionType.sendTimeout) {
         throw Exception('Connection timeout while fetching verse of the day');
       } else if (e.type == DioExceptionType.connectionError) {
-        throw Exception('Network connection error. Please check your internet.');
+        throw Exception(
+          'Network connection error. Please check your internet.',
+        );
       } else {
         throw Exception('Failed to load verse of the day: ${e.message}');
       }

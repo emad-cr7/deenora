@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_colors.dart';
 import '../models/dhikr_model.dart';
 import 'add_custom_dhikr_sheet.dart';
 
@@ -187,7 +187,7 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                 hintText: 'Search dhikr...',
                 prefixIcon: const Icon(
                   Icons.search_rounded,
-                  color: Color(0xFF71807B),
+                  color: AppColors.textMuted,
                   size: 20,
                 ),
                 suffixIcon: _query.isNotEmpty
@@ -229,7 +229,7 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                 ? const Center(
                     child: Text(
                       'No matching dhikr found',
-                      style: TextStyle(color: Color(0xFF71807B)),
+                      style: TextStyle(color: AppColors.textMuted),
                     ),
                   )
                 : ListView.separated(
@@ -262,7 +262,7 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                             border: Border.all(
                               color: isSelected
                                   ? AppColors.primary
-                                  : const Color(0xFFE7ECE9),
+                                  : AppColors.borderSubtle,
                               width: isSelected ? 1.8 : 1.0,
                             ),
                           ),
@@ -350,8 +350,8 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                                           color: isCustom
                                               ? const Color(0xFF0277BD)
                                               : (hasNarrated
-                                                    ? const Color(0xFF8A6D1D)
-                                                    : Color(0xFF6B7280)),
+                                                    ? AppColors.darkGold
+                                                    : const Color(0xFF6B7280)),
                                         ),
                                       ),
                                     ),

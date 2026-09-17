@@ -19,7 +19,7 @@ class VerseCardContent extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE5EBE7), width: 1),
+        border: Border.all(color: AppColors.borderSubtle, width: 1),
         boxShadow: [
           BoxShadow(
             color: AppColors.deepForest.withValues(alpha: 0.12),
@@ -64,7 +64,7 @@ class VerseCardContent extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 19.5,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF1E2923),
+                    color: AppColors.textDark,
                     height: 1.7,
                   ),
                 ),
@@ -77,7 +77,7 @@ class VerseCardContent extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
-                    color: Color(0xFF71807B),
+                    color: AppColors.textMuted,
                   ),
                 ),
               ],

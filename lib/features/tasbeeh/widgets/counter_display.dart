@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_colors.dart';
 
 class CounterDisplay extends StatelessWidget {
   final int count;
@@ -32,18 +32,26 @@ class CounterDisplay extends StatelessWidget {
               ? Container(
                   key: const ValueKey('completed-badge'),
                   margin: const EdgeInsets.only(bottom: 8),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFE8F5E9),
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.green.shade600, width: 1.2),
+                    border: Border.all(
+                      color: Colors.green.shade600,
+                      width: 1.2,
+                    ),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.check_circle_rounded,
-                          size: 16, color: Colors.green.shade700),
+                      Icon(
+                        Icons.check_circle_rounded,
+                        size: 16,
+                        color: Colors.green.shade700,
+                      ),
                       const SizedBox(width: 6),
                       Text(
                         'Target Reached · Masha\'Allah',
@@ -123,7 +131,7 @@ class CounterDisplay extends StatelessWidget {
             style: TextStyle(
               fontSize: 11.5,
               fontWeight: FontWeight.w500,
-              color: isCompleted ? AppColors.gold : const Color(0xFF71807B),
+              color: isCompleted ? AppColors.gold : AppColors.textMuted,
             ),
           ),
         ] else ...[

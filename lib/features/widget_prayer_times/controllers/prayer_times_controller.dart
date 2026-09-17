@@ -12,8 +12,8 @@ class PrayerTimesController extends ChangeNotifier {
   PrayerTimesController({
     LocationService? locationService,
     PrayerTimesService? prayerTimesService,
-  })  : _locationService = locationService ?? LocationService(),
-        _prayerTimesService = prayerTimesService ?? PrayerTimesService();
+  }) : _locationService = locationService ?? LocationService(),
+       _prayerTimesService = prayerTimesService ?? PrayerTimesService();
 
   Timer? _ticker;
   bool _isLoading = false;
@@ -100,10 +100,14 @@ class PrayerTimesController extends ChangeNotifier {
 
   void _updateCalculations(DateTime now) {
     if (_prayerTimes == null) return;
-    _countdownNotifier.value =
-        PrayerTimeCalculator.calculateCountdown(_prayerTimes!, now);
-    _prayerItems =
-        PrayerTimeCalculator.calculatePrayerItems(_prayerTimes!, now);
+    _countdownNotifier.value = PrayerTimeCalculator.calculateCountdown(
+      _prayerTimes!,
+      now,
+    );
+    _prayerItems = PrayerTimeCalculator.calculatePrayerItems(
+      _prayerTimes!,
+      now,
+    );
   }
 
   void _startTicker() {
@@ -130,22 +134,28 @@ class PrayerTimesController extends ChangeNotifier {
     final previousNextPrayer = _countdownNotifier.value?.nextPrayer;
 
     // 2. Update countdown (ticks every second via ValueNotifier only)
-    final newCountdown =
-        PrayerTimeCalculator.calculateCountdown(_prayerTimes!, now);
+    final newCountdown = PrayerTimeCalculator.calculateCountdown(
+      _prayerTimes!,
+      now,
+    );
     _countdownNotifier.value = newCountdown;
 
     // 3. If the prayer transitioned (e.g. from Asr to Maghrib), update list states
     if (newCountdown.nextPrayer != previousNextPrayer) {
-      _prayerItems =
-          PrayerTimeCalculator.calculatePrayerItems(_prayerTimes!, now);
+      _prayerItems = PrayerTimeCalculator.calculatePrayerItems(
+        _prayerTimes!,
+        now,
+      );
       notifyListeners();
       return;
     }
 
     // 4. Every full minute (at second 0), update elapsed minutes on list items
     if (now.second == 0) {
-      _prayerItems =
-          PrayerTimeCalculator.calculatePrayerItems(_prayerTimes!, now);
+      _prayerItems = PrayerTimeCalculator.calculatePrayerItems(
+        _prayerTimes!,
+        now,
+      );
       notifyListeners();
     }
   }

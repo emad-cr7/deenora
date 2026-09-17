@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../features/mosque/feature_cards/feature_card.dart';
-import '../../../theme/app_colors.dart';
 
 class CardsSkeleton extends StatelessWidget {
   const CardsSkeleton({super.key});
@@ -27,7 +25,7 @@ class CardsSkeleton extends StatelessWidget {
                 Expanded(
                   child: FeatureCard(
                     color: Colors.grey.shade300,
-                    color_border: Colors.grey.shade300 ,
+                    colorBorder: Colors.grey.shade300,
                     title: 'Qibla',
                     description: 'Find the direction of the Kaaba',
                   ),
@@ -36,7 +34,7 @@ class CardsSkeleton extends StatelessWidget {
                 Expanded(
                   child: FeatureCard(
                     color: Colors.grey.shade300,
-                    color_border: Colors.grey.shade300 ,
+                    colorBorder: Colors.grey.shade300,
                     title: 'Tasbeeh',
                     description: 'Count your dhikr and get closer to Allah',
                   ),
@@ -51,7 +49,7 @@ class CardsSkeleton extends StatelessWidget {
                 Expanded(
                   child: FeatureCard(
                     color: Colors.grey.shade300,
-                    color_border: Colors.grey.shade300 ,
+                    colorBorder: Colors.grey.shade300,
                     title: 'Quran',
                     description: 'Read and listen to the Quran',
                   ),
@@ -60,7 +58,7 @@ class CardsSkeleton extends StatelessWidget {
                 Expanded(
                   child: FeatureCard(
                     color: Colors.grey.shade300,
-                    color_border: Colors.grey.shade300 ,
+                    colorBorder: Colors.grey.shade300,
                     title: 'Duas',
                     description: 'Daily duas and supplications',
                   ),

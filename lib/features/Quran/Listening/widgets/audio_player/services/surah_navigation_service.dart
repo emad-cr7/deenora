@@ -17,8 +17,8 @@ class SurahNavigationService {
   SurahNavigationService({
     SurahModel? initialSurah,
     List<SurahModel>? surahList,
-  })  : _currentSurah = initialSurah ?? defaultInitialSurah,
-        _surahList = surahList ?? [];
+  }) : _currentSurah = initialSurah ?? defaultInitialSurah,
+       _surahList = surahList ?? [];
 
   // قائمة السور الحالية
   List<SurahModel> get surahList => _surahList;
@@ -46,7 +46,9 @@ class SurahNavigationService {
   bool get hasPrevious {
     if (_currentSurah.number <= 1) return false;
     if (_surahList.isNotEmpty) {
-      final hasNum = _surahList.any((s) => s.number == _currentSurah.number - 1);
+      final hasNum = _surahList.any(
+        (s) => s.number == _currentSurah.number - 1,
+      );
       if (hasNum) return true;
       return currentSurahIndex > 0;
     }
@@ -57,9 +59,12 @@ class SurahNavigationService {
   bool get hasNext {
     if (_currentSurah.number >= 114) return false;
     if (_surahList.isNotEmpty) {
-      final hasNum = _surahList.any((s) => s.number == _currentSurah.number + 1);
+      final hasNum = _surahList.any(
+        (s) => s.number == _currentSurah.number + 1,
+      );
       if (hasNum) return true;
-      return currentSurahIndex >= 0 && currentSurahIndex < _surahList.length - 1;
+      return currentSurahIndex >= 0 &&
+          currentSurahIndex < _surahList.length - 1;
     }
     return true;
   }

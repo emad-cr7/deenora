@@ -20,17 +20,18 @@ class NextPrayerCountdown {
     Duration? remainingTime,
     PrayerType? currentPrayer,
     Duration? currentElapsed,
-  })  : previousPrayer = previousPrayer ?? currentPrayer ?? PrayerType.isha,
-        previousPrayerTime = previousPrayerTime ??
-            nextPrayerTime.subtract(const Duration(hours: 3)),
-        passedDuration =
-            (passedDuration ?? currentElapsed ?? Duration.zero).isNegative
-                ? Duration.zero
-                : (passedDuration ?? currentElapsed ?? Duration.zero),
-        remainingDuration =
-            (remainingDuration ?? remainingTime ?? Duration.zero).isNegative
-                ? Duration.zero
-                : (remainingDuration ?? remainingTime ?? Duration.zero);
+  }) : previousPrayer = previousPrayer ?? currentPrayer ?? PrayerType.isha,
+       previousPrayerTime =
+           previousPrayerTime ??
+           nextPrayerTime.subtract(const Duration(hours: 3)),
+       passedDuration =
+           (passedDuration ?? currentElapsed ?? Duration.zero).isNegative
+           ? Duration.zero
+           : (passedDuration ?? currentElapsed ?? Duration.zero),
+       remainingDuration =
+           (remainingDuration ?? remainingTime ?? Duration.zero).isNegative
+           ? Duration.zero
+           : (remainingDuration ?? remainingTime ?? Duration.zero);
 
   // Backward compatibility getters
   PrayerType get currentPrayer => previousPrayer;
@@ -72,4 +73,3 @@ class NextPrayerCountdown {
     return '$hours:$minutes';
   }
 }
-

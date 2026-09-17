@@ -8,7 +8,8 @@ Future<QuranAudioHandler> initAudioService() async {
     config: const AudioServiceConfig(
       androidNotificationChannelId: 'com.deenora.app.channel.audio',
       androidNotificationChannelName: 'تشغيل التلاوة',
-      androidNotificationChannelDescription: 'التحكم في تشغيل تلاوة القرآن الكريم',
+      androidNotificationChannelDescription:
+          'التحكم في تشغيل تلاوة القرآن الكريم',
       androidNotificationOngoing: false,
       androidStopForegroundOnPause: true,
       androidNotificationIcon: 'mipmap/ic_launcher',

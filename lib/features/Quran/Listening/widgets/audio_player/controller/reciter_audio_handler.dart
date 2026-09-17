@@ -11,9 +11,9 @@ class ReciterAudioHandler extends ChangeNotifier {
     ReciterModel? initialReciter,
     Map<int, String>? initialAudioMap,
     QuranListeningService? listeningService,
-  })  : _currentReciter = initialReciter ?? reciters.first,
-        _audioMap = initialAudioMap,
-        _listeningService = listeningService ?? QuranListeningService();
+  }) : _currentReciter = initialReciter ?? reciters.first,
+       _audioMap = initialAudioMap,
+       _listeningService = listeningService ?? QuranListeningService();
 
   ReciterModel get currentReciter => _currentReciter;
   Map<int, String>? get audioMap => _audioMap;
@@ -33,7 +33,9 @@ class ReciterAudioHandler extends ChangeNotifier {
   /// Resolves the audio streaming URL for a given [surahNumber]
   Future<String?> getAudioUrl(int surahNumber) async {
     if (_audioMap == null || !_audioMap!.containsKey(surahNumber)) {
-      _audioMap = await _listeningService.getReciterAudioFiles(_currentReciter.id);
+      _audioMap = await _listeningService.getReciterAudioFiles(
+        _currentReciter.id,
+      );
     }
     return _audioMap?[surahNumber];
   }

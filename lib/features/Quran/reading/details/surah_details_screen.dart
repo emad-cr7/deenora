@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../../../../core/theme/app_colors.dart';
 import '../models/surah_model.dart';
 
 class SurahDetailsScreen extends StatelessWidget {
@@ -19,10 +19,6 @@ class SurahDetailsScreen extends StatelessWidget {
             ],
           ),
         ),
-        centerTitle: true,
-        backgroundColor: const Color(0xFF1B5E4F),
-        foregroundColor: Colors.white,
-        elevation: 0,
       ),
       body: Column(
         children: [
@@ -31,7 +27,7 @@ class SurahDetailsScreen extends StatelessWidget {
             margin: const EdgeInsets.all(14),
             padding: const EdgeInsets.symmetric(vertical: 16),
             decoration: BoxDecoration(
-              color: const Color(0xFF1B5E4F),
+              color: AppColors.primary,
               borderRadius: BorderRadius.circular(16),
             ),
             child: Column(
@@ -85,7 +81,7 @@ class SurahDetailsScreen extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 25,
                           height: 1.8,
-                          color: Color(0xFF1B1B1B),
+                          color: AppColors.textDark,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -94,14 +90,14 @@ class SurahDetailsScreen extends StatelessWidget {
                         width: 30,
                         height: 30,
                         decoration: BoxDecoration(
-                          color: const Color(0xFF1B5E4F).withValues(alpha: 0.1),
+                          color: AppColors.primary.withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
                         child: Center(
                           child: Text(
                             '${ayah.numberInSurah}',
                             style: const TextStyle(
-                              color: Color(0xFF1B5E4F),
+                              color: AppColors.primary,
                               fontWeight: FontWeight.w600,
                               fontSize: 13,
                             ),

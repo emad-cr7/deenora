@@ -8,7 +8,7 @@ class QuranController extends ChangeNotifier {
   final QuranListeningService _listeningService = QuranListeningService();
 
   QuranController({QuranRepository? repository})
-      : _repository = repository ?? QuranRepository();
+    : _repository = repository ?? QuranRepository();
 
   late Future<List<SurahModel>> futureQuran;
 
@@ -19,7 +19,7 @@ class QuranController extends ChangeNotifier {
     notifyListeners();
   }
 
-//---------------------------initSurahAudio--------------------------------
+  //---------------------------initSurahAudio--------------------------------
 
   void initSurah({int? reciterId}) {
     futureQuran = _repository.getSurahs();

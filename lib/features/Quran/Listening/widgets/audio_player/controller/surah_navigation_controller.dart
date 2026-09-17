@@ -10,11 +10,12 @@ class SurahNavigationController extends ChangeNotifier {
     SurahModel? initialSurah,
     List<SurahModel>? surahList,
     SurahNavigationService? service,
-  }) : _service = service ??
-            SurahNavigationService(
-              initialSurah: initialSurah,
-              surahList: surahList,
-            );
+  }) : _service =
+           service ??
+           SurahNavigationService(
+             initialSurah: initialSurah,
+             surahList: surahList,
+           );
 
   SurahModel get currentSurah => _service.currentSurah;
   List<SurahModel> get surahList => _service.surahList;

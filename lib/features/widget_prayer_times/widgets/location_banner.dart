@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/services/location_service.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../controllers/prayer_times_controller.dart';
 
 class LocationBanner extends StatelessWidget {
@@ -61,7 +62,7 @@ class LocationBanner extends StatelessWidget {
         color: const Color(0xFFFFF8E6),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: const Color(0xFFE6C778).withValues(alpha: 0.6),
+          color: AppColors.champagneGold.withValues(alpha: 0.6),
           width: 1.5,
         ),
       ),
@@ -72,11 +73,11 @@ class LocationBanner extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFFC9A24B).withValues(alpha: 0.15),
+              color: AppColors.amberGold.withValues(alpha: 0.15),
             ),
             child: const Icon(
               Icons.location_off_rounded,
-              color: Color(0xFF8A6D1D),
+              color: AppColors.darkGold,
               size: 20,
             ),
           ),
@@ -109,7 +110,7 @@ class LocationBanner extends StatelessWidget {
           TextButton(
             onPressed: onAction,
             style: TextButton.styleFrom(
-              backgroundColor: const Color(0xFF1B5E4F),
+              backgroundColor: AppColors.primary,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               minimumSize: Size.zero,

@@ -10,7 +10,7 @@ class QiblaController extends ChangeNotifier {
   final LocationService _locationService;
 
   QiblaController({LocationService? locationService})
-      : _locationService = locationService ?? LocationService();
+    : _locationService = locationService ?? LocationService();
 
   QiblaStatus _status = QiblaStatus.loading;
   double? _heading;

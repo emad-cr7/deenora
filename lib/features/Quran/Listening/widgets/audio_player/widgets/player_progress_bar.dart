@@ -17,8 +17,6 @@ class PlayerProgressBar extends StatelessWidget {
     required this.onSeek,
   });
 
-  static const Color primaryColor = AppColors.primary;
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Duration>(
@@ -30,16 +28,16 @@ class PlayerProgressBar extends StatelessWidget {
           progress: position,
           buffered: bufferedPosition,
           total: totalDuration,
-          progressBarColor: primaryColor,
-          baseBarColor: primaryColor.withValues(alpha: 0.12),
-          bufferedBarColor: primaryColor.withValues(alpha: 0.25),
-          thumbColor: primaryColor,
+          progressBarColor: AppColors.primary,
+          baseBarColor: AppColors.primary.withValues(alpha: 0.12),
+          bufferedBarColor: AppColors.primary.withValues(alpha: 0.25),
+          thumbColor: AppColors.primary,
           thumbRadius: 7,
           thumbGlowRadius: 15,
-          timeLabelTextStyle: TextStyle(
+          timeLabelTextStyle: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: Colors.grey[700],
+            color: AppColors.textMuted,
           ),
           onSeek: onSeek,
         );

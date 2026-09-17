@@ -15,10 +15,6 @@ class MosquePrayerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PrayerProgressCard(
-      controller: controller,
-      onTap: onTap,
-    );
+    return PrayerProgressCard(controller: controller, onTap: onTap);
   }
 }
-

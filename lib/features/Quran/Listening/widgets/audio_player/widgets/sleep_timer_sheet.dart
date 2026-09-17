@@ -8,19 +8,15 @@ import '../models/sleep_timer_option.dart';
 class SleepTimerSheet extends StatefulWidget {
   final VoidCallback? onTimerCompleteAction;
 
-  const SleepTimerSheet({
-    super.key,
-    this.onTimerCompleteAction,
-  });
-
-  static const Color primaryColor = AppColors.primary;
+  const SleepTimerSheet({super.key, this.onTimerCompleteAction});
 
   static Future<void> show(
     BuildContext context, {
     SleepTimerController? controller,
     VoidCallback? onTimerComplete,
   }) {
-    final timerController = controller ??
+    final timerController =
+        controller ??
         context.read<AudioPlayerCoordinator>().sleepTimerController;
     return showModalBottomSheet(
       context: context,
@@ -28,9 +24,7 @@ class SleepTimerSheet extends StatefulWidget {
       backgroundColor: Colors.transparent,
       builder: (_) => ChangeNotifierProvider.value(
         value: timerController,
-        child: SleepTimerSheet(
-          onTimerCompleteAction: onTimerComplete,
-        ),
+        child: SleepTimerSheet(onTimerCompleteAction: onTimerComplete),
       ),
     );
   }
@@ -98,10 +92,10 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                 Container(
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
-                    color: SleepTimerSheet.primaryColor.withValues(alpha: 0.08),
+                    color: AppColors.primary.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(18),
                     border: Border.all(
-                      color: SleepTimerSheet.primaryColor.withValues(alpha: 0.25),
+                      color: AppColors.primary.withValues(alpha: 0.25),
                       width: 1.5,
                     ),
                   ),
@@ -110,7 +104,7 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: const BoxDecoration(
-                          color: SleepTimerSheet.primaryColor,
+                          color: AppColors.primary,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
@@ -129,7 +123,7 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
-                                color: SleepTimerSheet.primaryColor,
+                                color: AppColors.primary,
                               ),
                             ),
                             const SizedBox(height: 2),
@@ -138,7 +132,7 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF1B1B1B),
+                                color: AppColors.textDark,
                               ),
                             ),
                           ],
@@ -180,14 +174,16 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
               // Custom Option
               _TimerOptionTile(
                 option: SleepTimerOption.custom,
-                isSelected: controller.selectedOption == SleepTimerOption.custom,
-                onTap: () => setState(() => _showCustomPicker = !_showCustomPicker),
+                isSelected:
+                    controller.selectedOption == SleepTimerOption.custom,
+                onTap: () =>
+                    setState(() => _showCustomPicker = !_showCustomPicker),
                 trailing: Icon(
                   _showCustomPicker
                       ? Icons.keyboard_arrow_up_rounded
                       : Icons.keyboard_arrow_down_rounded,
                   color: controller.selectedOption == SleepTimerOption.custom
-                      ? SleepTimerSheet.primaryColor
+                      ? AppColors.primary
                       : Colors.grey[600],
                 ),
               ),
@@ -213,9 +209,7 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
       decoration: BoxDecoration(
         color: const Color(0xFFF6F8F7),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: SleepTimerSheet.primaryColor.withValues(alpha: 0.45),
-        ),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.45)),
       ),
       child: Column(
         children: [
@@ -224,15 +218,15 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
             children: [
               const Text(
                 'Custom duration',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
                 decoration: BoxDecoration(
-                  color: SleepTimerSheet.primaryColor,
+                  color: AppColors.primary,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
@@ -251,24 +245,15 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
             min: 5,
             max: 180,
             divisions: 35,
-            activeColor: SleepTimerSheet.primaryColor,
-            inactiveColor:
-                SleepTimerSheet.primaryColor.withValues(alpha: 0.15),
+            activeColor: AppColors.primary,
+            inactiveColor: AppColors.primary.withValues(alpha: 0.15),
             label: '${_customMinutes.toInt()} min',
             onChanged: (val) => setState(() => _customMinutes = val),
           ),
           const SizedBox(height: 12),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: SleepTimerSheet.primaryColor,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24,
-                vertical: 12,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
             ),
             onPressed: () => _onOptionSelected(
               controller,
@@ -282,10 +267,7 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                 SizedBox(width: 8),
                 Text(
                   'Set Custom Timer',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                 ),
               ],
             ),
@@ -309,19 +291,17 @@ class _TimerOptionTile extends StatelessWidget {
     this.trailing,
   });
 
-  static const Color primaryColor = AppColors.primary;
-
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: isSelected
-            ? primaryColor.withValues(alpha: 0.1)
+            ? AppColors.primary.withValues(alpha: 0.1)
             : const Color(0xFFF9FAF9),
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
           color: isSelected
-              ? primaryColor
+              ? AppColors.primary
               : Colors.grey.withValues(alpha: 0.15),
           width: isSelected ? 1.8 : 1,
         ),
@@ -340,7 +320,7 @@ class _TimerOptionTile extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? primaryColor
+                        ? AppColors.primary
                         : Colors.grey.withValues(alpha: 0.12),
                     shape: BoxShape.circle,
                   ),
@@ -359,11 +339,12 @@ class _TimerOptionTile extends StatelessWidget {
                         option.title,
                         style: TextStyle(
                           fontSize: 15,
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.w600,
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.w600,
                           color: isSelected
-                              ? primaryColor
-                              : const Color(0xFF1B1B1B),
+                              ? AppColors.primary
+                              : AppColors.textDark,
                         ),
                       ),
                       const SizedBox(height: 2),
@@ -372,7 +353,7 @@ class _TimerOptionTile extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           color: isSelected
-                              ? primaryColor.withValues(alpha: 0.8)
+                              ? AppColors.primary.withValues(alpha: 0.8)
                               : Colors.grey[600],
                         ),
                       ),
@@ -383,7 +364,7 @@ class _TimerOptionTile extends StatelessWidget {
                 if (trailing == null && isSelected)
                   const Icon(
                     Icons.check_circle_rounded,
-                    color: primaryColor,
+                    color: AppColors.primary,
                     size: 22,
                   ),
               ],

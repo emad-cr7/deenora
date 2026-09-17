@@ -3,9 +3,7 @@ import '../../../../features/Quran/Listening/models_listening/mp3quran_reciter_m
 import '../dio/dio_config.dart';
 
 class QuranListeningService {
-  final Dio _dio = DioConfig.create(
-    'https://www.mp3quran.net/api/v3/',
-  );
+  final Dio _dio = DioConfig.create('https://www.mp3quran.net/api/v3/');
 
   static final Map<int, Map<int, String>> _cache = {};
 
@@ -17,10 +15,7 @@ class QuranListeningService {
     try {
       final response = await _dio.get(
         'reciters',
-        queryParameters: {
-          'language': 'ar',
-          'reciter': reciterId,
-        },
+        queryParameters: {'language': 'ar', 'reciter': reciterId},
       );
 
       final List<dynamic> recitersJson = response.data['reciters'] ?? [];
@@ -55,9 +50,8 @@ class QuranListeningService {
 
     return moshafs.firstWhere(
       (m) => m.name.contains('مرتل') && m.name.contains('حفص'),
-      orElse: () => moshafs.reduce(
-        (a, b) => a.surahTotal > b.surahTotal ? a : b,
-      ),
+      orElse: () =>
+          moshafs.reduce((a, b) => a.surahTotal > b.surahTotal ? a : b),
     );
   }
 }
