@@ -61,8 +61,7 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
       if (_query.isEmpty) return true;
       final d = entry.value;
       final q = _query.toLowerCase();
-      return d.name.toLowerCase().contains(q) ||
-          d.arabic.contains(_query);
+      return d.name.toLowerCase().contains(q) || d.arabic.contains(_query);
     }).toList();
 
     return Container(
@@ -121,13 +120,6 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                       ),
                     ),
                   ],
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.close_rounded,
-                    color: Color(0xFF71807B),
-                  ),
-                  onPressed: () => Navigator.pop(context),
                 ),
               ],
             ),
@@ -325,7 +317,7 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                                         if (isSelected)
                                           const Icon(
                                             Icons.check_circle_rounded,
-                                            size: 18,
+                                            size: 25,
                                             color: AppColors.primary,
                                           ),
                                       ],
@@ -359,7 +351,7 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                                               ? const Color(0xFF0277BD)
                                               : (hasNarrated
                                                     ? const Color(0xFF8A6D1D)
-                                                    : const Color(0xFF6B7280)),
+                                                    : Color(0xFF6B7280)),
                                         ),
                                       ),
                                     ),
@@ -372,27 +364,6 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                       );
                     },
                   ),
-          ),
-
-          // Attribution section (CC BY 4.0 license preservation)
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: const BoxDecoration(
-              color: Color(0xFFF3F6F4),
-              border: Border(
-                top: BorderSide(color: Color(0xFFE2E8E4), width: 1),
-              ),
-            ),
-            child: Text(
-              'Dhikr dataset provided by ${widget.attribution ?? 'Tasbih.info (https://tasbih.info)'} under CC BY 4.0',
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 11,
-                color: Color(0xFF71807B),
-                height: 1.3,
-              ),
-            ),
           ),
         ],
       ),

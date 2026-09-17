@@ -3,7 +3,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 import '../../../../../core/theme/app_colors.dart';
 import 'controllers/qibla_controller.dart';
-import 'models/qibla_status.dart';
+import 'enum/qibla_status.dart';
 import 'widgets/qibla_calibration_hint.dart';
 import 'widgets/qibla_compass.dart';
 import 'widgets/qibla_direction_indicator.dart';
@@ -31,7 +31,6 @@ class _QiblaScreenContent extends StatelessWidget {
       appBar: AppBar(title: const Text('Qibla')),
       body: Consumer<QiblaController>(
         builder: (context, controller, _) {
-          // 1. Loading State
           if (controller.status == QiblaStatus.loading &&
               controller.heading == null) {
             return Center(
@@ -43,14 +42,6 @@ class _QiblaScreenContent extends StatelessWidget {
                     size: 40,
                   ),
                   const SizedBox(height: 20),
-                  const Text(
-                    'Finding Qibla direction...',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF71807B),
-                    ),
-                  ),
                 ],
               ),
             );
@@ -65,10 +56,6 @@ class _QiblaScreenContent extends StatelessWidget {
           // 3. Active Qibla Compass State
           return LayoutBuilder(
             builder: (context, constraints) {
-              // Calculate responsive compass size based on screen dimensions
-              final availableWidth = constraints.maxWidth;
-              final compassSize = (availableWidth * 0.72).clamp(240.0, 320.0);
-
               return SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: ConstrainedBox(
@@ -79,7 +66,6 @@ class _QiblaScreenContent extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // 1. Direction Guidance (Rotate phone / Facing Qibla)
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: QiblaDirectionIndicator(
@@ -89,20 +75,14 @@ class _QiblaScreenContent extends StatelessWidget {
 
                           const SizedBox(height: 16),
 
-                          // 2. Hero Interactive Qibla Compass
-                          QiblaCompass(
-                            controller: controller,
-                            size: compassSize,
-                          ),
+                          QiblaCompass(controller: controller, size: 320),
 
                           const SizedBox(height: 20),
 
-                          // 3. Bearing & Heading Metrics Cards
                           QiblaStatusCard(controller: controller),
 
                           const SizedBox(height: 12),
 
-                          // 4. Subtle Figure-8 Calibration Hint
                           const QiblaCalibrationHint(),
                         ],
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widget/share_widget/icon_text_widget.dart';
 import '../models/verse_of_the_day_model.dart';
@@ -14,7 +15,7 @@ class VerseCardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -41,20 +42,19 @@ class VerseCardContent extends StatelessWidget {
               children: [
                 // Header: ✦ Ayah of the Day (reusing shared IconTextWidget)
                 const IconTextWidget(
-                  icon: Icons.auto_awesome,
+                  icon: FlutterIslamicIcons.islam,
                   iconColor: AppColors.primary,
                   iconSize: 14,
                   text: 'Ayah of the Day',
                   textStyle: TextStyle(
-                    fontSize: 12.5,
+                    fontSize: 20,
                     fontWeight: FontWeight.w700,
                     color: AppColors.primary,
-                    letterSpacing: -0.1,
                   ),
                   spacing: 6,
                 ),
 
-                const SizedBox(height: 12),
+                const SizedBox(height: 15),
 
                 // Arabic Quran verse: ﴿ verse text ﴾
                 Text(
@@ -71,9 +71,8 @@ class VerseCardContent extends StatelessWidget {
 
                 const SizedBox(height: 12),
 
-                // Reference: — Surah Name • Ayah X —
                 Text(
-                  '— ${verse.displaySurahName} • Ayah ${verse.numberInSurah} —',
+                  '— ${verse.surahEnglishName} • Ayah ${verse.numberInSurah} —',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 12,

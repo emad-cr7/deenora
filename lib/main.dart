@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'core/init_main/init_audio_service.dart';
+import 'core/theme/light_theme.dart';
 import 'main/main_screen.dart';
 import 'core/theme/app_colors.dart';
 import 'core/data/local_data/hive_manager.dart';
@@ -27,18 +28,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(
-            backgroundColor: AppColors.primary,
-            centerTitle: true,
-            foregroundColor: Colors.white,
-            titleTextStyle: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-            ),
-          ),
-          scaffoldBackgroundColor: const Color(0xFFF6F8F7),
-        ),
+        theme: lightTheme,
         title: 'Deenora',
         home: const MainScreen(),
         builder: (context, child) {

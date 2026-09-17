@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../../../core/theme/app_colors.dart';
 import '../controllers/qibla_controller.dart';
-import '../models/qibla_status.dart';
+import '../enum/qibla_status.dart';
 
 class QiblaErrorView extends StatelessWidget {
   final QiblaController controller;

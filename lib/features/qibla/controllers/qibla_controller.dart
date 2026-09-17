@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../../../../core/services/location_service.dart';
-import '../models/qibla_status.dart';
+import '../enum/qibla_status.dart';
 
 class QiblaController extends ChangeNotifier {
   final LocationService _locationService;

@@ -1,5 +1,5 @@
 import 'package:deenora/features/qibla/controllers/qibla_controller.dart';
-import 'package:deenora/features/qibla/models/qibla_status.dart';
+import 'package:deenora/features/qibla/enum/qibla_status.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 
