@@ -4,41 +4,56 @@ class IconTextWidget extends StatelessWidget {
   final IconData icon;
   final String text;
   final String? text2;
+  final Color? iconColor;
+  final double? iconSize;
+  final TextStyle? textStyle;
+  final TextStyle? text2Style;
+  final double spacing;
+  final MainAxisSize mainAxisSize;
 
   const IconTextWidget({
     super.key,
     required this.icon,
     required this.text,
     this.text2,
+    this.iconColor,
+    this.iconSize,
+    this.textStyle,
+    this.text2Style,
+    this.spacing = 7,
+    this.mainAxisSize = MainAxisSize.max,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: mainAxisSize,
       children: [
         Icon(
           icon,
-          size: 14,
-          color: Colors.grey[500],
+          size: iconSize ?? 14,
+          color: iconColor ?? Colors.grey[500],
         ),
-        const SizedBox(width: 7),
+        SizedBox(width: spacing),
         Text(
           text,
-          style: TextStyle(
-            fontSize: 13,
-            color: Colors.grey[900],
-          ),
+          style: textStyle ??
+              TextStyle(
+                fontSize: 13,
+                color: Colors.grey[900],
+              ),
         ),
-        SizedBox(width: 3,),
-
-        if (text2 != null)
+        if (text2 != null) ...[
+          const SizedBox(width: 3),
           Text(
             text2!,
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.grey[900],
-            ),
+            style: text2Style ??
+                TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey[900],
+                ),
           ),
+        ],
       ],
     );
   }
