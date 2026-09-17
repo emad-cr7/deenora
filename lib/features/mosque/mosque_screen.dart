@@ -1,3 +1,4 @@
+import 'package:deenora/features/mosque/verse_of_the_day/widgets/verse_of_the_day_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/skeleton/mosque/mosque_skeleton.dart';
@@ -8,7 +9,6 @@ import '../widget_prayer_times/widgets/location_banner.dart';
 import '../widget_prayer_times/widgets/prayer_progress_card.dart';
 import 'feature_cards/feature_cards_section.dart';
 
-
 class MosqueScreen extends StatelessWidget {
   const MosqueScreen({super.key});
 
@@ -16,25 +16,14 @@ class MosqueScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<PrayerTimesController>(
       create: (_) => PrayerTimesController()..init(),
-      child: const _MosqueScreenContent(),
-    );
-  }
-}
-
-class _MosqueScreenContent extends StatelessWidget {
-  const _MosqueScreenContent();
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<PrayerTimesController>(
-      builder: (context, controller, _) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Mosque'),
-          ),
-          body: _buildBody(context, controller),
-        );
-      },
+      child: Consumer<PrayerTimesController>(
+        builder: (context, controller, _) {
+          return Scaffold(
+            appBar: AppBar(title: const Text('Mosque')),
+            body: _buildBody(context, controller),
+          );
+        },
+      ),
     );
   }
 
@@ -72,6 +61,7 @@ class _MosqueScreenContent extends StatelessWidget {
             },
           ),
           FeatureCardsSection(),
+          VerseOfTheDayCard(),
         ],
       ),
     );
