@@ -1,0 +1,1039 @@
+Total files with .copyWith: 37
+Total occurrences: 100
+
+=== lib\core\skeleton\azkar_Item_skeleton.dart (1 occurrences) ===
+--- Line 55 ---
+                          "category.arabicName",
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(color: AppColors.deepTeal),
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Container(
+
+=== lib\core\widget\share_widget\build_prayer_share.dart (4 occurrences) ===
+--- Line 34 ---
+        Text(
+          label,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            color: labelColor,
+            letterSpacing: 1.1,
+          ),
+        ),
+        const SizedBox(height: 6),
+
+--- Line 50 ---
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: Colors.white),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+
+--- Line 63 ---
+          style: Theme.of(
+            context,
+          ).textTheme.titleSmall?.copyWith(color: AppColors.champagneGold),
+        ),
+
+        const SizedBox(height: 10),
+
+        Container(
+
+--- Line 86 ---
+                  child: Text(
+                    relativeTimeLabel,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: Colors.white,
+                      letterSpacing: 0.3,
+                    ),
+                  ),
+                ),
+
+=== lib\core\widget\share_widget\container_share.dart (1 occurrences) ===
+--- Line 27 ---
+            style: Theme.of(
+              context,
+            ).textTheme.labelSmall?.copyWith(color: Colors.white),
+          ),
+        ],
+      ),
+    );
+  }
+
+=== lib\core\widget\share_widget\icon_text_widget.dart (2 occurrences) ===
+--- Line 45 ---
+              Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: AppColors.textDark),
+        ),
+        if (text2 != null) ...[
+          const SizedBox(width: 3),
+          Text(
+            text2!,
+
+--- Line 55 ---
+                Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: AppColors.textDark),
+          ),
+        ],
+      ],
+    );
+  }
+
+=== lib\core\widget\share_widget\search\app_search_bar.dart (1 occurrences) ===
+--- Line 105 ---
+          hintStyle: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
+          prefixIcon: const Icon(
+            Icons.search_rounded,
+            color: AppColors.primary,
+            size: 22,
+          ),
+
+=== lib\core\widget\share_widget\search\search_section_header.dart (1 occurrences) ===
+--- Line 43 ---
+                    style: Theme.of(
+                      context,
+                    ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
+                  ),
+                ),
+              ],
+            ],
+          ),
+
+=== lib\features\Azkar\azkar_details\azkar_details_screen.dart (2 occurrences) ===
+--- Line 103 ---
+                                              .textTheme
+                                              .headlineMedium
+                                              ?.copyWith(
+                                                color: AppColors.deepTeal,
+                                              ),
+                                          textAlign: TextAlign.right,
+                                        ),
+                                      ),
+
+--- Line 166 ---
+                                                        .textTheme
+                                                        .titleSmall
+                                                        ?.copyWith(
+                                                          color: AppColors
+                                                              .darkGold,
+                                                        ),
+                                                  ),
+                                                ),
+
+=== lib\features\Azkar\azkar_screen.dart (2 occurrences) ===
+--- Line 103 ---
+                                              .textTheme
+                                              .titleLarge
+                                              ?.copyWith(
+                                                color: AppColors.deepTeal,
+                                              ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Row(
+
+--- Line 127 ---
+                                                    .textTheme
+                                                    .labelSmall
+                                                    ?.copyWith(
+                                                      color: AppColors.darkGold,
+                                                    ),
+                                              ),
+                                            ),
+                                          ],
+
+=== lib\features\Quran\Listening\widgets\audio_player\search\widgets\reciter_search_result.dart (2 occurrences) ===
+--- Line 83 ---
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(
+                                    color: isCurrentlySelected
+                                        ? AppColors.primary
+                                        : AppColors.textDark,
+                                  ),
+                            ),
+
+--- Line 104 ---
+                                'Selected',
+                                style: Theme.of(context).textTheme.labelSmall
+                                    ?.copyWith(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+
+=== lib\features\Quran\Listening\widgets\audio_player\search\widgets\surah_search_result.dart (5 occurrences) ===
+--- Line 56 ---
+                    child: Text(
+                      '${surah.number}',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                ),
+
+--- Line 78 ---
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.titleLarge
+                                  ?.copyWith(
+                                    color: isCurrentlyPlaying
+                                        ? AppColors.primary
+                                        : AppColors.textDark,
+                                  ),
+                            ),
+
+--- Line 99 ---
+                                'Playing',
+                                style: Theme.of(context).textTheme.labelSmall
+                                    ?.copyWith(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+
+--- Line 125 ---
+                      surah.name,
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(color: AppColors.primary),
+                    ),
+                    const SizedBox(height: 4),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+
+--- Line 141 ---
+                      child: Text(
+                        surah.revelationType,
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: surah.revelationType == 'Meccan'
+                              ? Colors.orange.shade900
+                              : Colors.blue.shade900,
+                        ),
+                      ),
+
+=== lib\features\Quran\Listening\widgets\audio_player\view\audio_player_view.dart (2 occurrences) ===
+--- Line 30 ---
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(color: Colors.white),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              coordinator.reciter.name,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+
+--- Line 35 ---
+            Text(
+              coordinator.reciter.name,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Colors.white.withValues(alpha: 0.85),
+              ),
+            ),
+          ],
+        ),
+
+=== lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_and_extras_card.dart (2 occurrences) ===
+--- Line 110 ---
+                        ? 'Active: $formattedTime remaining'
+                        : 'Tap to set automatic sleep timer',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: isActive ? AppColors.primary : AppColors.textMuted,
+                    ),
+                  ),
+                ],
+              ),
+
+--- Line 159 ---
+            Text(
+              isLooping ? 'Repeat One' : 'Repeat Off',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: isLooping ? AppColors.primary : AppColors.textMuted,
+              ),
+            ),
+          ],
+        ),
+
+=== lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_sheet.dart (5 occurrences) ===
+--- Line 124 ---
+                              'Timer Active',
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(color: AppColors.primary),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              'Remaining: ${controller.formattedRemainingTime}',
+                              style: Theme.of(context).textTheme.titleSmall,
+
+--- Line 146 ---
+                          'Cancel',
+                          style: Theme.of(context).textTheme.labelMedium
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () => controller.cancelTimer(),
+                      ),
+                    ],
+                  ),
+
+--- Line 230 ---
+                  style: Theme.of(
+                    context,
+                  ).textTheme.labelSmall?.copyWith(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+          Slider(
+
+--- Line 332 ---
+                      Text(
+                        option.title,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: isSelected
+                              ? AppColors.primary
+                              : AppColors.textDark,
+                        ),
+                      ),
+
+--- Line 341 ---
+                      Text(
+                        option.subtitle,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: isSelected
+                              ? AppColors.primary.withValues(alpha: 0.8)
+                              : AppColors.textMuted,
+                        ),
+                      ),
+
+=== lib\features\Quran\Listening\widgets\audio_player\widgets\surah_artwork_card.dart (2 occurrences) ===
+--- Line 91 ---
+            surah.englishName,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(
+              color: Colors.white,
+              letterSpacing: 0.5,
+            ),
+          ),
+          const SizedBox(height: 4),
+
+--- Line 101 ---
+            '${surah.ayahs.length} verses',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.white.withValues(alpha: 0.85),
+            ),
+          ),
+        ],
+      ),
+
+=== lib\features\Quran\Listening\widgets\audio_player\widgets\surah_sequence_bar.dart (2 occurrences) ===
+--- Line 104 ---
+          Text(
+            title,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: isEnabled ? AppColors.primary : Colors.grey[400],
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+
+--- Line 113 ---
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+              color: isEnabled ? AppColors.textDark : Colors.grey[400],
+            ),
+          ),
+        ],
+      ),
+
+=== lib\features\Quran\Listening\widgets\suraa_audio\surah_name_listening.dart (3 occurrences) ===
+--- Line 47 ---
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+
+--- Line 211 ---
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(color: AppColors.primary),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 15),
+                                Expanded(
+
+--- Line 253 ---
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color:
+                                              surah.revelationType == 'Meccan'
+                                              ? Colors.orange[900]
+                                              : Colors.blue[900],
+                                        ),
+
+=== lib\features\Quran\reading\details\surah_details_screen.dart (4 occurrences) ===
+--- Line 20 ---
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      ),
+
+--- Line 42 ---
+                  style: Theme.of(
+                    context,
+                  ).textTheme.displaySmall?.copyWith(color: Colors.white),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  '${surah.revelationType} • ${surah.ayahs.length} verses',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+
+--- Line 47 ---
+                Text(
+                  '${surah.revelationType} • ${surah.ayahs.length} verses',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Colors.white.withValues(alpha: 0.85),
+                  ),
+                ),
+              ],
+            ),
+
+--- Line 94 ---
+                            '${ayah.numberInSurah}',
+                            style: Theme.of(context).textTheme.labelSmall
+                                ?.copyWith(color: AppColors.primary),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+=== lib\features\Quran\reading\quran_reading.dart (2 occurrences) ===
+--- Line 87 ---
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(color: AppColors.primary),
+                                    ),
+                                  ),
+                                ),
+
+                                const SizedBox(width: 15),
+
+--- Line 132 ---
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color:
+                                              surah.revelationType == 'Meccan'
+                                              ? Colors.orange[900]
+                                              : Colors.blue[900],
+                                        ),
+
+=== lib\features\Quran\switch\switch_screen.dart (3 occurrences) ===
+--- Line 41 ---
+              height: 45,
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  splashFactory: NoSplash.splashFactory,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                ),
+                child: SegmentedTabControl(
+
+--- Line 75 ---
+                              style: Theme.of(
+                                context,
+                              ).textTheme.titleSmall?.copyWith(color: color),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+
+--- Line 97 ---
+                              style: Theme.of(
+                                context,
+                              ).textTheme.titleSmall?.copyWith(color: color),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+
+=== lib\features\mosque\verse_of_the_day\widgets\verse_card_content.dart (1 occurrences) ===
+--- Line 51 ---
+                  textStyle: Theme.of(
+                    context,
+                  ).textTheme.headlineSmall?.copyWith(color: AppColors.primary),
+                  spacing: 6,
+                ),
+
+                const SizedBox(height: 15),
+
+
+=== lib\features\mosque\verse_of_the_day\widgets\verse_card_error.dart (1 occurrences) ===
+--- Line 41 ---
+              style: Theme.of(
+                context,
+              ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
+            ),
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.primary,
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              minimumSize: Size.zero,
+
+=== lib\features\qibla\widgets\qibla_calibration_hint.dart (1 occurrences) ===
+--- Line 29 ---
+            child: Text(
+              'If the compass seems inaccurate, wave your phone in a figure-eight (∞) motion to calibrate.',
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                height: 1.35,
+                color: AppColors.primaryDark.withValues(alpha: 0.75),
+              ),
+            ),
+          ),
+
+=== lib\features\qibla\widgets\qibla_direction_indicator.dart (1 occurrences) ===
+--- Line 49 ---
+                  : 'Please turn your device towards the Qibla',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: isAligned ? AppColors.primary : Colors.orange.shade800,
+                letterSpacing: 0.1,
+              ),
+            ),
+
+=== lib\features\qibla\widgets\qibla_error_view.dart (2 occurrences) ===
+--- Line 86 ---
+              title,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: AppColors.primaryDark,
+              ),
+            ),
+            const SizedBox(height: 12),
+
+--- Line 95 ---
+              description,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppColors.textMuted,
+                height: 1.45,
+              ),
+            ),
+            const SizedBox(height: 28),
+
+=== lib\features\qibla\widgets\qibla_status_card.dart (2 occurrences) ===
+--- Line 78 ---
+              Text(
+                label,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.textMuted,
+                ),
+              ),
+            ],
+
+--- Line 88 ---
+          Text(
+            value,
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: highlightColor,
+              letterSpacing: 0.5,
+            ),
+          ),
+
+=== lib\features\tasbeeh\tasbeeh_screen.dart (4 occurrences) ===
+--- Line 45 ---
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(color: AppColors.deepForest),
+        ),
+        content: Text(
+          'Are you sure you want to reset the current count back to 0?',
+          style: Theme.of(
+            context,
+
+--- Line 51 ---
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(
+
+--- Line 58 ---
+            child: Text(
+              'Cancel',
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: AppColors.textMuted,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+
+--- Line 78 ---
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+            ),
+          ),
+        ],
+      ),
+    );
+
+=== lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart (7 occurrences) ===
+--- Line 102 ---
+                    Text(
+                      'Add Personal Dhikr',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: AppColors.deepForest,
+                      ),
+                    ),
+                  ],
+                ),
+
+--- Line 139 ---
+                    child: Text(
+                      'This is a custom personal dhikr. The repetition number is treated as your Personal Goal, not a religiously narrated Sunnah count.',
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: AppColors.darkGold,
+                        height: 1.35,
+                      ),
+                    ),
+                  ),
+
+--- Line 154 ---
+            Text(
+              'Dhikr Text',
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: AppColors.deepForest,
+              ),
+            ),
+            const SizedBox(height: 6),
+
+--- Line 195 ---
+            Text(
+              'Personal Goal (Repetition Count)',
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: AppColors.deepForest,
+              ),
+            ),
+            const SizedBox(height: 6),
+
+--- Line 240 ---
+                  label: Text('$preset'),
+                  backgroundColor: const Color(0xFFF0F4F2),
+                  labelStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.deepForest,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+
+--- Line 274 ---
+                    child: Text(
+                      'Cancel',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: AppColors.textMuted,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+
+--- Line 290 ---
+                    child: Text(
+                      'Add Dhikr',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+
+=== lib\features\tasbeeh\widgets\counter_button.dart (1 occurrences) ===
+--- Line 143 ---
+                    Text(
+                      'TAP',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 2.5,
+                        color: widget.isCompleted
+                            ? AppColors.champagneGold
+                            : Colors.white,
+
+=== lib\features\tasbeeh\widgets\counter_display.dart (5 occurrences) ===
+--- Line 58 ---
+                      Text(
+                        'Target Reached · Masha\'Allah',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.green.shade800,
+                        ),
+                      ),
+                    ],
+
+--- Line 83 ---
+                '$count',
+                key: ValueKey<int>(count),
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                  color: AppColors.deepForest,
+                  height: 1.0,
+                ),
+              ),
+            ),
+
+--- Line 93 ---
+              Text(
+                '/ $targetCount',
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.deepForest.withValues(alpha: 0.45),
+                ),
+              ),
+            ],
+
+--- Line 122 ---
+          Text(
+            '${(progress * 100).toInt()}% completed',
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              fontWeight: FontWeight.w500,
+              color: isCompleted ? AppColors.gold : AppColors.textMuted,
+            ),
+          ),
+        ] else ...[
+
+--- Line 148 ---
+                  style: Theme.of(
+                    context,
+                  ).textTheme.labelSmall?.copyWith(color: AppColors.textMuted),
+                ),
+              ],
+            ),
+          ),
+        ],
+
+=== lib\features\tasbeeh\widgets\dhikr_card.dart (4 occurrences) ===
+--- Line 77 ---
+                child: Text(
+                  '${currentIndex + 1} / $totalCount',
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+
+--- Line 130 ---
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.labelSmall
+                              ?.copyWith(
+                                color: hasNarrated
+                                    ? AppColors.champagneGold
+                                    : Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+
+--- Line 155 ---
+              dhikr.name,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+                height: 1.3,
+                letterSpacing: 0.2,
+              ),
+
+--- Line 187 ---
+                      Text(
+                        'Personal Dhikr',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+
+=== lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart (6 occurrences) ===
+--- Line 97 ---
+                    Text(
+                      'Select Dhikr',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: AppColors.deepForest,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Container(
+
+--- Line 113 ---
+                      child: Text(
+                        '${widget.dhikrList.length}',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ),
+
+--- Line 165 ---
+                      Text(
+                        'Add Custom Dhikr',
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ],
+
+--- Line 282 ---
+                                  '${originalIndex + 1}',
+                                  style: Theme.of(context).textTheme.labelSmall
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                        color: isSelected
+                                            ? Colors.white
+                                            : AppColors.textMuted,
+                                      ),
+
+--- Line 307 ---
+                                                .textTheme
+                                                .titleSmall
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.w700,
+                                                  color: isSelected
+                                                      ? AppColors.primary
+                                                      : AppColors.textDark,
+                                                ),
+
+--- Line 348 ---
+                                            .textTheme
+                                            .labelSmall
+                                            ?.copyWith(
+                                              color: isCustom
+                                                  ? AppColors.badgeBlue
+                                                  : (hasNarrated
+                                                        ? AppColors.darkGold
+                                                        : AppColors.textMuted),
+
+=== lib\features\tasbeeh\widgets\tasbeeh_actions_bar.dart (2 occurrences) ===
+--- Line 84 ---
+                        'Select Dhikr',
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              letterSpacing: 0.3,
+                            ),
+                      ),
+
+--- Line 145 ---
+              style: Theme.of(
+                context,
+              ).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w600),
+            ),
+          ],
+        ),
+      ),
+    );
+
+=== lib\features\widget_prayer_times\widgets\location_banner.dart (3 occurrences) ===
+--- Line 91 ---
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.darkGold,
+                  ),
+                ),
+                const SizedBox(height: 2),
+
+--- Line 99 ---
+                Text(
+                  description,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.darkGold.withValues(alpha: 0.9),
+                    height: 1.3,
+                  ),
+                ),
+              ],
+
+--- Line 122 ---
+            child: Text(
+              buttonText,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+
+=== lib\features\widget_prayer_times\widgets\prayer_countdown_widget.dart (5 occurrences) ===
+--- Line 60 ---
+                      Text(
+                        'Next Prayer',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+
+--- Line 72 ---
+                            nextPrayer.englishName,
+                            style: Theme.of(context).textTheme.headlineSmall
+                                ?.copyWith(color: Colors.white),
+                          ),
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+
+--- Line 87 ---
+                              countdown.formattedNextPrayerTime,
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
+                                    color: AppColors.champagneGold,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          ),
+
+--- Line 131 ---
+                              countdown.formattedCountdown,
+                              style: Theme.of(context).textTheme.headlineSmall
+                                  ?.copyWith(
+                                    letterSpacing: 1.2,
+                                    color: Colors.white,
+                                  ),
+                            ),
+                          ),
+
+--- Line 144 ---
+                  Text(
+                    'remaining',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.white70,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+
+=== lib\features\widget_prayer_times\widgets\prayer_time_tile.dart (6 occurrences) ===
+--- Line 114 ---
+                Text(
+                  item.type.englishName,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isPassed ? AppColors.textMuted : AppColors.deepTeal,
+                  ),
+                ),
+                const SizedBox(height: 4),
+
+--- Line 128 ---
+          Text(
+            item.formatted12Hour,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: isNext
+                  ? AppColors.primary
+                  : (isPassed ? AppColors.textMuted : AppColors.deepTeal),
+            ),
+
+--- Line 155 ---
+            style: Theme.of(
+              context,
+            ).textTheme.labelSmall?.copyWith(color: AppColors.textMuted),
+          ),
+        ],
+      );
+    } else if (item.isNext) {
+      return Container(
+
+--- Line 168 ---
+        child: Text(
+          'Next Prayer',
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: AppColors.darkGold,
+          ),
+        ),
+      );
+
+--- Line 183 ---
+        child: Text(
+          'Current Prayer',
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: AppColors.primary,
+          ),
+        ),
+      );
+
+--- Line 194 ---
+        style: Theme.of(
+          context,
+        ).textTheme.labelSmall?.copyWith(color: AppColors.textMuted),
+      );
+    }
+  }
+}
+
+=== lib\features\widget_prayer_times\widgets\prayer_times_list.dart (2 occurrences) ===
+--- Line 31 ---
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: AppColors.deepTeal),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 3,
+
+--- Line 46 ---
+                  style: Theme.of(
+                    context,
+                  ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+=== lib\main.dart (1 occurrences) ===
+--- Line 37 ---
+            data: MediaQuery.of(
+              context,
+            ).copyWith(textScaler: TextScaler.noScaling),
+            child: child!,
+          );
+        },
+      ),
+    );
+

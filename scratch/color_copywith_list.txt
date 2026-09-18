@@ -1,0 +1,752 @@
+lib\core\skeleton\azkar_Item_skeleton.dart:55
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(color: AppColors.deepTeal),
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+
+---
+lib\core\widget\share_widget\build_prayer_share.dart:34
+          label,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            color: labelColor,
+            letterSpacing: 1.1,
+          ),
+
+---
+lib\core\widget\share_widget\build_prayer_share.dart:50
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: Colors.white),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+
+---
+lib\core\widget\share_widget\build_prayer_share.dart:63
+            context,
+          ).textTheme.titleSmall?.copyWith(color: AppColors.champagneGold),
+        ),
+
+        const SizedBox(height: 10),
+
+---
+lib\core\widget\share_widget\build_prayer_share.dart:86
+                    relativeTimeLabel,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      color: Colors.white,
+                      letterSpacing: 0.3,
+                    ),
+
+---
+lib\core\widget\share_widget\container_share.dart:27
+              context,
+            ).textTheme.labelSmall?.copyWith(color: Colors.white),
+          ),
+        ],
+      ),
+
+---
+lib\core\widget\share_widget\icon_text_widget.dart:45
+                context,
+              ).textTheme.bodySmall?.copyWith(color: AppColors.textDark),
+        ),
+        if (text2 != null) ...[
+          const SizedBox(width: 3),
+
+---
+lib\core\widget\share_widget\icon_text_widget.dart:55
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: AppColors.textDark),
+          ),
+        ],
+      ],
+
+---
+lib\core\widget\share_widget\search\app_search_bar.dart:105
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
+          prefixIcon: const Icon(
+            Icons.search_rounded,
+            color: AppColors.primary,
+
+---
+lib\core\widget\share_widget\search\search_section_header.dart:43
+                      context,
+                    ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
+                  ),
+                ),
+              ],
+
+---
+lib\features\Azkar\azkar_screen.dart:103
+                                              .titleLarge
+                                              ?.copyWith(
+                                                color: AppColors.deepTeal,
+                                              ),
+                                        ),
+
+---
+lib\features\Azkar\azkar_screen.dart:127
+                                                    .labelSmall
+                                                    ?.copyWith(
+                                                      color: AppColors.darkGold,
+                                                    ),
+                                              ),
+
+---
+lib\features\Azkar\azkar_details\azkar_details_screen.dart:103
+                                              .headlineMedium
+                                              ?.copyWith(
+                                                color: AppColors.deepTeal,
+                                              ),
+                                          textAlign: TextAlign.right,
+
+---
+lib\features\Azkar\azkar_details\azkar_details_screen.dart:166
+                                                        .titleSmall
+                                                        ?.copyWith(
+                                                          color: AppColors
+                                                              .darkGold,
+                                                        ),
+
+---
+lib\features\mosque\verse_of_the_day\widgets\verse_card_content.dart:51
+                    context,
+                  ).textTheme.headlineSmall?.copyWith(color: AppColors.primary),
+                  spacing: 6,
+                ),
+
+
+---
+lib\features\mosque\verse_of_the_day\widgets\verse_card_error.dart:41
+                context,
+              ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
+            ),
+            style: TextButton.styleFrom(
+              foregroundColor: AppColors.primary,
+
+---
+lib\features\qibla\widgets\qibla_calibration_hint.dart:29
+              'If the compass seems inaccurate, wave your phone in a figure-eight (∞) motion to calibrate.',
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                height: 1.35,
+                color: AppColors.primaryDark.withValues(alpha: 0.75),
+              ),
+
+---
+lib\features\qibla\widgets\qibla_direction_indicator.dart:49
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: isAligned ? AppColors.primary : Colors.orange.shade800,
+                letterSpacing: 0.1,
+
+---
+lib\features\qibla\widgets\qibla_error_view.dart:86
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: AppColors.primaryDark,
+              ),
+
+---
+lib\features\qibla\widgets\qibla_error_view.dart:95
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppColors.textMuted,
+                height: 1.45,
+              ),
+
+---
+lib\features\qibla\widgets\qibla_status_card.dart:78
+                label,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.textMuted,
+                ),
+
+---
+lib\features\qibla\widgets\qibla_status_card.dart:88
+            value,
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: highlightColor,
+              letterSpacing: 0.5,
+
+---
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\reciter_search_result.dart:83
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(
+                                    color: isCurrentlySelected
+                                        ? AppColors.primary
+                                        : AppColors.textDark,
+
+---
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\reciter_search_result.dart:104
+                                style: Theme.of(context).textTheme.labelSmall
+                                    ?.copyWith(color: Colors.white),
+                              ),
+                            ),
+                          ],
+
+---
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\surah_search_result.dart:56
+                      '${surah.number}',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: AppColors.primary,
+                      ),
+                    ),
+
+---
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\surah_search_result.dart:78
+                              style: Theme.of(context).textTheme.titleLarge
+                                  ?.copyWith(
+                                    color: isCurrentlyPlaying
+                                        ? AppColors.primary
+                                        : AppColors.textDark,
+
+---
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\surah_search_result.dart:99
+                                style: Theme.of(context).textTheme.labelSmall
+                                    ?.copyWith(color: Colors.white),
+                              ),
+                            ),
+                          ],
+
+---
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\surah_search_result.dart:125
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(color: AppColors.primary),
+                    ),
+                    const SizedBox(height: 4),
+                    Container(
+
+---
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\surah_search_result.dart:141
+                        surah.revelationType,
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: surah.revelationType == 'Meccan'
+                              ? Colors.orange.shade900
+                              : Colors.blue.shade900,
+
+---
+lib\features\Quran\Listening\widgets\audio_player\view\audio_player_view.dart:30
+                context,
+              ).textTheme.titleLarge?.copyWith(color: Colors.white),
+            ),
+            const SizedBox(height: 2),
+            Text(
+
+---
+lib\features\Quran\Listening\widgets\audio_player\view\audio_player_view.dart:35
+              coordinator.reciter.name,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: Colors.white.withValues(alpha: 0.85),
+              ),
+            ),
+
+---
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_and_extras_card.dart:110
+                        : 'Tap to set automatic sleep timer',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: isActive ? AppColors.primary : AppColors.textMuted,
+                    ),
+                  ),
+
+---
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_and_extras_card.dart:159
+              isLooping ? 'Repeat One' : 'Repeat Off',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: isLooping ? AppColors.primary : AppColors.textMuted,
+              ),
+            ),
+
+---
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_sheet.dart:124
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(color: AppColors.primary),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+
+---
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_sheet.dart:230
+                    context,
+                  ).textTheme.labelSmall?.copyWith(color: Colors.white),
+                ),
+              ),
+            ],
+
+---
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_sheet.dart:332
+                        option.title,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: isSelected
+                              ? AppColors.primary
+                              : AppColors.textDark,
+
+---
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_sheet.dart:341
+                        option.subtitle,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: isSelected
+                              ? AppColors.primary.withValues(alpha: 0.8)
+                              : AppColors.textMuted,
+
+---
+lib\features\Quran\Listening\widgets\audio_player\widgets\surah_artwork_card.dart:91
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(
+              color: Colors.white,
+              letterSpacing: 0.5,
+            ),
+
+---
+lib\features\Quran\Listening\widgets\audio_player\widgets\surah_artwork_card.dart:101
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.white.withValues(alpha: 0.85),
+            ),
+          ),
+
+---
+lib\features\Quran\Listening\widgets\audio_player\widgets\surah_sequence_bar.dart:104
+            title,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: isEnabled ? AppColors.primary : Colors.grey[400],
+            ),
+          ),
+
+---
+lib\features\Quran\Listening\widgets\audio_player\widgets\surah_sequence_bar.dart:113
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+              color: isEnabled ? AppColors.textDark : Colors.grey[400],
+            ),
+          ),
+
+---
+lib\features\Quran\Listening\widgets\suraa_audio\surah_name_listening.dart:47
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+
+---
+lib\features\Quran\Listening\widgets\suraa_audio\surah_name_listening.dart:211
+                                          .titleMedium
+                                          ?.copyWith(color: AppColors.primary),
+                                    ),
+                                  ),
+                                ),
+
+---
+lib\features\Quran\Listening\widgets\suraa_audio\surah_name_listening.dart:253
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color:
+                                              surah.revelationType == 'Meccan'
+                                              ? Colors.orange[900]
+
+---
+lib\features\Quran\reading\quran_reading.dart:87
+                                          .titleMedium
+                                          ?.copyWith(color: AppColors.primary),
+                                    ),
+                                  ),
+                                ),
+
+---
+lib\features\Quran\reading\quran_reading.dart:132
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color:
+                                              surah.revelationType == 'Meccan'
+                                              ? Colors.orange[900]
+
+---
+lib\features\Quran\reading\details\surah_details_screen.dart:20
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: Colors.white),
+              ),
+            ],
+          ),
+
+---
+lib\features\Quran\reading\details\surah_details_screen.dart:42
+                    context,
+                  ).textTheme.displaySmall?.copyWith(color: Colors.white),
+                ),
+                const SizedBox(height: 6),
+                Text(
+
+---
+lib\features\Quran\reading\details\surah_details_screen.dart:47
+                  '${surah.revelationType} • ${surah.ayahs.length} verses',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Colors.white.withValues(alpha: 0.85),
+                  ),
+                ),
+
+---
+lib\features\Quran\reading\details\surah_details_screen.dart:94
+                            style: Theme.of(context).textTheme.labelSmall
+                                ?.copyWith(color: AppColors.primary),
+                          ),
+                        ),
+                      ),
+
+---
+lib\features\Quran\switch\switch_screen.dart:75
+                                context,
+                              ).textTheme.titleSmall?.copyWith(color: color),
+                            ),
+                          ],
+                        );
+
+---
+lib\features\Quran\switch\switch_screen.dart:97
+                                context,
+                              ).textTheme.titleSmall?.copyWith(color: color),
+                            ),
+                          ],
+                        );
+
+---
+lib\features\tasbeeh\tasbeeh_screen.dart:45
+            context,
+          ).textTheme.titleLarge?.copyWith(color: AppColors.deepForest),
+        ),
+        content: Text(
+          'Are you sure you want to reset the current count back to 0?',
+
+---
+lib\features\tasbeeh\tasbeeh_screen.dart:51
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
+        ),
+        actions: [
+          TextButton(
+
+---
+lib\features\tasbeeh\tasbeeh_screen.dart:58
+              'Cancel',
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: AppColors.textMuted,
+                fontWeight: FontWeight.w600,
+              ),
+
+---
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:102
+                      'Add Personal Dhikr',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: AppColors.deepForest,
+                      ),
+                    ),
+
+---
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:139
+                      'This is a custom personal dhikr. The repetition number is treated as your Personal Goal, not a religiously narrated Sunnah count.',
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: AppColors.darkGold,
+                        height: 1.35,
+                      ),
+
+---
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:154
+              'Dhikr Text',
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: AppColors.deepForest,
+              ),
+
+---
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:195
+              'Personal Goal (Repetition Count)',
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: AppColors.deepForest,
+              ),
+
+---
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:240
+                  backgroundColor: const Color(0xFFF0F4F2),
+                  labelStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.deepForest,
+                  ),
+
+---
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:274
+                      'Cancel',
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: AppColors.textMuted,
+                        fontWeight: FontWeight.w600,
+                      ),
+
+---
+lib\features\tasbeeh\widgets\counter_button.dart:143
+                      'TAP',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 2.5,
+                        color: widget.isCompleted
+
+---
+lib\features\tasbeeh\widgets\counter_display.dart:58
+                        'Target Reached · Masha\'Allah',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: Colors.green.shade800,
+                        ),
+
+---
+lib\features\tasbeeh\widgets\counter_display.dart:83
+                key: ValueKey<int>(count),
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                  color: AppColors.deepForest,
+                  height: 1.0,
+                ),
+
+---
+lib\features\tasbeeh\widgets\counter_display.dart:93
+                '/ $targetCount',
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.deepForest.withValues(alpha: 0.45),
+                ),
+
+---
+lib\features\tasbeeh\widgets\counter_display.dart:122
+            '${(progress * 100).toInt()}% completed',
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              fontWeight: FontWeight.w500,
+              color: isCompleted ? AppColors.gold : AppColors.textMuted,
+            ),
+
+---
+lib\features\tasbeeh\widgets\counter_display.dart:148
+                    context,
+                  ).textTheme.labelSmall?.copyWith(color: AppColors.textMuted),
+                ),
+              ],
+            ),
+
+---
+lib\features\tasbeeh\widgets\dhikr_card.dart:77
+                  '${currentIndex + 1} / $totalCount',
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w600,
+                  ),
+
+---
+lib\features\tasbeeh\widgets\dhikr_card.dart:130
+                          style: Theme.of(context).textTheme.labelSmall
+                              ?.copyWith(
+                                color: hasNarrated
+                                    ? AppColors.champagneGold
+                                    : Colors.white,
+
+---
+lib\features\tasbeeh\widgets\dhikr_card.dart:155
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+                height: 1.3,
+
+---
+lib\features\tasbeeh\widgets\dhikr_card.dart:187
+                        'Personal Dhikr',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w500,
+                        ),
+
+---
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:97
+                      'Select Dhikr',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: AppColors.deepForest,
+                      ),
+                    ),
+
+---
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:113
+                        '${widget.dhikrList.length}',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.primary,
+                        ),
+
+---
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:165
+                        'Add Custom Dhikr',
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.primary,
+                        ),
+
+---
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:282
+                                  style: Theme.of(context).textTheme.labelSmall
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                        color: isSelected
+                                            ? Colors.white
+
+---
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:307
+                                                .titleSmall
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.w700,
+                                                  color: isSelected
+                                                      ? AppColors.primary
+
+---
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:348
+                                            .labelSmall
+                                            ?.copyWith(
+                                              color: isCustom
+                                                  ? AppColors.badgeBlue
+                                                  : (hasNarrated
+
+---
+lib\features\tasbeeh\widgets\tasbeeh_actions_bar.dart:84
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              letterSpacing: 0.3,
+
+---
+lib\features\widget_prayer_times\widgets\location_banner.dart:91
+                  title,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.darkGold,
+                  ),
+
+---
+lib\features\widget_prayer_times\widgets\location_banner.dart:99
+                  description,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.darkGold.withValues(alpha: 0.9),
+                    height: 1.3,
+                  ),
+
+---
+lib\features\widget_prayer_times\widgets\location_banner.dart:122
+              buttonText,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+
+---
+lib\features\widget_prayer_times\widgets\prayer_countdown_widget.dart:60
+                        'Next Prayer',
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.5,
+
+---
+lib\features\widget_prayer_times\widgets\prayer_countdown_widget.dart:72
+                            style: Theme.of(context).textTheme.headlineSmall
+                                ?.copyWith(color: Colors.white),
+                          ),
+                          const SizedBox(width: 8),
+                          Container(
+
+---
+lib\features\widget_prayer_times\widgets\prayer_countdown_widget.dart:87
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
+                                    color: AppColors.champagneGold,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+
+---
+lib\features\widget_prayer_times\widgets\prayer_countdown_widget.dart:131
+                              style: Theme.of(context).textTheme.headlineSmall
+                                  ?.copyWith(
+                                    letterSpacing: 1.2,
+                                    color: Colors.white,
+                                  ),
+
+---
+lib\features\widget_prayer_times\widgets\prayer_countdown_widget.dart:144
+                    'remaining',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.white70,
+                      fontWeight: FontWeight.w500,
+                    ),
+
+---
+lib\features\widget_prayer_times\widgets\prayer_times_list.dart:31
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: AppColors.deepTeal),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+
+---
+lib\features\widget_prayer_times\widgets\prayer_times_list.dart:46
+                    context,
+                  ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
+                ),
+              ),
+            ],
+
+---
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:114
+                  item.type.englishName,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: isPassed ? AppColors.textMuted : AppColors.deepTeal,
+                  ),
+
+---
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:128
+            item.formatted12Hour,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: isNext
+                  ? AppColors.primary
+
+---
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:155
+              context,
+            ).textTheme.labelSmall?.copyWith(color: AppColors.textMuted),
+          ),
+        ],
+      );
+
+---
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:168
+          'Next Prayer',
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: AppColors.darkGold,
+          ),
+
+---
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:183
+          'Current Prayer',
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: AppColors.primary,
+          ),
+
+---
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:194
+          context,
+        ).textTheme.labelSmall?.copyWith(color: AppColors.textMuted),
+      );
+    }
+  }
+
+---

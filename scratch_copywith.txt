@@ -1,0 +1,100 @@
+lib\main.dart:37: ).copyWith(textScaler: TextScaler.noScaling),
+lib\core\skeleton\azkar_Item_skeleton.dart:55: ?.copyWith(color: AppColors.deepTeal),
+lib\core\widget\share_widget\build_prayer_share.dart:34: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\core\widget\share_widget\build_prayer_share.dart:50: ).textTheme.titleLarge?.copyWith(color: Colors.white),
+lib\core\widget\share_widget\build_prayer_share.dart:63: ).textTheme.titleSmall?.copyWith(color: AppColors.champagneGold),
+lib\core\widget\share_widget\build_prayer_share.dart:86: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\core\widget\share_widget\container_share.dart:27: ).textTheme.labelSmall?.copyWith(color: Colors.white),
+lib\core\widget\share_widget\icon_text_widget.dart:45: ).textTheme.bodySmall?.copyWith(color: AppColors.textDark),
+lib\core\widget\share_widget\icon_text_widget.dart:55: ).textTheme.bodySmall?.copyWith(color: AppColors.textDark),
+lib\core\widget\share_widget\search\app_search_bar.dart:105: ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
+lib\core\widget\share_widget\search\search_section_header.dart:43: ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
+lib\features\Azkar\azkar_screen.dart:103: ?.copyWith(
+lib\features\Azkar\azkar_screen.dart:127: ?.copyWith(
+lib\features\Azkar\azkar_details\azkar_details_screen.dart:103: ?.copyWith(
+lib\features\Azkar\azkar_details\azkar_details_screen.dart:166: ?.copyWith(
+lib\features\mosque\verse_of_the_day\widgets\verse_card_content.dart:51: ).textTheme.headlineSmall?.copyWith(color: AppColors.primary),
+lib\features\mosque\verse_of_the_day\widgets\verse_card_error.dart:41: ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
+lib\features\qibla\widgets\qibla_calibration_hint.dart:29: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\qibla\widgets\qibla_direction_indicator.dart:49: style: Theme.of(context).textTheme.titleSmall?.copyWith(
+lib\features\qibla\widgets\qibla_error_view.dart:86: style: Theme.of(context).textTheme.titleLarge?.copyWith(
+lib\features\qibla\widgets\qibla_error_view.dart:95: style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+lib\features\qibla\widgets\qibla_status_card.dart:78: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\qibla\widgets\qibla_status_card.dart:88: style: Theme.of(context).textTheme.displaySmall?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\reciter_search_result.dart:83: ?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\reciter_search_result.dart:104: ?.copyWith(color: Colors.white),
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\surah_search_result.dart:56: style: Theme.of(context).textTheme.titleMedium?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\surah_search_result.dart:78: ?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\surah_search_result.dart:99: ?.copyWith(color: Colors.white),
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\surah_search_result.dart:125: ?.copyWith(color: AppColors.primary),
+lib\features\Quran\Listening\widgets\audio_player\search\widgets\surah_search_result.dart:141: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\view\audio_player_view.dart:30: ).textTheme.titleLarge?.copyWith(color: Colors.white),
+lib\features\Quran\Listening\widgets\audio_player\view\audio_player_view.dart:35: style: Theme.of(context).textTheme.bodySmall?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_and_extras_card.dart:110: style: Theme.of(context).textTheme.bodySmall?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_and_extras_card.dart:159: style: Theme.of(context).textTheme.bodySmall?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_sheet.dart:124: ?.copyWith(color: AppColors.primary),
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_sheet.dart:146: ?.copyWith(fontWeight: FontWeight.bold),
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_sheet.dart:230: ).textTheme.labelSmall?.copyWith(color: Colors.white),
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_sheet.dart:332: style: Theme.of(context).textTheme.titleSmall?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\widgets\sleep_timer_sheet.dart:341: style: Theme.of(context).textTheme.bodySmall?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\widgets\surah_artwork_card.dart:91: style: Theme.of(context).textTheme.displaySmall?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\widgets\surah_artwork_card.dart:101: style: Theme.of(context).textTheme.bodySmall?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\widgets\surah_sequence_bar.dart:104: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\Quran\Listening\widgets\audio_player\widgets\surah_sequence_bar.dart:113: style: Theme.of(context).textTheme.titleSmall?.copyWith(
+lib\features\Quran\Listening\widgets\suraa_audio\surah_name_listening.dart:47: style: Theme.of(context).textTheme.titleMedium?.copyWith(
+lib\features\Quran\Listening\widgets\suraa_audio\surah_name_listening.dart:211: ?.copyWith(color: AppColors.primary),
+lib\features\Quran\Listening\widgets\suraa_audio\surah_name_listening.dart:253: ?.copyWith(
+lib\features\Quran\reading\quran_reading.dart:87: ?.copyWith(color: AppColors.primary),
+lib\features\Quran\reading\quran_reading.dart:132: ?.copyWith(
+lib\features\Quran\reading\details\surah_details_screen.dart:20: ).textTheme.titleLarge?.copyWith(color: Colors.white),
+lib\features\Quran\reading\details\surah_details_screen.dart:42: ).textTheme.displaySmall?.copyWith(color: Colors.white),
+lib\features\Quran\reading\details\surah_details_screen.dart:47: style: Theme.of(context).textTheme.bodySmall?.copyWith(
+lib\features\Quran\reading\details\surah_details_screen.dart:94: ?.copyWith(color: AppColors.primary),
+lib\features\Quran\switch\switch_screen.dart:41: data: Theme.of(context).copyWith(
+lib\features\Quran\switch\switch_screen.dart:75: ).textTheme.titleSmall?.copyWith(color: color),
+lib\features\Quran\switch\switch_screen.dart:97: ).textTheme.titleSmall?.copyWith(color: color),
+lib\features\tasbeeh\tasbeeh_screen.dart:45: ).textTheme.titleLarge?.copyWith(color: AppColors.deepForest),
+lib\features\tasbeeh\tasbeeh_screen.dart:51: ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
+lib\features\tasbeeh\tasbeeh_screen.dart:58: style: Theme.of(context).textTheme.titleSmall?.copyWith(
+lib\features\tasbeeh\tasbeeh_screen.dart:78: ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:102: style: Theme.of(context).textTheme.titleLarge?.copyWith(
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:139: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:154: style: Theme.of(context).textTheme.titleSmall?.copyWith(
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:195: style: Theme.of(context).textTheme.titleSmall?.copyWith(
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:240: labelStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:274: style: Theme.of(context).textTheme.titleSmall?.copyWith(
+lib\features\tasbeeh\widgets\add_custom_dhikr_sheet.dart:290: style: Theme.of(context).textTheme.titleSmall?.copyWith(
+lib\features\tasbeeh\widgets\counter_button.dart:143: style: Theme.of(context).textTheme.titleMedium?.copyWith(
+lib\features\tasbeeh\widgets\counter_display.dart:58: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\tasbeeh\widgets\counter_display.dart:83: style: Theme.of(context).textTheme.displayLarge?.copyWith(
+lib\features\tasbeeh\widgets\counter_display.dart:93: style: Theme.of(context).textTheme.displaySmall?.copyWith(
+lib\features\tasbeeh\widgets\counter_display.dart:122: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\tasbeeh\widgets\counter_display.dart:148: ).textTheme.labelSmall?.copyWith(color: AppColors.textMuted),
+lib\features\tasbeeh\widgets\dhikr_card.dart:77: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\tasbeeh\widgets\dhikr_card.dart:130: ?.copyWith(
+lib\features\tasbeeh\widgets\dhikr_card.dart:155: style: Theme.of(context).textTheme.displaySmall?.copyWith(
+lib\features\tasbeeh\widgets\dhikr_card.dart:187: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:97: style: Theme.of(context).textTheme.titleLarge?.copyWith(
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:113: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:165: style: Theme.of(context).textTheme.titleSmall?.copyWith(
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:282: ?.copyWith(
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:307: ?.copyWith(
+lib\features\tasbeeh\widgets\dhikr_selector_sheet.dart:348: ?.copyWith(
+lib\features\tasbeeh\widgets\tasbeeh_actions_bar.dart:84: ?.copyWith(
+lib\features\tasbeeh\widgets\tasbeeh_actions_bar.dart:145: ).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w600),
+lib\features\widget_prayer_times\widgets\location_banner.dart:91: style: Theme.of(context).textTheme.titleSmall?.copyWith(
+lib\features\widget_prayer_times\widgets\location_banner.dart:99: style: Theme.of(context).textTheme.bodySmall?.copyWith(
+lib\features\widget_prayer_times\widgets\location_banner.dart:122: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\widget_prayer_times\widgets\prayer_countdown_widget.dart:60: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\widget_prayer_times\widgets\prayer_countdown_widget.dart:72: ?.copyWith(color: Colors.white),
+lib\features\widget_prayer_times\widgets\prayer_countdown_widget.dart:87: ?.copyWith(
+lib\features\widget_prayer_times\widgets\prayer_countdown_widget.dart:131: ?.copyWith(
+lib\features\widget_prayer_times\widgets\prayer_countdown_widget.dart:144: style: Theme.of(context).textTheme.bodySmall?.copyWith(
+lib\features\widget_prayer_times\widgets\prayer_times_list.dart:31: ).textTheme.titleLarge?.copyWith(color: AppColors.deepTeal),
+lib\features\widget_prayer_times\widgets\prayer_times_list.dart:46: ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:114: style: Theme.of(context).textTheme.titleMedium?.copyWith(
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:128: style: Theme.of(context).textTheme.titleMedium?.copyWith(
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:155: ).textTheme.labelSmall?.copyWith(color: AppColors.textMuted),
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:168: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:183: style: Theme.of(context).textTheme.labelSmall?.copyWith(
+lib\features\widget_prayer_times\widgets\prayer_time_tile.dart:194: ).textTheme.labelSmall?.copyWith(color: AppColors.textMuted),
