@@ -188,8 +188,4 @@ final ThemeData lightTheme = ThemeData(
   splashFactory: NoSplash.splashFactory,
 );
 
-extension DeenoraTextTheme on TextTheme {
-  TextStyle get quranAyah => headlineLarge!;
-  TextStyle get verseOfTheDay => headlineMedium!;
-  TextStyle get heroCounter => displayLarge!;
-}
+

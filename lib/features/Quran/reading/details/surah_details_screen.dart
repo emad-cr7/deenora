@@ -77,7 +77,7 @@ class SurahDetailsScreen extends StatelessWidget {
                       Text(
                         ayah.text,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.quranAyah,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 10),
                       Container(
