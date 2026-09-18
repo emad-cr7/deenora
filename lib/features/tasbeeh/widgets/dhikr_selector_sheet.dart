@@ -92,11 +92,9 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
               children: [
                 Row(
                   children: [
-                    const Text(
+                    Text(
                       'Select Dhikr',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: AppColors.deepForest,
                       ),
                     ),
@@ -112,8 +110,7 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                       ),
                       child: Text(
                         '${widget.dhikrList.length}',
-                        style: const TextStyle(
-                          fontSize: 12,
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: AppColors.primary,
                         ),
@@ -154,19 +151,18 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                       width: 1.2,
                     ),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.add_rounded,
                         color: AppColors.primary,
                         size: 20,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
                         'Add Custom Dhikr',
-                        style: TextStyle(
-                          fontSize: 14,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: AppColors.primary,
                         ),
@@ -226,10 +222,10 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
           // Dhikr List
           Expanded(
             child: filtered.isEmpty
-                ? const Center(
+                ? Center(
                     child: Text(
                       'No matching dhikr found',
-                      style: TextStyle(color: AppColors.textMuted),
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   )
                 : ListView.separated(
@@ -282,13 +278,13 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                                 ),
                                 child: Text(
                                   '${originalIndex + 1}',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: isSelected
-                                        ? Colors.white
-                                        : const Color(0xFF556861),
-                                  ),
+                                  style: Theme.of(context).textTheme.labelSmall
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                        color: isSelected
+                                            ? Colors.white
+                                            : AppColors.textMuted,
+                                      ),
                                 ),
                               ),
                               const SizedBox(width: 12),
@@ -305,13 +301,15 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                                         Expanded(
                                           child: Text(
                                             dhikr.name,
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w700,
-                                              color: isSelected
-                                                  ? AppColors.primary
-                                                  : const Color(0xFF1E2923),
-                                            ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall
+                                                ?.copyWith(
+                                                  fontWeight: FontWeight.w700,
+                                                  color: isSelected
+                                                      ? AppColors.primary
+                                                      : AppColors.textDark,
+                                                ),
                                           ),
                                         ),
                                         if (isSelected)
@@ -344,15 +342,16 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                                             : (hasNarrated
                                                   ? 'Narrated: ${dhikr.narratedCount} times'
                                                   : 'Open count (unspecified)'),
-                                        style: TextStyle(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w600,
-                                          color: isCustom
-                                              ? const Color(0xFF0277BD)
-                                              : (hasNarrated
-                                                    ? AppColors.darkGold
-                                                    : const Color(0xFF6B7280)),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall
+                                            ?.copyWith(
+                                              color: isCustom
+                                                  ? AppColors.badgeBlue
+                                                  : (hasNarrated
+                                                        ? AppColors.darkGold
+                                                        : AppColors.textMuted),
+                                            ),
                                       ),
                                     ),
                                   ],

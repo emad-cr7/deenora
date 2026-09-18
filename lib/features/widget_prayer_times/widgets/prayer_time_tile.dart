@@ -111,12 +111,9 @@ class PrayerTimeTile extends StatelessWidget {
               children: [
                 Text(
                   item.type.englishName,
-                  style: TextStyle(
-                    fontSize: 16,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: isPassed
-                        ? const Color(0xFF556561)
-                        : AppColors.deepTeal,
+                    color: isPassed ? AppColors.textMuted : AppColors.deepTeal,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -128,8 +125,7 @@ class PrayerTimeTile extends StatelessWidget {
           // Formatted 12-Hour Scheduled Time
           Text(
             item.formatted12Hour,
-            style: TextStyle(
-              fontSize: 15,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w700,
               color: isNext
                   ? AppColors.primary
@@ -146,15 +142,17 @@ class PrayerTimeTile extends StatelessWidget {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.done_all_rounded, size: 13, color: Colors.grey[600]),
+          const Icon(
+            Icons.done_all_rounded,
+            size: 13,
+            color: AppColors.textMuted,
+          ),
           const SizedBox(width: 4),
           Text(
             'Passed ${item.formattedElapsed} ago',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: Colors.grey[700],
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.labelSmall?.copyWith(color: AppColors.textMuted),
           ),
         ],
       );
@@ -165,10 +163,9 @@ class PrayerTimeTile extends StatelessWidget {
           color: AppColors.gold.withValues(alpha: 0.18),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Text(
+        child: Text(
           'Next Prayer',
-          style: TextStyle(
-            fontSize: 11,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
             fontWeight: FontWeight.bold,
             color: AppColors.darkGold,
           ),
@@ -181,23 +178,20 @@ class PrayerTimeTile extends StatelessWidget {
           color: AppColors.primary.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Text(
+        child: Text(
           'Current Prayer',
-          style: TextStyle(
-            fontSize: 11,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
             fontWeight: FontWeight.bold,
             color: AppColors.primary,
           ),
         ),
       );
     } else {
-      return const Text(
+      return Text(
         'Upcoming',
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-          color: Color(0xFF8A9995),
-        ),
+        style: Theme.of(
+          context,
+        ).textTheme.labelSmall?.copyWith(color: AppColors.textMuted),
       );
     }
   }

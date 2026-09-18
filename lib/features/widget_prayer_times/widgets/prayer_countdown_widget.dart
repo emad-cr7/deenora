@@ -55,10 +55,9 @@ class PrayerCountdownWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Next Prayer',
-                        style: TextStyle(
-                          fontSize: 12,
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: Colors.white70,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 0.5,
@@ -69,11 +68,8 @@ class PrayerCountdownWidget extends StatelessWidget {
                         children: [
                           Text(
                             nextPrayer.englishName,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.headlineSmall
+                                ?.copyWith(color: Colors.white),
                           ),
                           const SizedBox(width: 8),
                           Container(
@@ -87,11 +83,11 @@ class PrayerCountdownWidget extends StatelessWidget {
                             ),
                             child: Text(
                               countdown.formattedNextPrayerTime,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: AppColors.champagneGold,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
+                                    color: AppColors.champagneGold,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                             ),
                           ),
                         ],
@@ -131,12 +127,11 @@ class PrayerCountdownWidget extends StatelessWidget {
                             fit: BoxFit.scaleDown,
                             child: Text(
                               countdown.formattedCountdown,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 1.2,
-                                color: Colors.white,
-                              ),
+                              style: Theme.of(context).textTheme.headlineSmall
+                                  ?.copyWith(
+                                    letterSpacing: 1.2,
+                                    color: Colors.white,
+                                  ),
                             ),
                           ),
                         ),
@@ -144,10 +139,9 @@ class PrayerCountdownWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  const Text(
+                  Text(
                     'remaining',
-                    style: TextStyle(
-                      fontSize: 13,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Colors.white70,
                       fontWeight: FontWeight.w500,
                     ),

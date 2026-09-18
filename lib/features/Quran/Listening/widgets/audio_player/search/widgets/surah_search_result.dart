@@ -53,10 +53,8 @@ class SurahSearchResult extends StatelessWidget {
                   child: Center(
                     child: Text(
                       '${surah.number}',
-                      style: const TextStyle(
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: AppColors.primary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
                       ),
                     ),
                   ),
@@ -76,13 +74,12 @@ class SurahSearchResult extends StatelessWidget {
                               surah.englishName,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: isCurrentlyPlaying
-                                    ? AppColors.primary
-                                    : AppColors.textDark,
-                              ),
+                              style: Theme.of(context).textTheme.titleLarge
+                                  ?.copyWith(
+                                    color: isCurrentlyPlaying
+                                        ? AppColors.primary
+                                        : AppColors.textDark,
+                                  ),
                             ),
                           ),
                           if (isCurrentlyPlaying) ...[
@@ -96,13 +93,10 @@ class SurahSearchResult extends StatelessWidget {
                                 color: AppColors.primary,
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Playing',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: Theme.of(context).textTheme.labelSmall
+                                    ?.copyWith(color: Colors.white),
                               ),
                             ),
                           ],
@@ -113,10 +107,7 @@ class SurahSearchResult extends StatelessWidget {
                         '${surah.ayahs.length} verses • ${surah.englishNameTranslation}',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey.shade600,
-                        ),
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
                   ),
@@ -130,11 +121,8 @@ class SurahSearchResult extends StatelessWidget {
                   children: [
                     Text(
                       surah.name,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
-                      ),
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(color: AppColors.primary),
                     ),
                     const SizedBox(height: 4),
                     Container(
@@ -150,9 +138,7 @@ class SurahSearchResult extends StatelessWidget {
                       ),
                       child: Text(
                         surah.revelationType,
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w600,
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: surah.revelationType == 'Meccan'
                               ? Colors.orange.shade900
                               : Colors.blue.shade900,

@@ -44,8 +44,8 @@ class SurahNameListening extends StatelessWidget {
                 reciter.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 15,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -205,11 +205,10 @@ class SurahNameListening extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       '${surah.number}',
-                                      style: const TextStyle(
-                                        color: AppColors.primary,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(color: AppColors.primary),
                                     ),
                                   ),
                                 ),
@@ -221,19 +220,16 @@ class SurahNameListening extends StatelessWidget {
                                     children: [
                                       Text(
                                         surah.englishName,
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.textDark,
-                                        ),
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.titleLarge,
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
                                         '${surah.ayahs.length} verses',
-                                        style: const TextStyle(
-                                          fontSize: 13,
-                                          color: AppColors.textMuted,
-                                        ),
+                                        style: Theme.of(
+                                          context,
+                                        ).textTheme.bodySmall,
                                       ),
                                     ],
                                   ),
@@ -251,13 +247,15 @@ class SurahNameListening extends StatelessWidget {
                                   ),
                                   child: Text(
                                     surah.revelationType,
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w600,
-                                      color: surah.revelationType == 'Meccan'
-                                          ? Colors.orange[900]
-                                          : Colors.blue[900],
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelSmall
+                                        ?.copyWith(
+                                          color:
+                                              surah.revelationType == 'Meccan'
+                                              ? Colors.orange[900]
+                                              : Colors.blue[900],
+                                        ),
                                   ),
                                 ),
                                 const SizedBox(width: 6),

@@ -97,18 +97,12 @@ class _AppSearchBarState extends State<AppSearchBar> {
         onSubmitted: widget.onSubmitted,
         textInputAction: TextInputAction.search,
         cursorColor: AppColors.primary,
-        style: const TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w500,
-          color: AppColors.textDark,
-        ),
+        style: Theme.of(context).textTheme.bodyLarge,
         decoration: InputDecoration(
           hintText: widget.hintText,
-          hintStyle: TextStyle(
-            fontSize: 14,
-            color: Colors.grey.shade500,
-            fontWeight: FontWeight.w400,
-          ),
+          hintStyle: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
           prefixIcon: const Icon(
             Icons.search_rounded,
             color: AppColors.primary,

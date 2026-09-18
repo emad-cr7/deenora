@@ -88,9 +88,7 @@ class SurahArtworkCard extends StatelessWidget {
           Text(
             surah.englishName,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(
               color: Colors.white,
               letterSpacing: 0.5,
             ),
@@ -100,10 +98,8 @@ class SurahArtworkCard extends StatelessWidget {
           Text(
             '${surah.ayahs.length} verses',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 13,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Colors.white.withValues(alpha: 0.85),
-              fontWeight: FontWeight.w500,
             ),
           ),
         ],

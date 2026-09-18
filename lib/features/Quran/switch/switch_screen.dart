@@ -70,11 +70,9 @@ class _SwitchScreenState extends State<SwitchScreen>
                             const SizedBox(width: 6),
                             Text(
                               'reading',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                color: color,
-                              ),
+                              style: Theme.of(
+                                context,
+                              ).textTheme.titleSmall?.copyWith(color: color),
                             ),
                           ],
                         );
@@ -94,11 +92,9 @@ class _SwitchScreenState extends State<SwitchScreen>
                             const SizedBox(width: 6),
                             Text(
                               'listening',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                color: color,
-                              ),
+                              style: Theme.of(
+                                context,
+                              ).textTheme.titleSmall?.copyWith(color: color),
                             ),
                           ],
                         );

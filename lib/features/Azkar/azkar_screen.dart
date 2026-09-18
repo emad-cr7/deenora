@@ -97,11 +97,12 @@ class AzkarScreen extends StatelessWidget {
                                       children: [
                                         Text(
                                           category.englishName,
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.deepTeal,
-                                          ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge
+                                              ?.copyWith(
+                                                color: AppColors.deepTeal,
+                                              ),
                                         ),
                                         const SizedBox(height: 4),
                                         Row(
@@ -120,11 +121,12 @@ class AzkarScreen extends StatelessWidget {
                                               ),
                                               child: Text(
                                                 '$count Dhikr',
-                                                style: const TextStyle(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: AppColors.darkGold,
-                                                ),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelSmall
+                                                    ?.copyWith(
+                                                      color: AppColors.darkGold,
+                                                    ),
                                               ),
                                             ),
                                           ],

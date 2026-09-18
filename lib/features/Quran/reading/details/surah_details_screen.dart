@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/light_theme.dart';
 import '../models/surah_model.dart';
 
 class SurahDetailsScreen extends StatelessWidget {
@@ -14,7 +15,9 @@ class SurahDetailsScreen extends StatelessWidget {
             children: [
               Text(
                 surah.englishName,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: Colors.white),
               ),
             ],
           ),
@@ -34,19 +37,15 @@ class SurahDetailsScreen extends StatelessWidget {
               children: [
                 Text(
                   surah.englishName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 26,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.displaySmall?.copyWith(color: Colors.white),
                 ),
                 const SizedBox(height: 6),
                 Text(
                   '${surah.revelationType} • ${surah.ayahs.length} verses',
-                  style: TextStyle(
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Colors.white.withValues(alpha: 0.85),
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -78,12 +77,7 @@ class SurahDetailsScreen extends StatelessWidget {
                       Text(
                         ayah.text,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 25,
-                          height: 1.8,
-                          color: AppColors.textDark,
-                          fontWeight: FontWeight.w400,
-                        ),
+                        style: Theme.of(context).textTheme.quranAyah,
                       ),
                       const SizedBox(height: 10),
                       Container(
@@ -96,11 +90,8 @@ class SurahDetailsScreen extends StatelessWidget {
                         child: Center(
                           child: Text(
                             '${ayah.numberInSurah}',
-                            style: const TextStyle(
-                              color: AppColors.primary,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 13,
-                            ),
+                            style: Theme.of(context).textTheme.labelSmall
+                                ?.copyWith(color: AppColors.primary),
                           ),
                         ),
                       ),

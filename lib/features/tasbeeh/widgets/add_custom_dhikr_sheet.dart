@@ -89,19 +89,17 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Row(
+                Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.add_circle_outline_rounded,
                       color: AppColors.primary,
                       size: 22,
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Text(
                       'Add Personal Dhikr',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: AppColors.deepForest,
                       ),
                     ),
@@ -126,21 +124,20 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: const Color(0xFFFFE58F)),
               ),
-              child: const Row(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.info_outline_rounded,
                     size: 16,
                     color: Color(0xFFD48800),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       'This is a custom personal dhikr. The repetition number is treated as your Personal Goal, not a religiously narrated Sunnah count.',
-                      style: TextStyle(
-                        fontSize: 11.5,
-                        color: Color(0xFF874D00),
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: AppColors.darkGold,
                         height: 1.35,
                       ),
                     ),
@@ -152,10 +149,9 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
             const SizedBox(height: 10),
 
             // Dhikr Text Input
-            const Text(
+            Text(
               'Dhikr Text',
-              style: TextStyle(
-                fontSize: 13,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: AppColors.deepForest,
               ),
@@ -194,10 +190,9 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
             const SizedBox(height: 14),
 
             // Repetition Count Input
-            const Text(
+            Text(
               'Personal Goal (Repetition Count)',
-              style: TextStyle(
-                fontSize: 13,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: AppColors.deepForest,
               ),
@@ -242,8 +237,7 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                 return ActionChip(
                   label: Text('$preset'),
                   backgroundColor: const Color(0xFFF0F4F2),
-                  labelStyle: const TextStyle(
-                    fontSize: 12,
+                  labelStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
                     fontWeight: FontWeight.w700,
                     color: AppColors.deepForest,
                   ),
@@ -275,9 +269,9 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                       padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
                     onPressed: () => Navigator.pop(context),
-                    child: const Text(
+                    child: Text(
                       'Cancel',
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         color: AppColors.textMuted,
                         fontWeight: FontWeight.w600,
                       ),
@@ -291,9 +285,11 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                       padding: const EdgeInsets.symmetric(vertical: 12),
                     ),
                     onPressed: _submit,
-                    child: const Text(
+                    child: Text(
                       'Add Dhikr',
-                      style: TextStyle(fontWeight: FontWeight.w700),
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../../core/theme/app_colors.dart';
+import '../../../../../../core/theme/app_sizes.dart';
 import '../controllers/qibla_controller.dart';
 
 class QiblaCompass extends StatefulWidget {
@@ -249,7 +250,7 @@ class _CompassDialPainter extends CustomPainter {
     // When unaligned, they return to their original color.
     final degreeNumberColor = isFacingQibla
         ? AppColors.primary
-        : const Color(0xFF6B7280);
+        : AppColors.textMuted;
 
     final cardinalColor = isFacingQibla
         ? AppColors.primary
@@ -257,25 +258,25 @@ class _CompassDialPainter extends CustomPainter {
 
     final northColor = isFacingQibla
         ? AppColors.primary
-        : const Color(0xFFC93B2B);
+        : AppColors.compassNorth;
 
     final cardinalStyle = TextStyle(
       color: cardinalColor,
-      fontSize: 14,
+      fontSize: AppSizes.sp14,
       fontWeight: FontWeight.bold,
       letterSpacing: 0.5,
     );
 
     final northStyle = TextStyle(
       color: northColor,
-      fontSize: 15,
+      fontSize: AppSizes.sp15,
       fontWeight: FontWeight.bold,
       letterSpacing: 0.5,
     );
 
     final degreeNumberStyle = TextStyle(
       color: degreeNumberColor,
-      fontSize: 10,
+      fontSize: AppSizes.sp10,
       fontWeight: FontWeight.w600,
       letterSpacing: 0.2,
     );

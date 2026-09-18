@@ -40,7 +40,9 @@ class IconTextWidget extends StatelessWidget {
           text,
           style:
               textStyle ??
-              const TextStyle(fontSize: 13, color: AppColors.textDark),
+              Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: AppColors.textDark),
         ),
         if (text2 != null) ...[
           const SizedBox(width: 3),
@@ -48,7 +50,9 @@ class IconTextWidget extends StatelessWidget {
             text2!,
             style:
                 text2Style ??
-                const TextStyle(fontSize: 13, color: AppColors.textDark),
+                Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: AppColors.textDark),
           ),
         ],
       ],

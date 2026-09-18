@@ -83,8 +83,7 @@ class QiblaErrorView extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 20,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: AppColors.primaryDark,
               ),
@@ -93,9 +92,8 @@ class QiblaErrorView extends StatelessWidget {
             Text(
               description,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 14.5,
-                color: Color(0xFF6B7280),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppColors.textMuted,
                 height: 1.45,
               ),
             ),
@@ -107,10 +105,7 @@ class QiblaErrorView extends StatelessWidget {
                 icon: const Icon(Icons.refresh_rounded, size: 20),
                 label: Text(
                   buttonLabel,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 24),

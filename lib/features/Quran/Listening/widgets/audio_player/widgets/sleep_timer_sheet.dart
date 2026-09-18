@@ -118,22 +118,15 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               'Timer Active',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.primary,
-                              ),
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(color: AppColors.primary),
                             ),
                             const SizedBox(height: 2),
                             Text(
                               'Remaining: ${controller.formattedRemainingTime}',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.textDark,
-                              ),
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ],
                         ),
@@ -147,9 +140,10 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                           ),
                         ),
                         icon: const Icon(Icons.stop_circle_outlined, size: 18),
-                        label: const Text(
+                        label: Text(
                           'Cancel',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: Theme.of(context).textTheme.labelMedium
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         onPressed: () => controller.cancelTimer(),
                       ),
@@ -216,9 +210,9 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Custom duration',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                style: Theme.of(context).textTheme.titleSmall,
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -231,11 +225,9 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
                 ),
                 child: Text(
                   '${_customMinutes.toInt()} min',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.labelSmall?.copyWith(color: Colors.white),
                 ),
               ),
             ],
@@ -260,14 +252,14 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
               SleepTimerOption.custom,
               customMinutes: _customMinutes.toInt(),
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.check_rounded, size: 18),
-                SizedBox(width: 8),
+                const Icon(Icons.check_rounded, size: 18),
+                const SizedBox(width: 8),
                 Text(
                   'Set Custom Timer',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
               ],
             ),
@@ -337,11 +329,7 @@ class _TimerOptionTile extends StatelessWidget {
                     children: [
                       Text(
                         option.title,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.w600,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           color: isSelected
                               ? AppColors.primary
                               : AppColors.textDark,
@@ -350,11 +338,10 @@ class _TimerOptionTile extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         option.subtitle,
-                        style: TextStyle(
-                          fontSize: 12,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: isSelected
                               ? AppColors.primary.withValues(alpha: 0.8)
-                              : Colors.grey[600],
+                              : AppColors.textMuted,
                         ),
                       ),
                     ],

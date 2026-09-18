@@ -22,11 +22,9 @@ class ContainerShare extends StatelessWidget {
           const SizedBox(width: 5),
           Text(
             text,
-            style: const TextStyle(
-              fontSize: 11,
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.labelSmall?.copyWith(color: Colors.white),
           ),
         ],
       ),

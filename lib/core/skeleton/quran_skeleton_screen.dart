@@ -49,34 +49,27 @@ class QuranSkeletonScreen extends StatelessWidget {
 
                     const SizedBox(width: 14),
 
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'zzzzzzzzzzzzz',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.textDark,
-                            ),
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text(
                             'zzzzzzzzzzzzz',
-                            style: TextStyle(fontSize: 13, color: Colors.grey),
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
                       ),
                     ),
 
                     Card(
-                      child: const Text(
+                      child: Text(
                         'Meccan',
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: Theme.of(context).textTheme.labelSmall,
                       ),
                     ),
 

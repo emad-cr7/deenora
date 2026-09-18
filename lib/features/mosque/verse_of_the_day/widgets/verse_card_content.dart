@@ -41,16 +41,14 @@ class VerseCardContent extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Header: ✦ Ayah of the Day (reusing shared IconTextWidget)
-                const IconTextWidget(
+                IconTextWidget(
                   icon: FlutterIslamicIcons.islam,
                   iconColor: AppColors.primary,
                   iconSize: 14,
                   text: 'Ayah of the Day',
-                  textStyle: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primary,
-                  ),
+                  textStyle: Theme.of(
+                    context,
+                  ).textTheme.headlineSmall?.copyWith(color: AppColors.primary),
                   spacing: 6,
                 ),
 
@@ -61,12 +59,7 @@ class VerseCardContent extends StatelessWidget {
                   '﴿ ${verse.text} ﴾',
                   textAlign: TextAlign.center,
                   textDirection: TextDirection.rtl,
-                  style: const TextStyle(
-                    fontSize: 19.5,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textDark,
-                    height: 1.7,
-                  ),
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
 
                 const SizedBox(height: 12),
@@ -74,11 +67,7 @@ class VerseCardContent extends StatelessWidget {
                 Text(
                   '— ${verse.surahEnglishName} • Ayah ${verse.numberInSurah} —',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.textMuted,
-                  ),
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ],
             ),

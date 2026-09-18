@@ -34,11 +34,7 @@ class PlayerProgressBar extends StatelessWidget {
           thumbColor: AppColors.primary,
           thumbRadius: 7,
           thumbGlowRadius: 15,
-          timeLabelTextStyle: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textMuted,
-          ),
+          timeLabelTextStyle: Theme.of(context).textTheme.labelMedium,
           onSeek: onSeek,
         );
       },

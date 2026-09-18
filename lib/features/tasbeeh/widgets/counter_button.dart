@@ -140,8 +140,7 @@ class _CounterButtonState extends State<CounterButton>
                     const SizedBox(height: 8),
                     Text(
                       'TAP',
-                      style: TextStyle(
-                        fontSize: 16,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w800,
                         letterSpacing: 2.5,
                         color: widget.isCompleted

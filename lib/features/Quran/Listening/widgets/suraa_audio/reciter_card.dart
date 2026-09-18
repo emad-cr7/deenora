@@ -76,11 +76,7 @@ class ReciterCard extends StatelessWidget {
                         reciter.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textDark,
-                        ),
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 6),
                       IconTextWidget(

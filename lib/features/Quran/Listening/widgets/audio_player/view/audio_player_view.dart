@@ -25,15 +25,15 @@ class AudioPlayerView extends StatelessWidget {
           children: [
             Text(
               coordinator.currentSurah.englishName,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(color: Colors.white),
             ),
             const SizedBox(height: 2),
             Text(
               coordinator.reciter.name,
-              style: TextStyle(
-                fontSize: 12,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Colors.white.withValues(alpha: 0.85),
-                fontWeight: FontWeight.w400,
               ),
             ),
           ],

@@ -79,13 +79,12 @@ class ReciterSearchResult extends StatelessWidget {
                               reciter.name,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                color: isCurrentlySelected
-                                    ? AppColors.primary
-                                    : AppColors.textDark,
-                              ),
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(
+                                    color: isCurrentlySelected
+                                        ? AppColors.primary
+                                        : AppColors.textDark,
+                                  ),
                             ),
                           ),
                           if (isCurrentlySelected) ...[
@@ -99,13 +98,10 @@ class ReciterSearchResult extends StatelessWidget {
                                 color: AppColors.primary,
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Selected',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: Theme.of(context).textTheme.labelSmall
+                                    ?.copyWith(color: Colors.white),
                               ),
                             ),
                           ],
@@ -117,45 +113,32 @@ class ReciterSearchResult extends StatelessWidget {
                           reciter.arabicName!,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey.shade700,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
                       const SizedBox(height: 4),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.public,
                             size: 13,
-                            color: Colors.grey.shade600,
+                            color: AppColors.textMuted,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             reciter.country,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey.shade600,
-                            ),
+                            style: Theme.of(context).textTheme.labelMedium,
                           ),
                           if (reciter.birthDate.isNotEmpty) ...[
                             const SizedBox(width: 10),
                             Text(
                               '• ${reciter.birthDate}',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey.shade600,
-                              ),
+                              style: Theme.of(context).textTheme.labelMedium,
                             ),
                             if ((reciter.deathDate ?? '').isNotEmpty)
                               Text(
                                 '-${reciter.deathDate}',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade600,
-                                ),
+                                style: Theme.of(context).textTheme.labelMedium,
                               ),
                           ],
                         ],

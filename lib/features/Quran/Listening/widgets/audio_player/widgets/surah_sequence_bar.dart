@@ -101,9 +101,7 @@ class _SurahSequenceItem extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
+            style: Theme.of(context).textTheme.labelSmall?.copyWith(
               color: isEnabled ? AppColors.primary : Colors.grey[400],
             ),
           ),
@@ -112,9 +110,7 @@ class _SurahSequenceItem extends StatelessWidget {
             surahText,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(
               color: isEnabled ? AppColors.textDark : Colors.grey[400],
             ),
           ),

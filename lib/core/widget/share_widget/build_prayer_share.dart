@@ -31,9 +31,7 @@ class BuildPrayerShare extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w700,
+          style: Theme.of(context).textTheme.labelSmall?.copyWith(
             color: labelColor,
             letterSpacing: 1.1,
           ),
@@ -47,11 +45,9 @@ class BuildPrayerShare extends StatelessWidget {
             Expanded(
               child: Text(
                 prayerName,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: Colors.white),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -62,11 +58,9 @@ class BuildPrayerShare extends StatelessWidget {
 
         Text(
           scheduledTime,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.champagneGold,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleSmall?.copyWith(color: AppColors.champagneGold),
         ),
 
         const SizedBox(height: 10),
@@ -89,9 +83,7 @@ class BuildPrayerShare extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                   child: Text(
                     relativeTimeLabel,
-                    style: const TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Colors.white,
                       letterSpacing: 0.3,
                     ),

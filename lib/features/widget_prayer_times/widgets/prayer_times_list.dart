@@ -24,13 +24,11 @@ class PrayerTimesList extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Prayer Schedule',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.deepTeal,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(color: AppColors.deepTeal),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -43,11 +41,9 @@ class PrayerTimesList extends StatelessWidget {
                 ),
                 child: Text(
                   '${items.length} Timings',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.primary,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
                 ),
               ),
             ],

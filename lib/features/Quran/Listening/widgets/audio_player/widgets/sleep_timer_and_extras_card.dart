@@ -98,25 +98,17 @@ class _SleepTimerRow extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Sleep Timer',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textDark,
-                    ),
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const SizedBox(height: 2),
                   Text(
                     isActive
                         ? 'Active: $formattedTime remaining'
                         : 'Tap to set automatic sleep timer',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: isActive ? AppColors.primary : Colors.grey[600],
-                      fontWeight: isActive
-                          ? FontWeight.w600
-                          : FontWeight.normal,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: isActive ? AppColors.primary : AppColors.textMuted,
                     ),
                   ),
                 ],
@@ -159,15 +151,13 @@ class _RepeatToggleButton extends StatelessWidget {
             Icon(
               isLooping ? Icons.repeat_one_rounded : Icons.repeat_rounded,
               size: 18,
-              color: isLooping ? AppColors.primary : Colors.grey[600],
+              color: isLooping ? AppColors.primary : AppColors.textMuted,
             ),
             const SizedBox(width: 6),
             Text(
               isLooping ? 'Repeat One' : 'Repeat Off',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: isLooping ? FontWeight.bold : FontWeight.w500,
-                color: isLooping ? AppColors.primary : Colors.grey[700],
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: isLooping ? AppColors.primary : AppColors.textMuted,
               ),
             ),
           ],

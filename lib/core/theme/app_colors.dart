@@ -20,4 +20,8 @@ class AppColors {
   static const Color amberGold = Color(0xFFC9A24B);
   static const Color darkGold = Color(0xFF8A6D1D);
   static const Color deepTeal = Color(0xFF163B33);
+
+  // Feature specific accents
+  static const Color badgeBlue = Color(0xFF0277BD);
+  static const Color compassNorth = Color(0xFFC93B2B);
 }

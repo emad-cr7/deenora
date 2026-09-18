@@ -88,18 +88,16 @@ class LocationBanner extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 13,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF5C4710),
+                    color: AppColors.darkGold,
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   description,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Color(0xFF7A6224),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: AppColors.darkGold.withValues(alpha: 0.9),
                     height: 1.3,
                   ),
                 ),
@@ -121,7 +119,10 @@ class LocationBanner extends StatelessWidget {
             ),
             child: Text(
               buttonText,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ],

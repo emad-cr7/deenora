@@ -74,9 +74,8 @@ class DhikrCard extends StatelessWidget {
                 ),
                 child: Text(
                   '${currentIndex + 1} / $totalCount',
-                  style: const TextStyle(
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: Colors.white70,
-                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -127,13 +126,13 @@ class DhikrCard extends StatelessWidget {
                                     : 'No Narrated Count'),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: hasNarrated
-                                ? AppColors.champagneGold
-                                : Colors.white,
-                            fontSize: 11.5,
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: Theme.of(context).textTheme.labelSmall
+                              ?.copyWith(
+                                color: hasNarrated
+                                    ? AppColors.champagneGold
+                                    : Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
                         ),
                       ),
                     ],
@@ -153,8 +152,7 @@ class DhikrCard extends StatelessWidget {
             child: Text(
               dhikr.name,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 24,
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
                 height: 1.3,
@@ -170,22 +168,24 @@ class DhikrCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (isCustom)
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 6,
+                    vertical: 4,
+                  ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.person_outline_rounded,
                         size: 14,
                         color: Colors.white70,
                       ),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text(
                         'Personal Dhikr',
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           color: Colors.white70,
-                          fontSize: 11,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

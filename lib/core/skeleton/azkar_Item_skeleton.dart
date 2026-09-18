@@ -51,11 +51,8 @@ class AzkarItemSkeleton extends StatelessWidget {
                       children: [
                         Text(
                           "category.arabicName",
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.deepTeal,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(color: AppColors.deepTeal),
                         ),
                         const SizedBox(height: 4),
                         Row(

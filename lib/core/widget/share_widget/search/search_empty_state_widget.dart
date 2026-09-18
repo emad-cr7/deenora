@@ -42,22 +42,14 @@ class SearchEmptyStateWidget extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textDark,
-              ),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             if (subtitle != null) ...[
               const SizedBox(height: 8),
               Text(
                 subtitle!,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 14,
-                  height: 1.4,
-                  color: AppColors.textMuted,
-                ),
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
             if (action != null) ...[const SizedBox(height: 20), action!],

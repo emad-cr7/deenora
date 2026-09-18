@@ -20,6 +20,7 @@ class QiblaStatusCard extends StatelessWidget {
           // 1. Qibla Bearing Card
           Expanded(
             child: _buildMetricTile(
+              context: context,
               value: '$qiblaBearing°',
               label: 'Qibla Direction',
               icon: Icons.explore_rounded,
@@ -31,6 +32,7 @@ class QiblaStatusCard extends StatelessWidget {
           // 2. Current Device Heading Card
           Expanded(
             child: _buildMetricTile(
+              context: context,
               value: '$heading°',
               label: 'Device Heading',
               icon: Icons.navigation_outlined,
@@ -43,6 +45,7 @@ class QiblaStatusCard extends StatelessWidget {
   }
 
   Widget _buildMetricTile({
+    required BuildContext context,
     required String value,
     required String label,
     required IconData icon,
@@ -53,7 +56,7 @@ class QiblaStatusCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE5E7EB), width: 1.0),
+        border: Border.all(color: AppColors.borderSubtle, width: 1.0),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.03),
@@ -72,10 +75,9 @@ class QiblaStatusCard extends StatelessWidget {
               const SizedBox(width: 6),
               Text(
                 label,
-                style: const TextStyle(
-                  fontSize: 12,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF6B7280),
+                  color: AppColors.textMuted,
                 ),
               ),
             ],
@@ -83,8 +85,7 @@ class QiblaStatusCard extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             value,
-            style: TextStyle(
-              fontSize: 22,
+            style: Theme.of(context).textTheme.displaySmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: highlightColor,
               letterSpacing: 0.5,

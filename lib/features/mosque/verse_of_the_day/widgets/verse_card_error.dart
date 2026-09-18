@@ -26,19 +26,20 @@ class VerseCardError extends StatelessWidget {
             color: AppColors.textMuted,
           ),
           const SizedBox(width: 8),
-          const Text(
+          Text(
             'Unable to load daily ayah',
-            style: TextStyle(
-              fontSize: 12,
-              color: AppColors.textMuted,
-              fontWeight: FontWeight.w500,
-            ),
+            style: Theme.of(context).textTheme.bodySmall,
           ),
           const SizedBox(width: 8),
           TextButton.icon(
             onPressed: onRetry,
             icon: const Icon(Icons.refresh_rounded, size: 16),
-            label: const Text('Retry', style: TextStyle(fontSize: 12)),
+            label: Text(
+              'Retry',
+              style: Theme.of(
+                context,
+              ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
+            ),
             style: TextButton.styleFrom(
               foregroundColor: AppColors.primary,
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

@@ -46,8 +46,7 @@ class QiblaDirectionIndicator extends StatelessWidget {
                   ? '✓  Qibla direction is correct'
                   : 'Please turn your device towards the Qibla',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 14,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: isAligned ? AppColors.primary : Colors.orange.shade800,
                 letterSpacing: 0.1,

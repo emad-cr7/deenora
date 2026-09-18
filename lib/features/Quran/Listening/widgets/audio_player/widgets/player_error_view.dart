@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../../../core/theme/app_colors.dart';
 
 // واجهة عرض الخطأ في تحميل التلاوة مع زر إعادة المحاولة
 class PlayerErrorView extends StatelessWidget {
@@ -35,11 +34,7 @@ class PlayerErrorView extends StatelessWidget {
             Text(
               errorMessage ?? 'Failed to play recitation. Please try again.',
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-                color: AppColors.textDark,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 20),
 
@@ -52,9 +47,9 @@ class PlayerErrorView extends StatelessWidget {
                 ),
               ),
               icon: const Icon(Icons.refresh_rounded),
-              label: const Text(
+              label: Text(
                 'Retry',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.labelLarge,
               ),
               onPressed: onRetry,
             ),

@@ -38,24 +38,24 @@ class _TasbeehScreenContent extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text(
+        title: Text(
           'Reset Counter?',
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            color: AppColors.deepForest,
-            fontSize: 17,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(color: AppColors.deepForest),
         ),
-        content: const Text(
+        content: Text(
           'Are you sure you want to reset the current count back to 0?',
-          style: TextStyle(fontSize: 14, color: Color(0xFF556861)),
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text(
+            child: Text(
               'Cancel',
-              style: TextStyle(
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
                 color: AppColors.textMuted,
                 fontWeight: FontWeight.w600,
               ),
@@ -71,9 +71,11 @@ class _TasbeehScreenContent extends StatelessWidget {
               controller.reset();
               Navigator.pop(ctx);
             },
-            child: const Text(
+            child: Text(
               'Reset',
-              style: TextStyle(fontWeight: FontWeight.w700),
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
             ),
           ),
         ],
@@ -106,10 +108,10 @@ class _TasbeehScreenContent extends StatelessWidget {
                 }
 
                 if (currentDhikr == null) {
-                  return const Center(
+                  return Center(
                     child: Text(
                       'No dhikr data available.',
-                      style: TextStyle(color: AppColors.textMuted),
+                      style: Theme.of(context).textTheme.labelMedium,
                     ),
                   );
                 }

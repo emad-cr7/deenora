@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
+import 'app_sizes.dart';
 
 final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
@@ -20,7 +21,94 @@ final ThemeData lightTheme = ThemeData(
     centerTitle: true,
     elevation: 0,
     foregroundColor: Colors.white,
-    titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+    titleTextStyle: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: AppSizes.sp22,
+    ),
+  ),
+
+  textTheme: const TextTheme(
+    displayLarge: TextStyle(
+      fontSize: AppSizes.sp58,
+      fontWeight: FontWeight.w800,
+      color: AppColors.primary,
+      letterSpacing: -1.0,
+    ),
+    displayMedium: TextStyle(
+      fontSize: AppSizes.sp32,
+      fontWeight: FontWeight.w700,
+      color: AppColors.deepForest,
+      letterSpacing: 1.0,
+    ),
+    displaySmall: TextStyle(
+      fontSize: AppSizes.sp24,
+      fontWeight: FontWeight.w700,
+      color: AppColors.deepForest,
+      height: 1.4,
+    ),
+    headlineLarge: TextStyle(
+      fontSize: AppSizes.sp24,
+      fontWeight: FontWeight.w400,
+      color: AppColors.textDark,
+      height: 1.8,
+    ),
+    headlineMedium: TextStyle(
+      fontSize: AppSizes.sp20,
+      fontWeight: FontWeight.w600,
+      color: AppColors.textDark,
+      height: 1.7,
+    ),
+    headlineSmall: TextStyle(
+      fontSize: AppSizes.sp20,
+      fontWeight: FontWeight.w700,
+      color: AppColors.textDark,
+    ),
+    titleLarge: TextStyle(
+      fontSize: AppSizes.sp18,
+      fontWeight: FontWeight.w700,
+      color: AppColors.textDark,
+    ),
+    titleMedium: TextStyle(
+      fontSize: AppSizes.sp16,
+      fontWeight: FontWeight.w600,
+      color: AppColors.textDark,
+    ),
+    titleSmall: TextStyle(
+      fontSize: AppSizes.sp14,
+      fontWeight: FontWeight.w600,
+      color: AppColors.textDark,
+    ),
+    bodyLarge: TextStyle(
+      fontSize: AppSizes.sp16,
+      fontWeight: FontWeight.w400,
+      color: AppColors.textDark,
+    ),
+    bodyMedium: TextStyle(
+      fontSize: AppSizes.sp14,
+      fontWeight: FontWeight.w400,
+      color: AppColors.textDark,
+    ),
+    bodySmall: TextStyle(
+      fontSize: AppSizes.sp13,
+      fontWeight: FontWeight.w400,
+      color: AppColors.textMuted,
+      height: 1.3,
+    ),
+    labelLarge: TextStyle(
+      fontSize: AppSizes.sp14,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    labelMedium: TextStyle(
+      fontSize: AppSizes.sp12,
+      fontWeight: FontWeight.w400,
+      color: AppColors.textMuted,
+    ),
+    labelSmall: TextStyle(
+      fontSize: AppSizes.sp11,
+      fontWeight: FontWeight.w600,
+      color: AppColors.textMuted,
+    ),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -38,7 +126,10 @@ final ThemeData lightTheme = ThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
   ),
   inputDecorationTheme: InputDecorationTheme(
-    hintStyle: const TextStyle(color: AppColors.textMuted, fontSize: 15),
+    hintStyle: const TextStyle(
+      color: AppColors.textMuted,
+      fontSize: AppSizes.sp15,
+    ),
     filled: true,
     fillColor: Colors.white,
     focusColor: AppColors.borderSubtle,
@@ -83,16 +174,22 @@ final ThemeData lightTheme = ThemeData(
       if (states.contains(WidgetState.selected)) {
         return const TextStyle(
           color: AppColors.deepForest,
-          fontSize: 14,
+          fontSize: AppSizes.sp14,
           fontWeight: FontWeight.w600,
         );
       }
       return const TextStyle(
         color: AppColors.textMuted,
-        fontSize: 12,
+        fontSize: AppSizes.sp12,
         fontWeight: FontWeight.w500,
       );
     }),
   ),
   splashFactory: NoSplash.splashFactory,
 );
+
+extension DeenoraTextTheme on TextTheme {
+  TextStyle get quranAyah => headlineLarge!;
+  TextStyle get verseOfTheDay => headlineMedium!;
+  TextStyle get heroCounter => displayLarge!;
+}

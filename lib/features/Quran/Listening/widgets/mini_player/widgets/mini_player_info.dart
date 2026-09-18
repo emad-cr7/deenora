@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../../../../core/theme/app_colors.dart';
 import '../../audio_player/controller/audio_player_coordinator.dart';
 
 class MiniPlayerInfo extends StatelessWidget {
@@ -26,23 +25,14 @@ class MiniPlayerInfo extends StatelessWidget {
               data.surahName,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: AppColors.textDark,
-                letterSpacing: 0.2,
-              ),
+              style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 3),
             Text(
               data.reciterName,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textMuted,
-              ),
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         );

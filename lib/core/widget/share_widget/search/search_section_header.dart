@@ -24,15 +24,7 @@ class SearchSectionHeader extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textDark,
-                  letterSpacing: 0.3,
-                ),
-              ),
+              Text(title, style: Theme.of(context).textTheme.titleMedium),
               if (count != null) ...[
                 const SizedBox(width: 8),
                 Container(
@@ -46,11 +38,9 @@ class SearchSectionHeader extends StatelessWidget {
                   ),
                   child: Text(
                     '$count',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.primary,
-                    ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
                   ),
                 ),
               ],

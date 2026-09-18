@@ -26,8 +26,7 @@ class QiblaCalibrationHint extends StatelessWidget {
           Expanded(
             child: Text(
               'If the compass seems inaccurate, wave your phone in a figure-eight (∞) motion to calibrate.',
-              style: TextStyle(
-                fontSize: 12,
+              style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 height: 1.35,
                 color: AppColors.primaryDark.withValues(alpha: 0.75),
               ),

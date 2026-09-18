@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widget/share_widget/icon_text_widget.dart';
 
 /// Shimmer skeleton widget for the Verse of the Day loading state.
@@ -21,25 +22,30 @@ class VerseCardSkeleton extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: const Color(0xFFE5EBE7), width: 1),
+          border: Border.all(color: AppColors.borderSubtle, width: 1),
         ),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            IconTextWidget(
+            const IconTextWidget(
               icon: Icons.auto_awesome,
               iconSize: 14,
               text: 'Ayah of the Day',
               spacing: 6,
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Text(
               '﴿ فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ﴾',
               textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            SizedBox(height: 12),
-            Text('— سورة الشرح • Ayah 5 —', textAlign: TextAlign.center),
+            const SizedBox(height: 12),
+            Text(
+              '— سورة الشرح • Ayah 5 —',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
           ],
         ),
       ),

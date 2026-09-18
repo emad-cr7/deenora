@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../theme/app_colors.dart';
 
 enum AppErrorType {
   noInternet,
@@ -117,7 +116,7 @@ class AppErrorScreen extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
 
             const SizedBox(height: 10),
@@ -125,7 +124,7 @@ class AppErrorScreen extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 15, color: AppColors.textMuted),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
 
             if (onRetry != null) ...[
@@ -136,9 +135,9 @@ class AppErrorScreen extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: onRetry,
                   icon: const Icon(Icons.refresh_rounded, size: 21),
-                  label: const Text(
+                  label: Text(
                     'Try Again',
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
