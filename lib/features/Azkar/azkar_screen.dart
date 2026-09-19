@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/skeleton/azkar_Item_skeleton.dart';
+import '../../core/skeleton/azkar_item_skeleton.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/widget/error/error_screen.dart';
 import '../../core/widget/share_widget/future_builder_share.dart';
