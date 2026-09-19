@@ -88,11 +88,6 @@ class HiveManager {
     return _tasbeehBox.values.toList();
   }
 
-  Future<void> deleteCustomDhikr(String id) async {
-    if (!_isTasbeehBoxOpen) return;
-    await _tasbeehBox.delete(id);
-  }
-
   Future<void> savePrayerTimes(PrayerTimesModel model) async {
     if (!_isPrayerTimesBoxOpen) return;
     await _prayerTimesBox.put('latest_prayer_times', model);

@@ -116,7 +116,6 @@ class _TasbeehScreenContent extends StatelessWidget {
                   );
                 }
 
-                // 3. Loaded State with Pull-To-Refresh
                 // 3. Loaded State
                 return LayoutBuilder(
                   builder: (context, constraints) {
@@ -142,8 +141,6 @@ class _TasbeehScreenContent extends StatelessWidget {
                                 isCustom: controller.isCustomDhikr(
                                   currentDhikr,
                                 ),
-                                onPrevious: controller.previousDhikr,
-                                onNext: controller.nextDhikr,
                               ),
 
                               const SizedBox(height: 10),

@@ -34,15 +34,9 @@ class TasbeehController extends ChangeNotifier {
 
   bool get hasError => _errorMessage != null;
 
-  String? get errorMessage => _errorMessage;
-
   AppErrorType get errorType => _errorType ?? AppErrorType.unknown;
 
-  TasbihDatasetModel? get dataset => _dataset;
-
   List<DhikrModel> get dhikrList => _dhikrList;
-
-  List<DhikrModel> get customDhikrs => List.unmodifiable(_customDhikrs);
 
   String get attribution =>
       _dataset?.attribution ?? 'Tasbih.info (https://tasbih.info)';
@@ -63,10 +57,6 @@ class TasbeehController extends ChangeNotifier {
       _customGoals.containsKey(dhikr.id) ||
       dhikr.id.startsWith('custom_') ||
       dhikr.customGoal != null;
-
-  /// Returns personal goal set for a custom dhikr, or null if none.
-  int? getCustomGoal(DhikrModel dhikr) =>
-      _customGoals[dhikr.id] ?? dhikr.customGoal;
 
   /// Returns the active target count.
   /// If [customTarget] was explicitly set by the user, returns that.
@@ -222,12 +212,6 @@ class TasbeehController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Sets a user-defined custom target count (or null for open counting).
-  void setCustomTarget(int? target) {
-    _customTarget = target;
-    notifyListeners();
-  }
-
   /// Creates and adds a personal custom Dhikr to the list,
   /// selects it immediately, and resets the counter with the personal goal.
   bool addCustomDhikr({required String text, required int count}) {
@@ -288,21 +272,6 @@ class TasbeehController extends ChangeNotifier {
     _customTarget = count;
     notifyListeners();
     return true;
-  }
-
-  /// Deletes a custom dhikr by its [id] from Hive and the active list.
-  Future<void> deleteCustomDhikr(String id) async {
-    await _hiveManager.deleteCustomDhikr(id);
-    _customDhikrs.removeWhere((d) => d.id == id);
-    _customGoals.remove(id);
-    _dhikrList.removeWhere((d) => d.id == id);
-    if (_selectedIndex >= _dhikrList.length) {
-      _selectedIndex = _dhikrList.isNotEmpty ? _dhikrList.length - 1 : 0;
-    }
-    _count = 0;
-    final dhikr = currentDhikr;
-    _customTarget = dhikr != null ? _customGoals[dhikr.id] : null;
-    notifyListeners();
   }
 
   /// Selects a dhikr from the list by [index] and resets current count.

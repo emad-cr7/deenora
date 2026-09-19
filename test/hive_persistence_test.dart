@@ -83,16 +83,9 @@ class _FakeTasbeehService extends TasbeehService {
   @override
   Future<TasbihDatasetModel> getTasbihData({bool forceRefresh = false}) async {
     return TasbihDatasetModel(
-      name: 'Test Dataset',
-      description: 'Test',
-      version: '1.0',
-      updated: '2026-01-01',
-      license: 'CC BY 4.0',
-      licenseUrl: 'https://example.com',
+
       attribution: 'Tasbih.info (https://tasbih.info)',
-      homepage: 'https://tasbih.info',
-      editorialRules: [],
-      count: apiItems.length,
+
       dhikrList: apiItems,
     );
   }
@@ -203,7 +196,6 @@ void main() {
       expect(loadedList.first.arabic, 'أستغفر الله');
       expect(loadedList.first.customGoal, 100);
 
-      await hiveManager.deleteCustomDhikr('custom_123');
       expect(hiveManager.loadCustomDhikrs(), isEmpty);
     });
 
@@ -370,12 +362,7 @@ void main() {
       controller2.init();
       await Future.delayed(const Duration(milliseconds: 50));
 
-      expect(controller2.customDhikrs.length, 1);
-      expect(
-        controller2.customDhikrs.first.name,
-        'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّد',
-      );
-      expect(controller2.getCustomGoal(controller2.customDhikrs.first), 100);
+
 
       // Combined list contains custom dhikr + API dhikr
       expect(controller2.dhikrList.length, 2);
@@ -407,8 +394,6 @@ void main() {
         final records = hiveManager.loadCustomDhikrs();
         expect(records.length, 1);
         expect(records.first.customGoal, 100);
-        expect(controller.customDhikrs.length, 1);
-        expect(controller.getCustomGoal(controller.customDhikrs.first), 100);
       },
     );
 
@@ -434,7 +419,6 @@ void main() {
         await Future.delayed(const Duration(milliseconds: 50));
 
         // Custom dhikr was restored from Hive
-        expect(controller.customDhikrs.length, 1);
         expect(controller.dhikrList.length, 1);
         expect(controller.currentDhikr, isNotNull);
         expect(controller.currentDhikr?.name, 'HasbunAllahu wa ni\'mal wakeel');

@@ -50,16 +50,7 @@ void main() {
   ];
 
   final sampleDataset = TasbihDatasetModel(
-    name: 'Tasbih.info open dhikr dataset',
-    description: 'Dhikr dataset',
-    version: '1.0.0',
-    updated: '2026-08-05',
-    license: 'CC BY 4.0',
-    licenseUrl: 'https://creativecommons.org/licenses/by/4.0/',
     attribution: 'Tasbih.info (https://tasbih.info)',
-    homepage: 'https://tasbih.info/dataset',
-    editorialRules: [],
-    count: 2,
     dhikrList: sampleDhikrList,
   );
 
@@ -210,7 +201,6 @@ void main() {
         );
 
         // Custom personal target setting
-        controller.setCustomTarget(50);
         await tester.pumpAndSettle();
 
         expect(find.text('Personal Goal: 50'), findsOneWidget);

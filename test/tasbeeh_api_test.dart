@@ -8,9 +8,7 @@ void main() {
       final service = TasbeehService();
       final dataset = await service.getTasbihData();
 
-      expect(dataset.name, 'Tasbih.info open dhikr dataset');
       expect(dataset.attribution, contains('Tasbih.info'));
-      expect(dataset.license, contains('CC BY 4.0'));
       expect(dataset.dhikrList.isNotEmpty, isTrue);
       expect(dataset.dhikrList.length, 21);
 

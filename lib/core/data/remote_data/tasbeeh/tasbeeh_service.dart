@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import '../../../../features/tasbeeh/models/dhikr_model.dart';
 import '../../../../features/tasbeeh/models/tasbih_dataset_model.dart';
 import '../dio/dio_config.dart';
 
@@ -60,11 +59,5 @@ class TasbeehService {
     } catch (e) {
       throw Exception('Error loading Tasbeeh data: $e');
     }
-  }
-
-  /// Convenience method returning the list of [DhikrModel] items.
-  Future<List<DhikrModel>> getDhikrList({bool forceRefresh = false}) async {
-    final dataset = await getTasbihData(forceRefresh: forceRefresh);
-    return dataset.dhikrList;
   }
 }

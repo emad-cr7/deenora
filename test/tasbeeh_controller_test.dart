@@ -62,7 +62,6 @@ void main() {
         expect(controller.hasTarget, isFalse);
 
         // User sets custom target
-        controller.setCustomTarget(100);
         expect(controller.targetCount, 100);
         expect(controller.hasTarget, isTrue);
 
@@ -122,7 +121,6 @@ void main() {
         expect(controller.count, 40);
 
         // Now set a custom personal target of 42
-        controller.setCustomTarget(42);
         expect(controller.hasTarget, isTrue);
         expect(controller.targetCount, 42);
 
@@ -172,7 +170,6 @@ void main() {
         expect(current, isNotNull);
         expect(controller.isCustomDhikr(current!), isTrue);
         expect(current.arabic, 'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّد');
-        expect(controller.getCustomGoal(current), 10);
         expect(current.narratedCount, isNull); // Never attributed to hadith!
 
         // Counter starts at 0, target is 10

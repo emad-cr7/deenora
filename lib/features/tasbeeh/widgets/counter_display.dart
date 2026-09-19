@@ -9,7 +9,6 @@ class CounterDisplay extends StatelessWidget {
   final bool hasTarget;
   final bool isCompleted;
   final double progress;
-  final VoidCallback? onSetTargetTap;
 
   const CounterDisplay({
     super.key,
@@ -18,7 +17,6 @@ class CounterDisplay extends StatelessWidget {
     required this.hasTarget,
     required this.isCompleted,
     required this.progress,
-    this.onSetTargetTap,
   });
 
   @override

@@ -116,16 +116,9 @@ class _FakeSuccessTasbeehService extends TasbeehService {
   @override
   Future<TasbihDatasetModel> getTasbihData({bool forceRefresh = false}) async {
     return TasbihDatasetModel(
-      name: 'Test Dataset',
-      description: 'Test',
-      version: '1.0',
-      updated: '2026-01-01',
-      license: 'CC BY 4.0',
-      licenseUrl: 'https://example.com',
+
       attribution: 'Tasbih.info',
-      homepage: 'https://tasbih.info',
-      editorialRules: [],
-      count: items.length,
+
       dhikrList: items,
     );
   }

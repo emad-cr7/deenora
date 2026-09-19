@@ -40,14 +40,4 @@ class DhikrModel {
           : null,
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'arabic': arabic,
-      'narratedCount': narratedCount,
-      if (customGoal != null) 'customGoal': customGoal,
-    };
-  }
 }

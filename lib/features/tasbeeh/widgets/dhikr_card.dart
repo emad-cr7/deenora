@@ -8,8 +8,6 @@ class DhikrCard extends StatelessWidget {
   final int totalCount;
   final int? customTarget;
   final bool isCustom;
-  final VoidCallback onPrevious;
-  final VoidCallback onNext;
 
   const DhikrCard({
     super.key,
@@ -18,8 +16,6 @@ class DhikrCard extends StatelessWidget {
     required this.totalCount,
     this.customTarget,
     this.isCustom = false,
-    required this.onPrevious,
-    required this.onNext,
   });
 
   @override
@@ -159,7 +155,7 @@ class DhikrCard extends StatelessWidget {
 
           const SizedBox(height: 18),
 
-          // Bottom Controls: Quick Prev/Next buttons (without unnecessary Info UI)
+          // Bottom row: personal dhikr indicator
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -187,9 +183,7 @@ class DhikrCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
-              else
-                const SizedBox.shrink(),
+                ),
             ],
           ),
         ],
