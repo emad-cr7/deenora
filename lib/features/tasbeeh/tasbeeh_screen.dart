@@ -117,68 +117,81 @@ class _TasbeehScreenContent extends StatelessWidget {
                 }
 
                 // 3. Loaded State with Pull-To-Refresh
-                return SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    children: [
-                      // Dhikr Hero Card (focused on English Dhikr & meaning)
-                      DhikrCard(
-                        dhikr: currentDhikr,
-                        currentIndex: controller.selectedIndex,
-                        totalCount: controller.dhikrList.length,
-                        customTarget: currentDhikr.narratedCount == null
-                            ? controller.targetCount
-                            : null,
-                        isCustom: controller.isCustomDhikr(currentDhikr),
-                        onPrevious: controller.previousDhikr,
-                        onNext: controller.nextDhikr,
+                // 3. Loaded State
+                return LayoutBuilder(
+                  builder: (context, constraints) {
+                    return SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight:
+                              constraints.maxHeight -
+                              30, // 20 = الـ padding الرأسي (10 فوق + 10 تحت)
+                        ),
+                        child: IntrinsicHeight(
+                          child: Column(
+                            children: [
+                              DhikrCard(
+                                dhikr: currentDhikr,
+                                currentIndex: controller.selectedIndex,
+                                totalCount: controller.dhikrList.length,
+                                customTarget: currentDhikr.narratedCount == null
+                                    ? controller.targetCount
+                                    : null,
+                                isCustom: controller.isCustomDhikr(
+                                  currentDhikr,
+                                ),
+                                onPrevious: controller.previousDhikr,
+                                onNext: controller.nextDhikr,
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              CounterDisplay(
+                                count: controller.count,
+                                targetCount: controller.targetCount,
+                                hasTarget: controller.hasTarget,
+                                isCompleted: controller.isCompleted,
+                                progress: controller.progress,
+                              ),
+
+                              const SizedBox(height: 50),
+
+                              CounterButton(
+                                onTap: controller.increment,
+                                isCompleted: controller.isCompleted,
+                              ),
+
+                              const Spacer(),
+
+                              TasbeehActionsBar(
+                                onReset: () =>
+                                    _confirmReset(context, controller),
+                                onPrevious: controller.previousDhikr,
+                                onNext: controller.nextDhikr,
+                                onSelectDhikr: () {
+                                  DhikrSelectorSheet.show(
+                                    context: context,
+                                    dhikrList: controller.dhikrList,
+                                    selectedIndex: controller.selectedIndex,
+                                    onSelect: controller.selectDhikr,
+                                    onAddCustom: (text, count) {
+                                      controller.addCustomDhikr(
+                                        text: text,
+                                        count: count,
+                                      );
+                                    },
+                                    attribution: controller.attribution,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-
-                      const SizedBox(height: 8),
-
-                      // Numerical Counter and Target Progress
-                      CounterDisplay(
-                        count: controller.count,
-                        targetCount: controller.targetCount,
-                        hasTarget: controller.hasTarget,
-                        isCompleted: controller.isCompleted,
-                        progress: controller.progress,
-                      ),
-
-                      const SizedBox(height: 25),
-
-                      // Large Circular Counter Tap Button
-                      CounterButton(
-                        onTap: controller.increment,
-                        isCompleted: controller.isCompleted,
-                      ),
-
-                      const SizedBox(height: 30),
-
-                      // Action Toolbar (Reset, Prev, Next, Select Dhikr below)
-                      TasbeehActionsBar(
-                        onReset: () => _confirmReset(context, controller),
-                        onPrevious: controller.previousDhikr,
-                        onNext: controller.nextDhikr,
-                        onSelectDhikr: () {
-                          DhikrSelectorSheet.show(
-                            context: context,
-                            dhikrList: controller.dhikrList,
-                            selectedIndex: controller.selectedIndex,
-                            onSelect: controller.selectDhikr,
-                            onAddCustom: (text, count) {
-                              controller.addCustomDhikr(
-                                text: text,
-                                count: count,
-                              );
-                            },
-                            attribution: controller.attribution,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 );
               },
             ),

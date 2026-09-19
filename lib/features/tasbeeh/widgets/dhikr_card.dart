@@ -143,10 +143,6 @@ class DhikrCard extends StatelessWidget {
           ),
 
           const SizedBox(height: 20),
-
-          // English Dhikr Name (Hero Title)
-          // NOTE: dhikr.arabic is preserved internally in DhikrModel for future Arabic localization,
-          // but hidden here for the English-only UI.
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
@@ -194,30 +190,6 @@ class DhikrCard extends StatelessWidget {
                 )
               else
                 const SizedBox.shrink(),
-
-              // Chevrons
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.chevron_left_rounded, size: 26),
-                    color: Colors.white,
-                    tooltip: 'Previous Dhikr',
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                    onPressed: onPrevious,
-                  ),
-                  const SizedBox(width: 12),
-                  IconButton(
-                    icon: const Icon(Icons.chevron_right_rounded, size: 26),
-                    color: Colors.white,
-                    tooltip: 'Next Dhikr',
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                    onPressed: onNext,
-                  ),
-                ],
-              ),
             ],
           ),
         ],
