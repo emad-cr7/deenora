@@ -12,7 +12,6 @@ import 'package:deenora/features/mosque/verse_of_the_day/controllers/verse_of_th
 import 'package:deenora/features/mosque/verse_of_the_day/models/verse_of_the_day_model.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/services/verse_of_the_day_service.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/widgets/verse_of_the_day_card.dart';
-import 'package:deenora/features/mosque/widgets/mosque_content.dart';
 import 'package:deenora/features/tasbeeh/controllers/tasbeeh_controller.dart';
 import 'package:deenora/features/tasbeeh/models/dhikr_model.dart';
 import 'package:deenora/features/tasbeeh/models/tasbih_dataset_model.dart';
@@ -414,7 +413,6 @@ void main() {
                   value: verseController,
                 ),
               ],
-              child: const Scaffold(body: MosqueContent()),
             ),
           ),
         );
@@ -478,7 +476,6 @@ void main() {
                   value: verseController,
                 ),
               ],
-              child: const Scaffold(body: MosqueContent()),
             ),
           ),
         );

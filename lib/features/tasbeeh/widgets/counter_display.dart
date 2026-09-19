@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widget/share_widget/status_badge.dart';
 
 class CounterDisplay extends StatelessWidget {
   final int count;
@@ -29,41 +30,24 @@ class CounterDisplay extends StatelessWidget {
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 250),
           child: isCompleted
-              ? Container(
-                  key: const ValueKey('completed-badge'),
-                  margin: const EdgeInsets.only(bottom: 8),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFE8F5E9),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: Colors.green.shade600,
-                      width: 1.2,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.check_circle_rounded,
-                        size: 16,
-                        color: Colors.green.shade700,
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Target Reached · Masha\'Allah',
-                        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                          color: Colors.green.shade800,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              : const SizedBox(height: 28),
+              ? StatusBadge(
+            key: const ValueKey('completed-badge'),
+            text: 'Target Reached · Masha\'Allah',
+            icon: Icons.check_circle_rounded,
+            backgroundColor: const Color(0xFFE8F5E9),
+            borderColor: Colors.green.shade600,
+            iconColor: Colors.green.shade700,
+            textColor: Colors.green.shade800,
+          )
+              : StatusBadge(
+            key: const ValueKey('pending-badge'),
+            text: 'Target Not Reached',
+            icon: Icons.flag_rounded,
+            backgroundColor: Colors.orange.shade50,
+            borderColor: Colors.orange.shade600,
+            iconColor: Colors.orange.shade700,
+            textColor: Colors.orange.shade800,
+          )
         ),
         const SizedBox(height: 8),
 
@@ -105,7 +89,7 @@ class CounterDisplay extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(6),
             child: SizedBox(
-              width: 140,
+              width: 310,
               height: 6,
               child: LinearProgressIndicator(
                 value: progress,

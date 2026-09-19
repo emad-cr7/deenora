@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.0.1"
+  animated_flip_counter:
+    dependency: "direct main"
+    description:
+      name: animated_flip_counter
+      sha256: "73f852d84c461c3e4c1ddf320bee334dde8dba89441922ab11a8013be0b2fad1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.4"
   animated_segmented_tab_control:
     dependency: "direct main"
     description:
@@ -1005,6 +1013,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.0+1"
+  tactile:
+    dependency: "direct main"
+    description:
+      name: tactile
+      sha256: f04425ddbfb0a6aad91c4284eb704a1e2876d14f8d28c3baedc5244d05333e5a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.2"
   term_glyph:
     dependency: transitive
     description:

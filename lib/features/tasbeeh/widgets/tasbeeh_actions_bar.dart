@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
+import '../../../core/widget/share_widget/action_button.dart';
 
 class TasbeehActionsBar extends StatelessWidget {
   final VoidCallback onReset;
@@ -27,18 +28,18 @@ class TasbeehActionsBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _ActionButton(
+              ActionButton(
                 icon: Icons.skip_previous_rounded,
                 label: 'Previous',
                 onTap: onPrevious,
               ),
-              _ActionButton(
+              ActionButton(
                 icon: Icons.restart_alt_rounded,
                 label: 'Reset',
                 onTap: onReset,
               ),
 
-              _ActionButton(
+              ActionButton(
                 icon: Icons.skip_next_rounded,
                 label: 'Next',
                 onTap: onNext,
@@ -99,54 +100,3 @@ class TasbeehActionsBar extends StatelessWidget {
   }
 }
 
-class _ActionButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-
-  const _ActionButton({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFFE2E8E4)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.04),
-                    blurRadius: 5,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Icon(icon, size: 25, color: AppColors.deepForest),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              label,
-              style: Theme.of(
-                context,
-              ).textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

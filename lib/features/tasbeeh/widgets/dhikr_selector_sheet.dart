@@ -186,15 +186,6 @@ class _DhikrSelectorSheetState extends State<DhikrSelectorSheet> {
                   color: AppColors.textMuted,
                   size: 20,
                 ),
-                suffixIcon: _query.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(Icons.clear_rounded, size: 18),
-                        onPressed: () {
-                          _searchController.clear();
-                          setState(() => _query = '');
-                        },
-                      )
-                    : null,
                 filled: true,
                 fillColor: Colors.white,
                 contentPadding: const EdgeInsets.symmetric(vertical: 10),
