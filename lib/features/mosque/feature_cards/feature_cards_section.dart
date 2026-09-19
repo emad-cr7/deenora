@@ -60,31 +60,6 @@ class FeatureCardsSection extends StatelessWidget {
               ),
             ],
           ),
-
-          const SizedBox(height: 12),
-
-          // Row 2: Quran & Duas
-          Row(
-            children: [
-              Expanded(
-                child: FeatureCard(
-                  title: 'Quran',
-                  description: 'Read and listen to the Quran',
-                  icon: FlutterIslamicIcons.solidQuran2,
-                  onTap: onQuranTap,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: FeatureCard(
-                  title: 'Duas',
-                  description: 'Daily duas and supplications',
-                  icon: FlutterIslamicIcons.solidPrayer,
-                  onTap: onDuasTap,
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );
