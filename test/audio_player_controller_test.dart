@@ -99,33 +99,36 @@ void main() {
   });
 
   group('AudioPlayerCoordinator Tests', () {
-    test('Coordinator initializes navigation and sleep timer state correctly', () {
-      final coordinator = AudioPlayerCoordinator(
-        initialSurah: dummySurahs[0],
-        initialReciter: dummyReciter,
-        initialAudioUrl: dummyAudioMap[1]!,
-        surahList: dummySurahs,
-        audioMap: dummyAudioMap,
-      );
+    test(
+      'Coordinator initializes navigation and sleep timer state correctly',
+      () {
+        final coordinator = AudioPlayerCoordinator(
+          initialSurah: dummySurahs[0],
+          initialReciter: dummyReciter,
+          initialAudioUrl: dummyAudioMap[1]!,
+          surahList: dummySurahs,
+          audioMap: dummyAudioMap,
+        );
 
-      expect(coordinator.hasPrevious, isFalse);
-      expect(coordinator.hasNext, isTrue);
-      expect(coordinator.currentSurah.number, 1);
-      expect(coordinator.reciter.name, 'Abdul Basit Abdus Samad');
-      expect(coordinator.isSleepTimerActive, isFalse);
+        expect(coordinator.hasPrevious, isFalse);
+        expect(coordinator.hasNext, isTrue);
+        expect(coordinator.currentSurah.number, 1);
+        expect(coordinator.reciter.name, 'Abdul Basit Abdus Samad');
+        expect(coordinator.isSleepTimerActive, isFalse);
 
-      coordinator.setSleepTimer(SleepTimerOption.tenMin);
-      expect(coordinator.isSleepTimerActive, isTrue);
-      expect(coordinator.sleepTimerOption, SleepTimerOption.tenMin);
-      expect(coordinator.sleepTimerRemainingSeconds, 600);
-      expect(coordinator.sleepTimerFormatted, '10:00');
+        coordinator.setSleepTimer(SleepTimerOption.tenMin);
+        expect(coordinator.isSleepTimerActive, isTrue);
+        expect(coordinator.sleepTimerOption, SleepTimerOption.tenMin);
+        expect(coordinator.sleepTimerRemainingSeconds, 600);
+        expect(coordinator.sleepTimerFormatted, '10:00');
 
-      coordinator.cancelSleepTimer();
-      expect(coordinator.isSleepTimerActive, isFalse);
-      expect(coordinator.sleepTimerOption, isNull);
+        coordinator.cancelSleepTimer();
+        expect(coordinator.isSleepTimerActive, isFalse);
+        expect(coordinator.sleepTimerOption, isNull);
 
-      coordinator.dispose();
-    });
+        coordinator.dispose();
+      },
+    );
 
     test('Custom sleep timer sets custom duration properly', () {
       final coordinator = AudioPlayerCoordinator(
@@ -164,45 +167,51 @@ void main() {
       coordinator.dispose();
     });
 
-    test('Attempting playPreviousSurah on Surah 1 does not trigger loading', () async {
-      final coordinator = AudioPlayerCoordinator(
-        initialSurah: dummySurahs[0],
-        initialReciter: dummyReciter,
-        initialAudioUrl: dummyAudioMap[1]!,
-        surahList: dummySurahs,
-        audioMap: dummyAudioMap,
-      );
+    test(
+      'Attempting playPreviousSurah on Surah 1 does not trigger loading',
+      () async {
+        final coordinator = AudioPlayerCoordinator(
+          initialSurah: dummySurahs[0],
+          initialReciter: dummyReciter,
+          initialAudioUrl: dummyAudioMap[1]!,
+          surahList: dummySurahs,
+          audioMap: dummyAudioMap,
+        );
 
-      expect(coordinator.hasPrevious, isFalse);
-      expect(coordinator.isLoadingSurah, isFalse);
+        expect(coordinator.hasPrevious, isFalse);
+        expect(coordinator.isLoadingSurah, isFalse);
 
-      await coordinator.playPreviousSurah();
+        await coordinator.playPreviousSurah();
 
-      expect(coordinator.isLoadingSurah, isFalse);
-      expect(coordinator.currentSurah.number, 1);
+        expect(coordinator.isLoadingSurah, isFalse);
+        expect(coordinator.currentSurah.number, 1);
 
-      coordinator.dispose();
-    });
+        coordinator.dispose();
+      },
+    );
 
-    test('Attempting playNextSurah on last Surah does not trigger loading', () async {
-      final coordinator = AudioPlayerCoordinator(
-        initialSurah: dummySurahs[2],
-        initialReciter: dummyReciter,
-        initialAudioUrl: dummyAudioMap[3]!,
-        surahList: dummySurahs,
-        audioMap: dummyAudioMap,
-      );
+    test(
+      'Attempting playNextSurah on last Surah does not trigger loading',
+      () async {
+        final coordinator = AudioPlayerCoordinator(
+          initialSurah: dummySurahs[2],
+          initialReciter: dummyReciter,
+          initialAudioUrl: dummyAudioMap[3]!,
+          surahList: dummySurahs,
+          audioMap: dummyAudioMap,
+        );
 
-      expect(coordinator.hasNext, isFalse);
-      expect(coordinator.isLoadingSurah, isFalse);
+        expect(coordinator.hasNext, isFalse);
+        expect(coordinator.isLoadingSurah, isFalse);
 
-      await coordinator.playNextSurah();
+        await coordinator.playNextSurah();
 
-      expect(coordinator.isLoadingSurah, isFalse);
-      expect(coordinator.currentSurah.number, 3);
+        expect(coordinator.isLoadingSurah, isFalse);
+        expect(coordinator.currentSurah.number, 3);
 
-      coordinator.dispose();
-    });
+        coordinator.dispose();
+      },
+    );
 
     test('Invalid Surah number does not initiate loading state', () async {
       final invalidSurah = SurahModel(
@@ -229,33 +238,39 @@ void main() {
       coordinator.dispose();
     });
 
-    test('Coordinator initializes with inactive session when no initial parameters provided', () {
-      final coordinator = AudioPlayerCoordinator();
+    test(
+      'Coordinator initializes with inactive session when no initial parameters provided',
+      () {
+        final coordinator = AudioPlayerCoordinator();
 
-      expect(coordinator.hasActiveSession, isFalse);
-      expect(coordinator.currentSurah.number, 1);
+        expect(coordinator.hasActiveSession, isFalse);
+        expect(coordinator.currentSurah.number, 1);
 
-      coordinator.dispose();
-    });
+        coordinator.dispose();
+      },
+    );
 
-    test('Coordinator initializes with active session when initial parameters provided and resets on stop', () async {
-      final coordinator = AudioPlayerCoordinator(
-        initialSurah: dummySurahs[0],
-        initialReciter: dummyReciter,
-        initialAudioUrl: dummyAudioMap[1]!,
-        surahList: dummySurahs,
-        audioMap: dummyAudioMap,
-      );
+    test(
+      'Coordinator initializes with active session when initial parameters provided and resets on stop',
+      () async {
+        final coordinator = AudioPlayerCoordinator(
+          initialSurah: dummySurahs[0],
+          initialReciter: dummyReciter,
+          initialAudioUrl: dummyAudioMap[1]!,
+          surahList: dummySurahs,
+          audioMap: dummyAudioMap,
+        );
 
-      expect(coordinator.hasActiveSession, isTrue);
-      expect(coordinator.currentSurah.number, 1);
-      expect(coordinator.reciter.id, dummyReciter.id);
+        expect(coordinator.hasActiveSession, isTrue);
+        expect(coordinator.currentSurah.number, 1);
+        expect(coordinator.reciter.id, dummyReciter.id);
 
-      await coordinator.stopAndClearSession();
-      expect(coordinator.hasActiveSession, isFalse);
+        await coordinator.stopAndClearSession();
+        expect(coordinator.hasActiveSession, isFalse);
 
-      coordinator.dispose();
-    });
+        coordinator.dispose();
+      },
+    );
   });
 
   group('Minimal AudioPlayerController Core Tests', () {

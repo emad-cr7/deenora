@@ -1,9 +1,20 @@
+import 'package:hive_ce_flutter/hive_flutter.dart';
+
+part 'prayer_date_model.g.dart';
+
+@HiveType(typeId: 6)
 class PrayerDateModel {
+  @HiveField(0)
   final String date;
+  @HiveField(1)
   final String day;
+  @HiveField(2)
   final String weekdayEn;
+  @HiveField(3)
   final String monthEn;
+  @HiveField(4)
   final int monthNumber;
+  @HiveField(5)
   final String year;
 
   PrayerDateModel({

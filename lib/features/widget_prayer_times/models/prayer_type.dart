@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 
+part 'prayer_type.g.dart';
+
+@HiveType(typeId: 5)
 enum PrayerType {
+  @HiveField(0)
   fajr,
+  @HiveField(1)
   sunrise,
+  @HiveField(2)
   dhuhr,
+  @HiveField(3)
   asr,
+  @HiveField(4)
   maghrib,
+  @HiveField(5)
   isha;
 
   String get englishName {

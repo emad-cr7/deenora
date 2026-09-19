@@ -1,19 +1,34 @@
+import 'package:hive_ce_flutter/hive_flutter.dart';
+
 import 'hijri_date_model.dart';
 import 'prayer_date_model.dart';
 import 'prayer_meta_model.dart';
 import 'prayer_type.dart';
 
+part 'prayer_times_model.g.dart';
+
+@HiveType(typeId: 9)
 class PrayerTimesModel {
+  @HiveField(0)
   final Map<PrayerType, String> timings;
+  @HiveField(1)
   final String imsak;
+  @HiveField(2)
   final String sunset;
+  @HiveField(3)
   final String midnight;
+  @HiveField(4)
   final String firstThird;
+  @HiveField(5)
   final String lastThird;
 
+  @HiveField(6)
   final String readableDate;
+  @HiveField(7)
   final HijriDateModel hijri;
+  @HiveField(8)
   final PrayerDateModel gregorian;
+  @HiveField(9)
   final PrayerMetaModel meta;
 
   PrayerTimesModel({

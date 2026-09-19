@@ -9,8 +9,9 @@ import 'verse_card_skeleton.dart';
 
 class VerseOfTheDayCard extends StatelessWidget {
   final void Function(VerseOfTheDayModel verse)? onCardTap;
+  final VerseOfTheDayController? controller;
 
-  const VerseOfTheDayCard({super.key, this.onCardTap});
+  const VerseOfTheDayCard({super.key, this.onCardTap, this.controller});
 
   void _handleTap(BuildContext context, VerseOfTheDayModel verse) {
     if (onCardTap != null) {
@@ -26,34 +27,61 @@ class VerseOfTheDayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    if (controller != null) {
+      return ChangeNotifierProvider<VerseOfTheDayController>.value(
+        value: controller!,
+        child: _buildConsumer(context),
+      );
+    }
+
+    VerseOfTheDayController? ancestorController;
+    try {
+      ancestorController = Provider.of<VerseOfTheDayController>(
+        context,
+        listen: false,
+      );
+    } catch (_) {
+      ancestorController = null;
+    }
+
+    if (ancestorController != null) {
+      return _buildConsumer(context);
+    }
+
+    return ChangeNotifierProvider<VerseOfTheDayController>(
       create: (_) => VerseOfTheDayController()..loadVerseOfTheDay(),
-      child: Consumer<VerseOfTheDayController>(
-        builder: (context, controller, _) {
-          if (controller.isLoading && controller.verse == null) {
-            return const VerseCardSkeleton();
-          }
+      child: _buildConsumer(context),
+    );
+  }
 
-          if (controller.hasError && controller.verse == null) {
-            return VerseCardError(
-              onRetry: () {
-                controller.loadVerseOfTheDay(forceRefresh: true);
-              },
-            );
-          }
+  Widget _buildConsumer(BuildContext context) {
+    return Consumer<VerseOfTheDayController>(
+      builder: (context, c, _) => _buildBody(context, c),
+    );
+  }
 
-          final verse = controller.verse;
+  Widget _buildBody(BuildContext context, VerseOfTheDayController controller) {
+    if (controller.isLoading && controller.verse == null) {
+      return const VerseCardSkeleton();
+    }
 
-          if (verse == null) {
-            return const SizedBox.shrink();
-          }
-
-          return VerseCardContent(
-            verse: verse,
-            onTap: () => _handleTap(context, verse),
-          );
+    if (controller.hasError && controller.verse == null) {
+      return VerseCardError(
+        onRetry: () {
+          controller.loadVerseOfTheDay(forceRefresh: true);
         },
-      ),
+      );
+    }
+
+    final verse = controller.verse;
+
+    if (verse == null) {
+      return const SizedBox.shrink();
+    }
+
+    return VerseCardContent(
+      verse: verse,
+      onTap: () => _handleTap(context, verse),
     );
   }
 }

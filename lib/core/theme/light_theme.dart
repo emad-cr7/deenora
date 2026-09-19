@@ -166,7 +166,7 @@ final ThemeData lightTheme = ThemeData(
     indicatorColor: AppColors.deepForest,
 
     iconTheme: WidgetStateProperty.resolveWith<IconThemeData>(
-          (states) => IconThemeData(
+      (states) => IconThemeData(
         color: states.contains(WidgetState.selected)
             ? Colors.white
             : AppColors.textMuted,
@@ -174,22 +174,15 @@ final ThemeData lightTheme = ThemeData(
       ),
     ),
 
-    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>(
-          (states) {
-        final isSelected = states.contains(WidgetState.selected);
+    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>((states) {
+      final isSelected = states.contains(WidgetState.selected);
 
-        return TextStyle(
-          color: isSelected
-              ? AppColors.deepForest
-              : AppColors.textMuted,
-          fontSize: isSelected ? AppSizes.sp14 : AppSizes.sp12,
-          fontWeight: isSelected
-              ? FontWeight.w600
-              : FontWeight.w500,
-        );
-      },
-    ),
-  ),  splashFactory: NoSplash.splashFactory,
+      return TextStyle(
+        color: isSelected ? AppColors.deepForest : AppColors.textMuted,
+        fontSize: isSelected ? AppSizes.sp14 : AppSizes.sp12,
+        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+      );
+    }),
+  ),
+  splashFactory: NoSplash.splashFactory,
 );
-
-

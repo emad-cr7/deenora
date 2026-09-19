@@ -26,59 +26,23 @@ class AudioPlayerScreen extends StatefulWidget {
 }
 
 class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
-  AudioPlayerCoordinator? _fallbackCoordinator;
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      try {
-        final coordinator = context.read<AudioPlayerCoordinator>();
-        coordinator.startRecitation(
-          surah: widget.surah,
-          reciter: widget.reciter,
-          audioUrl: widget.audioUrl,
-          surahList: widget.surahList,
-          audioMap: widget.audioMap,
-        );
-      } catch (_) {
-        // Ancestor coordinator not present (e.g. isolated test)
-      }
+      context.read<AudioPlayerCoordinator>().startRecitation(
+        surah: widget.surah,
+        reciter: widget.reciter,
+        audioUrl: widget.audioUrl,
+        surahList: widget.surahList,
+        audioMap: widget.audioMap,
+      );
     });
   }
 
   @override
-  void dispose() {
-    _fallbackCoordinator?.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    bool hasAncestorCoordinator = false;
-    try {
-      Provider.of<AudioPlayerCoordinator>(context, listen: false);
-      hasAncestorCoordinator = true;
-    } catch (_) {
-      hasAncestorCoordinator = false;
-    }
-
-    if (hasAncestorCoordinator) {
-      return const AudioPlayerView();
-    }
-
-    _fallbackCoordinator ??= AudioPlayerCoordinator(
-      initialSurah: widget.surah,
-      initialReciter: widget.reciter,
-      initialAudioUrl: widget.audioUrl,
-      surahList: widget.surahList,
-      audioMap: widget.audioMap,
-    )..init();
-
-    return ChangeNotifierProvider<AudioPlayerCoordinator>.value(
-      value: _fallbackCoordinator!,
-      child: const AudioPlayerView(),
-    );
+    return const AudioPlayerView();
   }
 }

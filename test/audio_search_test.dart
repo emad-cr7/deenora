@@ -66,7 +66,9 @@ void main() {
 
   group('SearchTextNormalizer Tests', () {
     test('Arabic diacritics stripping', () {
-      final normalized = SearchTextNormalizer.normalizeArabic('سُورَةُ البَقَرَةِ');
+      final normalized = SearchTextNormalizer.normalizeArabic(
+        'سُورَةُ البَقَرَةِ',
+      );
       expect(normalized, equals('سوره البقره'));
     });
 
@@ -76,7 +78,10 @@ void main() {
     });
 
     test('Arabic search matches "البقرة" -> Al-Baqarah with diacritics', () {
-      final matches = SearchTextNormalizer.matchesSurah(testSurahs[1], 'البقرة');
+      final matches = SearchTextNormalizer.matchesSurah(
+        testSurahs[1],
+        'البقرة',
+      );
       expect(matches, isTrue);
     });
 
@@ -91,12 +96,18 @@ void main() {
     });
 
     test('Reciter English search matches "Abdul" -> Abdul Basit', () {
-      final matches = SearchTextNormalizer.matchesReciter(testReciters[0], 'Abdul');
+      final matches = SearchTextNormalizer.matchesReciter(
+        testReciters[0],
+        'Abdul',
+      );
       expect(matches, isTrue);
     });
 
     test('Reciter Arabic search matches "ياسر" -> Yasser Al Dosari', () {
-      final matches = SearchTextNormalizer.matchesReciter(testReciters[1], 'ياسر');
+      final matches = SearchTextNormalizer.matchesReciter(
+        testReciters[1],
+        'ياسر',
+      );
       expect(matches, isTrue);
     });
   });
@@ -128,7 +139,10 @@ void main() {
       await Future.delayed(const Duration(milliseconds: 300));
 
       expect(controller.filteredReciters.length, equals(1));
-      expect(controller.filteredReciters.first.name, equals('Yasser Al Dosari'));
+      expect(
+        controller.filteredReciters.first.name,
+        equals('Yasser Al Dosari'),
+      );
       expect(controller.filteredSurahs.isEmpty, isTrue);
       controller.dispose();
     });

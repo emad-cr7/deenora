@@ -54,143 +54,149 @@ class _SleepTimerSheetState extends State<SleepTimerSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.watch<SleepTimerController>();
-
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
-      padding: EdgeInsets.only(
-        top: 14,
-        left: 20,
-        right: 20,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 24,
-      ),
-      child: SafeArea(
-        top: false,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // Top drag handle
-              Center(
-                child: Container(
-                  width: 44,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // Active timer card
-              if (controller.isActive) ...[
-                Container(
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.08),
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(
-                      color: AppColors.primary.withValues(alpha: 0.25),
-                      width: 1.5,
+    return Consumer<SleepTimerController>(
+      builder: (context, controller, child) {
+        return Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+          ),
+          padding: EdgeInsets.only(
+            top: 14,
+            left: 20,
+            right: 20,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+          ),
+          child: SafeArea(
+            top: false,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Top drag handle
+                  Center(
+                    child: Container(
+                      width: 44,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(2),
+                      ),
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: const BoxDecoration(
-                          color: AppColors.primary,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.timer_rounded,
-                          color: Colors.white,
-                          size: 18,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Timer Active',
-                              style: Theme.of(context).textTheme.titleSmall
-                                  ?.copyWith(color: AppColors.primary),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              'Remaining: ${controller.formattedRemainingTime}',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ],
+                  const SizedBox(height: 16),
+
+                  // Active timer card
+                  if (controller.isActive) ...[
+                    Container(
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.08),
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(
+                          color: AppColors.primary.withValues(alpha: 0.25),
+                          width: 1.5,
                         ),
                       ),
-                      TextButton.icon(
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.red[700],
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: const BoxDecoration(
+                              color: AppColors.primary,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.timer_rounded,
+                              color: Colors.white,
+                              size: 18,
+                            ),
                           ),
-                        ),
-                        icon: const Icon(Icons.stop_circle_outlined, size: 18),
-                        label: Text(
-                          'Cancel',
-                          style: Theme.of(context).textTheme.labelMedium
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                        onPressed: () => controller.cancelTimer(),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Timer Active',
+                                  style: Theme.of(context).textTheme.titleSmall
+                                      ?.copyWith(color: AppColors.primary),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  'Remaining: ${controller.formattedRemainingTime}',
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
+                              ],
+                            ),
+                          ),
+                          TextButton.icon(
+                            style: TextButton.styleFrom(
+                              foregroundColor: Colors.red[700],
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
+                            ),
+                            icon: const Icon(
+                              Icons.stop_circle_outlined,
+                              size: 18,
+                            ),
+                            label: Text(
+                              'Cancel',
+                              style: Theme.of(context).textTheme.labelMedium
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () => controller.cancelTimer(),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+
+                  // Presets
+                  ...SleepTimerOption.presets.map(
+                    (option) => Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: _TimerOptionTile(
+                        option: option,
+                        isSelected: controller.selectedOption == option,
+                        onTap: () => _onOptionSelected(controller, option),
+                      ),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 16),
-              ],
 
-              // Presets
-              ...SleepTimerOption.presets.map(
-                (option) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: _TimerOptionTile(
-                    option: option,
-                    isSelected: controller.selectedOption == option,
-                    onTap: () => _onOptionSelected(controller, option),
+                  // Custom Option
+                  _TimerOptionTile(
+                    option: SleepTimerOption.custom,
+                    isSelected:
+                        controller.selectedOption == SleepTimerOption.custom,
+                    onTap: () =>
+                        setState(() => _showCustomPicker = !_showCustomPicker),
+                    trailing: Icon(
+                      _showCustomPicker
+                          ? Icons.keyboard_arrow_up_rounded
+                          : Icons.keyboard_arrow_down_rounded,
+                      color:
+                          controller.selectedOption == SleepTimerOption.custom
+                          ? AppColors.primary
+                          : Colors.grey[600],
+                    ),
                   ),
-                ),
-              ),
 
-              // Custom Option
-              _TimerOptionTile(
-                option: SleepTimerOption.custom,
-                isSelected:
-                    controller.selectedOption == SleepTimerOption.custom,
-                onTap: () =>
-                    setState(() => _showCustomPicker = !_showCustomPicker),
-                trailing: Icon(
-                  _showCustomPicker
-                      ? Icons.keyboard_arrow_up_rounded
-                      : Icons.keyboard_arrow_down_rounded,
-                  color: controller.selectedOption == SleepTimerOption.custom
-                      ? AppColors.primary
-                      : Colors.grey[600],
-                ),
+                  // Custom duration slider
+                  if (_showCustomPicker) ...[
+                    const SizedBox(height: 12),
+                    _buildCustomDurationPicker(context, controller),
+                  ],
+                ],
               ),
-
-              // Custom duration slider
-              if (_showCustomPicker) ...[
-                const SizedBox(height: 12),
-                _buildCustomDurationPicker(context, controller),
-              ],
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

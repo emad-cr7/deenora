@@ -30,59 +30,80 @@ void main() {
       };
 
       for (final reciter in reciters) {
-        expect(expectedIds.containsKey(reciter.name), isTrue,
-            reason: 'Reciter ${reciter.name} is missing from expected map');
-        expect(reciter.id, expectedIds[reciter.name],
-            reason: 'Reciter ID mismatch for ${reciter.name}');
+        expect(
+          expectedIds.containsKey(reciter.name),
+          isTrue,
+          reason: 'Reciter ${reciter.name} is missing from expected map',
+        );
+        expect(
+          reciter.id,
+          expectedIds[reciter.name],
+          reason: 'Reciter ID mismatch for ${reciter.name}',
+        );
       }
     });
 
-    test('Live MP3Quran API returns correct audio URLs and distinct servers for reciters', () async {
-      final service = QuranListeningService();
+    test(
+      'Live MP3Quran API returns correct audio URLs and distinct servers for reciters',
+      () async {
+        final service = QuranListeningService();
 
-      // Reciter A: Abdul Basit (51)
-      final audioMapA = await service.getReciterAudioFiles(51);
-      expect(audioMapA.isNotEmpty, isTrue);
-      expect(audioMapA.containsKey(1), isTrue);
-      final urlA1 = audioMapA[1]!;
-      expect(urlA1, 'https://server7.mp3quran.net/basit/001.mp3');
+        // Reciter A: Abdul Basit (51)
+        final audioMapA = await service.getReciterAudioFiles(51);
+        expect(audioMapA.isNotEmpty, isTrue);
+        expect(audioMapA.containsKey(1), isTrue);
+        final urlA1 = audioMapA[1]!;
+        expect(urlA1, 'https://server7.mp3quran.net/basit/001.mp3');
 
-      // Reciter B: Mahmoud Khalil Al Hussary (118)
-      final audioMapB = await service.getReciterAudioFiles(118);
-      expect(audioMapB.isNotEmpty, isTrue);
-      expect(audioMapB.containsKey(1), isTrue);
-      final urlB1 = audioMapB[1]!;
-      expect(urlB1, 'https://server13.mp3quran.net/husr/001.mp3');
+        // Reciter B: Mahmoud Khalil Al Hussary (118)
+        final audioMapB = await service.getReciterAudioFiles(118);
+        expect(audioMapB.isNotEmpty, isTrue);
+        expect(audioMapB.containsKey(1), isTrue);
+        final urlB1 = audioMapB[1]!;
+        expect(urlB1, 'https://server13.mp3quran.net/husr/001.mp3');
 
-      // Verify audio source actually changes between Reciter A and Reciter B
-      expect(urlA1 != urlB1, isTrue);
+        // Verify audio source actually changes between Reciter A and Reciter B
+        expect(urlA1 != urlB1, isTrue);
 
-      // Verify Next / Previous Surah URL generation
-      // Surah 2 (Next Surah after Surah 1)
-      expect(audioMapA.containsKey(2), isTrue);
-      expect(audioMapA[2], 'https://server7.mp3quran.net/basit/002.mp3');
+        // Verify Next / Previous Surah URL generation
+        // Surah 2 (Next Surah after Surah 1)
+        expect(audioMapA.containsKey(2), isTrue);
+        expect(audioMapA[2], 'https://server7.mp3quran.net/basit/002.mp3');
 
-      // Surah 113 (Previous Surah before Surah 114)
-      expect(audioMapA.containsKey(113), isTrue);
-      expect(audioMapA[113], 'https://server7.mp3quran.net/basit/113.mp3');
+        // Surah 113 (Previous Surah before Surah 114)
+        expect(audioMapA.containsKey(113), isTrue);
+        expect(audioMapA[113], 'https://server7.mp3quran.net/basit/113.mp3');
 
-      // Surah 114
-      expect(audioMapA.containsKey(114), isTrue);
-      expect(audioMapA[114], 'https://server7.mp3quran.net/basit/114.mp3');
-    });
+        // Surah 114
+        expect(audioMapA.containsKey(114), isTrue);
+        expect(audioMapA[114], 'https://server7.mp3quran.net/basit/114.mp3');
+      },
+    );
 
-    test('All 15 reciters resolve valid audio maps from live MP3Quran API', () async {
-      final service = QuranListeningService();
+    test(
+      'All 15 reciters resolve valid audio maps from live MP3Quran API',
+      () async {
+        final service = QuranListeningService();
 
-      for (final reciter in reciters) {
-        final audioMap = await service.getReciterAudioFiles(reciter.id);
-        expect(audioMap.isNotEmpty, isTrue,
-            reason: 'Audio map empty for ${reciter.name} (ID: ${reciter.id})');
-        expect(audioMap.containsKey(1), isTrue,
-            reason: 'Surah 1 missing for ${reciter.name} (ID: ${reciter.id})');
-        expect(audioMap[1]!.endsWith('001.mp3'), isTrue,
-            reason: 'Malformed URL for ${reciter.name}: ${audioMap[1]}');
-      }
-    });
+        for (final reciter in reciters) {
+          final audioMap = await service.getReciterAudioFiles(reciter.id);
+          expect(
+            audioMap.isNotEmpty,
+            isTrue,
+            reason: 'Audio map empty for ${reciter.name} (ID: ${reciter.id})',
+          );
+          expect(
+            audioMap.containsKey(1),
+            isTrue,
+            reason: 'Surah 1 missing for ${reciter.name} (ID: ${reciter.id})',
+          );
+          expect(
+            audioMap[1]!.endsWith('001.mp3'),
+            isTrue,
+            reason: 'Malformed URL for ${reciter.name}: ${audioMap[1]}',
+          );
+        }
+      },
+    );
   });
 }

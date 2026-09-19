@@ -1,11 +1,24 @@
+import 'package:hive_ce_flutter/hive_flutter.dart';
+
+part 'hijri_date_model.g.dart';
+
+@HiveType(typeId: 7)
 class HijriDateModel {
+  @HiveField(0)
   final String date;
+  @HiveField(1)
   final String day;
+  @HiveField(2)
   final String weekdayEn;
+  @HiveField(3)
   final String weekdayAr;
+  @HiveField(4)
   final String monthEn;
+  @HiveField(5)
   final String monthAr;
+  @HiveField(6)
   final int monthNumber;
+  @HiveField(7)
   final String year;
 
   HijriDateModel({

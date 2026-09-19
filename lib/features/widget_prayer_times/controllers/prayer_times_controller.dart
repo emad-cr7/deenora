@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import '../../../../core/data/local_data/hive_manager.dart';
 import '../../../../core/data/remote_data/prayer_times/prayer_times_service.dart';
 import '../../../../core/services/location_service.dart';
 import '../models/models.dart';
@@ -8,12 +9,15 @@ import '../utils/prayer_time_calculator.dart';
 class PrayerTimesController extends ChangeNotifier {
   final LocationService _locationService;
   final PrayerTimesService _prayerTimesService;
+  final HiveManager _hiveManager;
 
   PrayerTimesController({
     LocationService? locationService,
     PrayerTimesService? prayerTimesService,
+    HiveManager? hiveManager,
   }) : _locationService = locationService ?? LocationService(),
-       _prayerTimesService = prayerTimesService ?? PrayerTimesService();
+       _prayerTimesService = prayerTimesService ?? PrayerTimesService(),
+       _hiveManager = hiveManager ?? HiveManager();
 
   Timer? _ticker;
   bool _isLoading = false;
@@ -59,8 +63,17 @@ class PrayerTimesController extends ChangeNotifier {
 
     try {
       if (refreshLocation || _userLocation == null) {
-        _userLocation = await _locationService.determinePosition();
+        try {
+          _userLocation = await _locationService.determinePosition();
+        } catch (_) {
+          _userLocation = null;
+        }
       }
+
+      _userLocation ??= UserLocation.fallback(
+        status: LocationStatus.error,
+        message: 'Unable to detect location.',
+      );
 
       final latitude = _userLocation!.latitude;
       final longitude = _userLocation!.longitude;
@@ -70,13 +83,25 @@ class PrayerTimesController extends ChangeNotifier {
         longitude: longitude,
       );
 
+      await _hiveManager.savePrayerTimes(_prayerTimes!);
+
       final now = DateTime.now();
       _lastLoadedDate = DateTime(now.year, now.month, now.day);
       _updateCalculations(now);
       _startTicker();
     } catch (e) {
-      _errorMessage = e.toString().replaceFirst('Exception: ', '');
-      _stopTicker();
+      final cached = _hiveManager.loadPrayerTimes();
+      if (cached != null) {
+        _prayerTimes = cached;
+        _errorMessage = null;
+        final now = DateTime.now();
+        _lastLoadedDate = DateTime(now.year, now.month, now.day);
+        _updateCalculations(now);
+        _startTicker();
+      } else {
+        _errorMessage = e.toString().replaceFirst('Exception: ', '');
+        _stopTicker();
+      }
     } finally {
       _isLoading = false;
       notifyListeners();

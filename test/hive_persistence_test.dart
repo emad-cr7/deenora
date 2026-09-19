@@ -158,11 +158,11 @@ void main() {
     tempDir = await Directory.systemTemp.createTemp('deenora_hive_test_');
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
-      const MethodChannel('plugins.flutter.io/path_provider'),
-      (MethodCall methodCall) async {
-        return tempDir.path;
-      },
-    );
+          const MethodChannel('plugins.flutter.io/path_provider'),
+          (MethodCall methodCall) async {
+            return tempDir.path;
+          },
+        );
     hiveManager = HiveManager();
     await hiveManager.init();
   });
@@ -175,26 +175,15 @@ void main() {
     await Hive.close();
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
-      const MethodChannel('plugins.flutter.io/path_provider'),
-      null,
-    );
+          const MethodChannel('plugins.flutter.io/path_provider'),
+          null,
+        );
     if (tempDir.existsSync()) {
       await tempDir.delete(recursive: true);
     }
   });
 
   group('HiveManager Base Functionality', () {
-    test('Save and load last location', () async {
-      expect(hiveManager.loadLastLocation(), isNull);
-
-      await hiveManager.saveLastLocation(latitude: 24.7136, longitude: 46.6753);
-
-      final loaded = hiveManager.loadLastLocation();
-      expect(loaded, isNotNull);
-      expect(loaded!.latitude, 24.7136);
-      expect(loaded.longitude, 46.6753);
-    });
-
     test('Save, load, and delete custom dhikr', () async {
       expect(hiveManager.loadCustomDhikrs(), isEmpty);
 
@@ -218,8 +207,7 @@ void main() {
       expect(hiveManager.loadCustomDhikrs(), isEmpty);
     });
 
-    test('clear() removes cached location and custom dhikrs', () async {
-      await hiveManager.saveLastLocation(latitude: 25.2048, longitude: 55.2708);
+    test('clear() removes custom dhikrs', () async {
       await hiveManager.saveCustomDhikr(
         const DhikrModel(
           id: 'custom_clear',
@@ -229,83 +217,77 @@ void main() {
         ),
       );
 
-      expect(hiveManager.loadLastLocation(), isNotNull);
       expect(hiveManager.loadCustomDhikrs(), isNotEmpty);
 
       await hiveManager.clear();
 
-      expect(hiveManager.loadLastLocation(), isNull);
       expect(hiveManager.loadCustomDhikrs(), isEmpty);
     });
   });
 
-  group('Prayer Times Location Cache', () {
-    test('Valid detected location is saved and used', () async {
-      final prayerService = _FakePrayerTimesService(_createTestPrayerModel());
-      final controller = PrayerTimesController(
-        locationService: _FakeSuccessLocationService(lat: 21.3891, lng: 39.8579),
-        prayerTimesService: prayerService,
-        hiveManager: hiveManager,
-      );
+  group('Prayer Times Runtime Location & Fallback', () {
+    test(
+      'Valid detected location is used at runtime and prayer times saved',
+      () async {
+        final prayerService = _FakePrayerTimesService(_createTestPrayerModel());
+        final controller = PrayerTimesController(
+          locationService: _FakeSuccessLocationService(
+            lat: 21.3891,
+            lng: 39.8579,
+          ),
+          prayerTimesService: prayerService,
+          hiveManager: hiveManager,
+        );
 
-      await controller.loadPrayerTimes();
+        await controller.loadPrayerTimes();
 
-      expect(prayerService.lastRequestedLat, 21.3891);
-      expect(prayerService.lastRequestedLng, 39.8579);
+        expect(prayerService.lastRequestedLat, 21.3891);
+        expect(prayerService.lastRequestedLng, 39.8579);
+        expect(controller.userLocation?.latitude, 21.3891);
+        expect(controller.userLocation?.longitude, 39.8579);
+        expect(controller.userLocation?.isFallback, isFalse);
 
-      // Verify it was saved to Hive
-      final saved = hiveManager.loadLastLocation();
-      expect(saved, isNotNull);
-      expect(saved!.latitude, 21.3891);
-      expect(saved.longitude, 39.8579);
-    });
+        // Verify prayer times are persisted in Hive
+        final savedPrayerTimes = hiveManager.loadPrayerTimes();
+        expect(savedPrayerTimes, isNotNull);
+      },
+    );
 
-    test('New valid location replaces previous cached location', () async {
-      final prayerService = _FakePrayerTimesService(_createTestPrayerModel());
+    test(
+      'New runtime location updates position and fetches new prayer times',
+      () async {
+        final prayerService = _FakePrayerTimesService(_createTestPrayerModel());
 
-      // 1. First location: Makkah
-      final controller1 = PrayerTimesController(
-        locationService: _FakeSuccessLocationService(lat: 21.3891, lng: 39.8579),
-        prayerTimesService: prayerService,
-        hiveManager: hiveManager,
-      );
-      await controller1.loadPrayerTimes();
-      expect(hiveManager.loadLastLocation()?.latitude, 21.3891);
+        // 1. First location: Makkah
+        final controller1 = PrayerTimesController(
+          locationService: _FakeSuccessLocationService(
+            lat: 21.3891,
+            lng: 39.8579,
+          ),
+          prayerTimesService: prayerService,
+          hiveManager: hiveManager,
+        );
+        await controller1.loadPrayerTimes();
+        expect(prayerService.lastRequestedLat, 21.3891);
+        expect(controller1.userLocation?.latitude, 21.3891);
 
-      // 2. Second location: Madinah
-      final controller2 = PrayerTimesController(
-        locationService: _FakeSuccessLocationService(lat: 24.5247, lng: 39.5692),
-        prayerTimesService: prayerService,
-        hiveManager: hiveManager,
-      );
-      await controller2.loadPrayerTimes();
-      expect(hiveManager.loadLastLocation()?.latitude, 24.5247);
-      expect(hiveManager.loadLastLocation()?.longitude, 39.5692);
-    });
+        // 2. Second location: Madinah
+        final controller2 = PrayerTimesController(
+          locationService: _FakeSuccessLocationService(
+            lat: 24.5247,
+            lng: 39.5692,
+          ),
+          prayerTimesService: prayerService,
+          hiveManager: hiveManager,
+        );
+        await controller2.loadPrayerTimes();
+        expect(prayerService.lastRequestedLat, 24.5247);
+        expect(controller2.userLocation?.latitude, 24.5247);
+        expect(controller2.userLocation?.longitude, 39.5692);
+      },
+    );
 
-    test('Location failure uses cached location when available', () async {
-      // Seed Hive with a previously saved location (Riyadh)
-      await hiveManager.saveLastLocation(latitude: 24.7136, longitude: 46.6753);
-
-      final prayerService = _FakePrayerTimesService(_createTestPrayerModel());
-      final controller = PrayerTimesController(
-        locationService: _FakeFailingLocationService(),
-        prayerTimesService: prayerService,
-        hiveManager: hiveManager,
-      );
-
-      await controller.loadPrayerTimes();
-
-      // Controller should fall back to cached Riyadh coordinates
-      expect(prayerService.lastRequestedLat, 24.7136);
-      expect(prayerService.lastRequestedLng, 46.6753);
-      expect(controller.userLocation?.latitude, 24.7136);
-      expect(controller.userLocation?.longitude, 46.6753);
-    });
-
-    test('Location failure with no cache keeps existing Cairo fallback', () async {
-      expect(hiveManager.loadLastLocation(), isNull);
-
+    test('Location failure defaults to Cairo fallback at runtime', () async {
       final prayerService = _FakePrayerTimesService(_createTestPrayerModel());
       final controller = PrayerTimesController(
         locationService: _FakeFailingLocationService(),
@@ -318,14 +300,20 @@ void main() {
       // Should use Cairo fallback coordinates
       expect(prayerService.lastRequestedLat, UserLocation.fallbackLatitude);
       expect(prayerService.lastRequestedLng, UserLocation.fallbackLongitude);
-
-      // Crucial: Cairo fallback coordinates must NOT be saved to Hive as user's location
-      expect(hiveManager.loadLastLocation(), isNull);
+      expect(controller.userLocation?.latitude, UserLocation.fallbackLatitude);
+      expect(
+        controller.userLocation?.longitude,
+        UserLocation.fallbackLongitude,
+      );
+      expect(controller.userLocation?.isFallback, isTrue);
     });
 
     test('Offline network failure does not crash', () async {
       final controller = PrayerTimesController(
-        locationService: _FakeSuccessLocationService(lat: 24.7136, lng: 46.6753),
+        locationService: _FakeSuccessLocationService(
+          lat: 24.7136,
+          lng: 46.6753,
+        ),
         prayerTimesService: _FakeFailingPrayerTimesService(),
         hiveManager: hiveManager,
       );
@@ -368,7 +356,10 @@ void main() {
       // Verify Hive has it
       final savedInHive = hiveManager.loadCustomDhikrs();
       expect(savedInHive.length, 1);
-      expect(savedInHive.first.name, 'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّد');
+      expect(
+        savedInHive.first.name,
+        'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّد',
+      );
       expect(savedInHive.first.customGoal, 100);
 
       // 2. Session 2: "App restart" - new controller instance loads saved dhikr on init()
@@ -380,68 +371,80 @@ void main() {
       await Future.delayed(const Duration(milliseconds: 50));
 
       expect(controller2.customDhikrs.length, 1);
-      expect(controller2.customDhikrs.first.name, 'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّد');
+      expect(
+        controller2.customDhikrs.first.name,
+        'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّد',
+      );
       expect(controller2.getCustomGoal(controller2.customDhikrs.first), 100);
 
       // Combined list contains custom dhikr + API dhikr
       expect(controller2.dhikrList.length, 2);
-      expect(controller2.dhikrList.first.name, 'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّد');
+      expect(
+        controller2.dhikrList.first.name,
+        'اللَّهُمَّ صَلِّ عَلَى سَيِّدِنَا مُحَمَّد',
+      );
       expect(controller2.dhikrList.last.name, 'SubhanAllah');
     });
 
-    test('Adding duplicate custom dhikr updates goal instead of duplicating in Hive', () async {
-      final controller = TasbeehController(
-        tasbeehService: _FakeTasbeehService([]),
-        hiveManager: hiveManager,
-      );
-      controller.init();
+    test(
+      'Adding duplicate custom dhikr updates goal instead of duplicating in Hive',
+      () async {
+        final controller = TasbeehController(
+          tasbeehService: _FakeTasbeehService([]),
+          hiveManager: hiveManager,
+        );
+        controller.init();
 
-      // Add custom dhikr
-      controller.addCustomDhikr(text: 'La ilaha illa Allah', count: 33);
-      expect(hiveManager.loadCustomDhikrs().length, 1);
-      expect(hiveManager.loadCustomDhikrs().first.customGoal, 33);
+        // Add custom dhikr
+        controller.addCustomDhikr(text: 'La ilaha illa Allah', count: 33);
+        expect(hiveManager.loadCustomDhikrs().length, 1);
+        expect(hiveManager.loadCustomDhikrs().first.customGoal, 33);
 
-      // Add same text again with different count
-      controller.addCustomDhikr(text: '  la ilaha illa allah  ', count: 100);
+        // Add same text again with different count
+        controller.addCustomDhikr(text: '  la ilaha illa allah  ', count: 100);
 
-      // Should still be only 1 record in Hive with updated goal
-      final records = hiveManager.loadCustomDhikrs();
-      expect(records.length, 1);
-      expect(records.first.customGoal, 100);
-      expect(controller.customDhikrs.length, 1);
-      expect(controller.getCustomGoal(controller.customDhikrs.first), 100);
-    });
+        // Should still be only 1 record in Hive with updated goal
+        final records = hiveManager.loadCustomDhikrs();
+        expect(records.length, 1);
+        expect(records.first.customGoal, 100);
+        expect(controller.customDhikrs.length, 1);
+        expect(controller.getCustomGoal(controller.customDhikrs.first), 100);
+      },
+    );
 
-    test('API failure allows user to continue using saved custom dhikr', () async {
-      // Seed Hive with saved custom dhikr
-      await hiveManager.saveCustomDhikr(
-        const DhikrModel(
-          id: 'custom_offline',
-          name: 'HasbunAllahu wa ni\'mal wakeel',
-          arabic: 'حسبنا الله ونعم الوكيل',
-          customGoal: 40,
-        ),
-      );
+    test(
+      'API failure allows user to continue using saved custom dhikr',
+      () async {
+        // Seed Hive with saved custom dhikr
+        await hiveManager.saveCustomDhikr(
+          const DhikrModel(
+            id: 'custom_offline',
+            name: 'HasbunAllahu wa ni\'mal wakeel',
+            arabic: 'حسبنا الله ونعم الوكيل',
+            customGoal: 40,
+          ),
+        );
 
-      final controller = TasbeehController(
-        tasbeehService: _FakeFailingTasbeehService(),
-        hiveManager: hiveManager,
-      );
+        final controller = TasbeehController(
+          tasbeehService: _FakeFailingTasbeehService(),
+          hiveManager: hiveManager,
+        );
 
-      controller.init();
-      await Future.delayed(const Duration(milliseconds: 50));
+        controller.init();
+        await Future.delayed(const Duration(milliseconds: 50));
 
-      // Custom dhikr was restored from Hive
-      expect(controller.customDhikrs.length, 1);
-      expect(controller.dhikrList.length, 1);
-      expect(controller.currentDhikr, isNotNull);
-      expect(controller.currentDhikr?.name, 'HasbunAllahu wa ni\'mal wakeel');
-      expect(controller.targetCount, 40);
+        // Custom dhikr was restored from Hive
+        expect(controller.customDhikrs.length, 1);
+        expect(controller.dhikrList.length, 1);
+        expect(controller.currentDhikr, isNotNull);
+        expect(controller.currentDhikr?.name, 'HasbunAllahu wa ni\'mal wakeel');
+        expect(controller.targetCount, 40);
 
-      // User can increment and count normally even though API failed
-      controller.increment();
-      expect(controller.count, 1);
-    });
+        // User can increment and count normally even though API failed
+        controller.increment();
+        expect(controller.count, 1);
+      },
+    );
 
     test('API dhikr is not saved to custom dhikr Hive box', () async {
       final controller = TasbeehController(

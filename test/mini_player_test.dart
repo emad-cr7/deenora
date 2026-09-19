@@ -49,7 +49,9 @@ void main() {
     );
   }
 
-  testWidgets('MiniPlayer is hidden when hasActiveSession is false', (tester) async {
+  testWidgets('MiniPlayer is hidden when hasActiveSession is false', (
+    tester,
+  ) async {
     final coordinator = AudioPlayerCoordinator();
 
     await tester.pumpWidget(createTestWidget(coordinator));
@@ -61,30 +63,35 @@ void main() {
     coordinator.dispose();
   });
 
-  testWidgets('MiniPlayer is visible and displays surah, reciter, controls, progress', (tester) async {
-    final coordinator = AudioPlayerCoordinator(
-      initialSurah: testSurah1,
-      initialReciter: testReciter,
-      initialAudioUrl: 'https://example.com/001.mp3',
-      surahList: [testSurah1, testSurah2],
-    );
+  testWidgets(
+    'MiniPlayer is visible and displays surah, reciter, controls, progress',
+    (tester) async {
+      final coordinator = AudioPlayerCoordinator(
+        initialSurah: testSurah1,
+        initialReciter: testReciter,
+        initialAudioUrl: 'https://example.com/001.mp3',
+        surahList: [testSurah1, testSurah2],
+      );
 
-    await tester.pumpWidget(createTestWidget(coordinator));
-    await tester.pump(const Duration(milliseconds: 350));
+      await tester.pumpWidget(createTestWidget(coordinator));
+      await tester.pump(const Duration(milliseconds: 350));
 
-    expect(coordinator.hasActiveSession, isTrue);
-    expect(find.byType(MiniPlayerView), findsOneWidget);
-    expect(find.text('Al-Faatiha'), findsOneWidget);
-    expect(find.text('Abdul Basit Abdus Samad'), findsOneWidget);
-    expect(find.byType(MiniPlayerAvatar), findsOneWidget);
-    expect(find.byType(MiniPlayerControls), findsOneWidget);
-    expect(find.byType(MiniPlayerProgress), findsOneWidget);
-    expect(find.byIcon(Icons.skip_next_rounded), findsOneWidget);
+      expect(coordinator.hasActiveSession, isTrue);
+      expect(find.byType(MiniPlayerView), findsOneWidget);
+      expect(find.text('Al-Faatiha'), findsOneWidget);
+      expect(find.text('Abdul Basit Abdus Samad'), findsOneWidget);
+      expect(find.byType(MiniPlayerAvatar), findsOneWidget);
+      expect(find.byType(MiniPlayerControls), findsOneWidget);
+      expect(find.byType(MiniPlayerProgress), findsOneWidget);
+      expect(find.byIcon(Icons.skip_next_rounded), findsOneWidget);
 
-    coordinator.dispose();
-  });
+      coordinator.dispose();
+    },
+  );
 
-  testWidgets('Tapping Next surah button updates to next surah', (tester) async {
+  testWidgets('Tapping Next surah button updates to next surah', (
+    tester,
+  ) async {
     final coordinator = AudioPlayerCoordinator(
       initialSurah: testSurah1,
       initialReciter: testReciter,

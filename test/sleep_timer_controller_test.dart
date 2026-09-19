@@ -15,23 +15,26 @@ void main() {
     });
 
     // اختبار بدء مؤقت محدد بمدة زمنية وتنسيق الوقت
-    test('Starting preset timer sets remaining seconds and formatted string', () {
-      final timerController = SleepTimerController();
-      timerController.startTimer(
-        SleepTimerOption.fifteenMin,
-        onTimerComplete: () {},
-      );
+    test(
+      'Starting preset timer sets remaining seconds and formatted string',
+      () {
+        final timerController = SleepTimerController();
+        timerController.startTimer(
+          SleepTimerOption.fifteenMin,
+          onTimerComplete: () {},
+        );
 
-      expect(timerController.isActive, isTrue);
-      expect(timerController.selectedOption, SleepTimerOption.fifteenMin);
-      expect(timerController.remainingSeconds, 900);
-      expect(timerController.formattedRemainingTime, '15:00');
+        expect(timerController.isActive, isTrue);
+        expect(timerController.selectedOption, SleepTimerOption.fifteenMin);
+        expect(timerController.remainingSeconds, 900);
+        expect(timerController.formattedRemainingTime, '15:00');
 
-      timerController.cancelTimer();
-      expect(timerController.isActive, isFalse);
-      expect(timerController.selectedOption, isNull);
-      timerController.dispose();
-    });
+        timerController.cancelTimer();
+        expect(timerController.isActive, isFalse);
+        expect(timerController.selectedOption, isNull);
+        timerController.dispose();
+      },
+    );
 
     // اختبار خيار نهاية السورة
     test('End of Surah option formats correctly without countdown', () {

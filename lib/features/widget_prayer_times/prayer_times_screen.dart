@@ -1,19 +1,34 @@
 import 'package:deenora/features/widget_prayer_times/widgets/prayer_progress_card.dart';
 import 'package:deenora/features/widget_prayer_times/widgets/prayer_times_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'controllers/prayer_times_controller.dart';
 
 class PrayerTimesScreen extends StatelessWidget {
-  final PrayerTimesController controller;
+  final PrayerTimesController? controller;
 
-  const PrayerTimesScreen({super.key, required this.controller});
+  const PrayerTimesScreen({super.key, this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: controller,
-      builder: (context, _) {
+    if (controller != null) {
+      return ChangeNotifierProvider<PrayerTimesController>.value(
+        value: controller!,
+        child: const _PrayerTimesContent(),
+      );
+    }
+    return const _PrayerTimesContent();
+  }
+}
+
+class _PrayerTimesContent extends StatelessWidget {
+  const _PrayerTimesContent();
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PrayerTimesController>(
+      builder: (context, controller, child) {
         return Scaffold(
           appBar: AppBar(
             title: const Text('Prayer Times'),

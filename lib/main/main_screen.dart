@@ -7,7 +7,8 @@ import '../features/Quran/Listening/widgets/mini_player/mini_player.dart';
 import '../features/mosque/mosque_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final List<Widget>? pages;
+  const MainScreen({super.key, this.pages});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -16,17 +17,14 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
 
-  final List<Widget> pages = const [
-    MosqueScreen(),
-    SwitchScreen(),
-    AzkarScreen(),
-    ProfileScreen(),
-  ];
+  late final List<Widget> pages =
+      widget.pages ??
+      const [MosqueScreen(), SwitchScreen(), AzkarScreen(), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[currentIndex],
+      body: IndexedStack(index: currentIndex, children: pages),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

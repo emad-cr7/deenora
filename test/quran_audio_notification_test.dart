@@ -93,9 +93,9 @@ void main() {
   setUpAll(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(
-      const MethodChannel('plugins.flutter.io/path_provider'),
-      (call) async => '.',
-    );
+          const MethodChannel('plugins.flutter.io/path_provider'),
+          (call) async => '.',
+        );
   });
 
   group('QuranAudioHandler & Notification Controls Tests', () {
@@ -125,63 +125,86 @@ void main() {
       player.dispose();
     });
 
-    test('Repeat toggle dynamically switches icon between ic_repeat and ic_repeat_one', () {
-      final player = AudioPlayer();
-      handler.attachPlayer(player, initialLooping: false);
+    test(
+      'Repeat toggle dynamically switches icon between ic_repeat and ic_repeat_one',
+      () {
+        final player = AudioPlayer();
+        handler.attachPlayer(player, initialLooping: false);
 
-      expect(handler.playbackState.value.controls[3].androidIcon,
-          equals('drawable/ic_repeat'));
-      expect(handler.playbackState.value.repeatMode,
-          equals(AudioServiceRepeatMode.none));
+        expect(
+          handler.playbackState.value.controls[3].androidIcon,
+          equals('drawable/ic_repeat'),
+        );
+        expect(
+          handler.playbackState.value.repeatMode,
+          equals(AudioServiceRepeatMode.none),
+        );
 
-      handler.updateRepeatState(true);
-      expect(handler.playbackState.value.controls[3].androidIcon,
-          equals('drawable/ic_repeat_one'));
-      expect(handler.playbackState.value.repeatMode,
-          equals(AudioServiceRepeatMode.one));
+        handler.updateRepeatState(true);
+        expect(
+          handler.playbackState.value.controls[3].androidIcon,
+          equals('drawable/ic_repeat_one'),
+        );
+        expect(
+          handler.playbackState.value.repeatMode,
+          equals(AudioServiceRepeatMode.one),
+        );
 
-      handler.updateRepeatState(false);
-      expect(handler.playbackState.value.controls[3].androidIcon,
-          equals('drawable/ic_repeat'));
-      expect(handler.playbackState.value.repeatMode,
-          equals(AudioServiceRepeatMode.none));
+        handler.updateRepeatState(false);
+        expect(
+          handler.playbackState.value.controls[3].androidIcon,
+          equals('drawable/ic_repeat'),
+        );
+        expect(
+          handler.playbackState.value.repeatMode,
+          equals(AudioServiceRepeatMode.none),
+        );
 
-      player.dispose();
-    });
+        player.dispose();
+      },
+    );
 
-    test('clearSession resets playbackState to idle with empty controls and null mediaItem', () async {
-      final player = AudioPlayer();
-      handler.attachPlayer(player);
+    test(
+      'clearSession resets playbackState to idle with empty controls and null mediaItem',
+      () async {
+        final player = AudioPlayer();
+        handler.attachPlayer(player);
 
-      await handler.clearSession();
+        await handler.clearSession();
 
-      expect(handler.playbackState.value.processingState,
-          equals(AudioProcessingState.idle));
-      expect(handler.playbackState.value.playing, isFalse);
-      expect(handler.playbackState.value.controls, isEmpty);
-      expect(handler.mediaItem.value, isNull);
+        expect(
+          handler.playbackState.value.processingState,
+          equals(AudioProcessingState.idle),
+        );
+        expect(handler.playbackState.value.playing, isFalse);
+        expect(handler.playbackState.value.controls, isEmpty);
+        expect(handler.mediaItem.value, isNull);
 
-      player.dispose();
-    });
+        player.dispose();
+      },
+    );
 
-    test('AudioBackgroundHandler.buildMediaItem formats metadata correctly', () {
-      final item = AudioBackgroundHandler.buildMediaItem(
-        id: 'https://example.com/audio.mp3',
-        title: 'Al-Baqarah',
-        arabicSurahName: 'البقرة',
-        artist: 'Abdul Basit',
-        arabicReciterName: 'عبد الباسط عبد الصمد',
-        duration: const Duration(minutes: 45),
-        artUri: Uri.parse('file:///data/user/0/cache/reciter.png'),
-      );
+    test(
+      'AudioBackgroundHandler.buildMediaItem formats metadata correctly',
+      () {
+        final item = AudioBackgroundHandler.buildMediaItem(
+          id: 'https://example.com/audio.mp3',
+          title: 'Al-Baqarah',
+          arabicSurahName: 'البقرة',
+          artist: 'Abdul Basit',
+          arabicReciterName: 'عبد الباسط عبد الصمد',
+          duration: const Duration(minutes: 45),
+          artUri: Uri.parse('file:///data/user/0/cache/reciter.png'),
+        );
 
-      expect(item.id, equals('https://example.com/audio.mp3'));
-      expect(item.title, equals('Al-Baqarah (البقرة)'));
-      expect(item.artist, equals('Abdul Basit - عبد الباسط عبد الصمد'));
-      expect(item.album, equals('القرآن الكريم'));
-      expect(item.duration, equals(const Duration(minutes: 45)));
-      expect(item.artUri, isNotNull);
-    });
+        expect(item.id, equals('https://example.com/audio.mp3'));
+        expect(item.title, equals('Al-Baqarah (البقرة)'));
+        expect(item.artist, equals('Abdul Basit - عبد الباسط عبد الصمد'));
+        expect(item.album, equals('القرآن الكريم'));
+        expect(item.duration, equals(const Duration(minutes: 45)));
+        expect(item.artUri, isNotNull);
+      },
+    );
   });
 
   group('Coordinator Notification Actions Integration Tests', () {
@@ -214,29 +237,34 @@ void main() {
 
     final testReciter = reciters.first;
 
-    test('skipToPrevious on Surah 1 gracefully seeks to zero without errors', () async {
-      final handler = QuranAudioHandler();
-      final fakeService = FakeAudioPlayerService();
-      final playerController = AudioPlayerController(audioService: fakeService);
+    test(
+      'skipToPrevious on Surah 1 gracefully seeks to zero without errors',
+      () async {
+        final handler = QuranAudioHandler();
+        final fakeService = FakeAudioPlayerService();
+        final playerController = AudioPlayerController(
+          audioService: fakeService,
+        );
 
-      final coordinator = AudioPlayerCoordinator(
-        initialSurah: testSurahs[0],
-        initialReciter: testReciter,
-        surahList: testSurahs,
-        playerController: playerController,
-        audioHandler: handler,
-      )..init();
+        final coordinator = AudioPlayerCoordinator(
+          initialSurah: testSurahs[0],
+          initialReciter: testReciter,
+          surahList: testSurahs,
+          playerController: playerController,
+          audioHandler: handler,
+        )..init();
 
-      expect(coordinator.currentSurah.number, equals(1));
-      expect(coordinator.hasPrevious, isFalse);
+        expect(coordinator.currentSurah.number, equals(1));
+        expect(coordinator.hasPrevious, isFalse);
 
-      // Calling handler.skipToPrevious() should not crash and should remain on Surah 1
-      await handler.skipToPrevious();
+        // Calling handler.skipToPrevious() should not crash and should remain on Surah 1
+        await handler.skipToPrevious();
 
-      expect(coordinator.currentSurah.number, equals(1));
+        expect(coordinator.currentSurah.number, equals(1));
 
-      coordinator.dispose();
-    });
+        coordinator.dispose();
+      },
+    );
 
     test('skipToNext advances to next Surah and updates metadata', () async {
       final handler = QuranAudioHandler();
@@ -266,61 +294,73 @@ void main() {
       coordinator.dispose();
     });
 
-    test('customAction toggleRepeat toggles repeat mode and syncs to notification', () async {
-      final handler = QuranAudioHandler();
-      final fakeService = FakeAudioPlayerService();
-      final playerController = AudioPlayerController(audioService: fakeService);
+    test(
+      'customAction toggleRepeat toggles repeat mode and syncs to notification',
+      () async {
+        final handler = QuranAudioHandler();
+        final fakeService = FakeAudioPlayerService();
+        final playerController = AudioPlayerController(
+          audioService: fakeService,
+        );
 
-      final coordinator = AudioPlayerCoordinator(
-        initialSurah: testSurahs[1],
-        initialReciter: testReciter,
-        surahList: testSurahs,
-        playerController: playerController,
-        audioHandler: handler,
-      )..init();
+        final coordinator = AudioPlayerCoordinator(
+          initialSurah: testSurahs[1],
+          initialReciter: testReciter,
+          surahList: testSurahs,
+          playerController: playerController,
+          audioHandler: handler,
+        )..init();
 
-      expect(coordinator.isLoopingSurah, isFalse);
-      expect(handler.isLooping, isFalse);
+        expect(coordinator.isLoopingSurah, isFalse);
+        expect(handler.isLooping, isFalse);
 
-      // Trigger customAction from notification
-      await handler.customAction('toggleRepeat');
+        // Trigger customAction from notification
+        await handler.customAction('toggleRepeat');
 
-      expect(coordinator.isLoopingSurah, isTrue);
-      expect(handler.isLooping, isTrue);
+        expect(coordinator.isLoopingSurah, isTrue);
+        expect(handler.isLooping, isTrue);
 
-      // Toggle again
-      await handler.customAction('toggleRepeat');
+        // Toggle again
+        await handler.customAction('toggleRepeat');
 
-      expect(coordinator.isLoopingSurah, isFalse);
-      expect(handler.isLooping, isFalse);
+        expect(coordinator.isLoopingSurah, isFalse);
+        expect(handler.isLooping, isFalse);
 
-      coordinator.dispose();
-    });
+        coordinator.dispose();
+      },
+    );
 
-    test('stop notification action completely clears session and hides player', () async {
-      final handler = QuranAudioHandler();
-      final fakeService = FakeAudioPlayerService();
-      final playerController = AudioPlayerController(audioService: fakeService);
+    test(
+      'stop notification action completely clears session and hides player',
+      () async {
+        final handler = QuranAudioHandler();
+        final fakeService = FakeAudioPlayerService();
+        final playerController = AudioPlayerController(
+          audioService: fakeService,
+        );
 
-      final coordinator = AudioPlayerCoordinator(
-        initialSurah: testSurahs[0],
-        initialReciter: testReciter,
-        initialAudioUrl: 'https://example.com/001.mp3',
-        surahList: testSurahs,
-        playerController: playerController,
-        audioHandler: handler,
-      )..init();
+        final coordinator = AudioPlayerCoordinator(
+          initialSurah: testSurahs[0],
+          initialReciter: testReciter,
+          initialAudioUrl: 'https://example.com/001.mp3',
+          surahList: testSurahs,
+          playerController: playerController,
+          audioHandler: handler,
+        )..init();
 
-      expect(coordinator.hasActiveSession, isTrue);
+        expect(coordinator.hasActiveSession, isTrue);
 
-      await handler.stop();
+        await handler.stop();
 
-      expect(coordinator.hasActiveSession, isFalse);
-      expect(handler.playbackState.value.processingState,
-          equals(AudioProcessingState.idle));
-      expect(handler.playbackState.value.controls, isEmpty);
+        expect(coordinator.hasActiveSession, isFalse);
+        expect(
+          handler.playbackState.value.processingState,
+          equals(AudioProcessingState.idle),
+        );
+        expect(handler.playbackState.value.controls, isEmpty);
 
-      coordinator.dispose();
-    });
+        coordinator.dispose();
+      },
+    );
   });
 }

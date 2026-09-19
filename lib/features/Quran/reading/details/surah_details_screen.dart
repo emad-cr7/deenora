@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/light_theme.dart';
 import '../models/surah_model.dart';
 
 class SurahDetailsScreen extends StatelessWidget {
   final SurahModel surah;
+
   const SurahDetailsScreen({super.key, required this.surah});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,7 +78,7 @@ class SurahDetailsScreen extends StatelessWidget {
                       Text(
                         ayah.text,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: Theme.of(context).textTheme.headlineLarge,
                       ),
                       const SizedBox(height: 10),
                       Container(

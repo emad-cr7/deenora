@@ -46,25 +46,28 @@ void main() {
       expect(index1, lessThanOrEqualTo(6236));
     });
 
-    test('Different dates produce different ayah indices across 6236 verses', () {
-      final service = VerseOfTheDayService();
-      final dateA = DateTime(2026, 9, 16);
-      final dateB = DateTime(2026, 9, 17);
-      final dateC = DateTime(2026, 9, 18);
+    test(
+      'Different dates produce different ayah indices across 6236 verses',
+      () {
+        final service = VerseOfTheDayService();
+        final dateA = DateTime(2026, 9, 16);
+        final dateB = DateTime(2026, 9, 17);
+        final dateC = DateTime(2026, 9, 18);
 
-      final indexA = service.getDailyAyahIndex(dateA);
-      final indexB = service.getDailyAyahIndex(dateB);
-      final indexC = service.getDailyAyahIndex(dateC);
+        final indexA = service.getDailyAyahIndex(dateA);
+        final indexB = service.getDailyAyahIndex(dateB);
+        final indexC = service.getDailyAyahIndex(dateC);
 
-      expect(indexA, isNot(equals(indexB)));
-      expect(indexB, isNot(equals(indexC)));
-      expect(indexA, greaterThanOrEqualTo(1));
-      expect(indexA, lessThanOrEqualTo(6236));
-      expect(indexB, greaterThanOrEqualTo(1));
-      expect(indexB, lessThanOrEqualTo(6236));
-      expect(indexC, greaterThanOrEqualTo(1));
-      expect(indexC, lessThanOrEqualTo(6236));
-    });
+        expect(indexA, isNot(equals(indexB)));
+        expect(indexB, isNot(equals(indexC)));
+        expect(indexA, greaterThanOrEqualTo(1));
+        expect(indexA, lessThanOrEqualTo(6236));
+        expect(indexB, greaterThanOrEqualTo(1));
+        expect(indexB, lessThanOrEqualTo(6236));
+        expect(indexC, greaterThanOrEqualTo(1));
+        expect(indexC, lessThanOrEqualTo(6236));
+      },
+    );
 
     test('All 365 days of a year yield valid indices in range 1..6236', () {
       final service = VerseOfTheDayService();
@@ -101,84 +104,95 @@ void main() {
   });
 
   group('VerseOfTheDayController Tests', () {
-    test('loadVerseOfTheDay updates state to success with fetched verse', () async {
-      final fakeService = FakeVerseOfTheDayService();
-      final controller = VerseOfTheDayController(service: fakeService);
+    test(
+      'loadVerseOfTheDay updates state to success with fetched verse',
+      () async {
+        final fakeService = FakeVerseOfTheDayService();
+        final controller = VerseOfTheDayController(service: fakeService);
 
-      expect(controller.isLoading, isFalse);
-      expect(controller.verse, isNull);
+        expect(controller.isLoading, isFalse);
+        expect(controller.verse, isNull);
 
-      await controller.loadVerseOfTheDay();
+        await controller.loadVerseOfTheDay();
 
-      expect(controller.isLoading, isFalse);
-      expect(controller.hasError, isFalse);
-      expect(controller.verse, isNotNull);
-      expect(controller.verse!.text, 'فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا');
-    });
+        expect(controller.isLoading, isFalse);
+        expect(controller.hasError, isFalse);
+        expect(controller.verse, isNotNull);
+        expect(controller.verse!.text, 'فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا');
+      },
+    );
 
-    test('loadVerseOfTheDay handles error properly when service throws', () async {
-      final fakeService = FakeVerseOfTheDayService(shouldThrow: true);
-      final controller = VerseOfTheDayController(service: fakeService);
+    test(
+      'loadVerseOfTheDay handles error properly when service throws',
+      () async {
+        final fakeService = FakeVerseOfTheDayService(shouldThrow: true);
+        final controller = VerseOfTheDayController(service: fakeService);
 
-      await controller.loadVerseOfTheDay();
+        await controller.loadVerseOfTheDay();
 
-      expect(controller.isLoading, isFalse);
-      expect(controller.hasError, isTrue);
-      expect(controller.errorMessage, contains('Mock network error'));
-      expect(controller.verse, isNull);
-    });
+        expect(controller.isLoading, isFalse);
+        expect(controller.hasError, isTrue);
+        expect(controller.errorMessage, contains('Mock network error'));
+        expect(controller.verse, isNull);
+      },
+    );
   });
 
   group('VerseOfTheDayCard UI & Navigation Tests', () {
-    testWidgets('Renders simplified verse card layout with clean labels and brackets', (tester) async {
-      final fakeService = FakeVerseOfTheDayService();
-      final controller = VerseOfTheDayController(service: fakeService);
-      await controller.loadVerseOfTheDay();
+    testWidgets(
+      'Renders simplified verse card layout with clean labels and brackets',
+      (tester) async {
+        final fakeService = FakeVerseOfTheDayService();
+        final controller = VerseOfTheDayController(service: fakeService);
+        await controller.loadVerseOfTheDay();
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: VerseOfTheDayCard(),
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(body: VerseOfTheDayCard(controller: controller)),
           ),
-        ),
-      );
-      await tester.pumpAndSettle();
+        );
+        await tester.pumpAndSettle();
 
-      // Header title and Arabic verse text with brackets
-      expect(find.text('Ayah of the Day'), findsOneWidget);
-      expect(find.text('﴿ فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا ﴾'), findsOneWidget);
-      expect(find.textContaining('Ayah 5'), findsOneWidget);
-    });
+        // Header title and Arabic verse text with brackets
+        expect(find.text('Ayah of the Day'), findsOneWidget);
+        expect(find.text('﴿ فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا ﴾'), findsOneWidget);
+        expect(find.textContaining('Ayah 5'), findsOneWidget);
+      },
+    );
 
-    testWidgets('Tapping the card invokes onCardTap with correct verse details', (tester) async {
-      final fakeService = FakeVerseOfTheDayService();
-      final controller = VerseOfTheDayController(service: fakeService);
-      await controller.loadVerseOfTheDay();
+    testWidgets(
+      'Tapping the card invokes onCardTap with correct verse details',
+      (tester) async {
+        final fakeService = FakeVerseOfTheDayService();
+        final controller = VerseOfTheDayController(service: fakeService);
+        await controller.loadVerseOfTheDay();
 
-      VerseOfTheDayModel? tappedVerse;
+        VerseOfTheDayModel? tappedVerse;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: VerseOfTheDayCard(
-              onCardTap: (verse) {
-                tappedVerse = verse;
-              },
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: VerseOfTheDayCard(
+                controller: controller,
+                onCardTap: (verse) {
+                  tappedVerse = verse;
+                },
+              ),
             ),
           ),
-        ),
-      );
-      await tester.pumpAndSettle();
+        );
+        await tester.pumpAndSettle();
 
-      // Tap the card
-      await tester.tap(find.byType(VerseOfTheDayCard));
-      await tester.pumpAndSettle();
+        // Tap the card
+        await tester.tap(find.byType(VerseOfTheDayCard));
+        await tester.pumpAndSettle();
 
-      // Verify callback received the exact verse details
-      expect(tappedVerse, isNotNull);
-      expect(tappedVerse!.surahNumber, equals(94));
-      expect(tappedVerse!.numberInSurah, equals(5));
-      expect(tappedVerse!.text, equals('فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا'));
-    });
+        // Verify callback received the exact verse details
+        expect(tappedVerse, isNotNull);
+        expect(tappedVerse!.surahNumber, equals(94));
+        expect(tappedVerse!.numberInSurah, equals(5));
+        expect(tappedVerse!.text, equals('فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا'));
+      },
+    );
   });
 }
