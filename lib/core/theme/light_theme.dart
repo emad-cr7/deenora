@@ -164,28 +164,32 @@ final ThemeData lightTheme = ThemeData(
   navigationBarTheme: NavigationBarThemeData(
     backgroundColor: const Color(0xFFF6F8F7),
     indicatorColor: AppColors.deepForest,
-    iconTheme: WidgetStateProperty.resolveWith<IconThemeData>((states) {
-      if (states.contains(WidgetState.selected)) {
-        return const IconThemeData(color: Colors.white, size: 26);
-      }
-      return const IconThemeData(color: AppColors.textMuted, size: 24);
-    }),
-    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>((states) {
-      if (states.contains(WidgetState.selected)) {
-        return const TextStyle(
-          color: AppColors.deepForest,
-          fontSize: AppSizes.sp14,
-          fontWeight: FontWeight.w600,
+
+    iconTheme: WidgetStateProperty.resolveWith<IconThemeData>(
+          (states) => IconThemeData(
+        color: states.contains(WidgetState.selected)
+            ? Colors.white
+            : AppColors.textMuted,
+        size: states.contains(WidgetState.selected) ? 26 : 24,
+      ),
+    ),
+
+    labelTextStyle: WidgetStateProperty.resolveWith<TextStyle>(
+          (states) {
+        final isSelected = states.contains(WidgetState.selected);
+
+        return TextStyle(
+          color: isSelected
+              ? AppColors.deepForest
+              : AppColors.textMuted,
+          fontSize: isSelected ? AppSizes.sp14 : AppSizes.sp12,
+          fontWeight: isSelected
+              ? FontWeight.w600
+              : FontWeight.w500,
         );
-      }
-      return const TextStyle(
-        color: AppColors.textMuted,
-        fontSize: AppSizes.sp12,
-        fontWeight: FontWeight.w500,
-      );
-    }),
-  ),
-  splashFactory: NoSplash.splashFactory,
+      },
+    ),
+  ),  splashFactory: NoSplash.splashFactory,
 );
 
 
