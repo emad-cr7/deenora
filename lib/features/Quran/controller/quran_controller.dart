@@ -32,4 +32,9 @@ class QuranController extends ChangeNotifier {
   Future<Map<int, String>> _loadReciterAudio(int reciterId) async {
     return await _listeningService.getReciterAudioFiles(reciterId);
   }
+
+  Future<String?> getAudioUrl(int surahNumber) async {
+    final map = await futureReciterAudio;
+    return map?[surahNumber];
+  }
 }

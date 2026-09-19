@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 import '../../../../../core/skeleton/quran_skeleton_screen.dart';
 import '../../../../../core/widget/error/error_screen.dart';
 import '../../../../../core/widget/share_widget/future_builder_share.dart';
+import '../../../../../core/widget/share_widget/surah_list_item_card.dart';
 import '../../../controller/quran_controller.dart';
 import '../../../reading/models/surah_model.dart';
 import '../audio_player/view/audio_player_screen.dart';
 import '../audio_player/search/audio_search_view.dart';
 import '../../models_listening/reciter_model.dart';
-import '../../../../../core/theme/app_colors.dart';
 
 class SurahNameListening extends StatelessWidget {
   final ReciterModel reciter;
@@ -64,9 +64,9 @@ class SurahNameListening extends StatelessWidget {
                         builder: (searchCtx) => AudioSearchView(
                           currentReciter: reciter,
                           onSurahSelected: (selectedSurah) async {
-                            final audioMap =
-                                await controller.futureReciterAudio;
-                            final audioUrl = audioMap?[selectedSurah.number];
+                            final audioUrl = await controller.getAudioUrl(
+                              selectedSurah.number,
+                            );
                             if (audioUrl == null) {
                               if (searchCtx.mounted) {
                                 ScaffoldMessenger.of(searchCtx).showSnackBar(
@@ -79,6 +79,8 @@ class SurahNameListening extends StatelessWidget {
                               }
                               return;
                             }
+                            final audioMap =
+                                await controller.futureReciterAudio;
                             List<SurahModel>? surahList;
                             try {
                               surahList = await controller.futureQuran;
@@ -137,137 +139,38 @@ class SurahNameListening extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final surah = quran[index];
 
-                    return Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(27),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.12),
-                            blurRadius: 8,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Material(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(27),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(27),
-                          onTap: () async {
-                            final audioMap =
-                                await controller.futureReciterAudio;
-                            final audioUrl = audioMap?[surah.number];
-                            if (audioUrl == null) {
-                              if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'التلاوة دي مش متاحة للشيخ ده',
-                                    ),
-                                  ),
-                                );
-                              }
-                              return;
-                            }
-                            if (context.mounted) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AudioPlayerScreen(
-                                    surah: surah,
-                                    reciter: reciter,
-                                    audioUrl: audioUrl,
-                                    surahList: quran,
-                                    audioMap: audioMap,
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 14,
-                              vertical: 12,
+                    return SurahListItemCard(
+                      surah: surah,
+                      onTap: () async {
+                        final audioUrl = await controller.getAudioUrl(
+                          surah.number,
+                        );
+                        if (audioUrl == null) {
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('التلاوة دي مش متاحة للشيخ ده'),
+                              ),
+                            );
+                          }
+                          return;
+                        }
+                        final audioMap = await controller.futureReciterAudio;
+                        if (context.mounted) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AudioPlayerScreen(
+                                surah: surah,
+                                reciter: reciter,
+                                audioUrl: audioUrl,
+                                surahList: quran,
+                                audioMap: audioMap,
+                              ),
                             ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 44,
-                                  height: 44,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.primary.withValues(
-                                      alpha: 0.1,
-                                    ),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '${surah.number}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium
-                                          ?.copyWith(color: AppColors.primary),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 15),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        surah.englishName,
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.titleLarge,
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        '${surah.ayahs.length} verses',
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodySmall,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: surah.revelationType == 'Meccan'
-                                        ? Colors.orange.withValues(alpha: 0.12)
-                                        : Colors.blue.withValues(alpha: 0.12),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Text(
-                                    surah.revelationType,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelSmall
-                                        ?.copyWith(
-                                          color:
-                                              surah.revelationType == 'Meccan'
-                                              ? Colors.orange[900]
-                                              : Colors.blue[900],
-                                        ),
-                                  ),
-                                ),
-                                const SizedBox(width: 6),
-                                Icon(
-                                  Icons.chevron_right,
-                                  color: Colors.grey[400],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                          );
+                        }
+                      },
                     );
                   },
                 );

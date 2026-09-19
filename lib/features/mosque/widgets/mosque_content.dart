@@ -11,22 +11,21 @@ class MosqueContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PrayerTimesController>(
-      builder: (context, controller, _) {
-        return RefreshIndicator(
-          onRefresh: () => controller.loadPrayerTimes(),
-          child: ListView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(vertical: 5),
-            children: [
-              LocationBanner(controller: controller),
-              const MosquePrayerSection(),
-              const FeatureCardsSection(),
-              const VerseOfTheDayCard(),
-            ],
+    return RefreshIndicator(
+      onRefresh: () => context.read<PrayerTimesController>().loadPrayerTimes(),
+      child: ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        children: [
+          Consumer<PrayerTimesController>(
+            builder: (context, controller, _) =>
+                LocationBanner(controller: controller),
           ),
-        );
-      },
+          const MosquePrayerSection(),
+          const FeatureCardsSection(),
+          const VerseOfTheDayCard(),
+        ],
+      ),
     );
   }
 }

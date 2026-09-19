@@ -1,5 +1,5 @@
 import '../../../../core/data/local_data/hive_manager.dart';
-import '../../../../core/data/remote_data/quran/quran_Reading_service.dart';
+import '../../../../core/data/remote_data/quran/quran_reading_service.dart';
 import '../models/surah_model.dart';
 
 /// Central repository for loading and caching Quran Surah data.

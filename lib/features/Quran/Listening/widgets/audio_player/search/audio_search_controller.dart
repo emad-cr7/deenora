@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../../../../core/data/local_data/hive_manager.dart';
-import '../../../../../../core/data/remote_data/quran/quran_Reading_service.dart';
+import '../../../../../../core/data/remote_data/quran/quran_reading_service.dart';
 import '../../../../reading/models/surah_model.dart';
+import '../../../../reading/repository/quran_repository.dart';
 import '../../../models_listening/reciter_model.dart';
 import '../../../../../../core/utils/search_text_normalizer.dart';
 
 class AudioSearchController extends ChangeNotifier {
-  final QuranReadingService _readingService;
-  final HiveManager _hiveManager;
+  final QuranRepository _repository;
 
   List<SurahModel> _allSurahs = [];
   List<ReciterModel> _allReciters = [];
@@ -23,10 +23,15 @@ class AudioSearchController extends ChangeNotifier {
   AudioSearchController({
     List<SurahModel>? initialSurahs,
     List<ReciterModel>? initialReciters,
+    QuranRepository? repository,
     QuranReadingService? readingService,
     HiveManager? hiveManager,
-  }) : _readingService = readingService ?? QuranReadingService(),
-       _hiveManager = hiveManager ?? HiveManager() {
+  }) : _repository =
+           repository ??
+           QuranRepository(
+             readingService: readingService,
+             hiveManager: hiveManager,
+           ) {
     if (initialSurahs != null && initialSurahs.isNotEmpty) {
       _allSurahs = List.from(initialSurahs);
     }
@@ -57,14 +62,7 @@ class AudioSearchController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final cached = _hiveManager.loadSurahs();
-      if (cached.isNotEmpty) {
-        _allSurahs = cached;
-      } else {
-        final response = await _readingService.getFullQuran();
-        _allSurahs = response.surahs;
-        await _hiveManager.saveSurahs(response.surahs);
-      }
+      _allSurahs = await _repository.getSurahs();
     } catch (_) {
       // In case of error, _allSurahs remains empty and search will still work for reciters
     } finally {
