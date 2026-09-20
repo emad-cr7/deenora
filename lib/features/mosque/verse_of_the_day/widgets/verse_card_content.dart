@@ -22,7 +22,7 @@ class VerseCardContent extends StatelessWidget {
         border: Border.all(color: AppColors.borderSubtle, width: 1),
         boxShadow: [
           BoxShadow(
-            color: AppColors.deepForest.withValues(alpha: 0.12),
+            color: AppColors.deepForest.withValues(alpha: 0.15),
             blurRadius: 8,
             offset: const Offset(0, 3),
           ),
@@ -40,7 +40,6 @@ class VerseCardContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Header: ✦ Ayah of the Day (reusing shared IconTextWidget)
                 IconTextWidget(
                   icon: FlutterIslamicIcons.islam,
                   iconColor: AppColors.primary,
