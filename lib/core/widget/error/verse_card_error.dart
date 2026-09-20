@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/app_colors.dart';
+import '../../theme/app_colors.dart';
 
 /// Compact error widget with a retry button for the Verse of the Day card.
 class VerseCardError extends StatelessWidget {

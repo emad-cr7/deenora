@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/widget/share_widget/icon_text_widget.dart';
+import '../../../theme/app_colors.dart';
+import '../../../widget/share_widget/icon_text_widget.dart';
 
 /// Shimmer skeleton widget for the Verse of the Day loading state.
 class VerseCardSkeleton extends StatelessWidget {
