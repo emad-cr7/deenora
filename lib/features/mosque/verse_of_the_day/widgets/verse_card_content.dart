@@ -4,8 +4,6 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widget/share_widget/icon_text_widget.dart';
 import '../models/verse_day_model.dart';
 
-/// Pure presentation widget displaying the verse card content:
-/// header, Arabic verse text with brackets, and Surah / Ayah reference.
 class VerseCardContent extends StatelessWidget {
   final VerseDayModel verse;
   final VoidCallback onTap;
