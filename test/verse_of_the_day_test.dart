@@ -1,18 +1,18 @@
-import 'package:deenora/features/mosque/verse_of_the_day/controllers/verse_of_the_day_controller.dart';
-import 'package:deenora/features/mosque/verse_of_the_day/models/verse_of_the_day_model.dart';
-import 'package:deenora/features/mosque/verse_of_the_day/services/verse_of_the_day_service.dart';
-import 'package:deenora/features/mosque/verse_of_the_day/widgets/verse_of_the_day_card.dart';
+import 'package:deenora/features/mosque/verse_of_the_day/controllers/verse_day_controller.dart';
+import 'package:deenora/features/mosque/verse_of_the_day/models/verse_day_model.dart';
+import 'package:deenora/features/mosque/verse_of_the_day/services/verse_day_service.dart';
+import 'package:deenora/features/mosque/verse_of_the_day/widgets/verse_day_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class FakeVerseOfTheDayService extends VerseOfTheDayService {
-  final VerseOfTheDayModel? mockVerse;
+  final VerseDayModel? mockVerse;
   final bool shouldThrow;
 
   FakeVerseOfTheDayService({this.mockVerse, this.shouldThrow = false});
 
   @override
-  Future<VerseOfTheDayModel> getVerseOfTheDay({
+  Future<VerseDayModel> getVerseOfTheDay({
     DateTime? date,
     bool forceRefresh = false,
   }) async {
@@ -20,7 +20,7 @@ class FakeVerseOfTheDayService extends VerseOfTheDayService {
       throw Exception('Mock network error');
     }
     return mockVerse ??
-        VerseOfTheDayModel(
+        VerseDayModel(
           number: 6095,
           text: 'فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا',
           surahNumber: 94,
@@ -94,7 +94,7 @@ void main() {
         },
       };
 
-      final model = VerseOfTheDayModel.fromJson(json);
+      final model = VerseDayModel.fromJson(json);
       expect(model.number, equals(6095));
       expect(model.text, equals('فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا'));
       expect(model.surahNumber, equals(94));
@@ -148,7 +148,7 @@ void main() {
 
         await tester.pumpWidget(
           MaterialApp(
-            home: Scaffold(body: VerseOfTheDayCard(controller: controller)),
+            home: Scaffold(body: VerseDayCard(controller: controller)),
           ),
         );
         await tester.pumpAndSettle();
@@ -167,12 +167,12 @@ void main() {
         final controller = VerseOfTheDayController(service: fakeService);
         await controller.loadVerseOfTheDay();
 
-        VerseOfTheDayModel? tappedVerse;
+        VerseDayModel? tappedVerse;
 
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: VerseOfTheDayCard(
+              body: VerseDayCard(
                 controller: controller,
                 onCardTap: (verse) {
                   tappedVerse = verse;
@@ -184,7 +184,7 @@ void main() {
         await tester.pumpAndSettle();
 
         // Tap the card
-        await tester.tap(find.byType(VerseOfTheDayCard));
+        await tester.tap(find.byType(VerseDayCard));
         await tester.pumpAndSettle();
 
         // Verify callback received the exact verse details

@@ -1,4 +1,4 @@
-import 'package:deenora/features/mosque/verse_of_the_day/widgets/verse_of_the_day_card.dart';
+import 'package:deenora/features/mosque/verse_of_the_day/widgets/verse_day_card.dart';
 import 'package:deenora/features/mosque/widgets/mosque_prayer_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +27,7 @@ class MosqueScreen extends StatelessWidget {
               ),
               const MosquePrayerSection(),
               const FeatureCardsSection(),
-              const VerseOfTheDayCard(),
+              const VerseDayCard(),
             ],
           ),
         )

@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/data/local_data/hive_manager.dart';
-import '../models/verse_of_the_day_model.dart';
-import '../services/verse_of_the_day_service.dart';
+import '../../../../core/data/remote_data/verse_day/verse_day_service.dart';
+import '../models/verse_day_model.dart';
 
-class VerseOfTheDayController extends ChangeNotifier {
+class VerseDayController extends ChangeNotifier {
   final VerseOfTheDayService _service = VerseOfTheDayService();
   final HiveManager _hiveManager = HiveManager();
-  late Future<VerseOfTheDayModel> verseOfTheDayFuture;
+  late Future<VerseDayModel> verseOfTheDayFuture;
 
   void init() {
     verseOfTheDayFuture = _loadVerseOfTheDay();
   }
 
-  Future<VerseOfTheDayModel> _loadVerseOfTheDay() async {
+  Future<VerseDayModel> _loadVerseOfTheDay() async {
     final today = DateTime.now().toString().split(' ').first;
     final cached = _hiveManager.loadVerseOfTheDay();
 
     if (cached != null && cached['savedDate'] == today) {
-      return VerseOfTheDayModel.fromStoredMap(cached);
+      return VerseDayModel.fromStoredMap(cached);
     }
     final verse = await _service.getVerseOfTheDay(savedDate: today);
     await _hiveManager.saveVerseOfTheDay(verse.toStoredMap());

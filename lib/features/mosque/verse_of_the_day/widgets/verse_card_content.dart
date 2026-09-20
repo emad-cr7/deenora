@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widget/share_widget/icon_text_widget.dart';
-import '../models/verse_of_the_day_model.dart';
+import '../models/verse_day_model.dart';
 
 /// Pure presentation widget displaying the verse card content:
 /// header, Arabic verse text with brackets, and Surah / Ayah reference.
 class VerseCardContent extends StatelessWidget {
-  final VerseOfTheDayModel verse;
+  final VerseDayModel verse;
   final VoidCallback onTap;
 
   const VerseCardContent({super.key, required this.verse, required this.onTap});

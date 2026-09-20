@@ -1,11 +1,11 @@
-class VerseOfTheDayModel {
+class VerseDayModel {
   final String text;
   final int surahNumber;
   final String surahEnglishName;
   final int numberInSurah;
   final String savedDate;
 
-  const VerseOfTheDayModel({
+  const VerseDayModel({
     required this.text,
     required this.surahNumber,
     required this.surahEnglishName,
@@ -13,14 +13,14 @@ class VerseOfTheDayModel {
     required this.savedDate,
   });
 
-  factory VerseOfTheDayModel.fromJson(
+  factory VerseDayModel.fromJson(
     Map<String, dynamic> json, {
     required String savedDate,
   }) {
     final data = json['data'] as Map<String, dynamic>? ?? json;
     final surah = data['surah'] as Map<String, dynamic>? ?? {};
 
-    return VerseOfTheDayModel(
+    return VerseDayModel(
       text: (data['text'] as String? ?? '').trim(),
       surahNumber: surah['number'] as int? ?? 0,
       surahEnglishName: surah['englishName'] as String? ?? '',
@@ -29,8 +29,8 @@ class VerseOfTheDayModel {
     );
   }
 
-  factory VerseOfTheDayModel.fromStoredMap(Map<String, dynamic> map) {
-    return VerseOfTheDayModel(
+  factory VerseDayModel.fromStoredMap(Map<String, dynamic> map) {
+    return VerseDayModel(
       text: map['text'] as String? ?? '',
       surahNumber: map['surahNumber'] as int? ?? 0,
       surahEnglishName: map['surahEnglishName'] as String? ?? '',

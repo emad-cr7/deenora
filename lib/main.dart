@@ -6,7 +6,6 @@ import 'core/data/local_data/hive_manager.dart';
 import 'package:provider/provider.dart';
 import 'features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
 import 'features/Quran/Listening/widgets/audio_player/services/quran_audio_handler.dart';
-import 'features/mosque/verse_of_the_day/services/verse_of_the_day_service.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

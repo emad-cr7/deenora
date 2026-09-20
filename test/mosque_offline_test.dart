@@ -9,10 +9,10 @@ import 'package:deenora/features/Quran/reading/models/ayah_model.dart';
 import 'package:deenora/features/Quran/reading/models/surah_model.dart';
 import 'package:deenora/features/main/main_screen.dart';
 import 'package:deenora/features/mosque/feature_cards/feature_cards_section.dart';
-import 'package:deenora/features/mosque/verse_of_the_day/controllers/verse_of_the_day_controller.dart';
-import 'package:deenora/features/mosque/verse_of_the_day/models/verse_of_the_day_model.dart';
-import 'package:deenora/features/mosque/verse_of_the_day/services/verse_of_the_day_service.dart';
-import 'package:deenora/features/mosque/verse_of_the_day/widgets/verse_of_the_day_card.dart';
+import 'package:deenora/features/mosque/verse_of_the_day/controllers/verse_day_controller.dart';
+import 'package:deenora/features/mosque/verse_of_the_day/models/verse_day_model.dart';
+import 'package:deenora/features/mosque/verse_of_the_day/services/verse_day_service.dart';
+import 'package:deenora/features/mosque/verse_of_the_day/widgets/verse_day_card.dart';
 import 'package:deenora/features/tasbeeh/controllers/tasbeeh_controller.dart';
 import 'package:deenora/features/tasbeeh/models/dhikr_model.dart';
 import 'package:deenora/features/tasbeeh/models/tasbih_dataset_model.dart';
@@ -129,11 +129,11 @@ class _FakeAudioPlayerCoordinator extends ChangeNotifier
 }
 
 class _FakeStaticVerseService extends VerseOfTheDayService {
-  final VerseOfTheDayModel model;
+  final VerseDayModel model;
   _FakeStaticVerseService(this.model);
 
   @override
-  Future<VerseOfTheDayModel> getVerseOfTheDay({
+  Future<VerseDayModel> getVerseOfTheDay({
     DateTime? date,
     bool forceRefresh = false,
   }) async {
@@ -184,8 +184,8 @@ PrayerTimesModel _createSamplePrayerModel() {
   );
 }
 
-VerseOfTheDayModel _createSampleVerseModel() {
-  return const VerseOfTheDayModel(
+VerseDayModel _createSampleVerseModel() {
+  return const VerseDayModel(
     number: 1,
     text: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
     surahNumber: 1,
@@ -420,7 +420,7 @@ void main() {
         expect(find.text('Tasbeeh'), findsOneWidget);
 
         // Verse of the Day is rendered
-        expect(find.byType(VerseOfTheDayCard), findsOneWidget);
+        expect(find.byType(VerseDayCard), findsOneWidget);
 
         controller.dispose();
         verseController.dispose();
