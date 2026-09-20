@@ -18,7 +18,7 @@ class MosqueScreen extends StatelessWidget {
           create: (_) => PrayerTimesController()..init(),
         ),
         ChangeNotifierProvider<VerseDayController>(
-          create: (_) => VerseDayController(),
+          create: (_) => VerseDayController()..init(),
         ),
       ],
       child: Scaffold(

@@ -1,78 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../Quran/reading/utils/quran_navigation_helper.dart';
+import '../../../../core/widget/error/verse_card_error.dart';
+import '../../../../core/skeleton/mosque/widegets/verse_card_skeleton.dart';
+import '../../../../core/widget/share_widget/future_builder_share.dart';
+
 import '../controllers/verse_day_controller.dart';
 import '../models/verse_day_model.dart';
 import 'verse_card_content.dart';
-import 'verse_card_error.dart';
-import 'verse_card_skeleton.dart';
 
 class VerseDayCard extends StatelessWidget {
   final void Function(VerseDayModel verse)? onCardTap;
-  final VerseDayController? controller;
 
-  const VerseDayCard({super.key, this.onCardTap, this.controller});
-
-  void _handleTap(BuildContext context, VerseDayModel verse) {
-    if (onCardTap != null) {
-      onCardTap!(verse);
-      return;
-    }
-
-    QuranNavigationHelper.navigateToSurah(
-      context,
-      surahNumber: verse.surahNumber,
-    );
-  }
+  const VerseDayCard({super.key, this.onCardTap});
 
   @override
   Widget build(BuildContext context) {
-    if (controller != null) {
-      return ChangeNotifierProvider<VerseDayController>.value(
-        value: controller!,
-        child: _buildConsumer(context),
-      );
-    }
+    final controller = context.watch<VerseDayController>();
 
-    VerseDayController? ancestorController;
-    try {
-      ancestorController = Provider.of<VerseDayController>(
-        context,
-        listen: false,
-      );
-    } catch (_) {
-      ancestorController = null;
-    }
-
-    if (ancestorController != null) {
-      return _buildConsumer(context);
-    }
-
-    return ChangeNotifierProvider<VerseDayController>(
-      create: (_) => VerseDayController()..init(),
-      child: _buildConsumer(context),
-    );
-  }
-
-  Widget _buildConsumer(BuildContext context) {
-    return Consumer<VerseDayController>(
-      builder: (context, c, _) => FutureBuilder<VerseDayModel>(
-        future: c.verseOfTheDayFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const VerseCardSkeleton();
-          }
-
-          if (snapshot.hasError || !snapshot.hasData) {
-            return VerseCardError(onRetry: c.retry);
-          }
-
-          return VerseCardContent(
-            verse: snapshot.data!,
-            onTap: () => _handleTap(context, snapshot.data!),
-          );
-        },
-      ),
+    return FutureBuilderShare<VerseDayModel>(
+      future: controller.verseOfTheDayFuture,
+      loading: const VerseCardSkeleton(),
+      error: VerseCardError(onRetry: controller.retry),
+      builder: (verse) {
+        return VerseCardContent(
+          verse: verse,
+          onTap: () {
+            if (onCardTap != null) {
+              onCardTap!(verse);
+              return;
+            }
+            controller.navigateToVerse(verse);
+          },
+        );
+      },
     );
   }
 }
