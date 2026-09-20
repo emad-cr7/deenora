@@ -6,8 +6,6 @@ import '../../../../core/data/remote_data/tasbeeh/tasbeeh_service.dart';
 import '../../../../core/widget/error/error_screen.dart';
 import '../models/dhikr_model.dart';
 
-/// Controller responsible for managing Tasbeeh state, API data fetching,
-/// active dhikr selection, and local counter logic.
 class TasbeehController extends ChangeNotifier {
   final TasbeehService _tasbeehService;
   final HiveManager _hiveManager;
@@ -23,12 +21,10 @@ class TasbeehController extends ChangeNotifier {
   List<DhikrModel> _dhikrList = [];
   final List<DhikrModel> _customDhikrs = [];
 
-  // Local counter state
   int _selectedIndex = 0;
   int _count = 0;
   int? _customTarget;
 
-  // Getters for network & dataset state
   bool get isLoading => _isLoading;
 
   bool get hasError => _errorMessage != null;
@@ -39,76 +35,51 @@ class TasbeehController extends ChangeNotifier {
 
   String get attribution => _attribution;
 
-  // Active Dhikr getters
   int get selectedIndex => _selectedIndex;
 
-  DhikrModel? get currentDhikr =>
-      _dhikrList.isNotEmpty && _selectedIndex < _dhikrList.length
-      ? _dhikrList[_selectedIndex]
-      : null;
-
-  // Counter getters
   int get count => _count;
 
-  /// Whether a given dhikr is a user-created custom dhikr.
+  DhikrModel? get currentDhikr =>
+      _selectedIndex < _dhikrList.length ? _dhikrList[_selectedIndex] : null;
+
   bool isCustomDhikr(DhikrModel dhikr) => dhikr.isCustom;
 
-  /// Returns the active target count.
-  /// If [customTarget] was explicitly set by the user, returns that.
-  /// If the current dhikr is a custom dhikr, returns its personal goal.
-  /// Otherwise, if the dhikr has a [narratedCount], returns it.
-  /// If [narratedCount] is null and no custom target is set, returns null (open counter).
-  int? get targetCount {
-    if (_customTarget != null) return _customTarget;
-    final dhikr = currentDhikr;
-    if (dhikr != null && dhikr.customGoal != null) {
-      return dhikr.customGoal;
-    }
-    return dhikr?.narratedCount;
-  }
+  int? get targetCount =>
+      _customTarget ?? currentDhikr?.customGoal ?? currentDhikr?.narratedCount;
 
-  /// Whether a specific target count is active.
-  bool get hasTarget => targetCount != null && targetCount! > 0;
+  bool get hasTarget => (targetCount ?? 0) > 0;
 
-  /// Whether the user has completed the target count.
   bool get isCompleted => hasTarget && _count >= targetCount!;
 
-  /// Progress ratio from 0.0 to 1.0 towards target (or 0.0 if open counter).
-  double get progress {
-    final target = targetCount;
-    if (target == null || target <= 0) return 0.0;
-    return (_count / target).clamp(0.0, 1.0);
-  }
+  double get progress =>
+      hasTarget ? (_count / targetCount!).clamp(0.0, 1.0) : 0.0;
 
-  /// Merges user-created custom dhikrs with default/API dhikrs,
-  /// filtering out any default items that share the same name as custom dhikrs.
   List<DhikrModel> _mergeAndDeduplicate(List<DhikrModel> defaults) {
-    final customTexts = _customDhikrs
+    final customNames = _customDhikrs
         .map((d) => d.name.trim().toLowerCase())
         .toSet();
-    final filteredDefaults = defaults.where((defaultDhikr) {
-      return !customTexts.contains(defaultDhikr.name.trim().toLowerCase());
-    }).toList();
-    return [..._customDhikrs, ...filteredDefaults];
+    return [
+      ..._customDhikrs,
+      ...defaults.where(
+        (d) => !customNames.contains(d.name.trim().toLowerCase()),
+      ),
+    ];
   }
 
-  /// Ensures current selection index remains valid and updates active custom target.
   void _syncSelectionState() {
     if (_selectedIndex >= _dhikrList.length) {
       _selectedIndex = _dhikrList.isNotEmpty ? _dhikrList.length - 1 : 0;
     }
-    final dhikr = currentDhikr;
-    _customTarget = dhikr?.customGoal;
+    _customTarget = currentDhikr?.customGoal;
   }
 
-  /// Loads saved custom dhikrs and cached default dhikrs from Hive into memory.
   void loadSavedCustomDhikrs() {
     _customDhikrs.clear();
     _customDhikrs.addAll(_hiveManager.loadCustomDhikrs());
 
-    final cachedDefaults = _hiveManager.loadDefaultDhikrs();
-    if (_customDhikrs.isNotEmpty || cachedDefaults.isNotEmpty) {
-      _dhikrList = _mergeAndDeduplicate(cachedDefaults);
+    final cached = _hiveManager.loadDefaultDhikrs();
+    if (_customDhikrs.isNotEmpty || cached.isNotEmpty) {
+      _dhikrList = _mergeAndDeduplicate(cached);
       _syncSelectionState();
     }
   }
@@ -118,7 +89,6 @@ class TasbeehController extends ChangeNotifier {
     loadDhikr();
   }
 
-  /// Loads dhikr dataset from the API service.
   Future<void> loadDhikr({bool forceRefresh = false}) async {
     _isLoading = true;
     _errorMessage = null;
@@ -130,228 +100,176 @@ class TasbeehController extends ChangeNotifier {
         forceRefresh: forceRefresh,
       );
       _attribution = data.attribution;
-
-      // Save default dhikrs to Hive so they remain available offline
       await _hiveManager.saveDefaultDhikrs(data.dhikrList);
-
       _dhikrList = _mergeAndDeduplicate(data.dhikrList);
-      _isLoading = false;
       _syncSelectionState();
-      notifyListeners();
     } catch (e) {
-      _isLoading = false;
-
-      final cachedDefaults = _hiveManager.loadDefaultDhikrs();
-      if (_customDhikrs.isNotEmpty || cachedDefaults.isNotEmpty) {
-        _dhikrList = _mergeAndDeduplicate(cachedDefaults);
-        _errorMessage = null;
-        _errorType = null;
+      final cached = _hiveManager.loadDefaultDhikrs();
+      if (_customDhikrs.isNotEmpty || cached.isNotEmpty) {
+        _dhikrList = _mergeAndDeduplicate(cached);
         _syncSelectionState();
       } else {
         _errorMessage = e.toString();
-        if (e is DioException) {
-          if (e.type == DioExceptionType.connectionTimeout ||
-              e.type == DioExceptionType.receiveTimeout ||
-              e.type == DioExceptionType.sendTimeout) {
-            _errorType = AppErrorType.timeout;
-          } else if (e.type == DioExceptionType.connectionError) {
-            _errorType = AppErrorType.noInternet;
-          } else {
-            _errorType = AppErrorType.serverError;
-          }
-        } else {
-          final msg = e.toString().toLowerCase();
-          if (msg.contains('network') ||
-              msg.contains('socket') ||
-              msg.contains('connection error')) {
-            _errorType = AppErrorType.noInternet;
-          } else if (msg.contains('timeout')) {
-            _errorType = AppErrorType.timeout;
-          } else {
-            _errorType = AppErrorType.serverError;
-          }
-        }
+        _errorType = _classifyError(e);
       }
-
+    } finally {
+      _isLoading = false;
       notifyListeners();
     }
   }
 
-  /// Increments the local counter by 1.
-  /// If a target exists (narrated or personal) and the count has already reached
-  /// that target, it stops and prevents further increments.
-  void increment() {
-    if (hasTarget && _count >= targetCount!) {
-      return;
+  AppErrorType _classifyError(Object e) {
+    if (e is DioException) {
+      if (e.type == DioExceptionType.connectionTimeout ||
+          e.type == DioExceptionType.receiveTimeout ||
+          e.type == DioExceptionType.sendTimeout) {
+        return AppErrorType.timeout;
+      }
+      return e.type == DioExceptionType.connectionError
+          ? AppErrorType.noInternet
+          : AppErrorType.serverError;
     }
+    final msg = e.toString().toLowerCase();
+    if (msg.contains('network') ||
+        msg.contains('socket') ||
+        msg.contains('connection error')) {
+      return AppErrorType.noInternet;
+    }
+    if (msg.contains('timeout')) return AppErrorType.timeout;
+    return AppErrorType.serverError;
+  }
+
+  void increment() {
+    if (hasTarget && _count >= targetCount!) return;
     _count++;
     notifyListeners();
   }
 
-  /// Resets the local count back to 0.
   void reset() {
     _count = 0;
     notifyListeners();
   }
 
-  /// Sets a user-defined custom target count (or null for open counting).
   void setCustomTarget(int? target) {
     _customTarget = target;
     notifyListeners();
   }
 
-  /// Creates and adds a personal custom Dhikr to the list,
-  /// selects it immediately, and resets the counter with the personal goal.
   bool addCustomDhikr({required String text, required int count}) {
-    final trimmedText = text.trim();
-    if (trimmedText.isEmpty || count <= 0) {
-      return false;
-    }
+    final trimmed = text.trim();
+    if (trimmed.isEmpty || count <= 0) return false;
 
-    // 1. Check whether the same user-created dhikr already exists
     final existingIndex = _customDhikrs.indexWhere(
-      (d) => d.name.trim().toLowerCase() == trimmedText.toLowerCase(),
+      (d) => d.name.trim().toLowerCase() == trimmed.toLowerCase(),
     );
 
     if (existingIndex != -1) {
-      // Already exists: update goal/count if necessary and select it
-      final existingDhikr = _customDhikrs[existingIndex];
-      final updatedDhikr = DhikrModel(
-        id: existingDhikr.id,
-        name: existingDhikr.name,
-        arabic: existingDhikr.arabic,
-        narratedCount: existingDhikr.narratedCount,
+      final existing = _customDhikrs[existingIndex];
+      final updated = DhikrModel(
+        id: existing.id,
+        name: existing.name,
+        arabic: existing.arabic,
+        narratedCount: existing.narratedCount,
         customGoal: count,
       );
 
-      _customDhikrs[existingIndex] = updatedDhikr;
-      _hiveManager.saveCustomDhikr(updatedDhikr);
+      _customDhikrs[existingIndex] = updated;
+      _hiveManager.saveCustomDhikr(updated);
 
-      final listIndex = _dhikrList.indexWhere((d) => d.id == existingDhikr.id);
+      final listIndex = _dhikrList.indexWhere((d) => d.id == existing.id);
       if (listIndex != -1) {
-        _dhikrList[listIndex] = updatedDhikr;
+        _dhikrList[listIndex] = updated;
         selectDhikr(listIndex);
       } else {
-        _dhikrList.insert(0, updatedDhikr);
+        _dhikrList.insert(0, updated);
         selectDhikr(0);
       }
-
       return true;
     }
 
-    // 2. Does not exist: create unique ID, save to Hive, add to in-memory list
-    final customId = 'custom_${DateTime.now().millisecondsSinceEpoch}';
     final customDhikr = DhikrModel(
-      id: customId,
-      name: trimmedText,
-      arabic: trimmedText,
-      narratedCount: null,
+      id: 'custom_${DateTime.now().millisecondsSinceEpoch}',
+      name: trimmed,
+      arabic: trimmed,
       customGoal: count,
     );
 
     _customDhikrs.insert(0, customDhikr);
-    _dhikrList = [customDhikr, ..._dhikrList];
+    _dhikrList.insert(0, customDhikr);
     _hiveManager.saveCustomDhikr(customDhikr);
-
-    _selectedIndex = 0;
-    _count = 0;
-    _customTarget = count;
-    notifyListeners();
+    selectDhikr(0);
     return true;
   }
 
-  /// Updates an existing user-created custom Dhikr and persists to Hive.
   bool editCustomDhikr({
     required String id,
     required String text,
     required int count,
   }) {
-    final trimmedText = text.trim();
-    if (trimmedText.isEmpty || count <= 0) {
-      return false;
-    }
+    final trimmed = text.trim();
+    if (trimmed.isEmpty || count <= 0) return false;
 
     final customIndex = _customDhikrs.indexWhere((d) => d.id == id);
     if (customIndex == -1) return false;
 
-    final updatedDhikr = DhikrModel(
+    final updated = DhikrModel(
       id: id,
-      name: trimmedText,
-      arabic: trimmedText,
-      narratedCount: null,
+      name: trimmed,
+      arabic: trimmed,
       customGoal: count,
     );
 
-    _customDhikrs[customIndex] = updatedDhikr;
+    _customDhikrs[customIndex] = updated;
 
     final listIndex = _dhikrList.indexWhere((d) => d.id == id);
-    if (listIndex != -1) {
-      _dhikrList[listIndex] = updatedDhikr;
-    }
+    if (listIndex != -1) _dhikrList[listIndex] = updated;
 
-    _hiveManager.saveCustomDhikr(updatedDhikr);
+    _hiveManager.saveCustomDhikr(updated);
 
-    if (currentDhikr?.id == id) {
-      _customTarget = count;
-    }
+    if (currentDhikr?.id == id) _customTarget = count;
 
     notifyListeners();
     return true;
   }
 
-  /// Deletes a user-created custom Dhikr by ID from memory and Hive.
   bool deleteCustomDhikr(String id) {
     final customIndex = _customDhikrs.indexWhere((d) => d.id == id);
     if (customIndex == -1) return false;
 
     _customDhikrs.removeAt(customIndex);
-
-    final listIndex = _dhikrList.indexWhere((d) => d.id == id);
-    if (listIndex != -1) {
-      _dhikrList.removeAt(listIndex);
-    }
-
+    _dhikrList.removeWhere((d) => d.id == id);
     _hiveManager.deleteCustomDhikr(id);
 
     if (_selectedIndex >= _dhikrList.length) {
       _selectedIndex = _dhikrList.isNotEmpty ? _dhikrList.length - 1 : 0;
       _count = 0;
-    } else if (listIndex == _selectedIndex) {
+    } else if (currentDhikr?.id == id) {
       _count = 0;
     }
 
-    final dhikr = currentDhikr;
-    _customTarget = dhikr?.customGoal;
-
+    _customTarget = currentDhikr?.customGoal;
     notifyListeners();
     return true;
   }
 
-  /// Selects a dhikr from the list by [index] and resets current count.
   void selectDhikr(int index) {
     if (index >= 0 && index < _dhikrList.length) {
       _selectedIndex = index;
       _count = 0;
-      final dhikr = currentDhikr;
-      _customTarget = dhikr?.customGoal;
+      _customTarget = currentDhikr?.customGoal;
       notifyListeners();
     }
   }
 
-  /// Advances to the next dhikr in the list.
   void nextDhikr() {
     if (_dhikrList.isNotEmpty) {
-      final nextIndex = (_selectedIndex + 1) % _dhikrList.length;
-      selectDhikr(nextIndex);
+      selectDhikr((_selectedIndex + 1) % _dhikrList.length);
     }
   }
 
-  /// Moves to the previous dhikr in the list.
   void previousDhikr() {
     if (_dhikrList.isNotEmpty) {
-      final prevIndex =
-          (_selectedIndex - 1 + _dhikrList.length) % _dhikrList.length;
-      selectDhikr(prevIndex);
+      selectDhikr((_selectedIndex - 1 + _dhikrList.length) % _dhikrList.length);
     }
   }
 }
