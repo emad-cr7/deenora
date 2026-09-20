@@ -82,37 +82,39 @@ class DhikrListTile extends StatelessWidget {
             const SizedBox(width: 8),
 
             // Repetition Count on the same row next to Dhikr name
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                color: isCustom
-                    ? const Color(0xFFE8F4F8)
-                    : (hasNarrated
-                          ? AppColors.champagneGold.withValues(alpha: 0.30)
-                          : const Color(0xFFEFF2F0)),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(
-                countText,
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  fontWeight: FontWeight.w700,
-                  color: isCustom
-                      ? AppColors.badgeBlue
-                      : (hasNarrated
-                            ? AppColors.darkGold
-                            : AppColors.textMuted),
-                ),
-              ),
-            ),
-
-            if (isSelected) ...[
-              const SizedBox(width: 6),
-              const Icon(
-                Icons.check_circle_rounded,
-                size: 22,
-                color: AppColors.primary,
-              ),
-            ],
+            isSelected
+                ? const Icon(
+                    Icons.check_circle_rounded,
+                    size: 25,
+                    color: AppColors.primary,
+                  )
+                : Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: isCustom
+                          ? const Color(0xFFE8F4F8)
+                          : (hasNarrated
+                                ? AppColors.champagneGold.withValues(
+                                    alpha: 0.30,
+                                  )
+                                : const Color(0xFFEFF2F0)),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      countText,
+                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: isCustom
+                            ? AppColors.badgeBlue
+                            : (hasNarrated
+                                  ? AppColors.darkGold
+                                  : AppColors.textMuted),
+                      ),
+                    ),
+                  ),
 
             // Actions menu for user-created custom Dhikrs only (⋮)
             if (isCustom && (onEdit != null || onDelete != null)) ...[
