@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../main.dart'; // navigatorKey (عدّل المسار حسب مشروعك)
+import '../../../../main.dart';
 import '../models/dhikr_model.dart';
 import '../screens/tasbeeh_screen.dart';
 import '../widgets/dialogs/confirm_dialog.dart';
 import '../widgets/sheets/add_custom_dhikr_sheet.dart';
 import 'tasbeeh_controller.dart';
 
-/// كونترولر خاص بشاشة اختيار الذكر:
-/// البحث + الـ navigation + الشيتس والديالوجات.
-/// الداتا نفسها (القائمة، التحميل، الـ CRUD) في [TasbeehController].
+
 class TasbeehSelectionController extends ChangeNotifier {
   final TasbeehController tasbeeh;
 
