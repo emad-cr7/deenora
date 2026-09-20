@@ -8,143 +8,98 @@ import '../../../hive_registrar.g.dart';
 import 'hive_config.dart';
 
 class HiveManager {
-  static final HiveManager _instance = HiveManager._();
-
   HiveManager._();
 
-  factory HiveManager() {
-    return _instance;
-  }
+  static final HiveManager _instance = HiveManager._();
+
+  factory HiveManager() => _instance;
 
   late Box<SurahModel> _quranBox;
   late Box<AzekrCategory> _azkarBox;
   late Box<DhikrModel> _tasbeehBox;
-  late Box<PrayerTimesModel> _prayerTimesBox;
   late Box<DhikrModel> _defaultTasbeehBox;
+  late Box<PrayerTimesModel> _prayerTimesBox;
   late Box<dynamic> _verseOfTheDayBox;
 
   Future<void> init() async {
     await Hive.initFlutter();
     Hive.registerAdapters();
-    _quranBox = await Hive.openBox<SurahModel>(HiveConfig.quranBox);
-    _azkarBox = await Hive.openBox<AzekrCategory>(HiveConfig.azkarBox);
-    _tasbeehBox = await Hive.openBox<DhikrModel>(HiveConfig.tasbeehBox);
-    _prayerTimesBox = await Hive.openBox<PrayerTimesModel>(
-      HiveConfig.prayerTimesBox,
-    );
-    _defaultTasbeehBox = await Hive.openBox<DhikrModel>(
-      HiveConfig.defaultTasbeehBox,
-    );
-    _verseOfTheDayBox = await Hive.openBox<dynamic>(
-      HiveConfig.verseOfTheDayBox,
-    );
+    _quranBox  = await Hive.openBox<SurahModel>(HiveConfig.quranBox);
+    _azkarBox   = await Hive.openBox<AzekrCategory>(HiveConfig.azkarBox);
+    _tasbeehBox    = await Hive.openBox<DhikrModel>(HiveConfig.tasbeehBox);
+    _defaultTasbeehBox = await Hive.openBox<DhikrModel>(HiveConfig.defaultTasbeehBox);
+    _prayerTimesBox   = await Hive.openBox<PrayerTimesModel>(HiveConfig.prayerTimesBox);
+    _verseOfTheDayBox = await Hive.openBox<dynamic>(HiveConfig.verseOfTheDayBox);
   }
+
+  // -----------------------------Quran-----------------------------------
 
   Future<void> saveSurahs(List<SurahModel> list) async {
     await _quranBox.clear();
     await _quranBox.addAll(list);
   }
 
+  List<SurahModel> loadSurahs() => _quranBox.values.toList();
+
+  //--------------------------------Azkar-----------------------------------
+
+
   Future<void> saveAzkar(AzekrCategory category) async {
     await _azkarBox.clear();
-    await _azkarBox.put('azkar_data', category);
+    await _azkarBox.put(HiveConfig.azkarKey, category);
   }
 
-  List<SurahModel> loadSurahs() {
-    return _quranBox.values.toList();
-  }
+  AzekrCategory? loadAzkar() => _azkarBox.get(HiveConfig.azkarKey);
 
-  AzekrCategory? loadAzkar() {
-    return _azkarBox.get('azkar_data');
-  }
-
-  bool get _isTasbeehBoxOpen {
-    try {
-      return Hive.isBoxOpen(HiveConfig.tasbeehBox);
-    } catch (_) {
-      return false;
-    }
-  }
-
-  bool get _isPrayerTimesBoxOpen {
-    try {
-      return Hive.isBoxOpen(HiveConfig.prayerTimesBox);
-    } catch (_) {
-      return false;
-    }
-  }
-
-  bool get _isDefaultTasbeehBoxOpen {
-    try {
-      return Hive.isBoxOpen(HiveConfig.defaultTasbeehBox);
-    } catch (_) {
-      return false;
-    }
-  }
+  // ----------------------Tasbeeh — custom dhikrs---------------------------
 
   Future<void> saveCustomDhikr(DhikrModel dhikr) async {
-    if (!_isTasbeehBoxOpen) return;
     await _tasbeehBox.put(dhikr.id, dhikr);
   }
 
-  List<DhikrModel> loadCustomDhikrs() {
-    if (!_isTasbeehBoxOpen) return [];
-    return _tasbeehBox.values.toList();
-  }
+  List<DhikrModel> loadCustomDhikrs() => _tasbeehBox.values.toList();
 
   Future<void> deleteCustomDhikr(String id) async {
-    if (!_isTasbeehBoxOpen) return;
     await _tasbeehBox.delete(id);
   }
 
-  Future<void> savePrayerTimes(PrayerTimesModel model) async {
-    if (!_isPrayerTimesBoxOpen) return;
-    await _prayerTimesBox.put('latest_prayer_times', model);
-  }
-
-  PrayerTimesModel? loadPrayerTimes() {
-    if (!_isPrayerTimesBoxOpen) return null;
-    return _prayerTimesBox.get('latest_prayer_times');
-  }
+  // ---------------------Tasbeeh — default dhikrs-----------------------------
 
   Future<void> saveDefaultDhikrs(List<DhikrModel> dhikrs) async {
-    if (!_isDefaultTasbeehBoxOpen) return;
     await _defaultTasbeehBox.clear();
     await _defaultTasbeehBox.addAll(dhikrs);
   }
 
-  List<DhikrModel> loadDefaultDhikrs() {
-    if (!_isDefaultTasbeehBoxOpen) return [];
-    return _defaultTasbeehBox.values.toList();
+  List<DhikrModel> loadDefaultDhikrs() => _defaultTasbeehBox.values.toList();
+
+  // ----------------------------- Prayer Times-----------------------------
+
+  Future<void> savePrayerTimes(PrayerTimesModel model) async {
+    await _prayerTimesBox.put(HiveConfig.prayerTimesKey, model);
   }
 
-  // ---------------------------------------------------------------------------
-  // Verse of the Day
-  // ---------------------------------------------------------------------------
+  PrayerTimesModel? loadPrayerTimes() =>
+      _prayerTimesBox.get(HiveConfig.prayerTimesKey);
 
-  /// Saves the verse of the day, replacing any previously stored entry so
-  /// that only one verse is ever stored at a time.
+  // -----------------------Verse of the Day------------------------------
+
   Future<void> saveVerseOfTheDay(Map<String, dynamic> data) async {
     await _verseOfTheDayBox.clear();
-    await _verseOfTheDayBox.put('verse', data);
+    await _verseOfTheDayBox.put(HiveConfig.verseOfTheDayKey, data);
   }
-
-  /// Returns the stored verse data, or null if nothing is saved yet.
   Map<String, dynamic>? loadVerseOfTheDay() {
-    final raw = _verseOfTheDayBox.get('verse');
+    final raw = _verseOfTheDayBox.get(HiveConfig.verseOfTheDayKey);
     if (raw == null) return null;
     return Map<String, dynamic>.from(raw as Map);
   }
 
+  // ----------------------------lear all---------------------------------
+
   Future<void> clear() async {
-    try {
-      if (Hive.isBoxOpen(HiveConfig.quranBox)) await _quranBox.clear();
-    } catch (_) {}
-    try {
-      if (Hive.isBoxOpen(HiveConfig.azkarBox)) await _azkarBox.clear();
-    } catch (_) {}
-    if (_isTasbeehBoxOpen) await _tasbeehBox.clear();
-    if (_isPrayerTimesBoxOpen) await _prayerTimesBox.clear();
-    if (_isDefaultTasbeehBoxOpen) await _defaultTasbeehBox.clear();
+    await _quranBox.clear();
+    await _azkarBox.clear();
+    await _tasbeehBox.clear();
+    await _defaultTasbeehBox.clear();
+    await _prayerTimesBox.clear();
   }
 }
