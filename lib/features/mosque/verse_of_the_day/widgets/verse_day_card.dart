@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../Quran/reading/utils/quran_navigation_helper.dart';
 import '../../../../core/widget/error/verse_card_error.dart';
 import '../../../../core/skeleton/mosque/widegets/verse_card_skeleton.dart';
 import '../../../../core/widget/share_widget/future_builder_share.dart';
