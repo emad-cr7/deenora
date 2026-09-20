@@ -21,6 +21,7 @@ class HiveManager {
   late Box<DhikrModel> _tasbeehBox;
   late Box<PrayerTimesModel> _prayerTimesBox;
   late Box<DhikrModel> _defaultTasbeehBox;
+  late Box<dynamic> _verseOfTheDayBox;
 
   Future<void> init() async {
     await Hive.initFlutter();
@@ -33,6 +34,9 @@ class HiveManager {
     );
     _defaultTasbeehBox = await Hive.openBox<DhikrModel>(
       HiveConfig.defaultTasbeehBox,
+    );
+    _verseOfTheDayBox = await Hive.openBox<dynamic>(
+      HiveConfig.verseOfTheDayBox,
     );
   }
 
@@ -118,26 +122,18 @@ class HiveManager {
   // Verse of the Day
   // ---------------------------------------------------------------------------
 
-  /// Saves the verse of the day. Replaces any previously saved verse so that
-  /// only one entry is ever stored.
+  /// Saves the verse of the day, replacing any previously stored entry so
+  /// that only one verse is ever stored at a time.
   Future<void> saveVerseOfTheDay(Map<String, dynamic> data) async {
-    final box = await Hive.openBox<dynamic>(HiveConfig.verseOfTheDayBox);
-    await box.clear();
-    await box.put('verse', data);
+    await _verseOfTheDayBox.clear();
+    await _verseOfTheDayBox.put('verse', data);
   }
 
-  /// Returns the previously saved verse data, or null if nothing is stored.
-  Future<Map<String, dynamic>?> loadVerseOfTheDay() async {
-    final box = await Hive.openBox<dynamic>(HiveConfig.verseOfTheDayBox);
-    final raw = box.get('verse');
+  /// Returns the stored verse data, or null if nothing is saved yet.
+  Map<String, dynamic>? loadVerseOfTheDay() {
+    final raw = _verseOfTheDayBox.get('verse');
     if (raw == null) return null;
     return Map<String, dynamic>.from(raw as Map);
-  }
-
-  /// Removes the saved verse of the day.
-  Future<void> clearVerseOfTheDay() async {
-    final box = await Hive.openBox<dynamic>(HiveConfig.verseOfTheDayBox);
-    await box.clear();
   }
 
   Future<void> clear() async {

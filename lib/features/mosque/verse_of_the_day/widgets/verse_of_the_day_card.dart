@@ -49,39 +49,30 @@ class VerseOfTheDayCard extends StatelessWidget {
     }
 
     return ChangeNotifierProvider<VerseOfTheDayController>(
-      create: (_) => VerseOfTheDayController()..loadVerseOfTheDay(),
+      create: (_) => VerseOfTheDayController()..init(),
       child: _buildConsumer(context),
     );
   }
 
   Widget _buildConsumer(BuildContext context) {
     return Consumer<VerseOfTheDayController>(
-      builder: (context, c, _) => _buildBody(context, c),
-    );
-  }
+      builder: (context, c, _) => FutureBuilder<VerseOfTheDayModel>(
+        future: c.verseOfTheDayFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const VerseCardSkeleton();
+          }
 
-  Widget _buildBody(BuildContext context, VerseOfTheDayController controller) {
-    if (controller.isLoading && controller.verse == null) {
-      return const VerseCardSkeleton();
-    }
+          if (snapshot.hasError || !snapshot.hasData) {
+            return VerseCardError(onRetry: c.retry);
+          }
 
-    if (controller.hasError && controller.verse == null) {
-      return VerseCardError(
-        onRetry: () {
-          controller.loadVerseOfTheDay(forceRefresh: true);
+          return VerseCardContent(
+            verse: snapshot.data!,
+            onTap: () => _handleTap(context, snapshot.data!),
+          );
         },
-      );
-    }
-
-    final verse = controller.verse;
-
-    if (verse == null) {
-      return const SizedBox.shrink();
-    }
-
-    return VerseCardContent(
-      verse: verse,
-      onTap: () => _handleTap(context, verse),
+      ),
     );
   }
 }
