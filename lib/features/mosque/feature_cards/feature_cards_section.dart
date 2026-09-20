@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 
 import '../../qibla/qibla_screen.dart';
-import '../../tasbeeh/tasbeeh_screen.dart';
+import '../../tasbeeh/screens/tasbeeh_selection_screen.dart';
 import 'feature_card.dart';
 
 /// The 2x2 grid section assembling the four Islamic feature cards:
@@ -50,10 +50,12 @@ class FeatureCardsSection extends StatelessWidget {
                   title: 'Tasbeeh',
                   description: 'Count your dhikr and get closer to Allah',
                   icon: FlutterIslamicIcons.solidTasbih,
-                  onTap: () {
+                  onTap: onTasbeehTap ?? () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const TasbeehScreen()),
+                      MaterialPageRoute(
+                        builder: (_) => const TasbeehSelectionScreen(),
+                      ),
                     );
                   },
                 ),

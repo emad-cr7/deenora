@@ -1,10 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../../core/data/local_data/hive_manager.dart';
 import '../../../../core/data/remote_data/tasbeeh/tasbeeh_service.dart';
 import '../../../../core/widget/error/error_screen.dart';
 import '../models/dhikr_model.dart';
-import '../models/tasbih_dataset_model.dart';
 
 /// Controller responsible for managing Tasbeeh state, API data fetching,
 /// active dhikr selection, and local counter logic.
@@ -19,10 +19,9 @@ class TasbeehController extends ChangeNotifier {
   bool _isLoading = false;
   String? _errorMessage;
   AppErrorType? _errorType;
-  TasbihDatasetModel? _dataset;
+  String _attribution = 'Tasbih.info (https://tasbih.info)';
   List<DhikrModel> _dhikrList = [];
   final List<DhikrModel> _customDhikrs = [];
-  final Map<String, int> _customGoals = {};
 
   // Local counter state
   int _selectedIndex = 0;
@@ -38,8 +37,7 @@ class TasbeehController extends ChangeNotifier {
 
   List<DhikrModel> get dhikrList => _dhikrList;
 
-  String get attribution =>
-      _dataset?.attribution ?? 'Tasbih.info (https://tasbih.info)';
+  String get attribution => _attribution;
 
   // Active Dhikr getters
   int get selectedIndex => _selectedIndex;
@@ -53,10 +51,7 @@ class TasbeehController extends ChangeNotifier {
   int get count => _count;
 
   /// Whether a given dhikr is a user-created custom dhikr.
-  bool isCustomDhikr(DhikrModel dhikr) =>
-      _customGoals.containsKey(dhikr.id) ||
-      dhikr.id.startsWith('custom_') ||
-      dhikr.customGoal != null;
+  bool isCustomDhikr(DhikrModel dhikr) => dhikr.isCustom;
 
   /// Returns the active target count.
   /// If [customTarget] was explicitly set by the user, returns that.
@@ -66,9 +61,6 @@ class TasbeehController extends ChangeNotifier {
   int? get targetCount {
     if (_customTarget != null) return _customTarget;
     final dhikr = currentDhikr;
-    if (dhikr != null && _customGoals.containsKey(dhikr.id)) {
-      return _customGoals[dhikr.id];
-    }
     if (dhikr != null && dhikr.customGoal != null) {
       return dhikr.customGoal;
     }
@@ -88,33 +80,36 @@ class TasbeehController extends ChangeNotifier {
     return (_count / target).clamp(0.0, 1.0);
   }
 
-  /// Loads saved custom dhikrs and cached default dhikrs from Hive into memory.
-  void loadSavedCustomDhikrs() {
-    _customDhikrs.clear();
-    _customGoals.clear();
-    final saved = _hiveManager.loadCustomDhikrs();
-    for (final dhikr in saved) {
-      _customDhikrs.add(dhikr);
-      if (dhikr.customGoal != null) {
-        _customGoals[dhikr.id] = dhikr.customGoal!;
-      }
-    }
-
-    final cachedDefaults = _hiveManager.loadDefaultDhikrs();
+  /// Merges user-created custom dhikrs with default/API dhikrs,
+  /// filtering out any default items that share the same name as custom dhikrs.
+  List<DhikrModel> _mergeAndDeduplicate(List<DhikrModel> defaults) {
     final customTexts = _customDhikrs
         .map((d) => d.name.trim().toLowerCase())
         .toSet();
-    final filteredDefaults = cachedDefaults.where((defaultDhikr) {
+    final filteredDefaults = defaults.where((defaultDhikr) {
       return !customTexts.contains(defaultDhikr.name.trim().toLowerCase());
     }).toList();
+    return [..._customDhikrs, ...filteredDefaults];
+  }
 
-    if (_customDhikrs.isNotEmpty || filteredDefaults.isNotEmpty) {
-      _dhikrList = [..._customDhikrs, ...filteredDefaults];
-      if (_selectedIndex >= _dhikrList.length) {
-        _selectedIndex = 0;
-      }
-      final dhikr = currentDhikr;
-      _customTarget = dhikr != null ? _customGoals[dhikr.id] : null;
+  /// Ensures current selection index remains valid and updates active custom target.
+  void _syncSelectionState() {
+    if (_selectedIndex >= _dhikrList.length) {
+      _selectedIndex = _dhikrList.isNotEmpty ? _dhikrList.length - 1 : 0;
+    }
+    final dhikr = currentDhikr;
+    _customTarget = dhikr?.customGoal;
+  }
+
+  /// Loads saved custom dhikrs and cached default dhikrs from Hive into memory.
+  void loadSavedCustomDhikrs() {
+    _customDhikrs.clear();
+    _customDhikrs.addAll(_hiveManager.loadCustomDhikrs());
+
+    final cachedDefaults = _hiveManager.loadDefaultDhikrs();
+    if (_customDhikrs.isNotEmpty || cachedDefaults.isNotEmpty) {
+      _dhikrList = _mergeAndDeduplicate(cachedDefaults);
+      _syncSelectionState();
     }
   }
 
@@ -134,60 +129,47 @@ class TasbeehController extends ChangeNotifier {
       final data = await _tasbeehService.getTasbihData(
         forceRefresh: forceRefresh,
       );
-      _dataset = data;
+      _attribution = data.attribution;
 
       // Save default dhikrs to Hive so they remain available offline
       await _hiveManager.saveDefaultDhikrs(data.dhikrList);
 
-      // Filter out any API dhikrs that have the same text or ID as user-created custom dhikrs to avoid duplicates
-      final customTexts = _customDhikrs
-          .map((d) => d.name.trim().toLowerCase())
-          .toSet();
-      final filteredApiList = data.dhikrList.where((apiDhikr) {
-        return !customTexts.contains(apiDhikr.name.trim().toLowerCase());
-      }).toList();
-
-      _dhikrList = [..._customDhikrs, ...filteredApiList];
+      _dhikrList = _mergeAndDeduplicate(data.dhikrList);
       _isLoading = false;
-
-      // Ensure index is valid
-      if (_selectedIndex >= _dhikrList.length) {
-        _selectedIndex = 0;
-      }
-      final dhikr = currentDhikr;
-      _customTarget = dhikr != null ? _customGoals[dhikr.id] : null;
+      _syncSelectionState();
       notifyListeners();
     } catch (e) {
       _isLoading = false;
 
       final cachedDefaults = _hiveManager.loadDefaultDhikrs();
-      final customTexts = _customDhikrs
-          .map((d) => d.name.trim().toLowerCase())
-          .toSet();
-      final filteredDefaults = cachedDefaults.where((defaultDhikr) {
-        return !customTexts.contains(defaultDhikr.name.trim().toLowerCase());
-      }).toList();
-
-      if (_customDhikrs.isNotEmpty || filteredDefaults.isNotEmpty) {
-        _dhikrList = [..._customDhikrs, ...filteredDefaults];
+      if (_customDhikrs.isNotEmpty || cachedDefaults.isNotEmpty) {
+        _dhikrList = _mergeAndDeduplicate(cachedDefaults);
         _errorMessage = null;
         _errorType = null;
-        if (_selectedIndex >= _dhikrList.length) {
-          _selectedIndex = 0;
-        }
-        final dhikr = currentDhikr;
-        _customTarget = dhikr != null ? _customGoals[dhikr.id] : null;
+        _syncSelectionState();
       } else {
         _errorMessage = e.toString();
-        final msg = e.toString().toLowerCase();
-        if (msg.contains('network') ||
-            msg.contains('socket') ||
-            msg.contains('connection error')) {
-          _errorType = AppErrorType.noInternet;
-        } else if (msg.contains('timeout')) {
-          _errorType = AppErrorType.timeout;
+        if (e is DioException) {
+          if (e.type == DioExceptionType.connectionTimeout ||
+              e.type == DioExceptionType.receiveTimeout ||
+              e.type == DioExceptionType.sendTimeout) {
+            _errorType = AppErrorType.timeout;
+          } else if (e.type == DioExceptionType.connectionError) {
+            _errorType = AppErrorType.noInternet;
+          } else {
+            _errorType = AppErrorType.serverError;
+          }
         } else {
-          _errorType = AppErrorType.serverError;
+          final msg = e.toString().toLowerCase();
+          if (msg.contains('network') ||
+              msg.contains('socket') ||
+              msg.contains('connection error')) {
+            _errorType = AppErrorType.noInternet;
+          } else if (msg.contains('timeout')) {
+            _errorType = AppErrorType.timeout;
+          } else {
+            _errorType = AppErrorType.serverError;
+          }
         }
       }
 
@@ -209,6 +191,12 @@ class TasbeehController extends ChangeNotifier {
   /// Resets the local count back to 0.
   void reset() {
     _count = 0;
+    notifyListeners();
+  }
+
+  /// Sets a user-defined custom target count (or null for open counting).
+  void setCustomTarget(int? target) {
+    _customTarget = target;
     notifyListeners();
   }
 
@@ -236,7 +224,6 @@ class TasbeehController extends ChangeNotifier {
         customGoal: count,
       );
 
-      _customGoals[existingDhikr.id] = count;
       _customDhikrs[existingIndex] = updatedDhikr;
       _hiveManager.saveCustomDhikr(updatedDhikr);
 
@@ -262,7 +249,6 @@ class TasbeehController extends ChangeNotifier {
       customGoal: count,
     );
 
-    _customGoals[customId] = count;
     _customDhikrs.insert(0, customDhikr);
     _dhikrList = [customDhikr, ..._dhikrList];
     _hiveManager.saveCustomDhikr(customDhikr);
@@ -274,13 +260,80 @@ class TasbeehController extends ChangeNotifier {
     return true;
   }
 
+  /// Updates an existing user-created custom Dhikr and persists to Hive.
+  bool editCustomDhikr({
+    required String id,
+    required String text,
+    required int count,
+  }) {
+    final trimmedText = text.trim();
+    if (trimmedText.isEmpty || count <= 0) {
+      return false;
+    }
+
+    final customIndex = _customDhikrs.indexWhere((d) => d.id == id);
+    if (customIndex == -1) return false;
+
+    final updatedDhikr = DhikrModel(
+      id: id,
+      name: trimmedText,
+      arabic: trimmedText,
+      narratedCount: null,
+      customGoal: count,
+    );
+
+    _customDhikrs[customIndex] = updatedDhikr;
+
+    final listIndex = _dhikrList.indexWhere((d) => d.id == id);
+    if (listIndex != -1) {
+      _dhikrList[listIndex] = updatedDhikr;
+    }
+
+    _hiveManager.saveCustomDhikr(updatedDhikr);
+
+    if (currentDhikr?.id == id) {
+      _customTarget = count;
+    }
+
+    notifyListeners();
+    return true;
+  }
+
+  /// Deletes a user-created custom Dhikr by ID from memory and Hive.
+  bool deleteCustomDhikr(String id) {
+    final customIndex = _customDhikrs.indexWhere((d) => d.id == id);
+    if (customIndex == -1) return false;
+
+    _customDhikrs.removeAt(customIndex);
+
+    final listIndex = _dhikrList.indexWhere((d) => d.id == id);
+    if (listIndex != -1) {
+      _dhikrList.removeAt(listIndex);
+    }
+
+    _hiveManager.deleteCustomDhikr(id);
+
+    if (_selectedIndex >= _dhikrList.length) {
+      _selectedIndex = _dhikrList.isNotEmpty ? _dhikrList.length - 1 : 0;
+      _count = 0;
+    } else if (listIndex == _selectedIndex) {
+      _count = 0;
+    }
+
+    final dhikr = currentDhikr;
+    _customTarget = dhikr?.customGoal;
+
+    notifyListeners();
+    return true;
+  }
+
   /// Selects a dhikr from the list by [index] and resets current count.
   void selectDhikr(int index) {
     if (index >= 0 && index < _dhikrList.length) {
       _selectedIndex = index;
       _count = 0;
       final dhikr = currentDhikr;
-      _customTarget = dhikr != null ? _customGoals[dhikr.id] : null;
+      _customTarget = dhikr?.customGoal;
       notifyListeners();
     }
   }

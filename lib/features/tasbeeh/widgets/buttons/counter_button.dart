@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:tactile/tactile.dart';
 
-import '../../../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class CounterButton extends StatelessWidget {
   final VoidCallback onTap;

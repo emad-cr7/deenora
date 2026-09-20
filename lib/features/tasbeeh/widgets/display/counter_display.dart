@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widget/share_widget/status_badge.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widget/share_widget/status_badge.dart';
 
 class CounterDisplay extends StatelessWidget {
   final int count;
@@ -29,23 +29,23 @@ class CounterDisplay extends StatelessWidget {
           duration: const Duration(milliseconds: 250),
           child: isCompleted
               ? StatusBadge(
-            key: const ValueKey('completed-badge'),
-            text: 'Target Reached · Masha\'Allah',
-            icon: Icons.check_circle_rounded,
-            backgroundColor: const Color(0xFFE8F5E9),
-            borderColor: Colors.green.shade600,
-            iconColor: Colors.green.shade700,
-            textColor: Colors.green.shade800,
-          )
+                  key: const ValueKey('completed-badge'),
+                  text: 'Target Reached · Masha\'Allah',
+                  icon: Icons.check_circle_rounded,
+                  backgroundColor: const Color(0xFFE8F5E9),
+                  borderColor: Colors.green.shade600,
+                  iconColor: Colors.green.shade700,
+                  textColor: Colors.green.shade800,
+                )
               : StatusBadge(
-            key: const ValueKey('pending-badge'),
-            text: 'Target Not Reached',
-            icon: Icons.flag_rounded,
-            backgroundColor: Colors.orange.shade50,
-            borderColor: Colors.orange.shade600,
-            iconColor: Colors.orange.shade700,
-            textColor: Colors.orange.shade800,
-          )
+                  key: const ValueKey('pending-badge'),
+                  text: 'Target Not Reached',
+                  icon: Icons.flag_rounded,
+                  backgroundColor: Colors.orange.shade50,
+                  borderColor: Colors.orange.shade600,
+                  iconColor: Colors.orange.shade700,
+                  textColor: Colors.orange.shade800,
+                ),
         ),
         const SizedBox(height: 8),
 

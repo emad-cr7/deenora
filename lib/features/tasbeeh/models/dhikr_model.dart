@@ -27,6 +27,8 @@ class DhikrModel {
     this.customGoal,
   });
 
+  bool get isCustom => id.startsWith('custom_') || customGoal != null;
+
   factory DhikrModel.fromJson(Map<String, dynamic> json) {
     return DhikrModel(
       id: (json['id'] ?? '').toString(),

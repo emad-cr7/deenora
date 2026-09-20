@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/app_colors.dart';
-import '../../../core/widget/share_widget/action_button.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widget/share_widget/action_button.dart';
 
 class TasbeehActionsBar extends StatelessWidget {
   final VoidCallback onReset;
@@ -99,4 +99,3 @@ class TasbeehActionsBar extends StatelessWidget {
     );
   }
 }
-

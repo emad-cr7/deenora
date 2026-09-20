@@ -126,6 +126,10 @@ final ThemeData lightTheme = ThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
   ),
   inputDecorationTheme: InputDecorationTheme(
+    contentPadding: const EdgeInsets.symmetric(
+      horizontal: 16,
+      vertical: 14,
+    ),
     hintStyle: const TextStyle(
       color: AppColors.textMuted,
       fontSize: AppSizes.sp15,
@@ -153,6 +157,30 @@ final ThemeData lightTheme = ThemeData(
       borderRadius: BorderRadius.circular(14),
       borderSide: const BorderSide(color: AppColors.borderSubtle, width: 1),
     ),
+  ),
+  popupMenuTheme: PopupMenuThemeData(
+    color: Colors.white,
+    surfaceTintColor: Colors.transparent,
+    elevation: 3,
+    shadowColor: Colors.black.withValues(alpha: 0.12),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+      side: const BorderSide(color: AppColors.borderSubtle, width: 1),
+    ),
+    menuPadding: const EdgeInsets.symmetric(vertical: 6),
+    position: PopupMenuPosition.under,
+    textStyle: const TextStyle(
+      fontSize: AppSizes.sp14,
+      fontWeight: FontWeight.w500,
+      color: AppColors.textDark,
+    ),
+    labelTextStyle: WidgetStateProperty.resolveWith((states) {
+      return const TextStyle(
+        fontSize: AppSizes.sp14,
+        fontWeight: FontWeight.w500,
+        color: AppColors.textDark,
+      );
+    }),
   ),
   iconTheme: const IconThemeData(color: AppColors.textDark),
   dividerTheme: const DividerThemeData(color: AppColors.borderSubtle),

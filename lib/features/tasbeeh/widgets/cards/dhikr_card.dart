@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../../core/theme/app_colors.dart';
-import '../models/dhikr_model.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../models/dhikr_model.dart';
 
 class DhikrCard extends StatelessWidget {
   final DhikrModel dhikr;

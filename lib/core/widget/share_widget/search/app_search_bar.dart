@@ -78,7 +78,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
       margin: widget.margin,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -96,13 +96,8 @@ class _AppSearchBarState extends State<AppSearchBar> {
         onChanged: widget.onChanged,
         onSubmitted: widget.onSubmitted,
         textInputAction: TextInputAction.search,
-        cursorColor: AppColors.primary,
-        style: Theme.of(context).textTheme.bodyLarge,
         decoration: InputDecoration(
           hintText: widget.hintText,
-          hintStyle: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
           prefixIcon: const Icon(
             Icons.search_rounded,
             color: AppColors.primary,
@@ -119,27 +114,6 @@ class _AppSearchBarState extends State<AppSearchBar> {
                   onPressed: _handleClear,
                 )
               : null,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 14,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide.none,
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: BorderSide(
-              color: Colors.grey.withValues(alpha: 0.15),
-              width: 1,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
-          ),
-          filled: true,
-          fillColor: Colors.white,
         ),
       ),
     );

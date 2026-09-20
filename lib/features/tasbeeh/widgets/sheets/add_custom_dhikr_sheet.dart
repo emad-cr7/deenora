@@ -1,21 +1,42 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class AddCustomDhikrSheet extends StatefulWidget {
   final void Function(String text, int count) onAdd;
+  final String? initialText;
+  final int? initialCount;
+  final String? title;
+  final String? buttonText;
 
-  const AddCustomDhikrSheet({super.key, required this.onAdd});
+  const AddCustomDhikrSheet({
+    super.key,
+    required this.onAdd,
+    this.initialText,
+    this.initialCount,
+    this.title,
+    this.buttonText,
+  });
 
   static Future<void> show({
     required BuildContext context,
     required void Function(String text, int count) onAdd,
+    String? initialText,
+    int? initialCount,
+    String? title,
+    String? buttonText,
   }) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => AddCustomDhikrSheet(onAdd: onAdd),
+      builder: (_) => AddCustomDhikrSheet(
+        onAdd: onAdd,
+        initialText: initialText,
+        initialCount: initialCount,
+        title: title,
+        buttonText: buttonText,
+      ),
     );
   }
 
@@ -24,12 +45,21 @@ class AddCustomDhikrSheet extends StatefulWidget {
 }
 
 class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
-  final _textController = TextEditingController();
-  final _countController = TextEditingController(text: '33');
+  late final TextEditingController _textController;
+  late final TextEditingController _countController;
   String? _textError;
   String? _countError;
 
   final List<int> _presetCounts = const [33, 100, 500, 1000];
+
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController(text: widget.initialText ?? '');
+    _countController = TextEditingController(
+      text: (widget.initialCount ?? 33).toString(),
+    );
+  }
 
   @override
   void dispose() {
@@ -98,7 +128,7 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      'Add Personal Dhikr',
+                      widget.title ?? 'Add Personal Dhikr',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: AppColors.deepForest,
                       ),
@@ -115,38 +145,7 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
               ],
             ),
 
-            // Important Distinction Disclaimer
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFFBEA),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: const Color(0xFFFFE58F)),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(
-                    Icons.info_outline_rounded,
-                    size: 16,
-                    color: Color(0xFFD48800),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'This is a custom personal dhikr. The repetition number is treated as your Personal Goal, not a religiously narrated Sunnah count.',
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        color: AppColors.darkGold,
-                        height: 1.35,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 10),
+            const SizedBox(height: 14),
 
             // Dhikr Text Input
             Text(
@@ -163,27 +162,6 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
               decoration: InputDecoration(
                 hintText: 'e.g. SubhanAllah or Rabbi Zidni Ilma',
                 errorText: _textError,
-                filled: true,
-                fillColor: AppColors.luminousIvory,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 12,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: AppColors.borderSubtle),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: AppColors.borderSubtle),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(
-                    color: AppColors.primary,
-                    width: 1.5,
-                  ),
-                ),
               ),
             ),
 
@@ -204,27 +182,6 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
               decoration: InputDecoration(
                 hintText: 'e.g. 33',
                 errorText: _countError,
-                filled: true,
-                fillColor: AppColors.luminousIvory,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 12,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: AppColors.borderSubtle),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: AppColors.borderSubtle),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(
-                    color: AppColors.primary,
-                    width: 1.5,
-                  ),
-                ),
               ),
             ),
 
@@ -255,45 +212,26 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
               }).toList(),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
 
-            // Action Buttons
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                    child: Text(
-                      'Cancel',
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: AppColors.textMuted,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+            // Full-width Add / Submit Action Button
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                    ),
-                    onPressed: _submit,
-                    child: Text(
-                      'Add Dhikr',
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
+                onPressed: _submit,
+                child: Text(
+                  widget.buttonText ?? 'Add Dhikr',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
                 ),
-              ],
+              ),
             ),
           ],
         ),

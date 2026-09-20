@@ -62,6 +62,7 @@ void main() {
         expect(controller.hasTarget, isFalse);
 
         // User sets custom target
+        controller.setCustomTarget(100);
         expect(controller.targetCount, 100);
         expect(controller.hasTarget, isTrue);
 
@@ -121,6 +122,7 @@ void main() {
         expect(controller.count, 40);
 
         // Now set a custom personal target of 42
+        controller.setCustomTarget(42);
         expect(controller.hasTarget, isTrue);
         expect(controller.targetCount, 42);
 
@@ -189,6 +191,35 @@ void main() {
         expect(controller.count, 10);
       },
     );
+
+    test('Custom Dhikr: editing and deleting', () async {
+      final controller = TasbeehController();
+      await controller.loadDhikr();
+
+      final added = controller.addCustomDhikr(
+        text: 'Initial Phrase',
+        count: 25,
+      );
+      expect(added, isTrue);
+      final customId = controller.currentDhikr!.id;
+      expect(controller.currentDhikr?.name, 'Initial Phrase');
+      expect(controller.targetCount, 25);
+
+      // Edit
+      final edited = controller.editCustomDhikr(
+        id: customId,
+        text: 'Edited Phrase',
+        count: 50,
+      );
+      expect(edited, isTrue);
+      expect(controller.currentDhikr?.name, 'Edited Phrase');
+      expect(controller.targetCount, 50);
+
+      // Delete
+      final deleted = controller.deleteCustomDhikr(customId);
+      expect(deleted, isTrue);
+      expect(controller.dhikrList.any((d) => d.id == customId), isFalse);
+    });
 
     test('Handles error states properly', () async {
       final controller = TasbeehController(

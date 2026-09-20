@@ -1,87 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/widget/error/error_screen.dart';
-import 'controllers/tasbeeh_controller.dart';
-import 'widgets/counter_button.dart';
-import 'widgets/counter_display.dart';
-import 'widgets/dhikr_card.dart';
-import 'widgets/dhikr_selector_sheet.dart';
-import 'widgets/tasbeeh_actions_bar.dart';
-import 'widgets/tasbeeh_skeleton.dart';
+
+import '../../../core/widget/error/error_screen.dart';
+import '../controllers/tasbeeh_controller.dart';
+import '../widgets/buttons/counter_button.dart';
+import '../widgets/buttons/tasbeeh_actions_bar.dart';
+import '../widgets/cards/dhikr_card.dart';
+import '../widgets/dialogs/confirm_dialog.dart';
+import '../widgets/display/counter_display.dart';
+import '../widgets/skeletons/tasbeeh_skeleton.dart';
+import 'tasbeeh_selection_screen.dart';
 
 class TasbeehScreen extends StatelessWidget {
-  final TasbeehController? controller;
-
-  const TasbeehScreen({super.key, this.controller});
+  const TasbeehScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    if (controller != null) {
-      return ChangeNotifierProvider<TasbeehController>.value(
-        value: controller!,
+    try {
+      Provider.of<TasbeehController>(context, listen: false);
+      return const _TasbeehScreenContent();
+    } catch (_) {
+      return ChangeNotifierProvider<TasbeehController>(
+        create: (_) => TasbeehController()..init(),
         child: const _TasbeehScreenContent(),
       );
     }
-    return ChangeNotifierProvider<TasbeehController>(
-      create: (_) => TasbeehController()..init(),
-      child: const _TasbeehScreenContent(),
-    );
   }
 }
 
 class _TasbeehScreenContent extends StatelessWidget {
   const _TasbeehScreenContent();
-
-  void _confirmReset(BuildContext context, TasbeehController controller) {
-    if (controller.count == 0) return;
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(
-          'Reset Counter?',
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(color: AppColors.deepForest),
-        ),
-        content: Text(
-          'Are you sure you want to reset the current count back to 0?',
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.textMuted),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: Text(
-              'Cancel',
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: AppColors.textMuted,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            onPressed: () {
-              controller.reset();
-              Navigator.pop(ctx);
-            },
-            child: Text(
-              'Reset',
-              style: Theme.of(
-                context,
-              ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,9 +72,7 @@ class _TasbeehScreenContent extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: ConstrainedBox(
                         constraints: BoxConstraints(
-                          minHeight:
-                              constraints.maxHeight -
-                              30, // 20 = الـ padding الرأسي (10 فوق + 10 تحت)
+                          minHeight: constraints.maxHeight - 30,
                         ),
                         child: IntrinsicHeight(
                           child: Column(
@@ -138,9 +84,7 @@ class _TasbeehScreenContent extends StatelessWidget {
                                 customTarget: currentDhikr.narratedCount == null
                                     ? controller.targetCount
                                     : null,
-                                isCustom: controller.isCustomDhikr(
-                                  currentDhikr,
-                                ),
+                                isCustom: currentDhikr.isCustom,
                               ),
 
                               const SizedBox(height: 10),
@@ -163,24 +107,34 @@ class _TasbeehScreenContent extends StatelessWidget {
                               const Spacer(),
 
                               TasbeehActionsBar(
-                                onReset: () =>
-                                    _confirmReset(context, controller),
+                                onReset: () => showDialog(
+                                  context: context,
+                                  builder: (_) => ConfirmDialog(
+                                    title: 'Reset Counter?',
+                                    content:
+                                        'Are you sure you want to reset the current count back to 0?',
+                                    confirmText: 'Reset',
+                                    onConfirm: controller.reset,
+                                  ),
+                                ),
                                 onPrevious: controller.previousDhikr,
                                 onNext: controller.nextDhikr,
                                 onSelectDhikr: () {
-                                  DhikrSelectorSheet.show(
-                                    context: context,
-                                    dhikrList: controller.dhikrList,
-                                    selectedIndex: controller.selectedIndex,
-                                    onSelect: controller.selectDhikr,
-                                    onAddCustom: (text, count) {
-                                      controller.addCustomDhikr(
-                                        text: text,
-                                        count: count,
-                                      );
-                                    },
-                                    attribution: controller.attribution,
-                                  );
+                                  if (Navigator.canPop(context)) {
+                                    Navigator.pop(context);
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) =>
+                                            ChangeNotifierProvider.value(
+                                              value: controller,
+                                              child:
+                                                  const TasbeehSelectionScreen(),
+                                            ),
+                                      ),
+                                    );
+                                  }
                                 },
                               ),
                             ],

@@ -83,7 +83,6 @@ class _FakeTasbeehService extends TasbeehService {
   @override
   Future<TasbihDatasetModel> getTasbihData({bool forceRefresh = false}) async {
     return TasbihDatasetModel(
-
       attribution: 'Tasbih.info (https://tasbih.info)',
 
       dhikrList: apiItems,
@@ -361,8 +360,6 @@ void main() {
       );
       controller2.init();
       await Future.delayed(const Duration(milliseconds: 50));
-
-
 
       // Combined list contains custom dhikr + API dhikr
       expect(controller2.dhikrList.length, 2);
