@@ -135,13 +135,6 @@ class _AddCustomDhikrSheetState extends State<AddCustomDhikrSheet> {
                     ),
                   ],
                 ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.close_rounded,
-                    color: AppColors.textMuted,
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                ),
               ],
             ),
 

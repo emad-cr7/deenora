@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'core/init_main/init_audio_service.dart';
 import 'core/theme/light_theme.dart';
-import 'main/main_screen.dart';
+import 'features/main/main_screen.dart';
 import 'core/data/local_data/hive_manager.dart';
 import 'package:provider/provider.dart';
 import 'features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';

@@ -7,6 +7,7 @@ import 'package:deenora/core/widget/error/error_screen.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
 import 'package:deenora/features/Quran/reading/models/ayah_model.dart';
 import 'package:deenora/features/Quran/reading/models/surah_model.dart';
+import 'package:deenora/features/main/main_screen.dart';
 import 'package:deenora/features/mosque/feature_cards/feature_cards_section.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/controllers/verse_of_the_day_controller.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/models/verse_of_the_day_model.dart';
@@ -22,7 +23,6 @@ import 'package:deenora/features/widget_prayer_times/models/prayer_meta_model.da
 import 'package:deenora/features/widget_prayer_times/models/prayer_times_model.dart';
 import 'package:deenora/features/widget_prayer_times/models/prayer_type.dart';
 import 'package:deenora/features/widget_prayer_times/widgets/prayer_progress_card.dart';
-import 'package:deenora/main/main_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -1,13 +1,15 @@
 import 'package:deenora/features/Profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
-import '../features/Azkar/azkar_screen.dart';
-import '../features/Quran/switch/switch_screen.dart';
-import '../features/Quran/Listening/widgets/mini_player/mini_player.dart';
-import '../features/mosque/mosque_screen.dart';
+
+import '../Azkar/azkar_screen.dart';
+import '../Quran/Listening/widgets/mini_player/mini_player.dart';
+import '../Quran/switch/switch_screen.dart';
+import '../mosque/mosque_screen.dart';
 
 class MainScreen extends StatefulWidget {
   final List<Widget>? pages;
+
   const MainScreen({super.key, this.pages});
 
   @override

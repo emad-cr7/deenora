@@ -16,139 +16,121 @@ class TasbeehScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    try {
-      Provider.of<TasbeehController>(context, listen: false);
-      return const _TasbeehScreenContent();
-    } catch (_) {
-      return ChangeNotifierProvider<TasbeehController>(
-        create: (_) => TasbeehController()..init(),
-        child: const _TasbeehScreenContent(),
-      );
-    }
-  }
-}
+    return ChangeNotifierProvider<TasbeehController>(
+      create: (_) => TasbeehController()..init(),
+      child: Consumer<TasbeehController>(
+        builder: (context, controller, _) {
+          final currentDhikr = controller.currentDhikr;
+          return Scaffold(
+            appBar: AppBar(title: const Text('Tasbeeh')),
+            body: SafeArea(
+              child: Builder(
+                builder: (context) {
+                  if (controller.isLoading && currentDhikr == null) {
+                    return const TasbeehSkeleton();
+                  }
 
-class _TasbeehScreenContent extends StatelessWidget {
-  const _TasbeehScreenContent();
+                  if (controller.hasError && currentDhikr == null) {
+                    return AppErrorScreen(
+                      type: controller.errorType,
+                      onRetry: () => controller.loadDhikr(),
+                    );
+                  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<TasbeehController>(
-      builder: (context, controller, _) {
-        final currentDhikr = controller.currentDhikr;
-
-        return Scaffold(
-          appBar: AppBar(title: const Text('Tasbeeh')),
-          body: SafeArea(
-            child: Builder(
-              builder: (context) {
-                // 1. Initial Loading State
-                if (controller.isLoading && currentDhikr == null) {
-                  return const TasbeehSkeleton();
-                }
-
-                // 2. Error State (No data loaded and error occurred)
-                if (controller.hasError && currentDhikr == null) {
-                  return AppErrorScreen(
-                    type: controller.errorType,
-                    onRetry: () => controller.loadDhikr(),
-                  );
-                }
-
-                if (currentDhikr == null) {
-                  return Center(
-                    child: Text(
-                      'No dhikr data available.',
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  );
-                }
-
-                // 3. Loaded State
-                return LayoutBuilder(
-                  builder: (context, constraints) {
-                    return SingleChildScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          minHeight: constraints.maxHeight - 30,
-                        ),
-                        child: IntrinsicHeight(
-                          child: Column(
-                            children: [
-                              DhikrCard(
-                                dhikr: currentDhikr,
-                                currentIndex: controller.selectedIndex,
-                                totalCount: controller.dhikrList.length,
-                                customTarget: currentDhikr.narratedCount == null
-                                    ? controller.targetCount
-                                    : null,
-                                isCustom: currentDhikr.isCustom,
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              CounterDisplay(
-                                count: controller.count,
-                                targetCount: controller.targetCount,
-                                hasTarget: controller.hasTarget,
-                                isCompleted: controller.isCompleted,
-                                progress: controller.progress,
-                              ),
-
-                              const SizedBox(height: 50),
-
-                              CounterButton(
-                                onTap: controller.increment,
-                                isCompleted: controller.isCompleted,
-                              ),
-
-                              const Spacer(),
-
-                              TasbeehActionsBar(
-                                onReset: () => showDialog(
-                                  context: context,
-                                  builder: (_) => ConfirmDialog(
-                                    title: 'Reset Counter?',
-                                    content:
-                                        'Are you sure you want to reset the current count back to 0?',
-                                    confirmText: 'Reset',
-                                    onConfirm: controller.reset,
-                                  ),
-                                ),
-                                onPrevious: controller.previousDhikr,
-                                onNext: controller.nextDhikr,
-                                onSelectDhikr: () {
-                                  if (Navigator.canPop(context)) {
-                                    Navigator.pop(context);
-                                  } else {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) =>
-                                            ChangeNotifierProvider.value(
-                                              value: controller,
-                                              child:
-                                                  const TasbeehSelectionScreen(),
-                                            ),
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
+                  if (currentDhikr == null) {
+                    return Center(
+                      child: Text(
+                        'No dhikr data available.',
+                        style: Theme.of(context).textTheme.labelMedium,
                       ),
                     );
-                  },
-                );
-              },
+                  }
+                  return LayoutBuilder(
+                    builder: (context, constraints) {
+                      return SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: constraints.maxHeight - 30,
+                          ),
+                          child: IntrinsicHeight(
+                            child: Column(
+                              children: [
+                                DhikrCard(
+                                  dhikr: currentDhikr,
+                                  currentIndex: controller.selectedIndex,
+                                  totalCount: controller.dhikrList.length,
+                                  customTarget:
+                                      currentDhikr.narratedCount == null
+                                      ? controller.targetCount
+                                      : null,
+                                  isCustom: currentDhikr.isCustom,
+                                ),
+
+                                const SizedBox(height: 10),
+
+                                CounterDisplay(
+                                  count: controller.count,
+                                  targetCount: controller.targetCount,
+                                  hasTarget: controller.hasTarget,
+                                  isCompleted: controller.isCompleted,
+                                  progress: controller.progress,
+                                ),
+
+                                const SizedBox(height: 50),
+
+                                CounterButton(
+                                  onTap: controller.increment,
+                                  isCompleted: controller.isCompleted,
+                                ),
+
+                                const Spacer(),
+
+                                TasbeehActionsBar(
+                                  onReset: () => showDialog(
+                                    context: context,
+                                    builder: (_) => ConfirmDialog(
+                                      title: 'Reset Counter?',
+                                      content:
+                                          'Are you sure you want to reset the current count back to 0?',
+                                      confirmText: 'Reset',
+                                      onConfirm: controller.reset,
+                                    ),
+                                  ),
+                                  onPrevious: controller.previousDhikr,
+                                  onNext: controller.nextDhikr,
+                                  onSelectDhikr: () {
+                                    if (Navigator.canPop(context)) {
+                                      Navigator.pop(context);
+                                    } else {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) =>
+                                              ChangeNotifierProvider.value(
+                                                value: controller,
+                                                child:
+                                                    const TasbeehSelectionScreen(),
+                                              ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
