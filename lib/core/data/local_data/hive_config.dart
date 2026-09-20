@@ -4,4 +4,5 @@ class HiveConfig {
   static const String tasbeehBox = 'tasbeehBox';
   static const String prayerTimesBox = 'prayerTimesBox';
   static const String defaultTasbeehBox = 'defaultTasbeehBox';
+  static const String verseOfTheDayBox = 'verseOfTheDayBox';
 }
