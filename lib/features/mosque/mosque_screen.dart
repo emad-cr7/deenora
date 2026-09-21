@@ -9,18 +9,18 @@ import 'verse_of_the_day/widgets/verse_day_card.dart';
 import 'widgets/mosque_prayer_section.dart';
 
 class MosqueScreen extends StatelessWidget {
-  const MosqueScreen({super.key});
+  const MosqueScreen({
+    super.key,
+    required PrayerTimesController controller,
+    required VerseDayController verseDayController,
+  });
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => PrayerTimesController()..init(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => VerseDayController()..init(),
-        ),
+        ChangeNotifierProvider(create: (_) => PrayerTimesController()..init()),
+        ChangeNotifierProvider(create: (_) => VerseDayController()..init()),
       ],
       child: const _MosqueScreenContent(),
     );
@@ -33,11 +33,10 @@ class _MosqueScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mosque'),
-      ),
+      appBar: AppBar(title: const Text('Mosque')),
       body: RefreshIndicator(
-        onRefresh: () => context.read<PrayerTimesController>().loadPrayerTimes(),
+        onRefresh: () =>
+            context.read<PrayerTimesController>().loadPrayerTimes(),
         child: ListView(
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(vertical: 5),
