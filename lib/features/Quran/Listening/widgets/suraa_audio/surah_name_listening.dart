@@ -122,6 +122,13 @@ class SurahNameListening extends StatelessWidget {
         ),
         body: Consumer<QuranController>(
           builder: (context, controller, _) {
+            if (controller.hasAudioError) {
+              return AppErrorScreen(
+                type: AppErrorType.serverError,
+                onRetry: () => controller.initSurah(reciterId: reciter.id),
+              );
+            }
+
             return FutureBuilderShare<List<SurahModel>>(
               future: controller.futureQuran,
               loading: const QuranSkeletonScreen(),
@@ -142,11 +149,12 @@ class SurahNameListening extends StatelessWidget {
                     return SurahListItemCard(
                       surah: surah,
                       onTap: () async {
+                        if (controller.loadingSurahNumber != null) return;
                         final audioUrl = await controller.getAudioUrl(
                           surah.number,
                         );
                         if (audioUrl == null) {
-                          if (context.mounted) {
+                          if (!controller.hasAudioError && context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('التلاوة دي مش متاحة للشيخ ده'),

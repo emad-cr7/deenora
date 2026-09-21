@@ -14,6 +14,9 @@ class QuranController extends ChangeNotifier {
 
   Future<Map<int, String>>? futureReciterAudio;
 
+  int? loadingSurahNumber;
+  bool hasAudioError = false;
+
   void initSurahQuran() {
     futureQuran = _repository.getSurahs();
     notifyListeners();
@@ -26,6 +29,7 @@ class QuranController extends ChangeNotifier {
     if (reciterId != null) {
       futureReciterAudio = _loadReciterAudio(reciterId);
     }
+    hasAudioError = false;
     notifyListeners();
   }
 
@@ -34,7 +38,20 @@ class QuranController extends ChangeNotifier {
   }
 
   Future<String?> getAudioUrl(int surahNumber) async {
-    final map = await futureReciterAudio;
-    return map?[surahNumber];
+    if (loadingSurahNumber != null) return null;
+    loadingSurahNumber = surahNumber;
+    hasAudioError = false;
+    notifyListeners();
+
+    try {
+      final map = await futureReciterAudio;
+      return map?[surahNumber];
+    } catch (_) {
+      hasAudioError = true;
+      return null;
+    } finally {
+      loadingSurahNumber = null;
+      notifyListeners();
+    }
   }
 }
