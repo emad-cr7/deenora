@@ -3,7 +3,6 @@ import 'package:deenora/core/data/local_data/hive_config.dart';
 import 'package:deenora/core/data/local_data/hive_manager.dart';
 import 'package:deenora/core/data/remote_data/prayer_times/prayer_times_service.dart';
 import 'package:deenora/core/data/remote_data/tasbeeh/tasbeeh_service.dart';
-import 'package:deenora/core/data/remote_data/verse_day/verse_day_service.dart';
 import 'package:deenora/core/services/location_service.dart';
 import 'package:deenora/core/widget/error/error_screen.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
@@ -137,6 +136,28 @@ class _FakeStaticVerseService extends VerseDayService {
     required String savedDate,
   }) async {
     return model;
+  }
+}
+
+class _FakeVerseDayController extends VerseDayController {
+  final VerseDayModel model;
+
+  _FakeVerseDayController(this.model) {
+    init();
+  }
+
+  @override
+  void init() {
+    isLoading = false;
+    error = null;
+    verse = model;
+    verseOfTheDayFuture = Future.value(model);
+  }
+
+  @override
+  void retry() {
+    init();
+    notifyListeners();
   }
 }
 
@@ -385,9 +406,7 @@ void main() {
         expect(controller.hasError, isTrue);
         expect(controller.prayerTimes, isNull);
 
-        final sampleVerse = _createSampleVerseModel();
-        await hiveManager.saveVerseOfTheDay(sampleVerse.toStoredMap());
-        final verseController = VerseDayController()..init();
+        final verseController = _FakeVerseDayController(_createSampleVerseModel());
 
         await tester.pumpWidget(
           MaterialApp(
@@ -454,16 +473,7 @@ void main() {
         });
         expect(controller.prayerTimes, isNotNull);
 
-        final sampleVerse = _createSampleVerseModel();
-        await tester.runAsync(() async {
-          await hiveManager.saveVerseOfTheDay(sampleVerse.toStoredMap());
-        });
-
-        final verseController = VerseDayController();
-        await tester.runAsync(() async {
-          verseController.init();
-          await verseController.verseOfTheDayFuture;
-        });
+        final verseController = _FakeVerseDayController(_createSampleVerseModel());
 
         await tester.pumpWidget(
           MaterialApp(
@@ -530,8 +540,8 @@ void main() {
             final controller = VerseDayController();
             controller.init();
 
-            expect(
-              () async => await controller.verseOfTheDayFuture,
+            await expectLater(
+              () => controller.verseOfTheDayFuture,
               throwsA(isA<Exception>()),
             );
             controller.dispose();
