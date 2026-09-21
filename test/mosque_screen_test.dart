@@ -162,7 +162,10 @@ void main() {
         prayerTimesService: fakePrayerService,
         hiveManager: hiveManager,
       );
-      await controller.loadPrayerTimes();
+
+      await tester.runAsync(() async {
+        await controller.loadPrayerTimes();
+      });
 
       final verseController = _FakeVerseDayController(_createSampleVerseModel());
       verseController.init();
@@ -185,18 +188,21 @@ void main() {
 
       // Trigger onRefresh
       final refreshIndicator = tester.widget<RefreshIndicator>(find.byType(RefreshIndicator));
-      await refreshIndicator.onRefresh();
+      await tester.runAsync(() async {
+        await refreshIndicator.onRefresh();
+      });
       await tester.pump();
 
       expect(fakePrayerService.callCount, initialCount + 1);
 
+      await tester.pumpWidget(const SizedBox());
       controller.dispose();
       verseController.dispose();
     },
   );
 
   testWidgets(
-    'MosqueScreen refreshes prayer times without throwing ProviderNotFoundException when using internal providers',
+    'MosqueScreen refreshes prayer times without throwing ProviderNotFoundException when using constructor controller',
     (tester) async {
       final fakePrayerService = _FakePrayerTimesService(_createSamplePrayerModel());
       final controller = PrayerTimesController(
@@ -204,7 +210,10 @@ void main() {
         prayerTimesService: fakePrayerService,
         hiveManager: hiveManager,
       );
-      await controller.loadPrayerTimes();
+
+      await tester.runAsync(() async {
+        await controller.loadPrayerTimes();
+      });
 
       final verseController = _FakeVerseDayController(_createSampleVerseModel());
       verseController.init();
@@ -224,11 +233,14 @@ void main() {
 
       // Trigger onRefresh via RefreshIndicator widget callback directly
       final refreshIndicator = tester.widget<RefreshIndicator>(find.byType(RefreshIndicator));
-      await refreshIndicator.onRefresh();
+      await tester.runAsync(() async {
+        await refreshIndicator.onRefresh();
+      });
       await tester.pump();
 
       expect(fakePrayerService.callCount, initialCount + 1);
 
+      await tester.pumpWidget(const SizedBox());
       controller.dispose();
       verseController.dispose();
     },
