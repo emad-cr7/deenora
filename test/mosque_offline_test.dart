@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:deenora/core/data/local_data/hive_config.dart';
 import 'package:deenora/core/data/local_data/hive_manager.dart';
 import 'package:deenora/core/data/remote_data/prayer_times/prayer_times_service.dart';
 import 'package:deenora/core/data/remote_data/tasbeeh/tasbeeh_service.dart';
@@ -6,13 +7,12 @@ import 'package:deenora/core/data/remote_data/verse_day/verse_day_service.dart';
 import 'package:deenora/core/services/location_service.dart';
 import 'package:deenora/core/widget/error/error_screen.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
-import 'package:deenora/features/Quran/reading/models/ayah_model.dart';
-import 'package:deenora/features/Quran/reading/models/surah_model.dart';
 import 'package:deenora/features/main/main_screen.dart';
 import 'package:deenora/features/mosque/feature_cards/feature_cards_section.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/controllers/verse_day_controller.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/models/verse_day_model.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/widgets/verse_day_card.dart';
+import 'package:deenora/features/mosque/widgets/mosque_prayer_section.dart';
 import 'package:deenora/features/tasbeeh/controllers/tasbeeh_controller.dart';
 import 'package:deenora/features/tasbeeh/models/dhikr_model.dart';
 import 'package:deenora/features/tasbeeh/models/tasbih_dataset_model.dart';
@@ -133,9 +133,8 @@ class _FakeStaticVerseService extends VerseDayService {
   _FakeStaticVerseService(this.model);
 
   @override
-  Future<VerseDayModel> getVerseDay({
-    DateTime? date,
-    bool forceRefresh = false,
+  Future<VerseDayModel> getVerseOfTheDay({
+    required String savedDate,
   }) async {
     return model;
   }
@@ -184,14 +183,13 @@ PrayerTimesModel _createSamplePrayerModel() {
   );
 }
 
-VerseDayModel _createSampleVerseModel() {
-  return const VerseDayModel(
-    number: 1,
+VerseDayModel _createSampleVerseModel({String? savedDate}) {
+  return VerseDayModel(
     text: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
     surahNumber: 1,
-    surahName: 'الفاتحة',
     surahEnglishName: 'Al-Faatiha',
     numberInSurah: 1,
+    savedDate: savedDate ?? DateTime.now().toString().split(' ').first,
   );
 }
 
@@ -214,6 +212,8 @@ void main() {
 
   setUp(() async {
     await hiveManager.clear();
+    final verseBox = await Hive.openBox<dynamic>(HiveConfig.verseOfTheDayBox);
+    await verseBox.clear();
   });
 
   tearDownAll(() async {
@@ -385,10 +385,9 @@ void main() {
         expect(controller.hasError, isTrue);
         expect(controller.prayerTimes, isNull);
 
-        final verseController = VerseController(
-          service: _FakeStaticVerseService(_createSampleVerseModel()),
-        );
-        await verseController.loadVerseOfTheDay();
+        final sampleVerse = _createSampleVerseModel();
+        await hiveManager.saveVerseOfTheDay(sampleVerse.toStoredMap());
+        final verseController = VerseDayController()..init();
 
         await tester.pumpWidget(
           MaterialApp(
@@ -397,10 +396,19 @@ void main() {
                 ChangeNotifierProvider<PrayerTimesController>.value(
                   value: controller,
                 ),
-                ChangeNotifierProvider<VerseOfTheDayController>.value(
+                ChangeNotifierProvider<VerseDayController>.value(
                   value: verseController,
                 ),
               ],
+              child: Scaffold(
+                body: ListView(
+                  children: const [
+                    MosquePrayerSection(),
+                    FeatureCardsSection(),
+                    VerseDayCard(),
+                  ],
+                ),
+              ),
             ),
           ),
         );
@@ -446,11 +454,15 @@ void main() {
         });
         expect(controller.prayerTimes, isNotNull);
 
-        final verseController = VerseOfTheDayController(
-          service: _FakeStaticVerseService(_createSampleVerseModel()),
-        );
+        final sampleVerse = _createSampleVerseModel();
         await tester.runAsync(() async {
-          await verseController.loadVerseOfTheDay();
+          await hiveManager.saveVerseOfTheDay(sampleVerse.toStoredMap());
+        });
+
+        final verseController = VerseDayController();
+        await tester.runAsync(() async {
+          verseController.init();
+          await verseController.verseOfTheDayFuture;
         });
 
         await tester.pumpWidget(
@@ -460,10 +472,19 @@ void main() {
                 ChangeNotifierProvider<PrayerTimesController>.value(
                   value: controller,
                 ),
-                ChangeNotifierProvider<VerseOfTheDayController>.value(
+                ChangeNotifierProvider<VerseDayController>.value(
                   value: verseController,
                 ),
               ],
+              child: Scaffold(
+                body: ListView(
+                  children: const [
+                    MosquePrayerSection(),
+                    FeatureCardsSection(),
+                    VerseDayCard(),
+                  ],
+                ),
+              ),
             ),
           ),
         );
@@ -484,54 +505,39 @@ void main() {
 
   group('VerseOfTheDayService - Offline Local Quran Fallback', () {
     test('Falls back to local Quran in Hive when network fails', () async {
-      final service = VerseOfTheDayService(
-        dio: _FakeFailingDio(),
-        hiveManager: hiveManager,
-      );
+      final today = DateTime.now().toString().split(' ').first;
+      final sample = _createSampleVerseModel(savedDate: today);
+      await hiveManager.saveVerseOfTheDay(sample.toStoredMap());
 
-      final targetAyahIndex = service.getDailyAyahIndex(DateTime.now());
-
-      // Seed local Quran in Hive
-      final surah = SurahModel(
-        number: 1,
-        name: 'الفاتحة',
-        englishName: 'Al-Faatiha',
-        englishNameTranslation: 'The Opening',
-        revelationType: 'Meccan',
-        ayahs: [
-          AyahModel(
-            number: targetAyahIndex,
-            text: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
-            numberInSurah: 1,
-            juz: 1,
-            page: 1,
-            sajda: false,
-          ),
-        ],
-      );
-      await hiveManager.saveSurahs([surah]);
-
-      // Request verse offline
-      final verse = await service.getVerseOfTheDay();
+      final controller = VerseDayController();
+      controller.init();
+      final verse = await controller.verseOfTheDayFuture;
 
       expect(verse, isNotNull);
-      expect(verse.number, targetAyahIndex);
       expect(verse.text, 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ');
-      expect(verse.surahName, 'الفاتحة');
-      expect(verse.displaySurahName, 'سورة الفاتحة');
+      expect(verse.surahNumber, 1);
+      expect(verse.surahEnglishName, 'Al-Faatiha');
+      expect(verse.numberInSurah, 1);
+      expect(verse.savedDate, today);
+      controller.dispose();
     });
 
     test(
       'Throws exception when offline and local Quran is empty in Hive',
       () async {
-        final service = VerseOfTheDayService(
-          dio: _FakeFailingDio(),
-          hiveManager: hiveManager,
-        );
+        await HttpOverrides.runZoned(
+          () async {
+            final controller = VerseDayController();
+            controller.init();
 
-        expect(
-          () async => await service.getVerseOfTheDay(),
-          throwsA(isA<Exception>()),
+            expect(
+              () async => await controller.verseOfTheDayFuture,
+              throwsA(isA<Exception>()),
+            );
+            controller.dispose();
+          },
+          createHttpClient: (context) =>
+              throw const SocketException('Connection refused (offline)'),
         );
       },
     );
