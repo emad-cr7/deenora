@@ -21,6 +21,7 @@ import 'package:provider/provider.dart';
 class _FakePrayerTimesService extends PrayerTimesService {
   final PrayerTimesModel model;
   int callCount = 0;
+
   _FakePrayerTimesService(this.model);
 
   @override
@@ -46,6 +47,7 @@ class _FakeLocationService extends LocationService {
 
 class _FakeVerseDayController extends VerseDayController {
   final VerseDayModel sampleModel;
+
   _FakeVerseDayController(this.sampleModel);
 
   @override
@@ -156,7 +158,9 @@ void main() {
   testWidgets(
     'MosqueScreen refreshes prayer times without throwing ProviderNotFoundException when provided above',
     (tester) async {
-      final fakePrayerService = _FakePrayerTimesService(_createSamplePrayerModel());
+      final fakePrayerService = _FakePrayerTimesService(
+        _createSamplePrayerModel(),
+      );
       final controller = PrayerTimesController(
         locationService: _FakeLocationService(),
         prayerTimesService: fakePrayerService,
@@ -167,15 +171,21 @@ void main() {
         await controller.loadPrayerTimes();
       });
 
-      final verseController = _FakeVerseDayController(_createSampleVerseModel());
+      final verseController = _FakeVerseDayController(
+        _createSampleVerseModel(),
+      );
       verseController.init();
 
       await tester.pumpWidget(
         MaterialApp(
           home: MultiProvider(
             providers: [
-              ChangeNotifierProvider<PrayerTimesController>.value(value: controller),
-              ChangeNotifierProvider<VerseDayController>.value(value: verseController),
+              ChangeNotifierProvider<PrayerTimesController>.value(
+                value: controller,
+              ),
+              ChangeNotifierProvider<VerseDayController>.value(
+                value: verseController,
+              ),
             ],
             child: const MosqueScreen(),
           ),
@@ -187,7 +197,9 @@ void main() {
       final initialCount = fakePrayerService.callCount;
 
       // Trigger onRefresh
-      final refreshIndicator = tester.widget<RefreshIndicator>(find.byType(RefreshIndicator));
+      final refreshIndicator = tester.widget<RefreshIndicator>(
+        find.byType(RefreshIndicator),
+      );
       await tester.runAsync(() async {
         await refreshIndicator.onRefresh();
       });
@@ -204,7 +216,9 @@ void main() {
   testWidgets(
     'MosqueScreen refreshes prayer times without throwing ProviderNotFoundException when using constructor controller',
     (tester) async {
-      final fakePrayerService = _FakePrayerTimesService(_createSamplePrayerModel());
+      final fakePrayerService = _FakePrayerTimesService(
+        _createSamplePrayerModel(),
+      );
       final controller = PrayerTimesController(
         locationService: _FakeLocationService(),
         prayerTimesService: fakePrayerService,
@@ -215,24 +229,21 @@ void main() {
         await controller.loadPrayerTimes();
       });
 
-      final verseController = _FakeVerseDayController(_createSampleVerseModel());
+      final verseController = _FakeVerseDayController(
+        _createSampleVerseModel(),
+      );
       verseController.init();
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: MosqueScreen(
-            controller: controller,
-            verseDayController: verseController,
-          ),
-        ),
-      );
+      await tester.pumpWidget(MaterialApp(home: MosqueScreen()));
       await tester.pump();
 
       expect(find.byType(RefreshIndicator), findsOneWidget);
       final initialCount = fakePrayerService.callCount;
 
       // Trigger onRefresh via RefreshIndicator widget callback directly
-      final refreshIndicator = tester.widget<RefreshIndicator>(find.byType(RefreshIndicator));
+      final refreshIndicator = tester.widget<RefreshIndicator>(
+        find.byType(RefreshIndicator),
+      );
       await tester.runAsync(() async {
         await refreshIndicator.onRefresh();
       });

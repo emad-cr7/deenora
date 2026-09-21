@@ -9,11 +9,7 @@ import 'verse_of_the_day/widgets/verse_day_card.dart';
 import 'widgets/mosque_prayer_section.dart';
 
 class MosqueScreen extends StatelessWidget {
-  const MosqueScreen({
-    super.key,
-    required PrayerTimesController controller,
-    required VerseDayController verseDayController,
-  });
+  const MosqueScreen({super.key,});
 
   @override
   Widget build(BuildContext context) {
