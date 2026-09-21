@@ -6,7 +6,7 @@ import '../../../Quran/reading/utils/quran_navigation_helper.dart';
 import '../models/verse_day_model.dart';
 
 class VerseDayController extends ChangeNotifier {
-  final VerseOfTheDayService _service = VerseOfTheDayService();
+  final VerseDayService _service = VerseDayService();
   final HiveManager _hiveManager = HiveManager();
 
   late Future<VerseDayModel> verseOfTheDayFuture;

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:deenora/core/data/local_data/hive_manager.dart';
 import 'package:deenora/core/data/remote_data/prayer_times/prayer_times_service.dart';
 import 'package:deenora/core/data/remote_data/tasbeeh/tasbeeh_service.dart';
+import 'package:deenora/core/data/remote_data/verse_day/verse_day_service.dart';
 import 'package:deenora/core/services/location_service.dart';
 import 'package:deenora/core/widget/error/error_screen.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
@@ -11,7 +12,6 @@ import 'package:deenora/features/main/main_screen.dart';
 import 'package:deenora/features/mosque/feature_cards/feature_cards_section.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/controllers/verse_day_controller.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/models/verse_day_model.dart';
-import 'package:deenora/features/mosque/verse_of_the_day/services/verse_day_service.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/widgets/verse_day_card.dart';
 import 'package:deenora/features/tasbeeh/controllers/tasbeeh_controller.dart';
 import 'package:deenora/features/tasbeeh/models/dhikr_model.dart';
@@ -128,12 +128,12 @@ class _FakeAudioPlayerCoordinator extends ChangeNotifier
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
 
-class _FakeStaticVerseService extends VerseOfTheDayService {
+class _FakeStaticVerseService extends VerseDayService {
   final VerseDayModel model;
   _FakeStaticVerseService(this.model);
 
   @override
-  Future<VerseDayModel> getVerseOfTheDay({
+  Future<VerseDayModel> getVerseDay({
     DateTime? date,
     bool forceRefresh = false,
   }) async {
@@ -385,7 +385,7 @@ void main() {
         expect(controller.hasError, isTrue);
         expect(controller.prayerTimes, isNull);
 
-        final verseController = VerseOfTheDayController(
+        final verseController = VerseController(
           service: _FakeStaticVerseService(_createSampleVerseModel()),
         );
         await verseController.loadVerseOfTheDay();

@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import '../../../../core/data/remote_data/dio/dio_config.dart';
 import '../../../../features/mosque/verse_of_the_day/models/verse_day_model.dart';
 
-class VerseOfTheDayService {
+class VerseDayService {
   final Dio _dio = DioConfig.create('https://api.qurani.ai/gw/qh/v1/');
 
   Future<VerseDayModel> getVerseOfTheDay({
