@@ -22,7 +22,6 @@ import 'package:deenora/features/widget_prayer_times/models/prayer_meta_model.da
 import 'package:deenora/features/widget_prayer_times/models/prayer_times_model.dart';
 import 'package:deenora/features/widget_prayer_times/models/prayer_type.dart';
 import 'package:deenora/features/widget_prayer_times/widgets/prayer_progress_card.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -83,24 +82,6 @@ class _FakeFailingLocationService extends LocationService {
   }
 }
 
-class _FakeFailingDio extends Fake implements Dio {
-  @override
-  Future<Response<T>> get<T>(
-    String path, {
-    Object? data,
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    throw DioException(
-      requestOptions: RequestOptions(path: path),
-      type: DioExceptionType.connectionError,
-      message: 'No internet connection',
-    );
-  }
-}
-
 class _FakeFailingTasbeehService extends TasbeehService {
   @override
   Future<TasbihDatasetModel> getTasbihData({bool forceRefresh = false}) async {
@@ -125,18 +106,6 @@ class _FakeAudioPlayerCoordinator extends ChangeNotifier
 
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
-}
-
-class _FakeStaticVerseService extends VerseDayService {
-  final VerseDayModel model;
-  _FakeStaticVerseService(this.model);
-
-  @override
-  Future<VerseDayModel> getVerseOfTheDay({
-    required String savedDate,
-  }) async {
-    return model;
-  }
 }
 
 class _FakeVerseDayController extends VerseDayController {
