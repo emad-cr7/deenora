@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../core/theme/app_colors.dart';
+
 class TasbeehSkeleton extends StatelessWidget {
   const TasbeehSkeleton({super.key});
 
@@ -9,190 +11,126 @@ class TasbeehSkeleton extends StatelessWidget {
     return Skeletonizer(
       enabled: true,
       effect: const ShimmerEffect(duration: Duration(milliseconds: 1200)),
-      child: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Column(
-          children: [
-            // Dhikr Card Skeleton
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          // Search Field Skeleton
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+            child: Container(
+              height: 50,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: const Color(0xFFE2E8E4)),
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: AppColors.borderSubtle),
               ),
-              child: Column(
+              child: Row(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 22,
-                        decoration: BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      Container(
-                        width: 90,
-                        height: 22,
-                        decoration: BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
+                  const SizedBox(width: 12),
                   Container(
-                    width: 220,
-                    height: 28,
+                    width: 20,
+                    height: 20,
                     decoration: BoxDecoration(
                       color: Colors.black12,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(4),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(width: 12),
                   Container(
-                    width: 160,
-                    height: 16,
-                    decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    width: 240,
+                    width: 120,
                     height: 14,
                     decoration: BoxDecoration(
                       color: Colors.black12,
                       borderRadius: BorderRadius.circular(6),
                     ),
                   ),
-                  const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 24,
-                        decoration: BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
+          ),
 
-            const SizedBox(height: 16),
-
-            // Counter Display Skeleton
-            Column(
-              children: [
-                const SizedBox(height: 28),
-                Container(
-                  width: 120,
-                  height: 56,
-                  decoration: BoxDecoration(
-                    color: Colors.black12,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 48),
-                  child: Container(
-                    height: 6,
-                    decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  width: 80,
-                  height: 14,
-                  decoration: BoxDecoration(
-                    color: Colors.black12,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 24),
-
-            // Large Circular Counter Button Skeleton
-            Center(
-              child: Container(
-                width: 175,
-                height: 175,
-                decoration: const BoxDecoration(
-                  color: Colors.black12,
-                  shape: BoxShape.circle,
-                ),
+          // Dhikr List Skeleton
+          Expanded(
+            child: ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+              itemCount: 7,
+              separatorBuilder: (_, _) => const SizedBox(height: 8),
+              itemBuilder: (context, index) => _DhikrTileSkeleton(
+                countWidth: _countWidths[index % _countWidths.length],
               ),
             ),
+          ),
 
-            const SizedBox(height: 24),
-
-            // Actions Bar Skeleton
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        width: 44,
-                        height: 44,
-                        decoration: const BoxDecoration(
-                          color: Colors.black12,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      Container(
-                        width: 44,
-                        height: 44,
-                        decoration: const BoxDecoration(
-                          color: Colors.black12,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      Container(
-                        width: 44,
-                        height: 44,
-                        decoration: const BoxDecoration(
-                          color: Colors.black12,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  Container(
-                    width: double.infinity,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                  ),
-                ],
+          // Add Dhikr Button Skeleton
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+            child: Container(
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+                borderRadius: BorderRadius.circular(14),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static const List<double> _countWidths = [36, 28, 44, 32, 40, 30, 38];
+}
+
+class _DhikrTileSkeleton extends StatelessWidget {
+  final double countWidth;
+
+  const _DhikrTileSkeleton({required this.countWidth});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.borderSubtle),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Index badge placeholder
+          Container(
+            width: 28,
+            height: 28,
+            decoration: const BoxDecoration(
+              color: Colors.black12,
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 12),
+
+          // Dhikr name placeholder
+          Expanded(
+            child: Container(
+              height: 14,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+
+          // Count badge placeholder
+          Container(
+            width: countWidth,
+            height: 26,
+            decoration: BoxDecoration(
+              color: Colors.black12,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ],
       ),
     );
   }
