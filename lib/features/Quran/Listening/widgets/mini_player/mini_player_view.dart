@@ -62,7 +62,7 @@ class MiniPlayerView extends StatelessWidget {
                         padding: const EdgeInsetsDirectional.only(
                           start:
                               70, // Leaves room for overlapping avatar (size 52 + 14 margin + 4 gap)
-                          end: 6,
+                          end: 2,
                           top: 2,
                           bottom: 2,
                         ),

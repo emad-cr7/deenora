@@ -40,53 +40,51 @@ class MiniPlayerControls extends StatelessWidget {
 
                 final hasError = state.hasError;
 
-                return SizedBox(
+                return Container(
                   width: 42,
                   height: 42,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [AppColors.primary, AppColors.primaryDark],
-                      ),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primary.withValues(alpha: 0.35),
-                          blurRadius: 8,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [AppColors.primary, AppColors.primaryDark],
                     ),
-                    child: Material(
-                      color: Colors.transparent,
-                      shape: const CircleBorder(),
-                      child: InkWell(
-                        customBorder: const CircleBorder(),
-                        onTap: hasError
-                            ? () => coordinator.retry()
-                            : () => coordinator.togglePlayPause(playing),
-                        child: Center(
-                          child: isLoading
-                              ? LoadingAnimationWidget.staggeredDotsWave(
-                                  color: Colors.white,
-                                  size: 18,
-                                )
-                              : hasError
-                              ? const Icon(
-                                  Icons.refresh_rounded,
-                                  color: Colors.white,
-                                  size: 22,
-                                )
-                              : Icon(
-                                  playing
-                                      ? Icons.pause_rounded
-                                      : Icons.play_arrow_rounded,
-                                  color: Colors.white,
-                                  size: 26,
-                                ),
-                        ),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.primary.withValues(alpha: 0.35),
+                        blurRadius: 8,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    shape: const CircleBorder(),
+                    child: InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: hasError
+                          ? () => coordinator.retry()
+                          : () => coordinator.togglePlayPause(playing),
+                      child: Center(
+                        child: isLoading
+                            ? LoadingAnimationWidget.staggeredDotsWave(
+                                color: Colors.white,
+                                size: 18,
+                              )
+                            : hasError
+                            ? const Icon(
+                                Icons.refresh_rounded,
+                                color: Colors.white,
+                                size: 22,
+                              )
+                            : Icon(
+                                playing
+                                    ? Icons.pause_rounded
+                                    : Icons.play_arrow_rounded,
+                                color: Colors.white,
+                                size: 26,
+                              ),
                       ),
                     ),
                   ),
@@ -113,6 +111,16 @@ class MiniPlayerControls extends StatelessWidget {
                   : null,
             );
           },
+        ),
+
+        // Close Button
+        IconButton(
+          iconSize: 20,
+          tooltip: 'Dismiss',
+          color: Colors.grey[500],
+          icon: const Icon(Icons.close_rounded),
+          onPressed: () =>
+              context.read<AudioPlayerCoordinator>().dismissMiniPlayer(),
         ),
       ],
     );
