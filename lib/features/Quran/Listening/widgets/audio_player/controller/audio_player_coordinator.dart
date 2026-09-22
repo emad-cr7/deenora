@@ -279,11 +279,6 @@ class AudioPlayerCoordinator extends ChangeNotifier {
     notifyListeners();
   }
 
-  void dismissMiniPlayer() {
-    _hasActiveSession = false;
-    notifyListeners();
-  }
-
   Future<void> playSurah(SurahModel targetSurah) async {
     if (!navigationController.isValidSurahNumber(targetSurah.number)) {
       return;

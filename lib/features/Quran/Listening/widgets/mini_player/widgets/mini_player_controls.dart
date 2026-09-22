@@ -112,16 +112,6 @@ class MiniPlayerControls extends StatelessWidget {
             );
           },
         ),
-
-        // Close Button
-        IconButton(
-          iconSize: 20,
-          tooltip: 'Dismiss',
-          color: Colors.grey[500],
-          icon: const Icon(Icons.close_rounded),
-          onPressed: () =>
-              context.read<AudioPlayerCoordinator>().dismissMiniPlayer(),
-        ),
       ],
     );
   }

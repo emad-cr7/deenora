@@ -342,6 +342,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
+  flutter_miniplayer:
+    dependency: "direct main"
+    description:
+      name: flutter_miniplayer
+      sha256: "733ba3f1078408c26b7f9510be14cae3df29ab2d569922ea82325a0cc416e8df"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   flutter_qiblah:
     dependency: "direct main"
     description:
