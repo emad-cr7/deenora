@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../theme/app_colors.dart';
 import '../../../features/Quran/reading/models/surah_model.dart';
 
 class SurahListItemCard extends StatelessWidget {
   final SurahModel surah;
   final VoidCallback onTap;
+  final bool isLoading;
 
   const SurahListItemCard({
     super.key,
     required this.surah,
     required this.onTap,
+    this.isLoading = false,
   });
 
   @override
@@ -91,7 +94,16 @@ class SurahListItemCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 6),
-                Icon(Icons.chevron_right, color: Colors.grey[400]),
+                SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: isLoading
+                      ? LoadingAnimationWidget.staggeredDotsWave(
+                          color: AppColors.primary,
+                          size: 20,
+                        )
+                      : Icon(Icons.chevron_right, color: Colors.grey[400]),
+                ),
               ],
             ),
           ),

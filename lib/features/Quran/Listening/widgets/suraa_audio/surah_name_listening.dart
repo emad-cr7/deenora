@@ -148,6 +148,7 @@ class SurahNameListening extends StatelessWidget {
 
                     return SurahListItemCard(
                       surah: surah,
+                      isLoading: controller.loadingSurahNumber == surah.number,
                       onTap: () async {
                         if (controller.loadingSurahNumber != null) return;
                         final audioUrl = await controller.getAudioUrl(
