@@ -13,13 +13,10 @@ import 'tasbeeh_selection_screen.dart';
 
 class TasbeehScreen extends StatelessWidget {
   const TasbeehScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TasbeehController>(
-      create: (_) => TasbeehController()..init(),
-      child: Consumer<TasbeehController>(
-        builder: (context, controller, _) {
+    return Consumer<TasbeehController>(
+      builder: (context, controller, _) {
           final currentDhikr = controller.currentDhikr;
           return Scaffold(
             appBar: AppBar(title: const Text('Tasbeeh')),
@@ -130,7 +127,6 @@ class TasbeehScreen extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
+      );
   }
 }
