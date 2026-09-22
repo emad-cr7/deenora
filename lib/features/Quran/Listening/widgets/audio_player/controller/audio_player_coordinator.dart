@@ -10,7 +10,7 @@ import 'repeat_controller.dart';
 import 'sleep_timer_controller.dart';
 import '../models/sleep_timer_option.dart';
 import '../services/audio_player_service.dart';
-import '../services/quran_audio_handler.dart';
+import '../services/quran_audio_notifications.dart';
 import '../services/audio_background_handler.dart';
 
 /// Orchestrator coordinator that binds together the independent feature controllers:
@@ -22,7 +22,7 @@ class AudioPlayerCoordinator extends ChangeNotifier {
   final SleepTimerController sleepTimerController;
   final RepeatController repeatController;
   final ReciterAudioHandler reciterHandler;
-  final QuranAudioHandler audioHandler;
+  final QuranAudioNotifications audioHandler;
 
   final String? _initialAudioUrl;
   bool _isTransitioning = false;
@@ -41,7 +41,7 @@ class AudioPlayerCoordinator extends ChangeNotifier {
     RepeatController? repeatController,
     ReciterAudioHandler? reciterHandler,
     AudioPlayerService? audioService,
-    QuranAudioHandler? audioHandler,
+    QuranAudioNotifications? audioHandler,
   }) : _initialAudioUrl = initialAudioUrl,
        _hasActiveSession = initialSurah != null && initialAudioUrl != null,
        playerController =
@@ -61,7 +61,7 @@ class AudioPlayerCoordinator extends ChangeNotifier {
              initialReciter: initialReciter,
              initialAudioMap: audioMap,
            ),
-       audioHandler = audioHandler ?? QuranAudioHandler.instance {
+       audioHandler = audioHandler ?? QuranAudioNotifications.instance {
     // Listen to changes from sub-controllers and propagate to coordinator listeners
     this.playerController.addListener(notifyListeners);
     this.navigationController.addListener(_onNavigationChanged);

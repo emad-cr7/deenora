@@ -2,16 +2,14 @@ import 'dart:async';
 import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
 
-/// Dedicated AudioHandler that connects the Android MediaSession notification
-/// to Deenora's existing audio architecture and AudioPlayerCoordinator.
-class QuranAudioHandler extends BaseAudioHandler with SeekHandler {
-  static QuranAudioHandler? _instance;
-  static QuranAudioHandler get instance =>
-      _instance ?? (_instance = QuranAudioHandler._internal());
+class QuranAudioNotifications extends BaseAudioHandler with SeekHandler {
+  static QuranAudioNotifications? _instance;
+  static QuranAudioNotifications get instance =>
+      _instance ?? (_instance = QuranAudioNotifications._internal());
 
-  factory QuranAudioHandler() => instance;
+  factory QuranAudioNotifications() => instance;
 
-  QuranAudioHandler._internal();
+  QuranAudioNotifications._internal();
 
   AudioPlayer? _player;
   bool _isLooping = false;
@@ -19,10 +17,6 @@ class QuranAudioHandler extends BaseAudioHandler with SeekHandler {
   bool _hasNext = true;
   bool _isSessionActive = false;
 
-  bool get isLooping => _isLooping;
-  bool get hasPrevious => _hasPrevious;
-  bool get hasNext => _hasNext;
-  bool get isSessionActive => _isSessionActive;
 
   // Callbacks hooked directly into AudioPlayerCoordinator
   Future<void> Function()? onPlay;

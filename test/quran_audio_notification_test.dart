@@ -8,7 +8,7 @@ import 'package:deenora/features/Quran/Listening/models_listening/reciter_model.
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/audio_player_controller.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/services/audio_player_service.dart';
-import 'package:deenora/features/Quran/Listening/widgets/audio_player/services/quran_audio_handler.dart';
+import 'package:deenora/features/Quran/Listening/widgets/audio_player/services/quran_audio_notifications.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/services/audio_background_handler.dart';
 
 class FakeAudioPlayerService extends AudioPlayerService {
@@ -99,10 +99,10 @@ void main() {
   });
 
   group('QuranAudioHandler & Notification Controls Tests', () {
-    late QuranAudioHandler handler;
+    late QuranAudioNotifications handler;
 
     setUp(() {
-      handler = QuranAudioHandler();
+      handler = QuranAudioNotifications();
     });
 
     test('Handler exposes 5 notification controls and 3 compact indices', () {
@@ -240,7 +240,7 @@ void main() {
     test(
       'skipToPrevious on Surah 1 gracefully seeks to zero without errors',
       () async {
-        final handler = QuranAudioHandler();
+        final handler = QuranAudioNotifications();
         final fakeService = FakeAudioPlayerService();
         final playerController = AudioPlayerController(
           audioService: fakeService,
@@ -267,7 +267,7 @@ void main() {
     );
 
     test('skipToNext advances to next Surah and updates metadata', () async {
-      final handler = QuranAudioHandler();
+      final handler = QuranAudioNotifications();
       final fakeService = FakeAudioPlayerService();
       final playerController = AudioPlayerController(audioService: fakeService);
 
@@ -297,7 +297,7 @@ void main() {
     test(
       'customAction toggleRepeat toggles repeat mode and syncs to notification',
       () async {
-        final handler = QuranAudioHandler();
+        final handler = QuranAudioNotifications();
         final fakeService = FakeAudioPlayerService();
         final playerController = AudioPlayerController(
           audioService: fakeService,
@@ -312,19 +312,16 @@ void main() {
         )..init();
 
         expect(coordinator.isLoopingSurah, isFalse);
-        expect(handler.isLooping, isFalse);
 
         // Trigger customAction from notification
         await handler.customAction('toggleRepeat');
 
         expect(coordinator.isLoopingSurah, isTrue);
-        expect(handler.isLooping, isTrue);
 
         // Toggle again
         await handler.customAction('toggleRepeat');
 
         expect(coordinator.isLoopingSurah, isFalse);
-        expect(handler.isLooping, isFalse);
 
         coordinator.dispose();
       },
@@ -333,7 +330,7 @@ void main() {
     test(
       'stop notification action completely clears session and hides player',
       () async {
-        final handler = QuranAudioHandler();
+        final handler = QuranAudioNotifications();
         final fakeService = FakeAudioPlayerService();
         final playerController = AudioPlayerController(
           audioService: fakeService,

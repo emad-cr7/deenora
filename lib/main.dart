@@ -5,7 +5,7 @@ import 'features/main/main_screen.dart';
 import 'core/data/local_data/hive_manager.dart';
 import 'package:provider/provider.dart';
 import 'features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
-import 'features/Quran/Listening/widgets/audio_player/services/quran_audio_handler.dart';
+import 'features/Quran/Listening/widgets/audio_player/services/quran_audio_notifications.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -18,7 +18,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final QuranAudioHandler audioHandler;
+  final QuranAudioNotifications audioHandler;
   const MyApp({super.key, required this.audioHandler});
 
   @override
