@@ -7,6 +7,7 @@ import 'package:deenora/features/Azkar/azkar_model/azekr_category.dart';
 import 'package:deenora/features/Azkar/azkar_model/azkar_model.dart';
 import 'package:deenora/features/Quran/reading/models/ayah_model.dart';
 import 'package:deenora/features/Quran/reading/models/surah_model.dart';
+import 'package:deenora/features/mosque/hadith_of_the_day/models/hadith_day_model.dart';
 import 'package:deenora/features/tasbeeh/models/dhikr_model.dart';
 import 'package:deenora/features/widget_prayer_times/models/hijri_date_model.dart';
 import 'package:deenora/features/widget_prayer_times/models/prayer_date_model.dart';
@@ -20,6 +21,7 @@ extension HiveRegistrar on HiveInterface {
     registerAdapter(AzekrCategoryAdapter());
     registerAdapter(AzkarModelAdapter());
     registerAdapter(DhikrModelAdapter());
+    registerAdapter(HadithDayModelAdapter());
     registerAdapter(HijriDateModelAdapter());
     registerAdapter(PrayerDateModelAdapter());
     registerAdapter(PrayerMetaModelAdapter());
@@ -35,6 +37,7 @@ extension IsolatedHiveRegistrar on IsolatedHiveInterface {
     registerAdapter(AzekrCategoryAdapter());
     registerAdapter(AzkarModelAdapter());
     registerAdapter(DhikrModelAdapter());
+    registerAdapter(HadithDayModelAdapter());
     registerAdapter(HijriDateModelAdapter());
     registerAdapter(PrayerDateModelAdapter());
     registerAdapter(PrayerMetaModelAdapter());

@@ -20,16 +20,26 @@ class HiveManager {
   late Box<DhikrModel> _defaultTasbeehBox;
   late Box<PrayerTimesModel> _prayerTimesBox;
   late Box<dynamic> _verseOfTheDayBox;
+  late Box<dynamic> _hadithOfTheDayBox;
 
   Future<void> init() async {
     await Hive.initFlutter();
     Hive.registerAdapters();
-    _quranBox  = await Hive.openBox<SurahModel>(HiveConfig.quranBox);
-    _azkarBox   = await Hive.openBox<AzekrCategory>(HiveConfig.azkarBox);
-    _tasbeehBox    = await Hive.openBox<DhikrModel>(HiveConfig.tasbeehBox);
-    _defaultTasbeehBox = await Hive.openBox<DhikrModel>(HiveConfig.defaultTasbeehBox);
-    _prayerTimesBox   = await Hive.openBox<PrayerTimesModel>(HiveConfig.prayerTimesBox);
-    _verseOfTheDayBox = await Hive.openBox<dynamic>(HiveConfig.verseOfTheDayBox);
+    _quranBox = await Hive.openBox<SurahModel>(HiveConfig.quranBox);
+    _azkarBox = await Hive.openBox<AzekrCategory>(HiveConfig.azkarBox);
+    _tasbeehBox = await Hive.openBox<DhikrModel>(HiveConfig.tasbeehBox);
+    _defaultTasbeehBox = await Hive.openBox<DhikrModel>(
+      HiveConfig.defaultTasbeehBox,
+    );
+    _prayerTimesBox = await Hive.openBox<PrayerTimesModel>(
+      HiveConfig.prayerTimesBox,
+    );
+    _verseOfTheDayBox = await Hive.openBox<dynamic>(
+      HiveConfig.verseOfTheDayBox,
+    );
+    _hadithOfTheDayBox = await Hive.openBox<dynamic>(
+      HiveConfig.hadithOfTheDayBox,
+    );
   }
 
   // -----------------------------Quran-----------------------------------
@@ -42,7 +52,6 @@ class HiveManager {
   List<SurahModel> loadSurahs() => _quranBox.values.toList();
 
   //--------------------------------Azkar-----------------------------------
-
 
   Future<void> saveAzkar(AzekrCategory category) async {
     await _azkarBox.clear();
@@ -87,13 +96,27 @@ class HiveManager {
     await _verseOfTheDayBox.clear();
     await _verseOfTheDayBox.put(HiveConfig.verseOfTheDayKey, data);
   }
+
   Map<String, dynamic>? loadVerseOfTheDay() {
     final raw = _verseOfTheDayBox.get(HiveConfig.verseOfTheDayKey);
     if (raw == null) return null;
     return Map<String, dynamic>.from(raw as Map);
   }
 
-  // ----------------------------lear all---------------------------------
+  // -----------------------Hadith of the Day-----------------------------
+
+  Future<void> saveHadithOfTheDay(Map<String, dynamic> data) async {
+    await _hadithOfTheDayBox.clear();
+    await _hadithOfTheDayBox.put(HiveConfig.hadithOfTheDayKey, data);
+  }
+
+  Map<String, dynamic>? loadHadithOfTheDay() {
+    final raw = _hadithOfTheDayBox.get(HiveConfig.hadithOfTheDayKey);
+    if (raw == null) return null;
+    return Map<String, dynamic>.from(raw as Map);
+  }
+
+  // ----------------------------Clear all---------------------------------
 
   Future<void> clear() async {
     await _quranBox.clear();
@@ -101,5 +124,7 @@ class HiveManager {
     await _tasbeehBox.clear();
     await _defaultTasbeehBox.clear();
     await _prayerTimesBox.clear();
+    await _verseOfTheDayBox.clear();
+    await _hadithOfTheDayBox.clear();
   }
 }

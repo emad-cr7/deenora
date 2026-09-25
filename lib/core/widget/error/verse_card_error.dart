@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_colors.dart';
 
-/// Compact error widget with a retry button for the Verse of the Day card.
+/// Compact error widget with a retry button for daily cards (Ayah / Hadith).
 class VerseCardError extends StatelessWidget {
   final VoidCallback onRetry;
+  final String message;
+  final Color color;
 
-  const VerseCardError({super.key, required this.onRetry});
+  const VerseCardError({
+    super.key,
+    required this.onRetry,
+    this.message = 'Unable to load daily ayah',
+    this.color = AppColors.primary,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +33,7 @@ class VerseCardError extends StatelessWidget {
             color: AppColors.textMuted,
           ),
           const SizedBox(width: 8),
-          Text(
-            'Unable to load daily ayah',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
+          Text(message, style: Theme.of(context).textTheme.bodySmall),
           const SizedBox(width: 8),
           TextButton.icon(
             onPressed: onRetry,
@@ -38,10 +42,10 @@ class VerseCardError extends StatelessWidget {
               'Retry',
               style: Theme.of(
                 context,
-              ).textTheme.labelSmall?.copyWith(color: AppColors.primary),
+              ).textTheme.labelSmall?.copyWith(color: color),
             ),
             style: TextButton.styleFrom(
-              foregroundColor: AppColors.primary,
+              foregroundColor: color,
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               minimumSize: Size.zero,
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
