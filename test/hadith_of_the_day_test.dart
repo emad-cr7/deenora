@@ -98,7 +98,6 @@ void main() {
             home: Scaffold(
               body: HadithCardContent(
                 hadith: model,
-                onTap: () => tapped = true,
               ),
             ),
           ),

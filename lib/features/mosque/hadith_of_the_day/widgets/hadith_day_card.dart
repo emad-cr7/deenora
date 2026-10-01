@@ -28,16 +28,7 @@ class HadithDayCard extends StatelessWidget {
         color: AppColors.darkGold,
       ),
       builder: (hadith) {
-        return HadithCardContent(
-          hadith: hadith,
-          onTap: () {
-            if (onCardTap != null) {
-              onCardTap!(hadith);
-              return;
-            }
-            HadithDetailsBottomSheet.show(context, hadith);
-          },
-        );
+        return HadithCardContent(hadith: hadith);
       },
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widget/share_widget/snackbar_share_widget.dart';
 import '../models/hadith_day_model.dart';
 
 class HadithDetailsBottomSheet extends StatelessWidget {
@@ -26,33 +27,17 @@ class HadithDetailsBottomSheet extends StatelessWidget {
   void _copyToClipboard(BuildContext context) async {
     await Clipboard.setData(ClipboardData(text: hadith.textArabic));
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Row(
-          children: [
-            Icon(Icons.check_circle_rounded, color: Colors.white, size: 18),
-            SizedBox(width: 8),
-            Text('Hadith copied to clipboard'),
-          ],
-        ),
-        backgroundColor: AppColors.primary,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        duration: const Duration(seconds: 2),
-      ),
-    );
+
+    SnackbarShareWidget(
+      icon: Icons.check_circle_rounded,
+      text: 'Hadith copied to clipboard',
+      color: AppColors.primary,
+    ).show(context);
+    Navigator.of(context).pop();
   }
 
   void _shareHadith() {
-    final attribution = StringBuffer(
-      '— ${_formatCollection(hadith.collection)} • Hadith ${hadith.hadithNumber}',
-    );
-    if (hadith.bookNumber.isNotEmpty) {
-      attribution.write(' (Book ${hadith.bookNumber})');
-    }
-    attribution.write(' —');
-
-    final shareText = '« ${hadith.textArabic} »\n\n$attribution';
+    final shareText = '« ${hadith.textArabic} »';
     SharePlus.instance.share(ShareParams(text: shareText));
   }
 
@@ -104,16 +89,10 @@ class HadithDetailsBottomSheet extends StatelessWidget {
                       ),
                     ),
                   ),
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.close_rounded),
-                    color: AppColors.textMuted,
-                    visualDensity: VisualDensity.compact,
-                  ),
                 ],
               ),
 
-              const Divider(color: AppColors.borderSubtle, height: 20),
+              const Divider(color: AppColors.borderSubtle, height: 20 , ),
 
               // Scrollable content
               Flexible(
@@ -162,7 +141,6 @@ class HadithDetailsBottomSheet extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -211,29 +189,5 @@ class HadithDetailsBottomSheet extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _formatCollection(String slug) {
-    switch (slug.toLowerCase().trim()) {
-      case 'bukhari':
-        return 'Sahih al-Bukhari';
-      case 'muslim':
-        return 'Sahih Muslim';
-      case 'nasai':
-        return "Sunan an-Nasa'i";
-      case 'tirmidhi':
-        return "Jami` at-Tirmidhi";
-      case 'abudawud':
-        return 'Sunan Abi Dawud';
-      case 'ibnmajah':
-        return 'Sunan Ibn Majah';
-      case 'malik':
-        return 'Muwatta Malik';
-      case 'ahmad':
-        return 'Musnad Ahmad';
-      default:
-        if (slug.isEmpty) return 'Hadith';
-        return slug[0].toUpperCase() + slug.substring(1);
-    }
   }
 }

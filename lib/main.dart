@@ -10,7 +10,6 @@ import 'features/Quran/Listening/widgets/audio_player/services/quran_audio_notif
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await HiveManager().init();
   final audioHandler = await initAudioService();

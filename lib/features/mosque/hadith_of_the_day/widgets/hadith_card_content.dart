@@ -4,15 +4,14 @@ import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widget/share_widget/icon_text_widget.dart';
 import '../models/hadith_day_model.dart';
+import 'hadith_details_bottom_sheet.dart';
 
 class HadithCardContent extends StatelessWidget {
   final HadithDayModel hadith;
-  final VoidCallback onTap;
 
   const HadithCardContent({
     super.key,
     required this.hadith,
-    required this.onTap,
   });
 
   @override
@@ -36,7 +35,9 @@ class HadithCardContent extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: InkWell(
           borderRadius: BorderRadius.circular(20),
-          onTap: onTap,
+          onTap: () {
+            HadithDetailsBottomSheet.show(context, hadith);
+          },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
             child: Column(
@@ -62,44 +63,11 @@ class HadithCardContent extends StatelessWidget {
                   textDirection: TextDirection.rtl,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-
-                const SizedBox(height: 12),
-
-                // Attribution: — Collection • Hadith Number —
-                Text(
-                  '— ${_formatCollection(hadith.collection)} • Hadith ${hadith.hadithNumber} —',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.labelMedium,
-                ),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  String _formatCollection(String slug) {
-    switch (slug.toLowerCase().trim()) {
-      case 'bukhari':
-        return 'Sahih al-Bukhari';
-      case 'muslim':
-        return 'Sahih Muslim';
-      case 'nasai':
-        return "Sunan an-Nasa'i";
-      case 'tirmidhi':
-        return "Jami` at-Tirmidhi";
-      case 'abudawud':
-        return 'Sunan Abi Dawud';
-      case 'ibnmajah':
-        return 'Sunan Ibn Majah';
-      case 'malik':
-        return 'Muwatta Malik';
-      case 'ahmad':
-        return 'Musnad Ahmad';
-      default:
-        if (slug.isEmpty) return 'Hadith';
-        return slug[0].toUpperCase() + slug.substring(1);
-    }
   }
 }
