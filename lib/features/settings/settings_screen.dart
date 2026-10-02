@@ -1,9 +1,7 @@
-import 'package:deenora/features/Profile/profile_option_tile.dart';
+import 'package:deenora/features/settings/settings_option_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
-import 'package:deenora/core/theme/app_colors.dart';
-import 'package:deenora/core/theme/app_sizes.dart';
-import 'package:deenora/features/Profile/muadhin/widgets/muadhin_selection_bottom_sheet.dart';
+import 'package:deenora/features/settings/muadhin/widgets/muadhin_selection_bottom_sheet.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -17,7 +15,7 @@ class SettingsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         children: [
-          ProfileOptionTile(
+          SettingsOptionTile(
             icon: FlutterIslamicIcons.solidMuslim,
             title: 'Select Muadhin',
             subtitle: 'Choose preferred Adhan and Iqama audio',

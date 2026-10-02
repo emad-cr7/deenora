@@ -1,118 +1,67 @@
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 import 'package:flutter/material.dart';
+
 import '../../../core/theme/app_colors.dart';
-import '../Listening/widgets/main_audio/quran_listening.dart';
-import '../reading/quran_reading.dart';
 
-class SwitchScreen extends StatefulWidget {
-  const SwitchScreen({super.key});
+class SharedSegmentedSwitch extends StatelessWidget {
+  final TabController controller;
+  final List<String> titles;
+  final List<IconData> icons;
 
-  @override
-  State<SwitchScreen> createState() => _SwitchScreenState();
-}
-
-class _SwitchScreenState extends State<SwitchScreen>
-    with SingleTickerProviderStateMixin {
-  late final TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+  const SharedSegmentedSwitch({
+    super.key,
+    required this.controller,
+    required this.titles,
+    required this.icons,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Quran')),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            child: SizedBox(
-              height: 45,
-              child: Theme(
-                data: Theme.of(context).copyWith(
-                  splashFactory: NoSplash.splashFactory,
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                ),
-                child: SegmentedTabControl(
-                  controller: _tabController,
-                  barDecoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  indicatorDecoration: BoxDecoration(
-                    color: AppColors.primary,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  tabTextColor: AppColors.textMuted,
-                  selectedTabTextColor: Colors.white,
-                  tabs: [
-                    SegmentTab(
-                      label: 'reading',
-                      labelBuilder: (context, color) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.menu_book_rounded,
-                              size: 20,
-                              color: color,
-                            ),
-                            const SizedBox(width: 6),
-                            Text(
-                              'reading',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.titleSmall?.copyWith(color: color),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                    SegmentTab(
-                      label: 'listenin',
-                      labelBuilder: (context, color) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.headphones_rounded,
-                              size: 20,
-                              color: color,
-                            ),
-                            const SizedBox(width: 6),
-                            Text(
-                              'listening',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.titleSmall?.copyWith(color: color),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      child: SizedBox(
+        height: 45,
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            splashFactory: NoSplash.splashFactory,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
           ),
-
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: const [QuranReading(), QuranListening()],
+          child: SegmentedTabControl(
+            controller: controller,
+            barDecoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(50),
             ),
+            indicatorDecoration: BoxDecoration(
+              color: AppColors.primary,
+              borderRadius: BorderRadius.circular(50),
+            ),
+            tabTextColor: AppColors.textMuted,
+            selectedTabTextColor: Colors.white,
+            tabs: List.generate(titles.length, (index) {
+              return SegmentTab(
+                label: titles[index],
+                labelBuilder: (context, color) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Icon(icons[index], size: 20, color: color),
+                      const SizedBox(width: 8),
+                      Text(
+                        titles[index],
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleSmall?.copyWith(color: color),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }),
           ),
-        ],
+        ),
       ),
     );
   }

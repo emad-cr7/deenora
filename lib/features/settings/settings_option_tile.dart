@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:deenora/core/theme/app_colors.dart';
 import 'package:deenora/core/theme/app_sizes.dart';
 
-class ProfileOptionTile extends StatelessWidget {
+class SettingsOptionTile extends StatelessWidget {
   final IconData icon;
   final String title;
   final String subtitle;
   final VoidCallback onTap;
 
-  const ProfileOptionTile({
+  const SettingsOptionTile({
     super.key,
     required this.icon,
     required this.title,
@@ -97,3 +97,6 @@ class ProfileOptionTile extends StatelessWidget {
     );
   }
 }
+
+/// Backwards-compatibility alias for the Settings option tile
+typedef ProfileOptionTile = SettingsOptionTile;

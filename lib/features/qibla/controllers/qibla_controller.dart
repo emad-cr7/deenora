@@ -19,6 +19,7 @@ class QiblaController extends ChangeNotifier {
   bool _isFacingQibla = false;
   String? _errorMessage;
   StreamSubscription<QiblahDirection>? _qiblahSubscription;
+  bool _isChecking = false;
 
   // Alignment threshold in degrees (±4 degrees)
   static const double alignmentThreshold = 4.0;
@@ -50,6 +51,9 @@ class QiblaController extends ChangeNotifier {
 
   /// Initializes sensors, verifies location availability, and starts streaming Qibla data.
   Future<void> startCompass() async {
+    if (_isChecking) return;
+    _isChecking = true;
+
     _status = QiblaStatus.loading;
     _errorMessage = null;
     notifyListeners();
@@ -97,6 +101,8 @@ class QiblaController extends ChangeNotifier {
       _status = QiblaStatus.error;
       _errorMessage = e.toString();
       notifyListeners();
+    } finally {
+      _isChecking = false;
     }
   }
 

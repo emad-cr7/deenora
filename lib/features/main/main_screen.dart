@@ -1,10 +1,8 @@
-import 'package:deenora/features/Profile/profile_screen.dart';
+import 'package:deenora/features/main/switch_quran.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
-
 import '../Azkar/azkar_screen.dart';
 import '../Quran/Listening/widgets/mini_player/mini_player.dart';
-import '../Quran/switch/switch_screen.dart';
 import '../mosque/mosque_screen.dart';
 import '../qibla/qibla_screen.dart';
 
@@ -22,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
 
   late final List<Widget> pages =
       widget.pages ??
-      const [MosqueScreen(), SwitchScreen(), QiblaScreen(), AzkarScreen()];
+      const [MosqueScreen(), SwitchQuran(), QiblaScreen(), AzkarScreen()];
 
   @override
   Widget build(BuildContext context) {

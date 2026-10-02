@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../Profile/profile_screen.dart';
+import '../settings/settings_screen.dart';
 import '../widget_prayer_times/controllers/prayer_times_controller.dart';
 import '../widget_prayer_times/widgets/location_banner.dart';
 import 'feature_cards/feature_cards_section.dart';
@@ -41,7 +41,7 @@ class _MosqueScreenContent extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const ProfileScreen()),
+                MaterialPageRoute(builder: (_) => const SettingsScreen()),
               );
             },
           ),

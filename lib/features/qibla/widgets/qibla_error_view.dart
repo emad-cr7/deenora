@@ -15,6 +15,9 @@ class QiblaErrorView extends StatelessWidget {
     final String description;
     final String buttonLabel;
     final VoidCallback onAction;
+    final bool showTryAgainButton =
+        controller.status == QiblaStatus.serviceDisabled ||
+        controller.status == QiblaStatus.permissionDeniedForever;
 
     switch (controller.status) {
       case QiblaStatus.permissionDenied:
@@ -98,20 +101,60 @@ class QiblaErrorView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 28),
-            SizedBox(
-              height: 48,
-              child: ElevatedButton.icon(
-                onPressed: onAction,
-                icon: const Icon(Icons.refresh_rounded, size: 20),
-                label: Text(
-                  buttonLabel,
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
+            if (showTryAgainButton)
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  SizedBox(
+                    height: 48,
+                    child: ElevatedButton.icon(
+                      onPressed: onAction,
+                      icon: const Icon(Icons.settings_rounded, size: 20),
+                      label: Text(
+                        buttonLabel,
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 48,
+                    child: OutlinedButton.icon(
+                      onPressed: () => controller.retry(),
+                      icon: const Icon(Icons.refresh_rounded, size: 20),
+                      label: Text(
+                        'Try Again',
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          color: AppColors.primary,
+                        ),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: AppColors.primary),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            else
+              SizedBox(
+                height: 48,
+                child: ElevatedButton.icon(
+                  onPressed: onAction,
+                  icon: const Icon(Icons.refresh_rounded, size: 20),
+                  label: Text(
+                    buttonLabel,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),
