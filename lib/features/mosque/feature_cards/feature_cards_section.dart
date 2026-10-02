@@ -31,19 +31,6 @@ class FeatureCardsSection extends StatelessWidget {
           // Row 1: Qibla & Tasbeeh
           Row(
             children: [
-              Expanded(
-                child: FeatureCard(
-                  title: 'Qibla',
-                  description: 'Find the direction of the Kaaba',
-                  icon: FlutterIslamicIcons.solidQibla,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const QiblaScreen()),
-                    );
-                  },
-                ),
-              ),
               const SizedBox(width: 10),
               Expanded(
                 child: FeatureCard(

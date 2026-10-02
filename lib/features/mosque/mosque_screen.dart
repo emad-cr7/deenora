@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../Profile/profile_screen.dart';
 import '../widget_prayer_times/controllers/prayer_times_controller.dart';
 import '../widget_prayer_times/widgets/location_banner.dart';
 import 'feature_cards/feature_cards_section.dart';
@@ -32,7 +33,20 @@ class _MosqueScreenContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Mosque')),
+      appBar: AppBar(
+        title: const Text('Mosque'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings_outlined),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const ProfileScreen()),
+              );
+            },
+          ),
+        ],
+      ),
       body: RefreshIndicator(
         onRefresh: () =>
             context.read<PrayerTimesController>().loadPrayerTimes(),

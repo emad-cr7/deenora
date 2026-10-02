@@ -6,6 +6,7 @@ import '../Azkar/azkar_screen.dart';
 import '../Quran/Listening/widgets/mini_player/mini_player.dart';
 import '../Quran/switch/switch_screen.dart';
 import '../mosque/mosque_screen.dart';
+import '../qibla/qibla_screen.dart';
 
 class MainScreen extends StatefulWidget {
   final List<Widget>? pages;
@@ -21,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
 
   late final List<Widget> pages =
       widget.pages ??
-      const [MosqueScreen(), SwitchScreen(), AzkarScreen(), ProfileScreen()];
+      const [MosqueScreen(), SwitchScreen(), QiblaScreen(), AzkarScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +51,14 @@ class _MainScreenState extends State<MainScreen> {
                 label: 'Quran',
               ),
               NavigationDestination(
+                icon: Icon(FlutterIslamicIcons.solidQibla),
+                selectedIcon: Icon(FlutterIslamicIcons.solidQibla),
+                label: 'Qibla',
+              ),
+              NavigationDestination(
                 icon: Icon(FlutterIslamicIcons.solidTasbih),
                 selectedIcon: Icon(FlutterIslamicIcons.solidTasbih),
                 label: 'Azkar',
-              ),
-              NavigationDestination(
-                icon: Icon(FlutterIslamicIcons.solidMuslim),
-                selectedIcon: Icon(FlutterIslamicIcons.solidMuslim),
-                label: 'Profile',
               ),
             ],
           ),
