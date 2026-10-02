@@ -15,20 +15,8 @@ class SettingsScreen extends StatelessWidget {
         title: const Text('Settings'),
       ),
       body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         children: [
-          // Section Title
-          const Text(
-            'Settings & Preferences',
-            style: TextStyle(
-              fontSize: AppSizes.sp14,
-              fontWeight: FontWeight.w600,
-              color: AppColors.textMuted,
-            ),
-          ),
-          const SizedBox(height: 12),
-
-          // Muadhin Selection Option Tile
           ProfileOptionTile(
             icon: FlutterIslamicIcons.solidMuslim,
             title: 'Select Muadhin',

@@ -29,25 +29,19 @@ class FeatureCardsSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           // Row 1: Qibla & Tasbeeh
-          Row(
-            children: [
-              const SizedBox(width: 10),
-              Expanded(
-                child: FeatureCard(
-                  title: 'Tasbeeh',
-                  description: 'Count your dhikr and get closer to Allah',
-                  icon: FlutterIslamicIcons.solidTasbih,
-                  onTap: onTasbeehTap ?? () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const TasbeehSelectionScreen(),
-                      ),
-                    );
-                  },
+          const SizedBox(width: 10),
+          FeatureCard(
+            title: 'Tasbeeh',
+            description: 'Count your dhikr and get closer to Allah',
+            icon: FlutterIslamicIcons.solidTasbih,
+            onTap: onTasbeehTap ?? () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const TasbeehSelectionScreen(),
                 ),
-              ),
-            ],
+              );
+            },
           ),
         ],
       ),
