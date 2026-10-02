@@ -1,0 +1,32 @@
+import 'package:dio/dio.dart';
+import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
+import '../dio/dio_config.dart';
+
+class MuadhinService {
+  final Dio _dio;
+
+  MuadhinService({Dio? dio})
+      : _dio = dio ??
+            DioConfig.create('https://adhan-iqama-api.vercel.app/api/');
+
+  /// Fetches all Muadhins/Sheikhs including both Adhan and Iqama datasets.
+  Future<List<MuadhinModel>> getAllMuadhins() async {
+    try {
+      final response = await _dio.get('all');
+      final data = response.data;
+
+      if (data is Map<String, dynamic> && data['sheikhs'] is List) {
+        final List<dynamic> list = data['sheikhs'] as List<dynamic>;
+        return list
+            .map((item) => MuadhinModel.fromJson(item as Map<String, dynamic>))
+            .toList();
+      }
+
+      throw Exception('Invalid data format received');
+    } on DioException catch (e) {
+      throw Exception('Failed to load muadhin data: ${e.message ?? e.toString()}');
+    } catch (e) {
+      throw Exception('Unexpected error loading muadhin data: $e');
+    }
+  }
+}
