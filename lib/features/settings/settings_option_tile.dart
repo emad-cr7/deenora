@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:deenora/core/theme/app_colors.dart';
 import 'package:deenora/core/theme/app_sizes.dart';
@@ -8,6 +9,7 @@ class SettingsOptionTile extends StatelessWidget {
   final String title;
   final String subtitle;
   final VoidCallback onTap;
+  final Color? accentColor;
 
   const SettingsOptionTile({
     super.key,
@@ -15,88 +17,113 @@ class SettingsOptionTile extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.onTap,
+    this.accentColor,
   });
 
   @override
   Widget build(BuildContext context) {
+    final accent = accentColor ?? AppColors.primary;
+    final textDirection = Directionality.of(context);
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: AppColors.borderSubtle),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 3),
+            color: accent.withValues(alpha: 0.10),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(18),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(18),
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            child: Row(
-              children: [
-                // Icon Box
-                Container(
-                  width: 46,
-                  height: 46,
-                  decoration: BoxDecoration(
-                    color: AppColors.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(14),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(19),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            child: IntrinsicHeight(
+              // LTR عشان اللوحة تفضل على الشمال دايماً
+              child: Row(
+                textDirection: TextDirection.ltr,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // لوحة الأيقونة (ماخدة الشمال كله)
+                  Container(
+                    width: 76,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          accent,
+                          Color.lerp(accent, Colors.black, 0.25)!,
+                        ],
+                      ),
+                    ),
+                    child: Icon(icon, color: Colors.white, size: 32),
                   ),
-                  child: Icon(
-                    icon,
-                    color: AppColors.primary,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 14),
 
-                // Text Column
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: AppSizes.sp16,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.textDark,
+                  // النص + السهم
+                  Expanded(
+                    child: Directionality(
+                      textDirection: textDirection,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    title,
+                                    style: const TextStyle(
+                                      fontSize: AppSizes.sp16,
+                                      fontWeight: FontWeight.w800,
+                                      color: AppColors.textDark,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    subtitle,
+                                    style: const TextStyle(
+                                      fontSize: AppSizes.sp12,
+                                      height: 1.35,
+                                      color: AppColors.textMuted,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Icon(
+                              textDirection == TextDirection.rtl
+                                  ? Icons.arrow_back_ios_rounded
+                                  : Icons.arrow_forward_ios_rounded,
+                              size: 20,
+                              color: accent,
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 3),
-                      Text(
-                        subtitle,
-                        style: const TextStyle(
-                          fontSize: AppSizes.sp12,
-                          color: AppColors.textMuted,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-
-                // Trailing Arrow
-                const Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 16,
-                  color: AppColors.textMuted,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ),
-    );
+    )
+        .animate()
+        .fadeIn(duration: 350.ms)
+        .slideY(begin: 0.15, end: 0, curve: Curves.easeOut);
   }
 }
-
-/// Backwards-compatibility alias for the Settings option tile
-typedef ProfileOptionTile = SettingsOptionTile;

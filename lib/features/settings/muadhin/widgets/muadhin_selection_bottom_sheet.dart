@@ -139,7 +139,6 @@ class _MuadhinSelectionBottomSheetState
                   ],
                 ),
 
-                // Main Content: Skeleton, Error Screen, or Muadhin List
                 Expanded(
                   child: _buildBody(context),
                 ),

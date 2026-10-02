@@ -27,6 +27,3 @@ class SettingsScreen extends StatelessWidget {
   }
 }
 
-/// Backwards-compatibility alias for the Settings screen
-typedef ProfileScreen = SettingsScreen;
-
