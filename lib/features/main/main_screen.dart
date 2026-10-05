@@ -1,4 +1,4 @@
-import 'package:deenora/features/main/switch_quran.dart';
+import 'package:deenora/features/Quran/switch_quran.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import '../Azkar/azkar_screen.dart';
