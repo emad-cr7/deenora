@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-
 import 'package:deenora/core/theme/app_colors.dart';
 import 'package:deenora/core/theme/app_sizes.dart';
 
@@ -121,9 +119,6 @@ class SettingsOptionTile extends StatelessWidget {
           ),
         ),
       ),
-    )
-        .animate()
-        .fadeIn(duration: 350.ms)
-        .slideY(begin: 0.15, end: 0, curve: Curves.easeOut);
+    );
   }
 }
