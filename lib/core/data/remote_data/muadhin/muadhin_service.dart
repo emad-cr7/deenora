@@ -18,8 +18,8 @@ class MuadhinService {
       }
 
       throw Exception('Invalid data format received');
-    } on DioException catch (e) {
-      throw Exception('Failed to load muadhin data: ${e.message ?? e.toString()}');
+    } on DioException {
+      rethrow;
     } catch (e) {
       throw Exception('Unexpected error loading muadhin data: $e');
     }

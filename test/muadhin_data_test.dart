@@ -19,32 +19,22 @@ void main() {
   group('MuadhinAudioModel Tests', () {
     test('parses from JSON correctly', () {
       final json = {
-        'type': 'adhan',
         'available': true,
         'audioUrl': 'https://adhan-iqama-api.vercel.app/audio/adhan/test.mp3',
-        'relativeUrl': '/audio/adhan/test.mp3',
-        'reciter': 'Sheikh Test',
-        'reciterAr': 'الشيخ تجربة',
         'description': 'Test adhan',
-        'source': 'https://example.com',
-        'license': 'Open',
-        'message': null,
-        'messageAr': null,
         'apiUrl': 'https://adhan-iqama-api.vercel.app/api/adhan/test',
       };
 
       final model = MuadhinAudioModel.fromJson(json);
 
-      expect(model.type, 'adhan');
       expect(model.isAvailable, isTrue);
       expect(model.audioUrl, 'https://adhan-iqama-api.vercel.app/audio/adhan/test.mp3');
       expect(model.effectiveAudioUrl, 'https://adhan-iqama-api.vercel.app/audio/adhan/test.mp3');
-      expect(model.reciterAr, 'الشيخ تجربة');
+      expect(model.description, 'Test adhan');
     });
 
     test('effectiveAudioUrl falls back to apiUrl when audioUrl is null or empty', () {
       const model = MuadhinAudioModel(
-        type: 'iqama',
         isAvailable: true,
         audioUrl: '',
         apiUrl: 'https://adhan-iqama-api.vercel.app/api/iqama/test',
@@ -67,13 +57,11 @@ void main() {
         'region': 'Makkah',
         'image': 'https://example.com/image.jpg',
         'adhan': {
-          'type': 'adhan',
           'available': true,
           'audioUrl': 'https://example.com/adhan.mp3',
           'apiUrl': 'https://example.com/api/adhan',
         },
         'iqama': {
-          'type': 'iqama',
           'available': false,
           'audioUrl': null,
           'apiUrl': 'https://example.com/api/iqama',
@@ -83,7 +71,6 @@ void main() {
       final muadhin = MuadhinModel.fromJson(json);
 
       expect(muadhin.id, 'test-sheikh');
-      expect(muadhin.nameEn, 'Sheikh Test');
       expect(muadhin.nameAr, 'الشيخ تجربة');
       expect(muadhin.locationAr, 'المسجد الحرام، مكة المكرمة');
       expect(muadhin.categoryAr, 'مؤذن الحرم المكي');

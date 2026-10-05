@@ -65,23 +65,17 @@ void main() {
 
   final sampleMuadhin1 = MuadhinModel(
     id: 'm1',
-    nameEn: 'Sheikh 1',
     nameAr: 'الشيخ الأول',
-    category: 'Muezzin',
     categoryAr: 'مؤذن',
     isMosque: false,
-    locationEn: 'Makkah',
     locationAr: 'مكة',
-    region: 'Makkah',
     imageUrl: 'https://example.com/1.jpg',
     adhan: const MuadhinAudioModel(
-      type: 'adhan',
       isAvailable: true,
       audioUrl: 'https://example.com/adhan1.mp3',
       apiUrl: 'https://example.com/api/adhan/1',
     ),
     iqama: const MuadhinAudioModel(
-      type: 'iqama',
       isAvailable: true,
       audioUrl: 'https://example.com/iqama1.mp3',
       apiUrl: 'https://example.com/api/iqama/1',
@@ -90,23 +84,17 @@ void main() {
 
   final sampleMuadhin2 = MuadhinModel(
     id: 'm2',
-    nameEn: 'Sheikh 2',
     nameAr: 'الشيخ الثاني',
-    category: 'Qari',
     categoryAr: 'قارئ',
     isMosque: false,
-    locationEn: 'Riyadh',
     locationAr: 'الرياض',
-    region: 'Riyadh',
     imageUrl: 'https://example.com/2.jpg',
     adhan: const MuadhinAudioModel(
-      type: 'adhan',
       isAvailable: true,
       audioUrl: 'https://example.com/adhan2.mp3',
       apiUrl: 'https://example.com/api/adhan/2',
     ),
     iqama: const MuadhinAudioModel(
-      type: 'iqama',
       isAvailable: false,
       audioUrl: null,
       apiUrl: 'https://example.com/api/iqama/2',
