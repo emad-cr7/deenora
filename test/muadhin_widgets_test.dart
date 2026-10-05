@@ -12,7 +12,6 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   const sampleAdhan = MuadhinAudioModel(
-    type: 'adhan',
     isAvailable: true,
     audioUrl: 'https://example.com/adhan.mp3',
     description: 'تسجيل الأذان من الحرم المكي الشريف',
@@ -20,7 +19,6 @@ void main() {
   );
 
   const sampleIqama = MuadhinAudioModel(
-    type: 'iqama',
     isAvailable: true,
     audioUrl: 'https://example.com/iqama.mp3',
     description: 'تسجيل الإقامة',
@@ -29,14 +27,10 @@ void main() {
 
   final sampleMuadhin = MuadhinModel(
     id: 'test-muadhin',
-    nameEn: 'Sheikh Test',
     nameAr: 'الشيخ فاروق حضراوي',
-    category: 'Muezzin',
     categoryAr: 'مؤذن الحرم المكي',
     isMosque: false,
-    locationEn: 'Makkah',
     locationAr: 'المسجد الحرام، مكة المكرمة',
-    region: 'Makkah',
     imageUrl: '',
     adhan: sampleAdhan,
     iqama: sampleIqama,
