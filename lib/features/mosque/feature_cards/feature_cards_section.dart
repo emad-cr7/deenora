@@ -1,25 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
-
-import '../../qibla/qibla_screen.dart';
+import '../../settings/settings_option_tile.dart';
 import '../../tasbeeh/screens/tasbeeh_selection_screen.dart';
-import 'feature_card.dart';
 
-/// The 2x2 grid section assembling the four Islamic feature cards:
-/// Qibla, Tasbeeh, Quran, and Duas using the single reusable [FeatureCard].
 class FeatureCardsSection extends StatelessWidget {
-  final VoidCallback? onQiblaTap;
-  final VoidCallback? onTasbeehTap;
-  final VoidCallback? onQuranTap;
-  final VoidCallback? onDuasTap;
-
-  const FeatureCardsSection({
-    super.key,
-    this.onQiblaTap,
-    this.onTasbeehTap,
-    this.onQuranTap,
-    this.onDuasTap,
-  });
+  const FeatureCardsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +15,11 @@ class FeatureCardsSection extends StatelessWidget {
         children: [
           // Row 1: Qibla & Tasbeeh
           const SizedBox(width: 10),
-          FeatureCard(
+          SettingsOptionTile(
             title: 'Tasbeeh',
-            description: 'Count your dhikr and get closer to Allah',
+            subtitle: 'Count your dhikr and get closer to Allah',
             icon: FlutterIslamicIcons.solidTasbih,
-            onTap: onTasbeehTap ?? () {
+            onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
