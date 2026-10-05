@@ -3,13 +3,8 @@ import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
 import '../dio/dio_config.dart';
 
 class MuadhinService {
-  final Dio _dio;
+  final Dio _dio= DioConfig.create('https://adhan-iqama-api.vercel.app/api/');
 
-  MuadhinService({Dio? dio})
-      : _dio = dio ??
-            DioConfig.create('https://adhan-iqama-api.vercel.app/api/');
-
-  /// Fetches all Muadhins/Sheikhs including both Adhan and Iqama datasets.
   Future<List<MuadhinModel>> getAllMuadhins() async {
     try {
       final response = await _dio.get('all');
