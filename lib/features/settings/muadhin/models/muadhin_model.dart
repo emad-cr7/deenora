@@ -4,40 +4,30 @@ import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
 /// Represents a Muadhin (Muezzin / Sheikh) with Adhan and Iqama information.
 class MuadhinModel {
   final String id;
-  final String nameEn;
   final String nameAr;
-  final String category;
   final String categoryAr;
-  final bool isMosque;
-  final String locationEn;
   final String locationAr;
-  final String region;
+  final bool isMosque;
   final String imageUrl;
   final MuadhinAudioModel adhan;
   final MuadhinAudioModel iqama;
 
   const MuadhinModel({
     required this.id,
-    required this.nameEn,
     required this.nameAr,
-    required this.category,
     required this.categoryAr,
-    required this.isMosque,
-    required this.locationEn,
     required this.locationAr,
-    required this.region,
+    required this.isMosque,
     required this.imageUrl,
     required this.adhan,
     required this.iqama,
   });
 
   /// Whether Adhan audio is available and playable for this Muadhin.
-  bool get hasAdhanAudio =>
-      adhan.isAvailable && adhan.effectiveAudioUrl != null;
+  bool get hasAdhanAudio => hasAudioFor(MuadhinType.adhan);
 
   /// Whether Iqama audio is available and playable for this Muadhin.
-  bool get hasIqamaAudio =>
-      iqama.isAvailable && iqama.effectiveAudioUrl != null;
+  bool get hasIqamaAudio => hasAudioFor(MuadhinType.iqama);
 
   /// Returns the corresponding [MuadhinAudioModel] based on [MuadhinType].
   MuadhinAudioModel getAudio(MuadhinType type) {
@@ -46,67 +36,48 @@ class MuadhinModel {
 
   /// Checks if audio is available and playable for the specified [MuadhinType].
   bool hasAudioFor(MuadhinType type) {
-    return type == MuadhinType.adhan ? hasAdhanAudio : hasIqamaAudio;
+    final audio = getAudio(type);
+    return audio.isAvailable && audio.effectiveAudioUrl != null;
   }
 
   factory MuadhinModel.fromJson(Map<String, dynamic> json) {
-    // Parse bilingual name
-    String nameEn = '';
+    // Concise null-safe parsing with safe Arabic fallback
     String nameAr = '';
     if (json['name'] is Map) {
-      final nameMap = json['name'] as Map<String, dynamic>;
-      nameEn = nameMap['en'] as String? ?? '';
-      nameAr = nameMap['ar'] as String? ?? '';
-    }
-    if (nameEn.isEmpty) {
-      nameEn = json['nameString'] as String? ?? '';
+      nameAr = (json['name'] as Map<String, dynamic>)['ar'] as String? ?? '';
     }
     if (nameAr.isEmpty) {
       nameAr = json['arabicName'] as String? ??
           json['nameArabic'] as String? ??
-          nameEn;
-    }
-
-    // Parse bilingual location
-    String locationEn = '';
-    String locationAr = '';
-    if (json['location'] is Map) {
-      final locMap = json['location'] as Map<String, dynamic>;
-      locationEn = locMap['en'] as String? ?? '';
-      locationAr = locMap['ar'] as String? ?? '';
-    }
-    if (locationEn.isEmpty) {
-      locationEn = json['locationEn'] as String? ??
-          json['locationString'] as String? ??
           '';
     }
+
+    String locationAr = '';
+    if (json['location'] is Map) {
+      locationAr =
+          (json['location'] as Map<String, dynamic>)['ar'] as String? ?? '';
+    }
     if (locationAr.isEmpty) {
-      locationAr = json['locationAr'] as String? ?? locationEn;
+      locationAr = json['locationAr'] as String? ?? '';
     }
 
     return MuadhinModel(
       id: json['id'] as String? ?? json['sheikhId'] as String? ?? '',
-      nameEn: nameEn,
       nameAr: nameAr,
-      category: json['category'] as String? ?? '',
       categoryAr:
           json['categoryAr'] as String? ?? json['category'] as String? ?? '',
-      isMosque: json['isMosque'] as bool? ?? false,
-      locationEn: locationEn,
       locationAr: locationAr,
-      region: json['region'] as String? ?? '',
+      isMosque: json['isMosque'] as bool? ?? false,
       imageUrl: json['image'] as String? ?? '',
       adhan: json['adhan'] != null
           ? MuadhinAudioModel.fromJson(json['adhan'] as Map<String, dynamic>)
           : const MuadhinAudioModel(
-              type: 'adhan',
               isAvailable: false,
               apiUrl: '',
             ),
       iqama: json['iqama'] != null
           ? MuadhinAudioModel.fromJson(json['iqama'] as Map<String, dynamic>)
           : const MuadhinAudioModel(
-              type: 'iqama',
               isAvailable: false,
               apiUrl: '',
             ),
@@ -116,12 +87,10 @@ class MuadhinModel {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'name': {'en': nameEn, 'ar': nameAr},
-      'category': category,
+      'nameAr': nameAr,
       'categoryAr': categoryAr,
+      'locationAr': locationAr,
       'isMosque': isMosque,
-      'location': {'en': locationEn, 'ar': locationAr},
-      'region': region,
       'image': imageUrl,
       'adhan': adhan.toJson(),
       'iqama': iqama.toJson(),

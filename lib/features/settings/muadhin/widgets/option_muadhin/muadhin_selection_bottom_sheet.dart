@@ -1,3 +1,4 @@
+import 'package:deenora/features/settings/muadhin/widgets/option_muadhin/selected_muadhin.dart';
 import 'package:flutter/material.dart';
 import 'package:deenora/core/theme/app_colors.dart';
 import 'package:deenora/core/theme/app_sizes.dart';
@@ -5,15 +6,12 @@ import 'package:deenora/core/widget/error/error_screen.dart';
 import 'package:deenora/core/widget/share_widget/shared_segmented_switch.dart';
 import 'package:deenora/features/settings/muadhin/controllers/muadhin_controller.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
-import 'muadhin_card.dart';
-import 'muadhin_skeleton.dart';
+import '../muadhin_card/muadhin_card.dart';
+import '../../../../../core/skeleton/muadhin_skeleton.dart';
 
-/// Modal bottom sheet allowing users to browse Muadhins, switch between
-/// Adhan and Iqama, and play audio inline without leaving the bottom sheet.
 class MuadhinSelectionBottomSheet extends StatefulWidget {
   const MuadhinSelectionBottomSheet({super.key});
 
-  /// Displays the Muadhin selection modal bottom sheet.
   static Future<void> show(BuildContext context) {
     return showModalBottomSheet(
       context: context,
@@ -100,9 +98,7 @@ class _MuadhinSelectionBottomSheetState
                         children: [
                           Text(
                             'Select Muadhin',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
+                            style: Theme.of(context).textTheme.titleLarge
                                 ?.copyWith(
                                   fontSize: AppSizes.sp18,
                                   fontWeight: FontWeight.w700,
@@ -139,75 +135,12 @@ class _MuadhinSelectionBottomSheetState
                   ],
                 ),
 
-                Expanded(
-                  child: _buildBody(context),
-                ),
+                Expanded(child: SelectedMuadhin(controller: _controller)),
               ],
             );
           },
         ),
       ),
-    );
-  }
-
-  Widget _buildBody(BuildContext context) {
-    if (_controller.isLoading) {
-      return const MuadhinSkeleton();
-    }
-
-    if (_controller.hasError) {
-      return AppErrorScreen(
-        type: _controller.errorType,
-        onRetry: () => _controller.retry(),
-      );
-    }
-
-    final muadhins = _controller.currentMuadhins;
-
-    if (muadhins.isEmpty) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.volume_off_rounded,
-                size: 48,
-                color: AppColors.textMuted,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                'No recordings available currently',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return ListView.builder(
-      padding: const EdgeInsets.fromLTRB(20, 6, 20, 20),
-      itemCount: muadhins.length,
-      itemBuilder: (context, index) {
-        final muadhin = muadhins[index];
-        final isExpanded = _controller.isExpanded(muadhin.id);
-        final isPlaying = _controller.playerController.isTrackPlaying(
-          muadhin.id,
-          _controller.selectedType,
-        );
-
-        return MuadhinCard(
-          key: ValueKey('${muadhin.id}_${_controller.selectedType.name}'),
-          muadhin: muadhin,
-          selectedType: _controller.selectedType,
-          isExpanded: isExpanded,
-          isPlaying: isPlaying,
-          playerController: _controller.playerController,
-          onTap: () => _controller.toggleExpand(muadhin),
-        );
-      },
     );
   }
 }

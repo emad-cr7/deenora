@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
-import '../../settings/settings_option_tile.dart';
+import '../../../core/widget/share_widget/option_tile_share.dart';
 import '../../tasbeeh/screens/tasbeeh_selection_screen.dart';
 
 class FeatureCardsSection extends StatelessWidget {
@@ -15,7 +15,7 @@ class FeatureCardsSection extends StatelessWidget {
         children: [
           // Row 1: Qibla & Tasbeeh
           const SizedBox(width: 10),
-          SettingsOptionTile(
+          OptionTileShare(
             title: 'Tasbeeh',
             subtitle: 'Count your dhikr and get closer to Allah',
             icon: FlutterIslamicIcons.solidTasbih,

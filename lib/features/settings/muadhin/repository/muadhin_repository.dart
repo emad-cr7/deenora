@@ -32,13 +32,4 @@ class MuadhinRepository {
     final all = await getMuadhins(forceRefresh: forceRefresh);
     return all.where((m) => m.hasAudioFor(type)).toList();
   }
-
-  /// Finds a single Muadhin by ID, or returns null if not found.
-  Future<MuadhinModel?> getMuadhinById(String id) async {
-    final all = await getMuadhins();
-    for (final m in all) {
-      if (m.id == id) return m;
-    }
-    return null;
-  }
 }

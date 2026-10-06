@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/widget/share_widget/shared_segmented_switch.dart';
-import 'Listening/widgets/main_audio/quran_listening.dart';
+import 'Listening/quran_listening.dart';
 import 'reading/quran_reading.dart';
 
 class SwitchQuran extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:deenora/core/widget/share_widget/shared_segmented_switch.dart';
-import 'package:deenora/features/settings/muadhin/widgets/muadhin_selection_bottom_sheet.dart';
+import 'package:deenora/features/settings/muadhin/widgets/option_muadhin/muadhin_selection_bottom_sheet.dart';
 import 'package:deenora/features/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

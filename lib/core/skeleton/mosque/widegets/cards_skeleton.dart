@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../../features/settings/settings_option_tile.dart';
+import '../../../widget/share_widget/option_tile_share.dart';
 
 
 class CardsSkeleton extends StatelessWidget {
@@ -22,7 +22,7 @@ class CardsSkeleton extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SettingsOptionTile(
+            OptionTileShare(
               title: 'Tasbeeh',
               subtitle: 'Count your dhikr and get closer to Allah',
               icon: FlutterIslamicIcons.solidTasbih,

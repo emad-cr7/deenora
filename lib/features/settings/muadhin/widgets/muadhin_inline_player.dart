@@ -11,13 +11,11 @@ import 'package:deenora/features/settings/muadhin/models/muadhin_audio_model.dar
 class MuadhinInlinePlayer extends StatelessWidget {
   final MuadhinPlayerController playerController;
   final MuadhinAudioModel audioModel;
-  final String muadhinName;
 
   const MuadhinInlinePlayer({
     super.key,
     required this.playerController,
     required this.audioModel,
-    required this.muadhinName,
   });
 
   @override

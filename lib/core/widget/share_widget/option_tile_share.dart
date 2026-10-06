@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:deenora/core/theme/app_colors.dart';
 import 'package:deenora/core/theme/app_sizes.dart';
 
-class SettingsOptionTile extends StatelessWidget {
+class OptionTileShare extends StatelessWidget {
   final IconData icon;
   final String title;
   final String subtitle;
   final VoidCallback onTap;
   final Color? accentColor;
 
-  const SettingsOptionTile({
+  const OptionTileShare({
     super.key,
     required this.icon,
     required this.title,
@@ -43,12 +43,10 @@ class SettingsOptionTile extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             child: IntrinsicHeight(
-              // LTR عشان اللوحة تفضل على الشمال دايماً
               child: Row(
                 textDirection: TextDirection.ltr,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // لوحة الأيقونة (ماخدة الشمال كله)
                   Container(
                     width: 76,
                     decoration: BoxDecoration(
@@ -63,8 +61,6 @@ class SettingsOptionTile extends StatelessWidget {
                     ),
                     child: Icon(icon, color: Colors.white, size: 32),
                   ),
-
-                  // النص + السهم
                   Expanded(
                     child: Directionality(
                       textDirection: textDirection,
@@ -101,10 +97,7 @@ class SettingsOptionTile extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 8),
-                            Icon(
-                              textDirection == TextDirection.rtl
-                                  ? Icons.arrow_back_ios_rounded
-                                  : Icons.arrow_forward_ios_rounded,
+                            Icon(Icons.arrow_forward_ios_rounded,
                               size: 20,
                               color: accent,
                             ),

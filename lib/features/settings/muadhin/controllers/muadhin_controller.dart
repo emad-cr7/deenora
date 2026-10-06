@@ -25,13 +25,7 @@ class MuadhinController extends ChangeNotifier {
     MuadhinPlayerController? playerController,
   })  : _repository = repository ?? MuadhinRepository(),
         _playerController = playerController ?? MuadhinPlayerController(),
-        _ownsPlayerController = playerController == null {
-    _playerController.addListener(_onPlayerStateChanged);
-  }
-
-  void _onPlayerStateChanged() {
-    notifyListeners();
-  }
+        _ownsPlayerController = playerController == null;
 
   // --- Getters ---
   MuadhinType get selectedType => _selectedType;
@@ -148,7 +142,6 @@ class MuadhinController extends ChangeNotifier {
 
   @override
   void dispose() {
-    _playerController.removeListener(_onPlayerStateChanged);
     if (_ownsPlayerController) {
       _playerController.dispose();
     }

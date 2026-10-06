@@ -43,21 +43,12 @@ class MuadhinPlayerController extends ChangeNotifier {
   }
 
   // --- Getters & Streams ---
-  AudioPlayer get player => _player;
   Stream<PlayerState> get playerStateStream => _player.playerStateStream;
   Stream<Duration> get positionStream => _player.positionStream;
-  Stream<Duration?> get durationStream => _player.durationStream;
-  Stream<Duration> get bufferedPositionStream => _player.bufferedPositionStream;
 
-  Duration get position => _player.position;
   Duration get duration => _player.duration ?? Duration.zero;
   Duration get bufferedPosition => _player.bufferedPosition;
   bool get isPlaying => _player.playing;
-  ProcessingState get processingState => _player.processingState;
-
-  bool get isLoading =>
-      _player.processingState == ProcessingState.loading ||
-      _player.processingState == ProcessingState.buffering;
 
   String? get currentAudioUrl => _currentAudioUrl;
   String? get currentMuadhinId => _currentMuadhinId;

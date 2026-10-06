@@ -3,7 +3,7 @@ import 'package:deenora/features/settings/muadhin/controllers/muadhin_player_con
 import 'package:deenora/features/settings/muadhin/models/muadhin_audio_model.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
-import 'package:deenora/features/settings/muadhin/widgets/muadhin_card.dart';
+import 'package:deenora/features/settings/muadhin/widgets/muadhin_card/muadhin_card.dart';
 import 'package:deenora/features/settings/muadhin/widgets/muadhin_inline_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
