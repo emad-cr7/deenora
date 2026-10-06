@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:deenora/core/theme/app_colors.dart';
 
-/// Circular avatar widget for displaying the Muadhin's picture or a fallback Islamic icon.
 class MuadhinAvatar extends StatelessWidget {
   final String imageUrl;
   final bool isMosque;
@@ -37,8 +36,6 @@ class MuadhinAvatar extends StatelessWidget {
             ? Image.network(
                 imageUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
-                    _FallbackAvatar(isMosque: isMosque),
                 loadingBuilder: (_, child, progress) {
                   if (progress == null) return child;
                   return Container(
@@ -55,25 +52,16 @@ class MuadhinAvatar extends StatelessWidget {
                   );
                 },
               )
-            : _FallbackAvatar(isMosque: isMosque),
-      ),
-    );
-  }
-}
-
-class _FallbackAvatar extends StatelessWidget {
-  final bool isMosque;
-
-  const _FallbackAvatar({required this.isMosque});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFFE8EFEA),
-      child: Icon(
-        isMosque ? FlutterIslamicIcons.solidMosque : FlutterIslamicIcons.solidMuslim,
-        color: AppColors.primary,
-        size: 26,
+            : Container(
+                color: const Color(0xFFE8EFEA),
+                child: Icon(
+                  isMosque
+                      ? FlutterIslamicIcons.solidMosque
+                      : FlutterIslamicIcons.solidMuslim,
+                  color: AppColors.primary,
+                  size: 26,
+                ),
+              ),
       ),
     );
   }

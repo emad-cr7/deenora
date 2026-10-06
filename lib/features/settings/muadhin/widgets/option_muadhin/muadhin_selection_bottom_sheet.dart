@@ -2,12 +2,9 @@ import 'package:deenora/features/settings/muadhin/widgets/option_muadhin/selecte
 import 'package:flutter/material.dart';
 import 'package:deenora/core/theme/app_colors.dart';
 import 'package:deenora/core/theme/app_sizes.dart';
-import 'package:deenora/core/widget/error/error_screen.dart';
 import 'package:deenora/core/widget/share_widget/shared_segmented_switch.dart';
 import 'package:deenora/features/settings/muadhin/controllers/muadhin_controller.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
-import '../muadhin_card/muadhin_card.dart';
-import '../../../../../core/skeleton/muadhin_skeleton.dart';
 
 class MuadhinSelectionBottomSheet extends StatefulWidget {
   const MuadhinSelectionBottomSheet({super.key});
@@ -99,11 +96,6 @@ class _MuadhinSelectionBottomSheetState
                           Text(
                             'Select Muadhin',
                             style: Theme.of(context).textTheme.titleLarge
-                                ?.copyWith(
-                                  fontSize: AppSizes.sp18,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.textDark,
-                                ),
                           ),
                           const SizedBox(height: 2),
                           Text(
@@ -114,12 +106,6 @@ class _MuadhinSelectionBottomSheetState
                             ),
                           ),
                         ],
-                      ),
-                      IconButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        icon: const Icon(Icons.close_rounded),
-                        color: AppColors.textMuted,
-                        splashRadius: 20,
                       ),
                     ],
                   ),

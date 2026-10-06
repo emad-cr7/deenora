@@ -66,19 +66,15 @@ class MuadhinCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Top Header Row: Avatar + Info + Play/Expand Indicator
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Avatar Image with fallback
                     MuadhinAvatar(
                       imageUrl: muadhin.imageUrl,
                       isMosque: muadhin.isMosque,
                     ),
 
                     const SizedBox(width: 14),
-
-                    // Sheikh Info (Name, Category, Location)
                     Expanded(
                       child: MuadhinCardInfo(
                         name: muadhin.nameAr,

@@ -21,35 +21,16 @@ class MuadhinInlinePlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 14),
+      margin: const EdgeInsets.only(top: 15),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
         color: const Color(0xFFF7FAF8),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: AppColors.primary.withValues(alpha: 0.12),
-        ),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.12)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Audio description or reciter information
-          if (audioModel.description != null &&
-              audioModel.description!.trim().isNotEmpty) ...[
-            Text(
-              audioModel.description!,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: AppSizes.sp12,
-                color: AppColors.textMuted,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            const SizedBox(height: 10),
-          ],
-
           // Playback Error alert (if any)
           if (playerController.playbackError != null) ...[
             Padding(
@@ -59,7 +40,7 @@ class MuadhinInlinePlayer extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.red,
-                  fontSize: AppSizes.sp12,
+                  fontSize: AppSizes.sp13,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -85,7 +66,7 @@ class MuadhinInlinePlayer extends StatelessWidget {
                 thumbRadius: 6,
                 thumbGlowRadius: 14,
                 timeLabelTextStyle: const TextStyle(
-                  fontSize: AppSizes.sp11,
+                  fontSize: AppSizes.sp13,
                   fontWeight: FontWeight.w600,
                   color: AppColors.textMuted,
                 ),
@@ -108,11 +89,62 @@ class MuadhinInlinePlayer extends StatelessWidget {
                 icon: const Icon(Icons.replay_10_rounded),
                 onPressed: () => playerController.rewind(),
               ),
-
               const SizedBox(width: 14),
+              SizedBox(
+                width: 52,
+                height: 52,
+                child: StreamBuilder<PlayerState>(
+                  stream: playerController.playerStateStream,
+                  builder: (context, snapshot) {
+                    final isPlaying = snapshot.data?.playing ?? false;
+                    final state = snapshot.data?.processingState;
+                    final isLoading =
+                        state == ProcessingState.loading ||
+                        state == ProcessingState.buffering;
 
-              // Main Play/Pause circular button
-              _PlayPauseButton(playerController: playerController),
+                    return Container(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [AppColors.primary, AppColors.primaryDark],
+                        ),
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.primary.withValues(alpha: 0.35),
+                            blurRadius: 10,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: isLoading
+                          ? Center(
+                              child: LoadingAnimationWidget.staggeredDotsWave(
+                                color: Colors.white,
+                                size: 20,
+                              ),
+                            )
+                          : IconButton(
+                              iconSize: 30,
+                              color: Colors.white,
+                              icon: Icon(
+                                isPlaying
+                                    ? Icons.pause_rounded
+                                    : Icons.play_arrow_rounded,
+                              ),
+                              onPressed: () {
+                                if (isPlaying) {
+                                  playerController.pause();
+                                } else {
+                                  playerController.resume();
+                                }
+                              },
+                            ),
+                    );
+                  },
+                ),
+              ),
 
               const SizedBox(width: 14),
 
@@ -127,70 +159,6 @@ class MuadhinInlinePlayer extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _PlayPauseButton extends StatelessWidget {
-  final MuadhinPlayerController playerController;
-
-  const _PlayPauseButton({required this.playerController});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 52,
-      height: 52,
-      child: StreamBuilder<PlayerState>(
-        stream: playerController.playerStateStream,
-        builder: (context, snapshot) {
-          final isPlaying = snapshot.data?.playing ?? false;
-          final state = snapshot.data?.processingState;
-          final isLoading = state == ProcessingState.loading ||
-              state == ProcessingState.buffering;
-
-          return Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [AppColors.primary, AppColors.primaryDark],
-              ),
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primary.withValues(alpha: 0.35),
-                  blurRadius: 10,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: isLoading
-                ? Center(
-                    child: LoadingAnimationWidget.staggeredDotsWave(
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  )
-                : IconButton(
-                    iconSize: 30,
-                    color: Colors.white,
-                    icon: Icon(
-                      isPlaying
-                          ? Icons.pause_rounded
-                          : Icons.play_arrow_rounded,
-                    ),
-                    onPressed: () {
-                      if (isPlaying) {
-                        playerController.pause();
-                      } else {
-                        playerController.resume();
-                      }
-                    },
-                  ),
-          );
-        },
       ),
     );
   }
