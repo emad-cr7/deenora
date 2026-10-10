@@ -2,7 +2,6 @@ import 'package:deenora/core/widget/share_widget/shared_segmented_switch.dart';
 import 'package:deenora/features/settings/muadhin/controllers/muadhin_player_controller.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_audio_model.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
-import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
 import 'package:deenora/features/settings/muadhin/widgets/muadhin_card/muadhin_card.dart';
 import 'package:deenora/features/settings/muadhin/widgets/muadhin_inline_player.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +78,7 @@ void main() {
               builder: (context, setState) {
                 return MuadhinCard(
                   muadhin: sampleMuadhin,
-                  selectedType: MuadhinType.adhan,
+                  selectedType: 'adhan',
                   isExpanded: isExpanded,
                   isPlaying: false,
                   playerController: playerController,

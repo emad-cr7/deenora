@@ -3,7 +3,6 @@ import 'package:deenora/features/settings/muadhin/controllers/muadhin_controller
 import 'package:deenora/features/settings/muadhin/controllers/muadhin_player_controller.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_audio_model.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
-import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
 import 'package:deenora/features/settings/muadhin/repository/muadhin_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -28,7 +27,7 @@ class FakeMuadhinRepository extends MuadhinRepository {
 class FakeMuadhinPlayerController extends MuadhinPlayerController {
   String? playedUrl;
   String? playedId;
-  MuadhinType? playedType;
+  String? playedType;
   bool isStopped = false;
   bool isPaused = false;
 
@@ -36,7 +35,7 @@ class FakeMuadhinPlayerController extends MuadhinPlayerController {
   Future<void> playMuadhin({
     required String audioUrl,
     required String muadhinId,
-    required MuadhinType type,
+    required String type,
   }) async {
     playedUrl = audioUrl;
     playedId = muadhinId;
@@ -108,7 +107,7 @@ void main() {
       );
       final controller = MuadhinController(repository: repo);
 
-      expect(controller.selectedType, MuadhinType.adhan);
+      expect(controller.selectedType, 'adhan');
       expect(controller.isLoading, isFalse);
       expect(controller.hasError, isFalse);
       expect(controller.expandedMuadhinId, isNull);
@@ -128,8 +127,8 @@ void main() {
 
       expect(controller.currentMuadhins.length, 2);
 
-      controller.switchType(MuadhinType.iqama);
-      expect(controller.selectedType, MuadhinType.iqama);
+      controller.switchType('iqama');
+      expect(controller.selectedType, 'iqama');
       expect(controller.currentMuadhins.length, 1);
       expect(controller.currentMuadhins.first.id, 'm1');
     });
@@ -150,9 +149,9 @@ void main() {
       expect(controller.expandedMuadhinId, 'm1');
       expect(fakePlayer.playedId, 'm1');
 
-      controller.switchType(MuadhinType.iqama);
+      controller.switchType('iqama');
 
-      expect(controller.selectedType, MuadhinType.iqama);
+      expect(controller.selectedType, 'iqama');
       expect(controller.expandedMuadhinId, isNull);
       expect(fakePlayer.isStopped, isTrue);
     });

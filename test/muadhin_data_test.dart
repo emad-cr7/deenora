@@ -1,20 +1,9 @@
 import 'package:deenora/features/settings/muadhin/models/muadhin_audio_model.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
-import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
 import 'package:deenora/features/settings/muadhin/repository/muadhin_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('MuadhinType Enum Tests', () {
-    test('returns correct labels', () {
-      expect(MuadhinType.adhan.label, 'Adhan');
-      expect(MuadhinType.adhan.englishLabel, 'Adhan');
-      expect(MuadhinType.adhan.arabicLabel, 'أذان');
-      expect(MuadhinType.iqama.label, 'Iqama');
-      expect(MuadhinType.iqama.englishLabel, 'Iqama');
-      expect(MuadhinType.iqama.arabicLabel, 'إقامة');
-    });
-  });
 
   group('MuadhinAudioModel Tests', () {
     test('parses from JSON correctly', () {
@@ -106,8 +95,8 @@ void main() {
       expect(muadhin.categoryAr, 'مؤذن الحرم المكي');
       expect(muadhin.adhan.isAvailable, isTrue);
       expect(muadhin.iqama.isAvailable, isFalse);
-      expect(MuadhinRepository.hasAudioFor(muadhin, MuadhinType.adhan), isTrue);
-      expect(MuadhinRepository.hasAudioFor(muadhin, MuadhinType.iqama), isFalse);
+      expect(MuadhinRepository.hasAudioFor(muadhin, 'adhan'), isTrue);
+      expect(MuadhinRepository.hasAudioFor(muadhin, 'iqama'), isFalse);
     });
 
     test('serializes to JSON correctly', () {
@@ -147,13 +136,13 @@ void main() {
 
       final hassan = all.firstWhere((m) => m.id == 'hassan-zubaidi');
       expect(hassan.nameAr, contains('زبيدي'));
-      expect(MuadhinRepository.hasAudioFor(hassan, MuadhinType.adhan), isTrue);
-      expect(MuadhinRepository.hasAudioFor(hassan, MuadhinType.iqama), isTrue);
+      expect(MuadhinRepository.hasAudioFor(hassan, 'adhan'), isTrue);
+      expect(MuadhinRepository.hasAudioFor(hassan, 'iqama'), isTrue);
 
-      final iqamaList = await repo.getAvailableMuadhins(MuadhinType.iqama);
+      final iqamaList = await repo.getAvailableMuadhins('iqama');
       expect(iqamaList.isNotEmpty, isTrue);
       for (final m in iqamaList) {
-        expect(MuadhinRepository.hasAudioFor(m, MuadhinType.iqama), isTrue);
+        expect(MuadhinRepository.hasAudioFor(m, 'iqama'), isTrue);
       }
 
       final cachedAll = await repo.getMuadhins();
