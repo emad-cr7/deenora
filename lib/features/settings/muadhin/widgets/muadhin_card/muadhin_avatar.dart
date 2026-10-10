@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:deenora/core/theme/app_colors.dart';
@@ -12,8 +13,23 @@ class MuadhinAvatar extends StatelessWidget {
     required this.isMosque,
   });
 
+  Widget _buildFallback() {
+    return Container(
+      color: const Color(0xFFE8EFEA),
+      alignment: Alignment.center,
+      child: Icon(
+        isMosque
+            ? FlutterIslamicIcons.solidMosque
+            : FlutterIslamicIcons.solidMuslim,
+        color: AppColors.primary,
+        size: 26,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: 58,
       height: 58,
@@ -32,36 +48,27 @@ class MuadhinAvatar extends StatelessWidget {
         ],
       ),
       child: ClipOval(
-        child: imageUrl.isNotEmpty
-            ? Image.network(
-                imageUrl,
+        child: imageUrl.trim().isNotEmpty
+            ? CachedNetworkImage(
+                imageUrl: imageUrl.trim(),
                 fit: BoxFit.cover,
-                loadingBuilder: (_, child, progress) {
-                  if (progress == null) return child;
-                  return Container(
-                    color: const Color(0xFFF1F5F3),
-                    alignment: Alignment.center,
-                    child: const SizedBox(
-                      width: 18,
-                      height: 18,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        color: AppColors.primary,
-                      ),
+                width: 58,
+                height: 58,
+                placeholder: (context, url) => Container(
+                  color: const Color(0xFFF1F5F3),
+                  alignment: Alignment.center,
+                  child: const SizedBox(
+                    width: 18,
+                    height: 18,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: AppColors.primary,
                     ),
-                  );
-                },
-              )
-            : Container(
-                color: const Color(0xFFE8EFEA),
-                child: Icon(
-                  isMosque
-                      ? FlutterIslamicIcons.solidMosque
-                      : FlutterIslamicIcons.solidMuslim,
-                  color: AppColors.primary,
-                  size: 26,
+                  ),
                 ),
-              ),
+                errorWidget: (context, url, error) => _buildFallback(),
+              )
+            : _buildFallback(),
       ),
     );
   }
