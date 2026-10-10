@@ -41,11 +41,9 @@ class MuadhinController extends ChangeNotifier {
   /// For Adhan: all Muadhins with Adhan audio.
   /// For Iqama: all Muadhins with Iqama audio available.
   List<MuadhinModel> get currentMuadhins {
-    if (_selectedType == MuadhinType.adhan) {
-      return _allMuadhins.where((m) => m.hasAdhanAudio).toList();
-    } else {
-      return _allMuadhins.where((m) => m.hasIqamaAudio).toList();
-    }
+    return _allMuadhins
+        .where((m) => MuadhinRepository.hasAudioFor(m, _selectedType))
+        .toList();
   }
 
   // --- Actions ---
@@ -100,8 +98,8 @@ class MuadhinController extends ChangeNotifier {
     notifyListeners();
 
     // Auto-play the corresponding audio track if available
-    final audio = muadhin.getAudio(_selectedType);
-    final audioUrl = audio.effectiveAudioUrl;
+    final audio = MuadhinRepository.getAudio(muadhin, _selectedType);
+    final audioUrl = MuadhinRepository.getEffectiveAudioUrl(audio);
     if (audioUrl != null && audioUrl.isNotEmpty) {
       await _playerController.playMuadhin(
         audioUrl: audioUrl,

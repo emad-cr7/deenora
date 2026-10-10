@@ -12,16 +12,6 @@ class MuadhinAudioModel {
     this.description,
   });
 
-  String? get effectiveAudioUrl {
-    if (audioUrl != null && audioUrl!.trim().isNotEmpty) {
-      return audioUrl;
-    }
-    if (apiUrl.trim().isNotEmpty) {
-      return apiUrl;
-    }
-    return null;
-  }
-
   factory MuadhinAudioModel.fromJson(Map<String, dynamic> json) {
     return MuadhinAudioModel(
       isAvailable: json['available'] as bool? ?? false,

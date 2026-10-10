@@ -3,6 +3,7 @@ import 'package:deenora/core/theme/app_colors.dart';
 import 'package:deenora/features/settings/muadhin/controllers/muadhin_player_controller.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
+import 'package:deenora/features/settings/muadhin/repository/muadhin_repository.dart';
 import 'muadhin_avatar.dart';
 import 'muadhin_card_action.dart';
 import 'muadhin_card_info.dart';
@@ -29,8 +30,9 @@ class MuadhinCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final audio = muadhin.getAudio(selectedType);
-    final isAudioAvailable = muadhin.hasAudioFor(selectedType);
+    final audio = MuadhinRepository.getAudio(muadhin, selectedType);
+    final isAudioAvailable =
+        MuadhinRepository.hasAudioFor(muadhin, selectedType);
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),

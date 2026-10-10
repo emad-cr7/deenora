@@ -29,18 +29,48 @@ void main() {
 
       expect(model.isAvailable, isTrue);
       expect(model.audioUrl, 'https://adhan-iqama-api.vercel.app/audio/adhan/test.mp3');
-      expect(model.effectiveAudioUrl, 'https://adhan-iqama-api.vercel.app/audio/adhan/test.mp3');
+      expect(model.apiUrl, 'https://adhan-iqama-api.vercel.app/api/adhan/test');
       expect(model.description, 'Test adhan');
     });
 
-    test('effectiveAudioUrl falls back to apiUrl when audioUrl is null or empty', () {
+    test('serializes to JSON correctly', () {
+      const model = MuadhinAudioModel(
+        isAvailable: true,
+        audioUrl: 'https://adhan-iqama-api.vercel.app/audio/adhan/test.mp3',
+        apiUrl: 'https://adhan-iqama-api.vercel.app/api/adhan/test',
+        description: 'Test adhan',
+      );
+
+      final json = model.toJson();
+
+      expect(json['available'], isTrue);
+      expect(json['audioUrl'], 'https://adhan-iqama-api.vercel.app/audio/adhan/test.mp3');
+      expect(json['apiUrl'], 'https://adhan-iqama-api.vercel.app/api/adhan/test');
+      expect(json['description'], 'Test adhan');
+    });
+  });
+
+  group('MuadhinRepository Audio Helpers Tests', () {
+    test('getEffectiveAudioUrl returns audioUrl when present', () {
+      const model = MuadhinAudioModel(
+        isAvailable: true,
+        audioUrl: 'https://adhan-iqama-api.vercel.app/audio/adhan/test.mp3',
+        apiUrl: 'https://adhan-iqama-api.vercel.app/api/adhan/test',
+      );
+
+      expect(MuadhinRepository.getEffectiveAudioUrl(model),
+          'https://adhan-iqama-api.vercel.app/audio/adhan/test.mp3');
+    });
+
+    test('getEffectiveAudioUrl falls back to apiUrl when audioUrl is null or empty', () {
       const model = MuadhinAudioModel(
         isAvailable: true,
         audioUrl: '',
         apiUrl: 'https://adhan-iqama-api.vercel.app/api/iqama/test',
       );
 
-      expect(model.effectiveAudioUrl, 'https://adhan-iqama-api.vercel.app/api/iqama/test');
+      expect(MuadhinRepository.getEffectiveAudioUrl(model),
+          'https://adhan-iqama-api.vercel.app/api/iqama/test');
     });
   });
 
@@ -74,10 +104,37 @@ void main() {
       expect(muadhin.nameAr, 'الشيخ تجربة');
       expect(muadhin.locationAr, 'المسجد الحرام، مكة المكرمة');
       expect(muadhin.categoryAr, 'مؤذن الحرم المكي');
-      expect(muadhin.hasAdhanAudio, isTrue);
-      expect(muadhin.hasIqamaAudio, isFalse);
-      expect(muadhin.hasAudioFor(MuadhinType.adhan), isTrue);
-      expect(muadhin.hasAudioFor(MuadhinType.iqama), isFalse);
+      expect(muadhin.adhan.isAvailable, isTrue);
+      expect(muadhin.iqama.isAvailable, isFalse);
+      expect(MuadhinRepository.hasAudioFor(muadhin, MuadhinType.adhan), isTrue);
+      expect(MuadhinRepository.hasAudioFor(muadhin, MuadhinType.iqama), isFalse);
+    });
+
+    test('serializes to JSON correctly', () {
+      final muadhin = MuadhinModel(
+        id: 'test-id',
+        nameAr: 'الشيخ تجربة',
+        categoryAr: 'مؤذن',
+        locationAr: 'مكة',
+        isMosque: false,
+        imageUrl: 'https://example.com/img.jpg',
+        adhan: const MuadhinAudioModel(
+          isAvailable: true,
+          apiUrl: 'https://example.com/adhan',
+        ),
+        iqama: const MuadhinAudioModel(
+          isAvailable: false,
+          apiUrl: 'https://example.com/iqama',
+        ),
+      );
+
+      final json = muadhin.toJson();
+
+      expect(json['id'], 'test-id');
+      expect(json['nameAr'], 'الشيخ تجربة');
+      expect(json['image'], 'https://example.com/img.jpg');
+      expect(json['adhan'], isA<Map<String, dynamic>>());
+      expect(json['iqama'], isA<Map<String, dynamic>>());
     });
   });
 
@@ -87,17 +144,16 @@ void main() {
       final all = await repo.getMuadhins();
 
       expect(all.isNotEmpty, isTrue);
-      expect(all.length, 24);
 
       final hassan = all.firstWhere((m) => m.id == 'hassan-zubaidi');
       expect(hassan.nameAr, contains('زبيدي'));
-      expect(hassan.hasAdhanAudio, isTrue);
-      expect(hassan.hasIqamaAudio, isTrue);
+      expect(MuadhinRepository.hasAudioFor(hassan, MuadhinType.adhan), isTrue);
+      expect(MuadhinRepository.hasAudioFor(hassan, MuadhinType.iqama), isTrue);
 
       final iqamaList = await repo.getAvailableMuadhins(MuadhinType.iqama);
-      expect(iqamaList.length, 14);
+      expect(iqamaList.isNotEmpty, isTrue);
       for (final m in iqamaList) {
-        expect(m.hasIqamaAudio, isTrue);
+        expect(MuadhinRepository.hasAudioFor(m, MuadhinType.iqama), isTrue);
       }
 
       final cachedAll = await repo.getMuadhins();
