@@ -3,14 +3,8 @@ import '../../../../features/widget_prayer_times/models/prayer_times_model.dart'
 import '../dio/dio_config.dart';
 
 class PrayerTimesService {
-  final Dio _dio;
+  final Dio _dio = DioConfig.create('https://api.aladhan.com/v1');
 
-  PrayerTimesService({Dio? dio})
-    : _dio = dio ?? DioConfig.create('https://api.aladhan.com/v1');
-
-  /// Fetches prayer times using dynamic device coordinates (latitude, longitude).
-  /// [method] defaults to 5 (Egyptian General Authority of Survey).
-  /// [date] defaults to current date if null.
   Future<PrayerTimesModel> getPrayerTimesByCoordinates({
     required double latitude,
     required double longitude,
@@ -40,7 +34,6 @@ class PrayerTimesService {
     }
   }
 
-  /// Optional fallback to fetch prayer times by city and country names.
   Future<PrayerTimesModel> getPrayerTimesByCity({
     required String city,
     required String country,
