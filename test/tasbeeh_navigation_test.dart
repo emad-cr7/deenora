@@ -1,5 +1,5 @@
 import 'package:deenora/core/data/remote_data/tasbeeh/tasbeeh_service.dart';
-import 'package:deenora/features/mosque/feature_cards/feature_cards_section.dart';
+import 'package:deenora/features/tasbeeh/tasbeeh_cards.dart';
 import 'package:deenora/features/tasbeeh/controllers/tasbeeh_controller.dart';
 import 'package:deenora/features/tasbeeh/models/dhikr_model.dart';
 import 'package:deenora/features/tasbeeh/models/tasbih_dataset_model.dart';
@@ -46,7 +46,7 @@ void main() {
       addTearDown(tester.view.resetPhysicalSize);
 
       await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: FeatureCardsSection())),
+        const MaterialApp(home: Scaffold(body: TasbeehCards())),
       );
       await tester.pumpAndSettle();
 
@@ -69,7 +69,7 @@ void main() {
 
       // Verify back on Mosque / FeatureCardsSection screen
       expect(find.byType(TasbeehSelectionScreen), findsNothing);
-      expect(find.byType(FeatureCardsSection), findsOneWidget);
+      expect(find.byType(TasbeehCards), findsOneWidget);
     },
   );
 

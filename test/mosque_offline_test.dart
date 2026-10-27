@@ -7,7 +7,7 @@ import 'package:deenora/core/services/location_service.dart';
 import 'package:deenora/core/widget/error/error_screen.dart';
 import 'package:deenora/features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
 import 'package:deenora/features/main/main_screen.dart';
-import 'package:deenora/features/mosque/feature_cards/feature_cards_section.dart';
+import 'package:deenora/features/tasbeeh/tasbeeh_cards.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/controllers/verse_day_controller.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/models/verse_day_model.dart';
 import 'package:deenora/features/mosque/verse_of_the_day/widgets/verse_day_card.dart';
@@ -392,7 +392,7 @@ void main() {
                 body: ListView(
                   children: const [
                     MosquePrayerSection(),
-                    FeatureCardsSection(),
+                    TasbeehCards(),
                     VerseDayCard(),
                   ],
                 ),
@@ -411,7 +411,7 @@ void main() {
         expect(find.text('Retry'), findsOneWidget);
 
         // FeatureCardsSection (Qibla & Tasbeeh) is fully rendered and accessible!
-        expect(find.byType(FeatureCardsSection), findsOneWidget);
+        expect(find.byType(TasbeehCards), findsOneWidget);
         expect(find.text('Qibla'), findsOneWidget);
         expect(find.text('Tasbeeh'), findsOneWidget);
 
@@ -459,7 +459,7 @@ void main() {
                 body: ListView(
                   children: const [
                     MosquePrayerSection(),
-                    FeatureCardsSection(),
+                    TasbeehCards(),
                     VerseDayCard(),
                   ],
                 ),
@@ -472,7 +472,7 @@ void main() {
 
         // PrayerProgressCard is rendered
         expect(find.byType(PrayerProgressCard), findsOneWidget);
-        expect(find.byType(FeatureCardsSection), findsOneWidget);
+        expect(find.byType(TasbeehCards), findsOneWidget);
         expect(find.text('Qibla'), findsOneWidget);
         expect(find.text('Tasbeeh'), findsOneWidget);
 

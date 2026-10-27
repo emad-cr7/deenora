@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../settings/settings_screen.dart';
 import '../widget_prayer_times/controllers/prayer_times_controller.dart';
 import '../widget_prayer_times/widgets/location_banner.dart';
-import 'feature_cards/feature_cards_section.dart';
+import '../tasbeeh/tasbeeh_cards.dart';
 import 'hadith_of_the_day/controllers/hadith_day_controller.dart';
 import 'hadith_of_the_day/widgets/hadith_day_card.dart';
 import 'verse_of_the_day/controllers/verse_day_controller.dart';
@@ -60,7 +60,7 @@ class _MosqueScreenContent extends StatelessWidget {
               },
             ),
             const MosquePrayerSection(),
-            const FeatureCardsSection(),
+            const TasbeehCards(),
             const VerseDayCard(),
             const HadithDayCard(),
           ],
