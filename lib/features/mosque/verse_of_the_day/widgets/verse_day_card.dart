@@ -9,9 +9,8 @@ import '../models/verse_day_model.dart';
 import 'verse_card_content.dart';
 
 class VerseDayCard extends StatelessWidget {
-  final void Function(VerseDayModel verse)? onCardTap;
 
-  const VerseDayCard({super.key, this.onCardTap});
+  const VerseDayCard({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +24,6 @@ class VerseDayCard extends StatelessWidget {
         return VerseCardContent(
           verse: verse,
           onTap: () {
-            if (onCardTap != null) {
-              onCardTap!(verse);
-              return;
-            }
             controller.navigateToVerse(verse);
           },
         );

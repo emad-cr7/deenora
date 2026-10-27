@@ -269,9 +269,7 @@ void main() {
               value: controller,
               child: Scaffold(
                 body: VerseDayCard(
-                  onCardTap: (verse) {
-                    tappedVerse = verse;
-                  },
+
                 ),
               ),
             ),
