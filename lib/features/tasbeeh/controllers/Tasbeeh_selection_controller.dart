@@ -20,7 +20,6 @@ class TasbeehSelectionController extends ChangeNotifier {
 
   String get searchQuery => _searchQuery;
 
-  /// القائمة بعد الفلترة، مع الاحتفاظ بالـ index الأصلي لكل عنصر
   List<MapEntry<int, DhikrModel>> get filteredDhikrs {
     final entries = tasbeeh.dhikrList.asMap().entries;
     if (_searchQuery.isEmpty) return entries.toList();
@@ -86,7 +85,6 @@ class TasbeehSelectionController extends ChangeNotifier {
 
     AddCustomDhikrSheet.show(
       context: context,
-      title: 'Edit Personal Dhikr',
       buttonText: 'Save Changes',
       initialText: dhikr.name,
       initialCount: dhikr.customGoal,

@@ -47,7 +47,6 @@ class DhikrListTile extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Number index badge
             Container(
               width: 28,
               height: 28,
@@ -66,7 +65,6 @@ class DhikrListTile extends StatelessWidget {
             ),
             const SizedBox(width: 12),
 
-            // Dhikr Name
             Expanded(
               child: Text(
                 dhikr.name,
@@ -80,8 +78,6 @@ class DhikrListTile extends StatelessWidget {
             ),
 
             const SizedBox(width: 8),
-
-            // Repetition Count on the same row next to Dhikr name
             isSelected
                 ? const Icon(
                     Icons.check_circle_rounded,
@@ -115,57 +111,6 @@ class DhikrListTile extends StatelessWidget {
                       ),
                     ),
                   ),
-
-            // Actions menu for user-created custom Dhikrs only (⋮)
-            if (isCustom && (onEdit != null || onDelete != null)) ...[
-              const SizedBox(width: 4),
-              PopupMenuButton<String>(
-                icon: const Icon(
-                  Icons.more_vert_rounded,
-                  color: AppColors.textMuted,
-                  size: 20,
-                ),
-                padding: EdgeInsets.zero,
-
-                onSelected: (value) {
-                  if (value == 'edit') {
-                    onEdit?.call();
-                  } else if (value == 'delete') {
-                    onDelete?.call();
-                  }
-                },
-                itemBuilder: (context) => [
-                  const PopupMenuItem<String>(
-                    value: 'edit',
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.edit_outlined,
-                          size: 18,
-                          color: AppColors.primary,
-                        ),
-                        SizedBox(width: 8),
-                        Text('Edit'),
-                      ],
-                    ),
-                  ),
-                  const PopupMenuItem<String>(
-                    value: 'delete',
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.delete_outline_rounded,
-                          size: 18,
-                          color: Colors.red,
-                        ),
-                        SizedBox(width: 8),
-                        Text('Delete', style: TextStyle(color: Colors.red)),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
           ],
         ),
       ),

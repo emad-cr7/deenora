@@ -20,10 +20,6 @@ class DhikrCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasNarrated = dhikr.narratedCount != null;
-    final hasCustomGoal = isCustom || customTarget != null;
-    final goalNumber = customTarget;
-
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -39,10 +35,6 @@ class DhikrCard extends StatelessWidget {
             AppColors.deepForest,
           ],
         ),
-        border: Border.all(
-          color: AppColors.champagneGold.withValues(alpha: 0.35),
-          width: 1.2,
-        ),
         boxShadow: [
           BoxShadow(
             color: AppColors.deepForest.withValues(alpha: 0.3),
@@ -54,11 +46,9 @@ class DhikrCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Top row: Index indicator and Target Status Badge
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Index counter pill
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 10,
@@ -76,68 +66,8 @@ class DhikrCard extends StatelessWidget {
                   ),
                 ),
               ),
-
-              // Target pill badge
-              Flexible(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: hasNarrated
-                        ? AppColors.champagneGold.withValues(alpha: 0.2)
-                        : (hasCustomGoal
-                              ? Colors.white.withValues(alpha: 0.15)
-                              : Colors.black.withValues(alpha: 0.2)),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: hasNarrated
-                          ? AppColors.champagneGold.withValues(alpha: 0.6)
-                          : Colors.white24,
-                      width: 1,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        hasNarrated
-                            ? Icons.auto_stories_rounded
-                            : (hasCustomGoal
-                                  ? Icons.edit_note_rounded
-                                  : Icons.all_inclusive_rounded),
-                        size: 13,
-                        color: hasNarrated
-                            ? AppColors.champagneGold
-                            : Colors.white70,
-                      ),
-                      const SizedBox(width: 5),
-                      Flexible(
-                        child: Text(
-                          hasNarrated
-                              ? 'Narrated: ${dhikr.narratedCount}'
-                              : (hasCustomGoal
-                                    ? 'Personal Goal: $goalNumber'
-                                    : 'No Narrated Count'),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.labelSmall
-                              ?.copyWith(
-                                color: hasNarrated
-                                    ? AppColors.champagneGold
-                                    : Colors.white,
-                                fontWeight: FontWeight.w600,
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
-
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -154,8 +84,6 @@ class DhikrCard extends StatelessWidget {
           ),
 
           const SizedBox(height: 18),
-
-          // Bottom row: personal dhikr indicator
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
