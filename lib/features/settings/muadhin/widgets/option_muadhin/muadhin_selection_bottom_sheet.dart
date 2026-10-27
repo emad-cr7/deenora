@@ -108,7 +108,6 @@ class _MuadhinSelectionBottomSheetState
                   ),
                 ),
 
-                // Adhan / Iqama Shared Segmented Switch
                 SharedSegmentedSwitch(
                   controller: _tabController,
                   titles: const ['Adhan', 'Iqama'],
