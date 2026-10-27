@@ -16,7 +16,7 @@ class TasbeehCards extends StatelessWidget {
           const SizedBox(width: 10),
           OptionTileShare(
             title: 'Tasbeeh',
-            subtitle: 'Count your dhikr and get closer to Allah',
+            subtitle: "Count dhikr, grow closer to Allah.",
             icon: FlutterIslamicIcons.solidTasbih,
             onTap: () {
               Navigator.push(
