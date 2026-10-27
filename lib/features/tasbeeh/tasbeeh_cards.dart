@@ -13,7 +13,6 @@ class TasbeehCards extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Row 1: Qibla & Tasbeeh
           const SizedBox(width: 10),
           OptionTileShare(
             title: 'Tasbeeh',
