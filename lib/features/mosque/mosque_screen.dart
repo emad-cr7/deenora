@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../settings/settings_screen.dart';
 import '../widget_prayer_times/controllers/prayer_times_controller.dart';
 import '../widget_prayer_times/widgets/location_banner.dart';
@@ -51,7 +50,9 @@ class _MosqueScreenContent extends StatelessWidget {
         onRefresh: () =>
             context.read<PrayerTimesController>().loadPrayerTimes(),
         child: ListView(
-          physics: const AlwaysScrollableScrollPhysics(),
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
           padding: const EdgeInsets.symmetric(vertical: 5),
           children: [
             Consumer<PrayerTimesController>(
@@ -65,7 +66,7 @@ class _MosqueScreenContent extends StatelessWidget {
             const HadithDayCard(),
           ],
         ),
-      ),
+      )
     );
   }
 }
