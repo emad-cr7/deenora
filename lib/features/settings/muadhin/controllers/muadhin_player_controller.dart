@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 
-import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
-
 /// Controller responsible for managing inline audio playback of Adhan & Iqama tracks.
 class MuadhinPlayerController extends ChangeNotifier {
   final AudioPlayer _player;
@@ -11,7 +9,7 @@ class MuadhinPlayerController extends ChangeNotifier {
 
   String? _currentAudioUrl;
   String? _currentMuadhinId;
-  MuadhinType? _currentType;
+  String? _currentType;
   String? _playbackError;
 
   StreamSubscription<PlayerState>? _playerStateSubscription;
@@ -52,16 +50,16 @@ class MuadhinPlayerController extends ChangeNotifier {
 
   String? get currentAudioUrl => _currentAudioUrl;
   String? get currentMuadhinId => _currentMuadhinId;
-  MuadhinType? get currentType => _currentType;
+  String? get currentType => _currentType;
   String? get playbackError => _playbackError;
 
   /// Checks if this specific Muadhin and type is the one currently loaded/active.
-  bool isTrackActive(String muadhinId, MuadhinType type) {
+  bool isTrackActive(String muadhinId, String type) {
     return _currentMuadhinId == muadhinId && _currentType == type;
   }
 
   /// Checks if this specific Muadhin and type is currently playing audio.
-  bool isTrackPlaying(String muadhinId, MuadhinType type) {
+  bool isTrackPlaying(String muadhinId, String type) {
     return isTrackActive(muadhinId, type) && isPlaying;
   }
 
@@ -73,7 +71,7 @@ class MuadhinPlayerController extends ChangeNotifier {
   Future<void> playMuadhin({
     required String audioUrl,
     required String muadhinId,
-    required MuadhinType type,
+    required String type,
   }) async {
     // If same track is already loaded, toggle play/pause
     if (isTrackActive(muadhinId, type)) {

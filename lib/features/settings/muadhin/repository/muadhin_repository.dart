@@ -1,7 +1,6 @@
 import 'package:deenora/core/data/remote_data/muadhin/muadhin_service.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_audio_model.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
-import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
 
 /// Repository for retrieving and filtering Muadhin data with session-level caching.
 class MuadhinRepository {
@@ -25,9 +24,9 @@ class MuadhinRepository {
     return muadhins;
   }
 
-  /// Returns the corresponding [MuadhinAudioModel] based on [MuadhinType].
-  static MuadhinAudioModel getAudio(MuadhinModel muadhin, MuadhinType type) {
-    return type == MuadhinType.adhan ? muadhin.adhan : muadhin.iqama;
+  /// Returns the corresponding [MuadhinAudioModel] based on audio type ('adhan' or 'iqama').
+  static MuadhinAudioModel getAudio(MuadhinModel muadhin, String type) {
+    return type == 'adhan' ? muadhin.adhan : muadhin.iqama;
   }
 
   /// Returns the effective playable audio URL, falling back to [apiUrl] if [audioUrl] is empty.
@@ -41,15 +40,15 @@ class MuadhinRepository {
     return null;
   }
 
-  /// Checks if audio is available and playable for the specified [MuadhinType].
-  static bool hasAudioFor(MuadhinModel muadhin, MuadhinType type) {
+  /// Checks if audio is available and playable for the specified type ('adhan' or 'iqama').
+  static bool hasAudioFor(MuadhinModel muadhin, String type) {
     final audio = getAudio(muadhin, type);
     return audio.isAvailable && getEffectiveAudioUrl(audio) != null;
   }
 
-  /// Retrieves only Muadhins who have audio available for the requested [MuadhinType].
+  /// Retrieves only Muadhins who have audio available for the requested type ('adhan' or 'iqama').
   Future<List<MuadhinModel>> getAvailableMuadhins(
-    MuadhinType type, {
+    String type, {
     bool forceRefresh = false,
   }) async {
     final all = await getMuadhins(forceRefresh: forceRefresh);

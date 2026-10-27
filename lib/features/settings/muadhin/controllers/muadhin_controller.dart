@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 
 import 'package:deenora/core/widget/error/error_screen.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
-import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
 import 'package:deenora/features/settings/muadhin/repository/muadhin_repository.dart';
 import 'muadhin_player_controller.dart';
 
@@ -13,7 +12,7 @@ class MuadhinController extends ChangeNotifier {
   final MuadhinPlayerController _playerController;
   final bool _ownsPlayerController;
 
-  MuadhinType _selectedType = MuadhinType.adhan;
+  String _selectedType = 'adhan';
   List<MuadhinModel> _allMuadhins = [];
   bool _isLoading = false;
   String? _errorMessage;
@@ -28,7 +27,7 @@ class MuadhinController extends ChangeNotifier {
         _ownsPlayerController = playerController == null;
 
   // --- Getters ---
-  MuadhinType get selectedType => _selectedType;
+  String get selectedType => _selectedType;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   bool get hasError => _errorMessage != null;
@@ -37,7 +36,7 @@ class MuadhinController extends ChangeNotifier {
   MuadhinPlayerController get playerController => _playerController;
   List<MuadhinModel> get allMuadhins => _allMuadhins;
 
-  /// Returns the Muadhins available for the currently selected [MuadhinType].
+  /// Returns the Muadhins available for the currently selected audio type ('adhan' or 'iqama').
   /// For Adhan: all Muadhins with Adhan audio.
   /// For Iqama: all Muadhins with Iqama audio available.
   List<MuadhinModel> get currentMuadhins {
@@ -70,9 +69,9 @@ class MuadhinController extends ChangeNotifier {
   /// Retries loading Muadhins.
   Future<void> retry() => loadMuadhins(forceRefresh: true);
 
-  /// Switches between Adhan and Iqama tabs.
+  /// Switches between Adhan and Iqama tabs ('adhan' or 'iqama').
   /// Stops any currently playing audio and collapses any expanded card.
-  void switchType(MuadhinType type) {
+  void switchType(String type) {
     if (_selectedType == type) return;
 
     _playerController.stop();

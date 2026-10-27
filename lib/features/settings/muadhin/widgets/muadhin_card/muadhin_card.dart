@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:deenora/core/theme/app_colors.dart';
 import 'package:deenora/features/settings/muadhin/controllers/muadhin_player_controller.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
-import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
 import 'package:deenora/features/settings/muadhin/repository/muadhin_repository.dart';
 import 'muadhin_avatar.dart';
 import 'muadhin_card_action.dart';
@@ -12,7 +11,7 @@ import '../muadhin_inline_player.dart';
 /// Card widget representing a single Muadhin, with an expandable inline audio player.
 class MuadhinCard extends StatelessWidget {
   final MuadhinModel muadhin;
-  final MuadhinType selectedType;
+  final String selectedType;
   final bool isExpanded;
   final bool isPlaying;
   final MuadhinPlayerController playerController;

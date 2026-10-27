@@ -4,7 +4,6 @@ import 'package:deenora/core/theme/app_colors.dart';
 import 'package:deenora/core/theme/app_sizes.dart';
 import 'package:deenora/core/widget/share_widget/shared_segmented_switch.dart';
 import 'package:deenora/features/settings/muadhin/controllers/muadhin_controller.dart';
-import 'package:deenora/features/settings/muadhin/models/muadhin_type.dart';
 
 class MuadhinSelectionBottomSheet extends StatefulWidget {
   const MuadhinSelectionBottomSheet({super.key});
@@ -41,9 +40,7 @@ class _MuadhinSelectionBottomSheetState
   }
 
   void _onTabChanged() {
-    final selectedType = _tabController.index == 0
-        ? MuadhinType.adhan
-        : MuadhinType.iqama;
+    final selectedType = _tabController.index == 0 ? 'adhan' : 'iqama';
     if (_controller.selectedType != selectedType) {
       _controller.switchType(selectedType);
     }

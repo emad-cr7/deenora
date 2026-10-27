@@ -51,7 +51,7 @@ class SelectedMuadhin extends StatelessWidget {
       itemBuilder: (context, index) {
         final muadhin = muadhins[index];
         return MuadhinCard(
-          key: ValueKey('${muadhin.id}_${controller.selectedType.name}'),
+          key: ValueKey('${muadhin.id}_${controller.selectedType}'),
           muadhin: muadhin,
           selectedType: controller.selectedType,
           isExpanded: controller.isExpanded(muadhin.id),
