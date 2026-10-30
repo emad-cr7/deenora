@@ -16,6 +16,8 @@ class MuadhinCard extends StatelessWidget {
   final bool isPlaying;
   final MuadhinPlayerController playerController;
   final VoidCallback onTap;
+  final bool isSelected;
+  final VoidCallback? onSelect;
 
   const MuadhinCard({
     super.key,
@@ -25,13 +27,17 @@ class MuadhinCard extends StatelessWidget {
     required this.isPlaying,
     required this.playerController,
     required this.onTap,
+    this.isSelected = false,
+    this.onSelect,
   });
 
   @override
   Widget build(BuildContext context) {
     final audio = MuadhinRepository.getAudio(muadhin, selectedType);
-    final isAudioAvailable =
-        MuadhinRepository.hasAudioFor(muadhin, selectedType);
+    final isAudioAvailable = MuadhinRepository.hasAudioFor(
+      muadhin,
+      selectedType,
+    );
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
@@ -41,9 +47,7 @@ class MuadhinCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: isExpanded
-              ? AppColors.primary
-              : AppColors.borderSubtle,
+          color: isExpanded ? AppColors.primary : AppColors.borderSubtle,
           width: isExpanded ? 1.5 : 1,
         ),
         boxShadow: [
@@ -85,6 +89,18 @@ class MuadhinCard extends StatelessWidget {
                     ),
 
                     const SizedBox(width: 8),
+
+                    if (onSelect != null)
+                      IconButton(
+                        tooltip: isSelected
+                            ? 'Selected Muadhin'
+                            : 'Select Muadhin',
+                        isSelected: isSelected,
+                        color: AppColors.primary,
+                        icon: const Icon(Icons.radio_button_unchecked),
+                        selectedIcon: const Icon(Icons.check_circle_rounded),
+                        onPressed: onSelect,
+                      ),
 
                     // Play/Expand Action Button
                     ListenableBuilder(

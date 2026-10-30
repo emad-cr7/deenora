@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:deenora/core/data/local_data/hive_manager.dart';
 
 import 'package:deenora/core/widget/error/error_screen.dart';
 import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
@@ -11,6 +12,8 @@ class MuadhinController extends ChangeNotifier {
   final MuadhinRepository _repository;
   final MuadhinPlayerController _playerController;
   final bool _ownsPlayerController;
+  final HiveManager _hiveManager;
+  bool _disposed = false;
 
   String _selectedType = 'adhan';
   List<MuadhinModel> _allMuadhins = [];
@@ -22,9 +25,11 @@ class MuadhinController extends ChangeNotifier {
   MuadhinController({
     MuadhinRepository? repository,
     MuadhinPlayerController? playerController,
-  })  : _repository = repository ?? MuadhinRepository(),
-        _playerController = playerController ?? MuadhinPlayerController(),
-        _ownsPlayerController = playerController == null;
+    HiveManager? hiveManager,
+  }) : _repository = repository ?? MuadhinRepository(),
+       _playerController = playerController ?? MuadhinPlayerController(),
+       _ownsPlayerController = playerController == null,
+       _hiveManager = hiveManager ?? HiveManager();
 
   // --- Getters ---
   String get selectedType => _selectedType;
@@ -35,6 +40,27 @@ class MuadhinController extends ChangeNotifier {
   String? get expandedMuadhinId => _expandedMuadhinId;
   MuadhinPlayerController get playerController => _playerController;
   List<MuadhinModel> get allMuadhins => _allMuadhins;
+  String? get selectedMuadhinId => _hiveManager.loadSelectedMuadhinId();
+
+  /// A missing recording never silently substitutes another Muadhin.
+  bool get isSelectedMuadhinUnavailable =>
+      selectedMuadhinId != null &&
+      !_allMuadhins.any(
+        (m) =>
+            m.id == selectedMuadhinId &&
+            MuadhinRepository.hasAudioFor(m, 'adhan'),
+      );
+
+  Future<void> selectMuadhin(String id) async {
+    if (!_allMuadhins.any(
+      (m) => m.id == id && MuadhinRepository.hasAudioFor(m, 'adhan'),
+    )) {
+      return;
+    }
+    if (selectedMuadhinId == id) return;
+    await _hiveManager.saveSelectedMuadhinId(id);
+    if (!_disposed) notifyListeners();
+  }
 
   /// Returns the Muadhins available for the currently selected audio type ('adhan' or 'iqama').
   /// For Adhan: all Muadhins with Adhan audio.
@@ -62,7 +88,7 @@ class MuadhinController extends ChangeNotifier {
       _errorType = _classifyError(e);
     } finally {
       _isLoading = false;
-      notifyListeners();
+      if (!_disposed) notifyListeners();
     }
   }
 
@@ -139,6 +165,7 @@ class MuadhinController extends ChangeNotifier {
 
   @override
   void dispose() {
+    _disposed = true;
     if (_ownsPlayerController) {
       _playerController.dispose();
     }

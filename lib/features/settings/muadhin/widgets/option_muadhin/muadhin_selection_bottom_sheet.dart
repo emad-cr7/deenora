@@ -92,7 +92,7 @@ class _MuadhinSelectionBottomSheetState
                         children: [
                           Text(
                             'Select Muadhin',
-                            style: Theme.of(context).textTheme.titleLarge
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           const SizedBox(height: 2),
                           Text(
@@ -116,6 +116,16 @@ class _MuadhinSelectionBottomSheetState
                     Icons.notifications_active_rounded,
                   ],
                 ),
+
+                if (!_controller.isLoading &&
+                    !_controller.hasError &&
+                    _controller.isSelectedMuadhinUnavailable)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: Text(
+                      'Your saved Muadhin is unavailable. Choose another Muadhin.',
+                    ),
+                  ),
 
                 Expanded(child: SelectedMuadhin(controller: _controller)),
               ],
