@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import '../../../../core/data/local_data/hive_manager.dart';
 import '../../../../core/data/remote_data/prayer_times/prayer_times_service.dart';
 import '../../../../core/services/location_service.dart';
+import '../../../../core/services/prayer_notification_service.dart';
 import '../models/models.dart';
 import '../utils/prayer_time_calculator.dart';
 
@@ -17,8 +18,8 @@ class PrayerTimesController extends ChangeNotifier {
     PrayerTimesService? prayerTimesService,
     HiveManager? hiveManager,
   }) : _locationService = locationService ?? LocationService(),
-        _prayerTimesService = prayerTimesService ?? PrayerTimesService(),
-        _hiveManager = hiveManager ?? HiveManager();
+       _prayerTimesService = prayerTimesService ?? PrayerTimesService(),
+       _hiveManager = hiveManager ?? HiveManager();
 
   // Timer لتحديث الـ Countdown كل ثانية.
   Timer? _ticker;
@@ -36,10 +37,11 @@ class PrayerTimesController extends ChangeNotifier {
 
   // لمعرفة إذا انتقلنا ليوم جديد.
   DateTime? _lastLoadedDate;
+  int _loadVersion = 0;
 
   // يحدث الـ Countdown فقط بدون إعادة بناء الشاشة بالكامل.
   final ValueNotifier<NextPrayerCountdown?> _countdownNotifier =
-  ValueNotifier<NextPrayerCountdown?>(null);
+      ValueNotifier<NextPrayerCountdown?>(null);
 
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
@@ -68,6 +70,10 @@ class PrayerTimesController extends ChangeNotifier {
 
   // تحميل الموقع + مواقيت الصلاة + حفظها + تشغيل الـ Timer.
   Future<void> loadPrayerTimes({bool refreshLocation = true}) async {
+    final loadVersion = ++_loadVersion;
+    if (refreshLocation) {
+      unawaited(PrayerNotificationService.instance.update(null, null));
+    }
     _isLoading = true;
     _errorMessage = null;
     notifyListeners();
@@ -76,8 +82,11 @@ class PrayerTimesController extends ChangeNotifier {
       // الحصول على موقع المستخدم إذا لزم الأمر.
       if (refreshLocation || _userLocation == null) {
         try {
-          _userLocation = await _locationService.determinePosition();
+          final location = await _locationService.determinePosition();
+          if (loadVersion != _loadVersion) return;
+          _userLocation = location;
         } catch (_) {
+          if (loadVersion != _loadVersion) return;
           _userLocation = null;
         }
       }
@@ -92,10 +101,12 @@ class PrayerTimesController extends ChangeNotifier {
       final longitude = _userLocation!.longitude;
 
       // جلب مواقيت الصلاة من الـ API.
-      _prayerTimes = await _prayerTimesService.getPrayerTimesByCoordinates(
+      final model = await _prayerTimesService.getPrayerTimesByCoordinates(
         latitude: latitude,
         longitude: longitude,
       );
+      if (loadVersion != _loadVersion) return;
+      _prayerTimes = model;
 
       // حفظ المواقيت محليًا لاستخدامها عند فشل الـ API.
       await _hiveManager.savePrayerTimes(_prayerTimes!);
@@ -109,6 +120,7 @@ class PrayerTimesController extends ChangeNotifier {
       // بدء التحديث كل ثانية.
       _startTicker();
     } catch (e) {
+      if (loadVersion != _loadVersion) return;
       // لو الـ API فشل، استخدم البيانات المحفوظة في Hive.
       final cached = _hiveManager.loadPrayerTimes();
 
@@ -127,8 +139,16 @@ class PrayerTimesController extends ChangeNotifier {
         _stopTicker();
       }
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      if (loadVersion == _loadVersion) {
+        _isLoading = false;
+        unawaited(
+          PrayerNotificationService.instance.update(
+            _prayerTimes,
+            _userLocation,
+          ),
+        );
+        notifyListeners();
+      }
     }
   }
 
@@ -165,10 +185,7 @@ class PrayerTimesController extends ChangeNotifier {
   // تشغيل Timer يعمل كل ثانية.
   void _startTicker() {
     _stopTicker();
-    _ticker = Timer.periodic(
-      const Duration(seconds: 1),
-          (_) => _onTick(),
-    );
+    _ticker = Timer.periodic(const Duration(seconds: 1), (_) => _onTick());
   }
 
   // إيقاف الـ Timer.
@@ -184,7 +201,8 @@ class PrayerTimesController extends ChangeNotifier {
     final now = DateTime.now();
 
     // لو دخلنا يوم جديد، نحمل مواقيت اليوم الجديد.
-    if (_lastLoadedDate != null && now.day != _lastLoadedDate!.day) {
+    if (_lastLoadedDate != null &&
+        _lastLoadedDate != DateTime(now.year, now.month, now.day)) {
       _lastLoadedDate = DateTime(now.year, now.month, now.day);
       loadPrayerTimes(refreshLocation: false);
       return;
@@ -226,6 +244,7 @@ class PrayerTimesController extends ChangeNotifier {
   // تنظيف الـ Timer والـ ValueNotifier عند إغلاق الـ Controller.
   @override
   void dispose() {
+    _loadVersion++;
     _stopTicker();
     _countdownNotifier.dispose();
     super.dispose();

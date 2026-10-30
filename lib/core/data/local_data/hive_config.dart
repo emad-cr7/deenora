@@ -16,4 +16,5 @@ class HiveConfig {
   static const String hadithOfTheDayKey = 'hadith';
   static const String selectedMuadhinKey = 'selected_muadhin';
   static const String iqamaSettingsKey = 'iqama_settings';
+  static const String notificationTimetableKey = 'notification_tomorrow';
 }

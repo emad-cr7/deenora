@@ -132,6 +132,15 @@ class HiveManager {
 
   Object? loadIqamaSettings() => _settingsBox?.get(HiveConfig.iqamaSettingsKey);
 
+  Stream<BoxEvent> watchIqamaSettings() =>
+      _settingsBox!.watch(key: HiveConfig.iqamaSettingsKey);
+
+  PrayerTimesModel? loadNotificationTimetable() =>
+      _prayerTimesBox.get(HiveConfig.notificationTimetableKey);
+
+  Future<void> saveNotificationTimetable(PrayerTimesModel model) =>
+      _prayerTimesBox.put(HiveConfig.notificationTimetableKey, model);
+
   Future<void> saveIqamaSettings(Map<String, dynamic> settings) async {
     await _settingsBox!.put(HiveConfig.iqamaSettingsKey, settings);
   }

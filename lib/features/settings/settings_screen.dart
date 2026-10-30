@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
 import 'package:deenora/features/settings/muadhin/widgets/option_muadhin/muadhin_selection_bottom_sheet.dart';
 import 'iqama/iqama_settings_screen.dart';
+import '../../core/services/prayer_notification_service.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -30,6 +31,19 @@ class SettingsScreen extends StatelessWidget {
               MaterialPageRoute(builder: (_) => const IqamaSettingsScreen()),
             ),
           ),
+          if (PrayerNotificationService.instance.supported) ...[
+            const SizedBox(height: 16),
+            ListenableBuilder(
+              listenable: PrayerNotificationService.instance,
+              builder: (context, _) => OptionTileShare(
+                icon: Icons.notifications_outlined,
+                title: 'Prayer notifications',
+                subtitle: PrayerNotificationService.instance.status,
+                onTap: () =>
+                    PrayerNotificationService.instance.requestPermissions(),
+              ),
+            ),
+          ],
         ],
       ),
     );
