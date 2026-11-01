@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/widget/error/error_screen.dart';
 import '../../controllers/muadhin_controller.dart';
-import '../../repository/muadhin_repository.dart';
 import '../muadhin_card/muadhin_card.dart';
 import '../../../../../core/skeleton/muadhin_skeleton.dart';
 
@@ -33,11 +32,8 @@ class SelectedMuadhin extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
-                Icons.volume_off_rounded,
-                size: 48,
-                color: AppColors.textMuted,
-              ),
+              const Icon(Icons.volume_off_rounded,
+                  size: 48, color: AppColors.textMuted),
               const SizedBox(height: 12),
               Text(
                 'No recordings available currently',
@@ -59,30 +55,10 @@ class SelectedMuadhin extends StatelessWidget {
           muadhin: muadhin,
           selectedType: controller.selectedType,
           isExpanded: controller.isExpanded(muadhin.id),
-          isPlaying: controller.playerController.isTrackPlaying(
-            muadhin.id,
-            controller.selectedType,
-          ),
+          isPlaying: controller.playerController
+              .isTrackPlaying(muadhin.id, controller.selectedType),
           playerController: controller.playerController,
           onTap: () => controller.toggleExpand(muadhin),
-          isSelected: controller.selectedMuadhinId == muadhin.id,
-          onSelect: MuadhinRepository.hasAudioFor(muadhin, 'adhan')
-              ? () async {
-                  try {
-                    await controller.selectMuadhin(muadhin.id);
-                  } catch (_) {
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            'Could not save Muadhin. Please try again.',
-                          ),
-                        ),
-                      );
-                    }
-                  }
-                }
-              : null,
         );
       },
     );

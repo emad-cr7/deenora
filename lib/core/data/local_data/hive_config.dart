@@ -7,14 +7,10 @@ class HiveConfig {
   static const String defaultTasbeehBox = 'defaultTasbeehBox';
   static const String verseOfTheDayBox = 'verseOfTheDayBox';
   static const String hadithOfTheDayBox = 'hadithOfTheDayBox';
-  static const String settingsBox = 'settingsBox';
 
   // Entry keys
   static const String azkarKey = 'azkar_data';
   static const String prayerTimesKey = 'latest_prayer_times';
   static const String verseOfTheDayKey = 'verse';
   static const String hadithOfTheDayKey = 'hadith';
-  static const String selectedMuadhinKey = 'selected_muadhin';
-  static const String iqamaSettingsKey = 'iqama_settings';
-  static const String notificationTimetableKey = 'notification_tomorrow';
 }

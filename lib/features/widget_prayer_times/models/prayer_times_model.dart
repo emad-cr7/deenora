@@ -46,8 +46,7 @@ class PrayerTimesModel {
 
   /// Sanitizes time strings like "05:10 (EET)" or "05:10" into "05:10"
   static String cleanTime(String? raw) {
-    // Missing API data must remain distinguishable from a real midnight time.
-    if (raw == null || raw.trim().isEmpty) return '';
+    if (raw == null || raw.isEmpty) return '00:00';
     return raw.trim().split(' ').first;
   }
 

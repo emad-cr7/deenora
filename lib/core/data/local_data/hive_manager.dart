@@ -21,7 +21,6 @@ class HiveManager {
   late Box<PrayerTimesModel> _prayerTimesBox;
   late Box<dynamic> _verseOfTheDayBox;
   late Box<dynamic> _hadithOfTheDayBox;
-  Box<dynamic>? _settingsBox;
 
   Future<void> init() async {
     await Hive.initFlutter();
@@ -41,7 +40,6 @@ class HiveManager {
     _hadithOfTheDayBox = await Hive.openBox<dynamic>(
       HiveConfig.hadithOfTheDayBox,
     );
-    _settingsBox = await Hive.openBox<dynamic>(HiveConfig.settingsBox);
   }
 
   // -----------------------------Quran-----------------------------------
@@ -118,33 +116,6 @@ class HiveManager {
     return Map<String, dynamic>.from(raw as Map);
   }
 
-  // ----------------------------Settings----------------------------------
-
-  String? loadSelectedMuadhinId() {
-    final raw = _settingsBox?.get(HiveConfig.selectedMuadhinKey);
-    return raw is String && raw.trim().isNotEmpty ? raw : null;
-  }
-
-  Future<void> saveSelectedMuadhinId(String id) async {
-    if (loadSelectedMuadhinId() == id) return;
-    await _settingsBox!.put(HiveConfig.selectedMuadhinKey, id);
-  }
-
-  Object? loadIqamaSettings() => _settingsBox?.get(HiveConfig.iqamaSettingsKey);
-
-  Stream<BoxEvent> watchIqamaSettings() =>
-      _settingsBox!.watch(key: HiveConfig.iqamaSettingsKey);
-
-  PrayerTimesModel? loadNotificationTimetable() =>
-      _prayerTimesBox.get(HiveConfig.notificationTimetableKey);
-
-  Future<void> saveNotificationTimetable(PrayerTimesModel model) =>
-      _prayerTimesBox.put(HiveConfig.notificationTimetableKey, model);
-
-  Future<void> saveIqamaSettings(Map<String, dynamic> settings) async {
-    await _settingsBox!.put(HiveConfig.iqamaSettingsKey, settings);
-  }
-
   // ----------------------------Clear all---------------------------------
 
   Future<void> clear() async {
@@ -155,6 +126,5 @@ class HiveManager {
     await _prayerTimesBox.clear();
     await _verseOfTheDayBox.clear();
     await _hadithOfTheDayBox.clear();
-    await _settingsBox?.clear();
   }
 }

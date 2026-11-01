@@ -3,7 +3,6 @@ import 'core/init_main/init_audio_service.dart';
 import 'core/theme/light_theme.dart';
 import 'features/main/main_screen.dart';
 import 'core/data/local_data/hive_manager.dart';
-import 'core/services/prayer_notification_service.dart';
 import 'package:provider/provider.dart';
 import 'features/Quran/Listening/widgets/audio_player/controller/audio_player_coordinator.dart';
 import 'features/Quran/Listening/widgets/audio_player/services/quran_audio_notifications.dart';
@@ -13,7 +12,6 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveManager().init();
-  await PrayerNotificationService.instance.initialize();
   final audioHandler = await initAudioService();
   runApp(MyApp(audioHandler: audioHandler));
 }
