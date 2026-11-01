@@ -46,6 +46,7 @@ class SelectedMuadhin extends StatelessWidget {
     }
 
     return ListView.builder(
+      key: ValueKey(controller.selectedType),
       padding: const EdgeInsets.fromLTRB(20, 6, 20, 20),
       itemCount: muadhins.length,
       itemBuilder: (context, index) {

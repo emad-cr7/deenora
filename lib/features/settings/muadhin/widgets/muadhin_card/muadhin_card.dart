@@ -44,7 +44,7 @@ class MuadhinCard extends StatelessWidget {
           color: isExpanded
               ? AppColors.primary
               : AppColors.borderSubtle,
-          width: isExpanded ? 1.5 : 1,
+          width: isExpanded ? 2 : 1,
         ),
         boxShadow: [
           BoxShadow(
@@ -86,7 +86,6 @@ class MuadhinCard extends StatelessWidget {
 
                     const SizedBox(width: 8),
 
-                    // Play/Expand Action Button
                     ListenableBuilder(
                       listenable: playerController,
                       builder: (context, _) {
@@ -103,8 +102,6 @@ class MuadhinCard extends StatelessWidget {
                     ),
                   ],
                 ),
-
-                // Inline Player: Appears directly below the card when expanded
                 if (isExpanded && isAudioAvailable)
                   MuadhinInlinePlayer(
                     playerController: playerController,

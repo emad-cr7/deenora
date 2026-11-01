@@ -68,7 +68,6 @@ class _MuadhinSelectionBottomSheetState
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Drag Handle
                 Center(
                   child: Container(
                     width: 42,
@@ -80,8 +79,6 @@ class _MuadhinSelectionBottomSheetState
                     ),
                   ),
                 ),
-
-                // Sheet Header: Title, Description & Close Button
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(

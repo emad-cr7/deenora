@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:deenora/core/theme/app_colors.dart';
 
 class MuadhinAvatar extends StatelessWidget {
@@ -29,10 +30,9 @@ class MuadhinAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
-      width: 58,
-      height: 58,
+      width: 75,
+      height: 75,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
@@ -57,13 +57,9 @@ class MuadhinAvatar extends StatelessWidget {
                 placeholder: (context, url) => Container(
                   color: const Color(0xFFF1F5F3),
                   alignment: Alignment.center,
-                  child: const SizedBox(
-                    width: 18,
-                    height: 18,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: AppColors.primary,
-                    ),
+                  child: LoadingAnimationWidget.horizontalRotatingDots(
+                    color: AppColors.primary,
+                    size: 25,
                   ),
                 ),
                 errorWidget: (context, url, error) => _buildFallback(),
