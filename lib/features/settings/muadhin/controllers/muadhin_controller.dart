@@ -22,9 +22,9 @@ class MuadhinController extends ChangeNotifier {
   MuadhinController({
     MuadhinRepository? repository,
     MuadhinPlayerController? playerController,
-  })  : _repository = repository ?? MuadhinRepository(),
-        _playerController = playerController ?? MuadhinPlayerController(),
-        _ownsPlayerController = playerController == null;
+  }) : _repository = repository ?? MuadhinRepository(),
+       _playerController = playerController ?? MuadhinPlayerController(),
+       _ownsPlayerController = playerController == null;
 
   // --- Getters ---
   String get selectedType => _selectedType;
@@ -39,9 +39,12 @@ class MuadhinController extends ChangeNotifier {
   /// Returns the Muadhins available for the currently selected audio type ('adhan' or 'iqama').
   /// For Adhan: all Muadhins with Adhan audio.
   /// For Iqama: all Muadhins with Iqama audio available.
-  List<MuadhinModel> get currentMuadhins {
+  List<MuadhinModel> get currentMuadhins => muadhinsForType(_selectedType);
+
+  /// Filters the shared catalog for a tab without changing the active audio type.
+  List<MuadhinModel> muadhinsForType(String type) {
     return _allMuadhins
-        .where((m) => MuadhinRepository.hasAudioFor(m, _selectedType))
+        .where((m) => MuadhinRepository.hasAudioFor(m, type))
         .toList();
   }
 

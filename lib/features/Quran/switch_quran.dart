@@ -3,48 +3,17 @@ import '../../core/widget/share_widget/shared_segmented_switch.dart';
 import 'Listening/quran_listening.dart';
 import 'reading/quran_reading.dart';
 
-class SwitchQuran extends StatefulWidget {
+class SwitchQuran extends StatelessWidget {
   const SwitchQuran({super.key});
-
-  @override
-  State<SwitchQuran> createState() => _SwitchQuranState();
-}
-
-class _SwitchQuranState extends State<SwitchQuran>
-    with SingleTickerProviderStateMixin {
-  late final TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Quran')),
-      body: Column(
-        children: [
-          SharedSegmentedSwitch(
-            controller: _tabController,
-            titles: const ['reading', 'listening'],
-            icons: const [Icons.menu_book_rounded, Icons.headphones_rounded],
-          ),
-
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: const [QuranReading(), QuranListening()],
-            ),
-          ),
-        ],
+      body: const SharedSegmentedSwitch(
+        titles: ['reading', 'listening'],
+        icons: [Icons.menu_book_rounded, Icons.headphones_rounded],
+        children: [QuranReading(), QuranListening()],
       ),
     );
   }

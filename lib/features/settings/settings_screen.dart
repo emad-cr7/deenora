@@ -1,7 +1,7 @@
 import 'package:deenora/core/widget/share_widget/option_tile_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
-import 'package:deenora/features/settings/muadhin/widgets/option_muadhin/muadhin_selection_bottom_sheet.dart';
+import 'package:deenora/features/settings/muadhin/muadhin_selection_bottom_sheet.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

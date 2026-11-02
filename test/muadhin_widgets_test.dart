@@ -48,12 +48,11 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: SharedSegmentedSwitch(
-              controller: tabController,
               titles: const ['Adhan', 'Iqama'],
               icons: const [
                 Icons.volume_up_rounded,
                 Icons.notifications_active_rounded,
-              ],
+              ], children: [],
             ),
           ),
         ),

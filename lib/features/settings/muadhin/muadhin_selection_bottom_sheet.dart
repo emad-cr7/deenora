@@ -26,30 +26,17 @@ class MuadhinSelectionBottomSheet extends StatefulWidget {
 }
 
 class _MuadhinSelectionBottomSheetState
-    extends State<MuadhinSelectionBottomSheet>
-    with SingleTickerProviderStateMixin {
+    extends State<MuadhinSelectionBottomSheet> {
   late final MuadhinController _controller;
-  late final TabController _tabController;
 
   @override
   void initState() {
     super.initState();
     _controller = MuadhinController()..loadMuadhins();
-    _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(_onTabChanged);
-  }
-
-  void _onTabChanged() {
-    final selectedType = _tabController.index == 0 ? 'adhan' : 'iqama';
-    if (_controller.selectedType != selectedType) {
-      _controller.switchType(selectedType);
-    }
   }
 
   @override
   void dispose() {
-    _tabController.removeListener(_onTabChanged);
-    _tabController.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -89,7 +76,7 @@ class _MuadhinSelectionBottomSheetState
                         children: [
                           Text(
                             'Select Muadhin',
-                            style: Theme.of(context).textTheme.titleLarge
+                            style: Theme.of(context).textTheme.titleLarge,
                           ),
                           const SizedBox(height: 2),
                           Text(
@@ -105,16 +92,20 @@ class _MuadhinSelectionBottomSheetState
                   ),
                 ),
 
-                SharedSegmentedSwitch(
-                  controller: _tabController,
-                  titles: const ['Adhan', 'Iqama'],
-                  icons: const [
-                    Icons.volume_up_rounded,
-                    Icons.notifications_active_rounded,
-                  ],
+                Expanded(
+                  child: SharedSegmentedSwitch(
+                    titles: const ['Adhan', 'Iqama'],
+                    icons: const [
+                      Icons.volume_up_rounded,
+                      Icons.notifications_active_rounded,
+                    ],
+                    onTabChanged: (index) => _controller.switchType(index == 0 ? 'adhan' : 'iqama'),
+                    children: [
+                      SelectedMuadhin(controller: _controller, audioType: 'adhan'),
+                      SelectedMuadhin(controller: _controller, audioType: 'iqama'),
+                    ],
+                  ),
                 ),
-
-                Expanded(child: SelectedMuadhin(controller: _controller)),
               ],
             );
           },

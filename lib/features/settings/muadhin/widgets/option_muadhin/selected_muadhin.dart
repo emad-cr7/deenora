@@ -7,8 +7,13 @@ import '../../../../../core/skeleton/muadhin_skeleton.dart';
 
 class SelectedMuadhin extends StatelessWidget {
   final MuadhinController controller;
+  final String audioType;
 
-  const SelectedMuadhin({super.key, required this.controller});
+  const SelectedMuadhin({
+    super.key,
+    required this.controller,
+    required this.audioType,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,8 @@ class SelectedMuadhin extends StatelessWidget {
       );
     }
 
-    final muadhins = controller.currentMuadhins;
+    final muadhins = controller.muadhinsForType(audioType);
+    final isActive = controller.selectedType == audioType;
 
     if (muadhins.isEmpty) {
       return Center(
@@ -32,8 +38,11 @@ class SelectedMuadhin extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.volume_off_rounded,
-                  size: 48, color: AppColors.textMuted),
+              const Icon(
+                Icons.volume_off_rounded,
+                size: 48,
+                color: AppColors.textMuted,
+              ),
               const SizedBox(height: 12),
               Text(
                 'No recordings available currently',
@@ -46,20 +55,25 @@ class SelectedMuadhin extends StatelessWidget {
     }
 
     return ListView.builder(
+      // Reset each page's scroll state whenever the active tab changes.
       key: ValueKey(controller.selectedType),
       padding: const EdgeInsets.fromLTRB(20, 6, 20, 20),
       itemCount: muadhins.length,
       itemBuilder: (context, index) {
         final muadhin = muadhins[index];
         return MuadhinCard(
-          key: ValueKey('${muadhin.id}_${controller.selectedType}'),
+          key: ValueKey('${muadhin.id}_$audioType'),
           muadhin: muadhin,
-          selectedType: controller.selectedType,
-          isExpanded: controller.isExpanded(muadhin.id),
-          isPlaying: controller.playerController
-              .isTrackPlaying(muadhin.id, controller.selectedType),
+          selectedType: audioType,
+          isExpanded: isActive && controller.isExpanded(muadhin.id),
+          isPlaying: controller.playerController.isTrackPlaying(
+            muadhin.id,
+            audioType,
+          ),
           playerController: controller.playerController,
-          onTap: () => controller.toggleExpand(muadhin),
+          onTap: () {
+            if (isActive) controller.toggleExpand(muadhin);
+          },
         );
       },
     );
