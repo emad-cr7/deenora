@@ -6,115 +6,92 @@ import 'package:deenora/features/settings/muadhin/models/muadhin_model.dart';
 import 'package:deenora/features/settings/muadhin/repository/muadhin_repository.dart';
 import 'muadhin_player_controller.dart';
 
-/// State management controller for the Muadhin selection feature.
 class MuadhinController extends ChangeNotifier {
   final MuadhinRepository _repository;
-  final MuadhinPlayerController _playerController;
+  final MuadhinPlayerController playerController;
   final bool _ownsPlayerController;
 
-  String _selectedType = 'adhan';
-  List<MuadhinModel> _allMuadhins = [];
-  bool _isLoading = false;
-  String? _errorMessage;
-  AppErrorType? _errorType;
-  String? _expandedMuadhinId;
+  String selectedType = 'adhan';
+  List<MuadhinModel> allMuadhins = [];
+  bool isLoading = false;
+  String? errorMessage;
+  AppErrorType errorType = AppErrorType.unknown;
+  String? expandedMuadhinId;
 
   MuadhinController({
     MuadhinRepository? repository,
     MuadhinPlayerController? playerController,
   }) : _repository = repository ?? MuadhinRepository(),
-       _playerController = playerController ?? MuadhinPlayerController(),
+       playerController = playerController ?? MuadhinPlayerController(),
        _ownsPlayerController = playerController == null;
 
-  // --- Getters ---
-  String get selectedType => _selectedType;
-  bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;
-  bool get hasError => _errorMessage != null;
-  AppErrorType get errorType => _errorType ?? AppErrorType.unknown;
-  String? get expandedMuadhinId => _expandedMuadhinId;
-  MuadhinPlayerController get playerController => _playerController;
-  List<MuadhinModel> get allMuadhins => _allMuadhins;
+  bool hasError() => errorMessage != null;
 
-  /// Returns the Muadhins available for the currently selected audio type ('adhan' or 'iqama').
-  /// For Adhan: all Muadhins with Adhan audio.
-  /// For Iqama: all Muadhins with Iqama audio available.
-  List<MuadhinModel> get currentMuadhins => muadhinsForType(_selectedType);
+  List<MuadhinModel> currentMuadhins() => muadhinsForType(selectedType);
 
-  /// Filters the shared catalog for a tab without changing the active audio type.
   List<MuadhinModel> muadhinsForType(String type) {
-    return _allMuadhins
+    return allMuadhins
         .where((m) => MuadhinRepository.hasAudioFor(m, type))
         .toList();
   }
 
   // --- Actions ---
 
-  /// Loads Muadhins from the repository.
   Future<void> loadMuadhins({bool forceRefresh = false}) async {
-    _isLoading = true;
-    _errorMessage = null;
-    _errorType = null;
+    isLoading = true;
+    errorMessage = null;
+    errorType = AppErrorType.unknown;
     notifyListeners();
 
     try {
-      final list = await _repository.getMuadhins(forceRefresh: forceRefresh);
-      _allMuadhins = list;
+      allMuadhins = await _repository.getMuadhins(forceRefresh: forceRefresh);
     } catch (e) {
-      _errorMessage = e.toString();
-      _errorType = _classifyError(e);
+      errorMessage = e.toString();
+      errorType = _classifyError(e);
     } finally {
-      _isLoading = false;
+      isLoading = false;
       notifyListeners();
     }
   }
 
-  /// Retries loading Muadhins.
   Future<void> retry() => loadMuadhins(forceRefresh: true);
 
-  /// Switches between Adhan and Iqama tabs ('adhan' or 'iqama').
-  /// Stops any currently playing audio and collapses any expanded card.
   void switchType(String type) {
-    if (_selectedType == type) return;
+    if (selectedType == type) return;
 
-    _playerController.stop();
-    _selectedType = type;
-    _expandedMuadhinId = null;
+    playerController.stop();
+    selectedType = type;
+    expandedMuadhinId = null;
     notifyListeners();
   }
 
-  /// Toggles card expansion for a given [MuadhinModel].
-  /// If the card is already expanded: collapses it and pauses audio.
-  /// If tapping a new card: expands it and automatically starts playing the selected audio.
   Future<void> toggleExpand(MuadhinModel muadhin) async {
-    if (_expandedMuadhinId == muadhin.id) {
+    if (expandedMuadhinId == muadhin.id) {
       // Collapse card and pause playback
-      _expandedMuadhinId = null;
-      await _playerController.pause();
+      expandedMuadhinId = null;
+      await playerController.pause();
       notifyListeners();
       return;
     }
 
     // Expand the new card
-    _expandedMuadhinId = muadhin.id;
+    expandedMuadhinId = muadhin.id;
     notifyListeners();
 
     // Auto-play the corresponding audio track if available
-    final audio = MuadhinRepository.getAudio(muadhin, _selectedType);
+    final audio = MuadhinRepository.getAudio(muadhin, selectedType);
     final audioUrl = MuadhinRepository.getEffectiveAudioUrl(audio);
-    if (audioUrl != null && audioUrl.isNotEmpty) {
-      await _playerController.playMuadhin(
+    if (audioUrl != null) {
+      await playerController.playMuadhin(
         audioUrl: audioUrl,
         muadhinId: muadhin.id,
-        type: _selectedType,
+        type: selectedType,
       );
     }
   }
 
-  /// Checks if a given Muadhin's card is currently expanded.
-  bool isExpanded(String muadhinId) => _expandedMuadhinId == muadhinId;
+  bool isExpanded(String muadhinId) => expandedMuadhinId == muadhinId;
 
-  /// Classifies errors into [AppErrorType] for consistent UI error presentation.
   AppErrorType _classifyError(Object e) {
     if (e is DioException) {
       if (e.type == DioExceptionType.connectionTimeout ||
@@ -143,7 +120,7 @@ class MuadhinController extends ChangeNotifier {
   @override
   void dispose() {
     if (_ownsPlayerController) {
-      _playerController.dispose();
+      playerController.dispose();
     }
     super.dispose();
   }

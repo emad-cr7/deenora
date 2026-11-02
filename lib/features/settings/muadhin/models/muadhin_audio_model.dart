@@ -21,12 +21,10 @@ class MuadhinAudioModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'available': isAvailable,
-      'audioUrl': audioUrl,
-      'apiUrl': apiUrl,
-      'description': description,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    'available': isAvailable,
+    'audioUrl': audioUrl,
+    'apiUrl': apiUrl,
+    'description': description,
+  };
 }

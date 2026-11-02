@@ -21,7 +21,6 @@ class MuadhinModel {
     required this.iqama,
   });
 
-
   factory MuadhinModel.fromJson(Map<String, dynamic> json) {
     return MuadhinModel(
       id: json['id'] as String,
@@ -30,26 +29,19 @@ class MuadhinModel {
       locationAr: (json['location'] as Map<String, dynamic>)['ar'] as String,
       isMosque: json['isMosque'] as bool,
       imageUrl: json['image'] as String,
-      adhan: MuadhinAudioModel.fromJson(
-        json['adhan'] as Map<String, dynamic>,
-      ),
-      iqama: MuadhinAudioModel.fromJson(
-        json['iqama'] as Map<String, dynamic>,
-      ),
+      adhan: MuadhinAudioModel.fromJson(json['adhan'] as Map<String, dynamic>),
+      iqama: MuadhinAudioModel.fromJson(json['iqama'] as Map<String, dynamic>),
     );
   }
 
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'nameAr': nameAr,
-      'categoryAr': categoryAr,
-      'locationAr': locationAr,
-      'isMosque': isMosque,
-      'image': imageUrl,
-      'adhan': adhan.toJson(),
-      'iqama': iqama.toJson(),
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'nameAr': nameAr,
+    'categoryAr': categoryAr,
+    'locationAr': locationAr,
+    'isMosque': isMosque,
+    'image': imageUrl,
+    'adhan': adhan.toJson(),
+    'iqama': iqama.toJson(),
+  };
 }

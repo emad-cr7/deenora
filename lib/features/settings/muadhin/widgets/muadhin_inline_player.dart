@@ -49,11 +49,11 @@ class MuadhinInlinePlayer extends StatelessWidget {
 
           // Progress Bar with Elapsed & Total duration
           StreamBuilder<Duration>(
-            stream: playerController.positionStream,
+            stream: playerController.player.positionStream,
             builder: (context, posSnapshot) {
               final position = posSnapshot.data ?? Duration.zero;
-              final total = playerController.duration;
-              final buffered = playerController.bufferedPosition;
+              final total = playerController.player.duration ?? Duration.zero;
+              final buffered = playerController.player.bufferedPosition;
 
               return ProgressBar(
                 progress: position,
@@ -94,7 +94,7 @@ class MuadhinInlinePlayer extends StatelessWidget {
                 width: 52,
                 height: 52,
                 child: StreamBuilder<PlayerState>(
-                  stream: playerController.playerStateStream,
+                  stream: playerController.player.playerStateStream,
                   builder: (context, snapshot) {
                     final isPlaying = snapshot.data?.playing ?? false;
                     final state = snapshot.data?.processingState;

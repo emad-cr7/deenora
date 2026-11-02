@@ -21,7 +21,7 @@ class SelectedMuadhin extends StatelessWidget {
       return const MuadhinSkeleton();
     }
 
-    if (controller.hasError) {
+    if (controller.hasError()) {
       return AppErrorScreen(
         type: controller.errorType,
         onRetry: controller.retry,
